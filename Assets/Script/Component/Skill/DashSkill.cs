@@ -54,7 +54,7 @@ public class DashSkill : Skill
         {
             this.isDashing = this.user1.Value.GetIsDash(this);
             this.dashDir = this.user1.Value.GetDashDir(this);
-            if (this.dashDir == 0) this.isDashing = false;
+            if (this.dashDir == 0) this.isDashing = false; // Replace later with Character FaceDir
         }
 
         if (!this.isDashing) return;

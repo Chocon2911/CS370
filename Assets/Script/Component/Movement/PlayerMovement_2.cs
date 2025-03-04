@@ -31,7 +31,7 @@ public class PlayerMovement_2 : Movement
     [Header("Ground Check")]
     [SerializeField] protected string groundTag;
     [SerializeField] protected LayerMask groundLayer;
-    [SerializeField] protected CapsuleCollider2D grouncCol; 
+    [SerializeField] protected CapsuleCollider2D groundCol; 
 
     //==========================================Get Set===========================================
     public IPlayerMovement_2 User1 { set => user1.Value = value; }
@@ -40,7 +40,7 @@ public class PlayerMovement_2 : Movement
     public override void LoadComponents() 
     { 
         base.LoadComponents();
-        this.LoadComponent(ref this.grouncCol, transform.Find("GroundCheck"), "LoadGrouncCol()");
+        this.LoadComponent(ref this.groundCol, transform.Find("GroundCheck"), "LoadGrouncCol()");
     }
 
     public override void MyFixedUpdate()
@@ -124,9 +124,9 @@ public class PlayerMovement_2 : Movement
     //========================================Ground Check========================================
     protected virtual void CheckingGround()
     {
-        Vector2 size = this.grouncCol.size;
-        Vector2 pos = this.grouncCol.transform.position;
-        CapsuleDirection2D dir = this.grouncCol.direction;
+        Vector2 size = this.groundCol.size;
+        Vector2 pos = this.groundCol.transform.position;
+        CapsuleDirection2D dir = this.groundCol.direction;
         float angle = 0;
 
 
