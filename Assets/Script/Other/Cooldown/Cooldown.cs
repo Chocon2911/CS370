@@ -64,4 +64,10 @@ public class Cooldown
         this.timer = 0;
         this.isReady = false;
     }
+
+    public void FinishCD()
+    {
+        this.timer = this.timeLimit;
+        this.isReady = true;
+    }
 }

@@ -21,19 +21,33 @@ public class DashSkill : Skill
     [SerializeField] protected Cooldown skillCD;
     [SerializeField] protected Cooldown dashCD;
     [SerializeField] protected bool isDashing;
+    [SerializeField] protected bool isAirDashed;
+
+    [Header("Component")]
+    [SerializeField] protected GroundCheck groundCheck;
 
     //==========================================Get Set===========================================
     public IDashSkill User1 { set => user1.Value = value; }
     public bool IsDashing => this.isDashing;
 
+    //===========================================Unity============================================
+    public override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadComponent(ref this.groundCheck, transform.Find("GroundCheck"), "LoadGroundCheck()");
+    }
+
     public override void MyUpdate()
     {
         base.MyUpdate();
+        this.groundCheck.MyUpdate();
+        CheckingAirDash();
         this.RechargingSkill();
         this.Dashing();
+        this.FinishingDash();
     }
 
-    //===========================================Skill============================================
+    //=======================================Recharge Skill=======================================
     protected virtual void RechargingSkill()
     {
         if (!this.user1.Value.CanRechargeSkill(this)) return;
@@ -46,10 +60,29 @@ public class DashSkill : Skill
         this.skillCD.CoolingDown();
     }
 
+    //=======================================Finish SkillCD=======================================
+    protected virtual void FinishingSkillCD()
+    {
+        if (!this.groundCheck.IsJustGround()) return;
+        this.FinishSkillCD();
+    }
+
+    protected virtual void FinishSkillCD()
+    {
+        this.skillCD.FinishCD();
+    }
+
+    //==========================================Air Dash==========================================
+    protected virtual void CheckingAirDash()
+    {
+        if (this.groundCheck.IsGround) this.isAirDashed = false;
+    }
+
     //============================================Dash============================================
     protected virtual void Dashing()
     {
         if (!this.user1.Value.CanDash(this)) return;
+        if (this.isAirDashed) return;
         if (this.skillCD.IsReady && !this.isDashing)
         {
             this.isDashing = this.user1.Value.GetIsDash(this);
@@ -59,9 +92,6 @@ public class DashSkill : Skill
 
         if (!this.isDashing) return;
         this.Dash();
-
-        if (!this.dashCD.IsReady) return;
-        this.FinishDash();
     }
 
     protected virtual void Dash()
@@ -73,11 +103,20 @@ public class DashSkill : Skill
         this.dashCD.CoolingDown();
     }
 
+    //========================================Finish Dash=========================================
+    protected virtual void FinishingDash()
+    {
+        if (!this.dashCD.IsReady) return;
+        this.FinishDash();
+    }
+
     protected virtual void FinishDash()
     {
         this.skillCD.ResetStatus();
         this.dashCD.ResetStatus();
         this.isDashing = false;
         this.user1.Value.GetRb(this).velocity = Vector2.zero;
+
+        if (!this.groundCheck.IsGround) this.isAirDashed = true;
     }
 }

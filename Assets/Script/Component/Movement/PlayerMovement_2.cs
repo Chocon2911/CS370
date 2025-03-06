@@ -5,8 +5,6 @@ using UnityEngine;
 
 public interface IPlayerMovement_2 : IMovement
 {
-    int GetMoveDir(PlayerMovement_2 component);
-    bool GetIsJump(PlayerMovement_2 component);
     bool CanMove(PlayerMovement_2 component);
     bool CanJump(PlayerMovement_2 component);
 }
@@ -24,23 +22,22 @@ public class PlayerMovement_2 : Movement
     [SerializeField] protected float moveSlowDownTime;
 
     [Header("Jump")]
-    [SerializeField] protected float jumpSpeed;
-    [SerializeField] protected bool isGround;
+    [SerializeField] protected Jump jump;
     [SerializeField] protected bool isJumping;
 
-    [Header("Ground Check")]
-    [SerializeField] protected string groundTag;
-    [SerializeField] protected LayerMask groundLayer;
-    [SerializeField] protected CapsuleCollider2D groundCol; 
+    [Header("Component")]
+    [SerializeField] protected GroundCheck groundCheck;
 
     //==========================================Get Set===========================================
     public IPlayerMovement_2 User1 { set => user1.Value = value; }
+    public bool IsJumping => this.isJumping;
 
     //===========================================Unity============================================
     public override void LoadComponents() 
     { 
         base.LoadComponents();
-        this.LoadComponent(ref this.groundCol, transform.Find("GroundCheck"), "LoadGrouncCol()");
+        this.LoadComponent(ref this.groundCheck, transform.Find("GroundCheck"), "LoadGroundCheck()");
+        this.LoadComponent(ref this.jump, transform.Find("Jump"), "LoadJump()");
     }
 
     public override void MyFixedUpdate()
@@ -51,7 +48,7 @@ public class PlayerMovement_2 : Movement
     public override void MyUpdate()
     {
         base.MyUpdate();
-        this.CheckingGround();
+        this.groundCheck.MyUpdate();
         this.Moving();
         this.Jumping();
     }
@@ -61,7 +58,7 @@ public class PlayerMovement_2 : Movement
     {
         if (!this.user1.Value.CanMove(this)) return;
         float xVel = this.user1.Value.GetRb(this).velocity.x;
-        this.moveDir = this.user1.Value.GetMoveDir(this);
+        this.moveDir = (int)InputManager.Instance.MoveDir.x;
 
         if ((this.moveDir > 0 && xVel > -Mathf.Pow(0.1f, 3))
             || (this.moveDir < 0 && xVel < Mathf.Pow(0.1f, 3))) this.Move();
@@ -96,54 +93,12 @@ public class PlayerMovement_2 : Movement
         if (!this.user1.Value.CanJump(this)) return;
         float yVel = this.user1.Value.GetRb(this).velocity.y;
 
-        if (this.isGround || this.isJumping) this.isJumping = this.user1.Value.GetIsJump(this);
+        if (this.groundCheck.IsGround || this.isJumping) this.isJumping = InputManager.Instance.SpaceState != 0;
         else this.isJumping = false;
+        Rigidbody2D rb = this.user1.Value.GetRb(this);
 
-        if (!this.isGround && !this.isJumping && yVel > 0) this.StopJump();
-        else if (this.isGround && this.isJumping) this.Jump();
+        if (!this.groundCheck.IsGround && !this.isJumping && yVel > 0) this.jump.StopJump(rb);
+        else if (this.groundCheck.IsGround && this.isJumping) this.jump.DoJump(rb);
         else return;
-    }
-
-    protected virtual void Jump()
-    {
-        Rigidbody2D rb = this.user1.Value.GetRb(this);
-        float yVel = this.jumpSpeed;
-        float xVel = rb.velocity.x;
-
-        rb.velocity = new Vector2(xVel, yVel);
-        this.isGround = false;
-    }
-
-    protected virtual void StopJump()
-    {
-        Rigidbody2D rb = this.user1.Value.GetRb(this);
-        float xVel = rb.velocity.x;
-        rb.velocity = new Vector2(xVel, 0);
-    }
-
-    //========================================Ground Check========================================
-    protected virtual void CheckingGround()
-    {
-        Vector2 size = this.groundCol.size;
-        Vector2 pos = this.groundCol.transform.position;
-        CapsuleDirection2D dir = this.groundCol.direction;
-        float angle = 0;
-
-
-        Collider2D[] targetCols = Physics2D.OverlapCapsuleAll(
-            pos, 
-            size, 
-            dir,
-            angle, 
-            this.groundLayer);
-
-        foreach (Collider2D targetCol in targetCols)
-        {
-            if (targetCol.tag != this.groundTag) continue;
-            this.isGround = true;
-            return;
-        }
-
-        this.isGround = false;
     }
 }

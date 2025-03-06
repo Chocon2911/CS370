@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D),typeof(CapsuleCollider2D))]
-public class Player : HuyMonoBehaviour, IPlayerMovement_2, IDashSkill
+public class Player : HuyMonoBehaviour, IPlayerMovement_2, IDashSkill, IAirJumpSkill
 {
     //==========================================Variable==========================================
     [Header("===Player===")]
@@ -12,6 +12,7 @@ public class Player : HuyMonoBehaviour, IPlayerMovement_2, IDashSkill
     [SerializeField] protected CapsuleCollider2D col;
     [SerializeField] protected Movement move;
     [SerializeField] protected Skill skill_1;
+    [SerializeField] protected Skill spaceSkill;
 
     //===========================================Unity============================================
     public override void LoadComponents()
@@ -21,10 +22,11 @@ public class Player : HuyMonoBehaviour, IPlayerMovement_2, IDashSkill
         this.LoadComponent(ref this.col, transform, "LoadCol()");
         this.LoadComponent(ref this.move, transform.Find("Move"), "LoadMove()");
         this.LoadComponent(ref this.skill_1, transform.Find("Skill_1"), "LoadSkill_1()");
+        this.LoadComponent(ref this.spaceSkill, transform.Find("SpaceSkill"), "LoadSpaceSkill()");
 
 
 
-        // ===Movement===
+        // ===Move===
         // IMovement
         this.move.User = this;
 
@@ -33,9 +35,14 @@ public class Player : HuyMonoBehaviour, IPlayerMovement_2, IDashSkill
 
 
 
-        // ===Skill===
+        // ===Skill_1===
         // IDashSkill
         if (this.skill_1 is DashSkill dashSkill) dashSkill.User1 = this;
+
+
+        // ===SpaceSkill===
+        // IAirJumpSkill
+        if (this.spaceSkill is AirJumpSkill airJumpSkill) airJumpSkill.User1 = this;
     }
 
     protected virtual void FixedUpdate()
@@ -48,6 +55,7 @@ public class Player : HuyMonoBehaviour, IPlayerMovement_2, IDashSkill
     {
         this.skill_1.MyUpdate();
         this.move.MyUpdate();
+        this.spaceSkill.MyUpdate();
     }
 
 
@@ -68,28 +76,6 @@ public class Player : HuyMonoBehaviour, IPlayerMovement_2, IDashSkill
     }
 
     //=====================================IPlayerMovement_2======================================
-    int IPlayerMovement_2.GetMoveDir(PlayerMovement_2 component)
-    {
-        if (this.move == component)
-        {
-            return (int)InputManager.Instance.MoveDir.x;
-        }
-
-        Util.Instance.IComponentErrorLog(transform, component.transform);
-        return 0;
-    }
-
-    bool IPlayerMovement_2.GetIsJump(PlayerMovement_2 component)
-    {
-        if (this.move == component)
-        {
-            return InputManager.Instance.SpaceState != 0;
-        }
-
-        Util.Instance.IComponentErrorLog(transform, component.transform);
-        return false;
-    }
-    
     bool IPlayerMovement_2.CanMove(PlayerMovement_2 component)
     {
         if (this.move == component)
@@ -170,6 +156,56 @@ public class Player : HuyMonoBehaviour, IPlayerMovement_2, IDashSkill
         if (this.skill_1 == component)
         {
             return true;
+        }
+
+        Util.Instance.IComponentErrorLog(transform, component.transform);
+        return false;
+    }
+
+    //=======================================IAirJumpSkill========================================
+    Rigidbody2D IAirJumpSkill.GetRb(AirJumpSkill component)
+    {
+        if (this.spaceSkill == component)
+        {
+            return this.rb;
+        }
+
+        Util.Instance.IComponentErrorLog(transform, component.transform);
+        return null;
+    }
+
+    bool IAirJumpSkill.CanUseSkill(AirJumpSkill component)
+    {
+        if (this.spaceSkill == component)
+        {
+            bool canUseSkill = true;
+
+            // Movement
+            if (this.move is PlayerMovement_2 playerMovement_2)
+            {
+                if (playerMovement_2.IsJumping) canUseSkill = false;
+                else canUseSkill = true;
+            }
+
+            // Skill_1
+            if (this.skill_1 is DashSkill dashSkill)
+            {
+                if (dashSkill.IsDashing) canUseSkill = false;
+                else canUseSkill = true;
+            }
+
+            return canUseSkill;
+        }
+
+        Util.Instance.IComponentErrorLog(transform, component.transform);
+        return false;
+    }
+
+    bool IAirJumpSkill.GetIsUseSkill(AirJumpSkill component)
+    {
+        if (this.spaceSkill == component)
+        {
+            return Input.GetKey(KeyCode.Space);
         }
 
         Util.Instance.IComponentErrorLog(transform, component.transform);
