@@ -1,122 +1,90 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public interface IDashSkill
 {
-    int GetDashDir(DashSkill component);
-    Rigidbody2D GetRb(DashSkill component);
-    bool GetIsDash(DashSkill component);
-    bool CanRechargeSkill(DashSkill component);
-    bool CanDash(DashSkill component);
+    // Property
+    Rigidbody2D GetRb();
+    int GetMoveDir();
+    float GetDashSpeed();
+    Cooldown GetSkillCD();
+    Cooldown GetDashCD();
+    ref bool GetIsDashing();
+
+    // Condition
+    bool CanRechargeSkill();
+    bool CanRechargeDash();
+    bool CanDash();
 }
 
-public class DashSkill : Skill
+public class DashSkill
 {
-    //==========================================Variable==========================================
-    [Header("Dash")]
-    [SerializeField] protected InterfaceReference<IDashSkill> user1;
-    [SerializeField] protected float dashSpeed;
-    [SerializeField] protected int dashDir;
-    [SerializeField] protected Cooldown skillCD;
-    [SerializeField] protected Cooldown dashCD;
-    [SerializeField] protected bool isDashing;
-    [SerializeField] protected bool isAirDashed;
-
-    [Header("Component")]
-    [SerializeField] protected GroundCheck groundCheck;
-
-    //==========================================Get Set===========================================
-    public IDashSkill User1 { set => user1.Value = value; }
-    public bool IsDashing => this.isDashing;
-
-    //===========================================Unity============================================
-    public override void LoadComponents()
+    //===========================================Method===========================================
+    public void Update(IDashSkill user)
     {
-        base.LoadComponents();
-        this.LoadComponent(ref this.groundCheck, transform.Find("GroundCheck"), "LoadGroundCheck()");
+        this.RechargingDash(user);
+        this.RechargingSkill(user);
+        this.Dashing(user);
     }
 
-    public override void MyUpdate()
+    public void FinishDash(IDashSkill user)
     {
-        base.MyUpdate();
-        this.groundCheck.MyUpdate();
-        CheckingAirDash();
-        this.RechargingSkill();
-        this.Dashing();
-        this.FinishingDash();
+        user.GetIsDashing() = false;
+        user.GetDashCD().ResetStatus();
+    }
+
+    public void MakeSkillReady(IDashSkill user)
+    {
+        user.GetSkillCD().ResetStatus();
+        user.GetIsDashing() = false;
+        user.GetDashCD().ResetStatus();
     }
 
     //=======================================Recharge Skill=======================================
-    protected virtual void RechargingSkill()
+    private void RechargingSkill(IDashSkill user)
     {
-        if (!this.user1.Value.CanRechargeSkill(this)) return;
-        if (this.isDashing) return;
-        this.RechargeSkill();
+        if (!user.CanRechargeSkill()) return;
+        else if (user.GetIsDashing()) return; // is dashing
+        this.RechargeSkill(user);
     }
 
-    protected virtual void RechargeSkill()
+    private void RechargeSkill(IDashSkill user)
     {
-        this.skillCD.CoolingDown();
+        user.GetSkillCD().CoolingDown();
     }
 
-    //=======================================Finish SkillCD=======================================
-    protected virtual void FinishingSkillCD()
+    //=======================================Recharge Dash========================================
+    private void RechargingDash(IDashSkill user)
     {
-        if (!this.groundCheck.IsJustGround()) return;
-        this.FinishSkillCD();
+        if (!user.CanRechargeDash()) return;
+        else if (!user.GetIsDashing()) return; // is not dashing
+        this.RechargeDash(user);
     }
 
-    protected virtual void FinishSkillCD()
+    private void RechargeDash(IDashSkill user)
     {
-        this.skillCD.FinishCD();
-    }
+        user.GetDashCD().CoolingDown();
 
-    //==========================================Air Dash==========================================
-    protected virtual void CheckingAirDash()
-    {
-        if (this.groundCheck.IsGround) this.isAirDashed = false;
+        if (!user.GetDashCD().IsReady) return; // not finish recharge dash
+        user.GetDashCD().ResetStatus();
+        user.GetIsDashing() = false;
     }
 
     //============================================Dash============================================
-    protected virtual void Dashing()
+    private void Dashing(IDashSkill user)
     {
-        if (!this.user1.Value.CanDash(this)) return;
-        if (this.isAirDashed) return;
-        if (this.skillCD.IsReady && !this.isDashing)
-        {
-            this.isDashing = this.user1.Value.GetIsDash(this);
-            this.dashDir = this.user1.Value.GetDashDir(this);
-            if (this.dashDir == 0) this.isDashing = false; // Replace later with Character FaceDir
-        }
-
-        if (!this.isDashing) return;
-        this.Dash();
+        if (!user.CanDash()) return;
+        else if (user.GetIsDashing()) return; // is dashing
+        else if (!user.GetSkillCD().IsReady) return; // skill not ready
+        this.Dash(user);
     }
 
-    protected virtual void Dash()
+    private void Dash(IDashSkill user)
     {
-        Rigidbody2D rb = this.user1.Value.GetRb(this);
-        float xVel = this.dashDir * this.dashSpeed;
-
-        rb.velocity = new Vector2(xVel, 0);
-        this.dashCD.CoolingDown();
-    }
-
-    //========================================Finish Dash=========================================
-    protected virtual void FinishingDash()
-    {
-        if (!this.dashCD.IsReady) return;
-        this.FinishDash();
-    }
-
-    protected virtual void FinishDash()
-    {
-        this.skillCD.ResetStatus();
-        this.dashCD.ResetStatus();
-        this.isDashing = false;
-        this.user1.Value.GetRb(this).velocity = Vector2.zero;
-
-        if (!this.groundCheck.IsGround) this.isAirDashed = true;
+        user.GetRb().velocity = new Vector2(user.GetDashSpeed() * user.GetMoveDir(), 0);
+        user.GetIsDashing() = true;
+        user.GetSkillCD().ResetStatus();
     }
 }

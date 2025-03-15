@@ -4,60 +4,67 @@ using UnityEngine;
 
 public interface IAirJumpSkill
 {
-    Rigidbody2D GetRb(AirJumpSkill component);
-    bool CanUseSkill(AirJumpSkill component);
-    bool GetIsUseSkill(AirJumpSkill component);
+    // Property
+    Rigidbody2D GetRb();
+    float GetJumpSpeed();
+    ref bool GetIsAirJumping();
+    ref bool GetIsUsed();
+
+    // Condition
+    bool CanRestoreSkill();
+    bool CanJump();
+    bool CanFinishAirJump();
+    bool GetIsGround();
 }
 
-public class AirJumpSkill : Skill
+public class AirJumpSkill
 {
-    //==========================================Variable==========================================
-    [Header("Double Jump")]
-    [SerializeField] protected InterfaceReference<IAirJumpSkill> user1;
-    [SerializeField] protected bool isJumped;
-
-    [Header("Component")]
-    [SerializeField] protected Jump jump;
-    [SerializeField] protected GroundCheck groundCheck;
-
-    //==========================================Get Set===========================================
-    public IAirJumpSkill User1 { set => this.user1.Value = value; }
-
-    //===========================================Unity============================================
-    public override void LoadComponents()
+    //===========================================Method===========================================
+    public void Update(IAirJumpSkill user)
     {
-        base.LoadComponents();
-        this.LoadComponent(ref this.jump, transform.Find("Jump"), "LoadJump()");
-        this.LoadComponent(ref this.groundCheck, transform.Find("GroundCheck"), "LoadGroundCheck()");
+        this.RestoringSkill(user);
+        this.Jumping(user);
+        this.FinishingAirJump(user);
     }
 
-    public override void MyUpdate()
+    public void FinishAirJump(IAirJumpSkill user) 
     {
-        base.MyUpdate();
-        this.groundCheck.MyUpdate();
-        this.Jumping();
-        this.CheckingGround();
+        user.GetIsAirJumping() = false;
+    }
+
+    public void Jump(IAirJumpSkill user)
+    {
+        MovementManager.Instance.Jump(user.GetRb(), user.GetJumpSpeed());
+        user.GetIsAirJumping() = true;
+        user.GetIsUsed() = true;
     }
 
     //============================================Jump============================================
-    protected virtual void Jumping()
+    private void Jumping(IAirJumpSkill user)
     {
-        if (!this.user1.Value.CanUseSkill(this)) return;
-        if (this.isJumped) return;
-        if (!this.user1.Value.GetIsUseSkill(this)) return;
-        this.Jump();
+        if (!user.CanJump()) return;
+        if (user.GetIsAirJumping()) return; // is air jumping
+        this.Jump(user);
     }
 
-    protected virtual void Jump()
+    //=======================================Restore Skill========================================
+    private void RestoringSkill(IAirJumpSkill user) 
     {
-        this.jump.DoJump(this.user1.Value.GetRb(this));
-        this.isJumped = true;
+        if (!user.CanRestoreSkill()) return;
+        if (!user.GetIsGround()) return; // is not ground
+        this.RestoreSkill(user);
     }
 
-    //========================================Check Ground========================================
-    protected virtual void CheckingGround()
+    private void RestoreSkill(IAirJumpSkill user) 
     {
-        if (!this.groundCheck.IsGround) return;
-        this.isJumped = false;
+        user.GetIsUsed() = false;
+    }
+
+    //===========================================Finish===========================================
+    private void FinishingAirJump(IAirJumpSkill user)
+    {
+        if (!user.GetIsAirJumping()) return;
+        if (user.GetRb().velocity.y > 0) return; // is falling
+        this.FinishAirJump(user);
     }
 }
