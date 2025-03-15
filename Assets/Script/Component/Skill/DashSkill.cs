@@ -75,10 +75,14 @@ public class DashSkill
     //============================================Dash============================================
     private void Dashing(IDashSkill user)
     {
-        if (!user.CanDash()) return;
-        else if (user.GetIsDashing()) return; // is dashing
-        else if (!user.GetSkillCD().IsReady) return; // skill not ready
-        this.Dash(user);
+        if (user.GetIsDashing()) this.Dash(user);
+
+        else
+        {
+            if (!user.CanDash()) return;
+            else if (!user.GetSkillCD().IsReady) return; // skill not ready
+            this.Dash(user);
+        }
     }
 
     private void Dash(IDashSkill user)

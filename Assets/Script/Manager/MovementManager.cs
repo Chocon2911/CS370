@@ -77,24 +77,25 @@ public class MovementManager : HuyMonoBehaviour
         this.Move(rb, new Vector2(applySpeed, 0));
     }
 
+    public void StopMove(Rigidbody2D rb)
+    {
+        rb.velocity = new Vector2(0, rb.velocity.y);
+    }
+
+    //============================================Jump============================================
     public void Jump(Rigidbody2D rb, float jumpSpeed)
     {
-        this.Move(rb, new Vector2(0, jumpSpeed));
+        rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+    }
+
+    public void StopJump(Rigidbody2D rb)
+    {
+        rb.velocity = new Vector2(rb.velocity.x, 0);
     }
 
     //=========================================Stop Move==========================================
     public void Stop(Rigidbody2D rb)
     {
         rb.velocity = Vector2.zero;
-    }
-
-    public void StopMove(Rigidbody2D rb)
-    {
-        rb.velocity = new Vector2(0, rb.velocity.y);
-    }
-
-    public void StopJump(Rigidbody2D rb)
-    {
-        rb.velocity = new Vector2(rb.velocity.x, 0);
     }
 }

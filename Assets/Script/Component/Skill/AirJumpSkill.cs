@@ -39,11 +39,17 @@ public class AirJumpSkill
         user.GetIsUsed() = true;
     }
 
+    public void RestoreSkill(IAirJumpSkill user)
+    {
+        user.GetIsUsed() = false;
+    }
+
     //============================================Jump============================================
     private void Jumping(IAirJumpSkill user)
     {
         if (!user.CanJump()) return;
         if (user.GetIsAirJumping()) return; // is air jumping
+        if (user.GetIsUsed()) return;
         this.Jump(user);
     }
 
@@ -52,19 +58,15 @@ public class AirJumpSkill
     {
         if (!user.CanRestoreSkill()) return;
         if (!user.GetIsGround()) return; // is not ground
+        if (!user.GetIsUsed()) return; // is used
         this.RestoreSkill(user);
-    }
-
-    private void RestoreSkill(IAirJumpSkill user) 
-    {
-        user.GetIsUsed() = false;
     }
 
     //===========================================Finish===========================================
     private void FinishingAirJump(IAirJumpSkill user)
     {
         if (!user.GetIsAirJumping()) return;
-        if (user.GetRb().velocity.y > 0) return; // is falling
+        if (user.GetRb().velocity.y > 0) return; // is Jumping
         this.FinishAirJump(user);
     }
 }

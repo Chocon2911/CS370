@@ -60,6 +60,7 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
         this.GroundChecking();
         this.Moving();
         this.Jumping();
+        this.Facing();
         SkillManager.Instance.DashSkill.Update(this);
         SkillManager.Instance.AirJumpSkill.Update(this);
     }
@@ -125,6 +126,13 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
                 this.isJump = true;
             }
         }
+    }
+
+    //============================================Face============================================
+    protected virtual void Facing()
+    {
+        if (this.moveDir == 0) return;
+        UtilManager.Instance.RotateFaceDir(this.moveDir, this.transform);
     }
 
 
@@ -209,9 +217,10 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
         return ref this.isAirJump;
     }
 
-    // ===Method===
+    // ===Condition===
     bool IAirJumpSkill.CanRestoreSkill()
     {
+        if (!this.hasAirJumpSkill) return false; // not have skill
         return true;
     }
 
@@ -219,9 +228,10 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
     {
         if (!this.hasAirJumpSkill) return false; // not have skill
         if (InputManager.Instance.SpaceState == 0) return false; // not press or hold space
-        if (this.isGround) return false; // not ground
+        if (this.isGround) return false; // is ground
         if (this.isJumping) return false; // is jumping
-        return false;
+        if (this.isDashing) return false; // is dashing
+        return true;
     }
 
     bool IAirJumpSkill.CanFinishAirJump()
