@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class HuyMonoBehaviour : MonoBehaviour
 {
-    //==========================================Variable==========================================
-    [Header("MonoBehaviour")]
-    [SerializeField] protected int exeOrder;
-
     //===========================================Unity============================================
     protected virtual void Awake()
     {
@@ -16,12 +12,12 @@ public class HuyMonoBehaviour : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        
+        // For Override
     }
 
     protected virtual void OnDisable()
     {
-
+        // For Override
     }
 
     //===========================================Method===========================================

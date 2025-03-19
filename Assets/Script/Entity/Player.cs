@@ -9,6 +9,7 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
     [Header("Component")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected CapsuleCollider2D bodyCol;
+    [SerializeField] protected PlayerAnimator playerAnimator;
 
     [Header("Stat")]
     [SerializeField] protected int maxHealth;
@@ -40,11 +41,51 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
     [SerializeField] protected float dashSpeed;
     [SerializeField] protected int dashDir;
     [SerializeField] protected bool isDashing;
+    // Support
+    [SerializeField] protected EffectSpawner.EffectType dashEffectType;
+    [SerializeField] protected Transform tempDashEffect;
+    [SerializeField] protected Vector2 dashEffectPos;
 
     [Header("Air Jump Skill")]
     [SerializeField] protected float airJumpSpeed;
     [SerializeField] protected bool isAirJumping;
     [SerializeField] protected bool isAirJump;
+
+    //==========================================Get Set===========================================
+    // ===Component===
+    public Rigidbody2D Rb => this.rb;
+    public CapsuleCollider2D BodyCol => this.bodyCol;
+    public PlayerAnimator PlayerAnimator => this.playerAnimator;
+    
+    // ===Stat===
+    public int MaxHealth => this.maxHealth;
+    public int Health => this.health;
+    public List<SkillType> UnlockedSkills => this.unlockedSkills;
+
+    // ===Ground Check===
+    public bool PrevIsGround => this.prevIsGround;
+    public bool IsGround => this.isGround;
+
+    // ===Move===
+    public float MoveSpeed => this.moveSpeed;
+    public int MoveDir => this.moveDir;
+    public bool IsMoving => this.isMoving;
+
+    // ===Jump===
+    public float JumpSpeed => this.jumpSpeed;
+    public bool IsJumping => this.isJumping;
+
+    // ===Dash Skill===
+    public Cooldown DashSkillCD => this.dashSkillCD;
+    public Cooldown DashCD => this.dashCD;
+    public float DashSpeed => this.dashSpeed;
+    public int DashDir => this.dashDir;
+    public bool IsDashing => this.isDashing;
+
+    // ===Air Jump Skill===
+    public float AirJumpSpeed => this.airJumpSpeed;
+    public bool IsAirJumping => this.isAirJumping;
+    public bool IsAirJump => this.isAirJump;
 
     //===========================================Unity============================================
     public override void LoadComponents()
@@ -53,6 +94,7 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
         this.LoadChildComponent(ref this.groundCol, transform.Find("Ground"), "LoadGroundCol()");
         this.LoadComponent(ref this.rb, transform, "LoadRb()");
         this.LoadComponent(ref this.bodyCol, transform, "LoadBodyCol()");
+        this.LoadComponent(ref this.playerAnimator, transform.Find("Model"), "LoadAnimator()");
     }
 
     protected virtual void Update()
@@ -61,8 +103,21 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
         this.Moving();
         this.Jumping();
         this.Facing();
-        SkillManager.Instance.DashSkill.Update(this);
+        this.Dashing();
         SkillManager.Instance.AirJumpSkill.Update(this);
+        this.playerAnimator.HandlingAnimator(this);
+
+        // Dead
+        if (this.health <= 0)
+        {
+            EventManager.Instance.OnPlayerDead?.Invoke();
+        }
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        EventManager.Instance.OnPlayerAppear?.Invoke();
     }
 
 
@@ -101,6 +156,9 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
             this.moveDir = (int)InputManager.Instance.MoveDir.x;
             MovementManager.Instance.Move(this.rb, this.moveDir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
         }
+
+        if (this.rb.velocity.x >= Mathf.Pow(1, 1) || this.rb.velocity.x <= -Mathf.Pow(1, 1) || this.moveDir != 0) this.isMoving = true;
+        else this.isMoving = false;
     }
 
     //============================================Jump============================================
@@ -138,6 +196,29 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
         UtilManager.Instance.RotateFaceDir(this.moveDir, this.transform);
     }
 
+    //============================================Dash============================================
+    protected virtual void Dashing()
+    {
+        SkillManager.Instance.DashSkill.Update(this);
+
+        if (this.isDashing && this.dashCD.Timer == 0)
+        {
+            float xPos = this.dashDir * this.dashEffectPos.x;
+            Vector2 spawnPos = new Vector2(xPos, this.dashEffectPos.y);
+            Quaternion spawnRot = Quaternion.identity;
+
+            this.tempDashEffect = EffectSpawner.Instance.SpawnByType(this.dashEffectType, spawnPos, spawnRot);
+            this.tempDashEffect.parent = this.transform;
+            this.tempDashEffect.localPosition = spawnPos;
+            this.tempDashEffect.gameObject.SetActive(true);
+        }
+
+        else if (this.tempDashEffect != null && !this.isDashing)
+        {
+            EffectSpawner.Instance.Despawn(this.tempDashEffect);
+            this.tempDashEffect = null;
+        }
+    }
 
 
     //============================================================================================

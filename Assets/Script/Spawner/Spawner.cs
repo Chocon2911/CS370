@@ -85,7 +85,12 @@ public abstract class Spawner : HuyMonoBehaviour
             return null;
         }
 
-        Transform newObj = this.GetObjFromHolder(prefabObj);
+        return this.Spawn(prefabObj, spawnPos, spawnRot);
+    }
+
+    protected virtual Transform Spawn(Transform obj, Vector3 spawnPos, Quaternion spawnRot)
+    {
+        Transform newObj = this.GetObjFromHolder(obj);
         newObj.SetParent(this.holderObj);
         newObj.SetPositionAndRotation(spawnPos, spawnRot);
         return newObj;

@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillManager : HuyMonoBehaviour
+public class EffectSpawner : Spawner
 {
-    //==========================================Variable==========================================
-    private static SkillManager instance;
-    private DashSkill dashSkill;
-    private AirJumpSkill airJumpSkill;
+    public enum EffectType
+    {
+        DASH_EFFECT_1 = 0,
+    }
 
-    //==========================================Get Set===========================================
-    public static SkillManager Instance => instance;
-    public DashSkill DashSkill => dashSkill;
-    public AirJumpSkill AirJumpSkill => airJumpSkill;
+    //==========================================Variable==========================================
+    private static EffectSpawner instance;
+    public static EffectSpawner Instance => instance;
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -26,7 +25,11 @@ public class SkillManager : HuyMonoBehaviour
 
         instance = this;
         base.Awake();
-        this.dashSkill = new DashSkill();
-        this.airJumpSkill = new AirJumpSkill();
+    }
+
+    //===========================================Method===========================================
+    public Transform SpawnByType(EffectType type, Vector3 position, Quaternion rotation)
+    {
+        return this.Spawn(this.prefabs[(int)type], position, rotation);
     }
 }
