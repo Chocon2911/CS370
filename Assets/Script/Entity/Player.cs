@@ -13,8 +13,7 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
     [Header("Stat")]
     [SerializeField] protected int maxHealth;
     [SerializeField] protected int health;
-    [SerializeField] protected bool hasDashSkill;
-    [SerializeField] protected bool hasAirJumpSkill;
+    [SerializeField] protected List<SkillType> unlockedSkills;
 
     [Header("Ground Check")]
     [SerializeField] protected CapsuleCollider2D groundCol;
@@ -32,13 +31,14 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
 
     [Header("Jump")]
     [SerializeField] protected float jumpSpeed;
+    [SerializeField] protected Cooldown jumpStartCD;
     [SerializeField] protected bool isJumping;
-    [SerializeField] protected bool isJump;
 
     [Header("Dash Skill")]
     [SerializeField] protected Cooldown dashSkillCD;
     [SerializeField] protected Cooldown dashCD;
     [SerializeField] protected float dashSpeed;
+    [SerializeField] protected int dashDir;
     [SerializeField] protected bool isDashing;
 
     [Header("Air Jump Skill")]
@@ -106,7 +106,7 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
     //============================================Jump============================================
     protected virtual void Jumping()
     {
-        if (this.isGround) this.isJump = false;
+        if (this.isGround) this.jumpStartCD.ResetStatus();
 
         if (!this.isDashing)
         {
@@ -118,12 +118,15 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
                 this.isJumping = true;
                 movment.Jump(this.rb, this.jumpSpeed);
             }
-            else if (!isSpacePressed && this.isJumping) movment.StopJump(this.rb);
 
-            if (this.rb.velocity.y <= Mathf.Pow(0.1f, 3))
+            else if (this.isJumping)
             {
-                this.isJumping = false;
-                this.isJump = true;
+                if (!this.jumpStartCD.IsReady) this.jumpStartCD.CoolingDown();
+                else
+                {
+                    if (!isSpacePressed) movment.StopJump(this.rb);
+                    if (this.rb.velocity.y <= 0) this.isJumping = false;
+                }
             }
         }
     }
@@ -150,7 +153,15 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
 
     int IDashSkill.GetMoveDir()
     {
-        return this.moveDir;
+        this.moveDir = (int)InputManager.Instance.MoveDir.x;
+        if (this.moveDir != 0) return this.moveDir;
+        if (transform.eulerAngles.y == 0) return 1;
+        else return -1;
+    }
+
+    ref int IDashSkill.GetDashDir()
+    {
+        return ref this.dashDir;
     }
 
     float IDashSkill.GetDashSpeed()
@@ -176,22 +187,33 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
     // ===Condition===
     bool IDashSkill.CanRechargeSkill()
     {
-        if (!this.hasDashSkill) return false; // if not have skill
-        if (this.dashSkillCD.Timer > 0) return true; // If already in recharging
-        if (this.isGround) return true; // if is ground
+        foreach (SkillType unlockedSkill in this.unlockedSkills)
+        {
+            if (unlockedSkill != SkillType.DASH) continue;
+            if (this.dashSkillCD.Timer > 0) return true; // already in recharging
+            if (this.isGround) return true; // is ground
+        }
         return false;
     }
 
     bool IDashSkill.CanRechargeDash()
     {
-        if (!this.hasDashSkill) return false; // if not have skill
-        return true;
+        foreach (SkillType unlockedSkill in this.unlockedSkills)
+        {
+            if (unlockedSkill != SkillType.DASH) continue;
+            return true;
+        }
+        return false;
     }
 
     bool IDashSkill.CanDash()
     {
-        if (!this.hasDashSkill) return false; // if not have skill
-        if (InputManager.Instance.ShiftState != 0) return true; // if press or hold shift
+        foreach (SkillType unlockedSkill in this.unlockedSkills)
+        {
+            if (unlockedSkill != SkillType.DASH) continue;
+            if (InputManager.Instance.ShiftState != 0) return true; // press or hold shift
+            return false;
+        }
         return false;
     }
 
@@ -220,24 +242,36 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
     // ===Condition===
     bool IAirJumpSkill.CanRestoreSkill()
     {
-        if (!this.hasAirJumpSkill) return false; // not have skill
-        return true;
+        foreach (SkillType unlockedSkill in this.unlockedSkills)
+        {
+            if (unlockedSkill != SkillType.AIR_JUMP) continue;
+            return true;
+        }
+        return false;
     }
 
     bool IAirJumpSkill.CanJump()
     {
-        if (!this.hasAirJumpSkill) return false; // not have skill
-        if (InputManager.Instance.SpaceState == 0) return false; // not press or hold space
-        if (this.isGround) return false; // is ground
-        if (this.isJumping) return false; // is jumping
-        if (this.isDashing) return false; // is dashing
-        return true;
+        foreach (SkillType skillType in this.unlockedSkills)
+        {
+            if (skillType != SkillType.AIR_JUMP) continue;
+            if (InputManager.Instance.SpaceState == 0) return false; // not press or hold space
+            if (this.isGround) return false; // is ground
+            if (this.isJumping) return false; // is jumping
+            if (this.isDashing) return false; // is dashing
+            return true;
+        }
+        return false;
     }
 
     bool IAirJumpSkill.CanFinishAirJump()
     {
-        if (!this.hasAirJumpSkill) return false; // not have skill
-        return true;
+        foreach (SkillType unlockedSkill in this.unlockedSkills)
+        {
+            if (unlockedSkill != SkillType.AIR_JUMP) continue;
+            return true;
+        }
+        return false;
     }
 
     bool IAirJumpSkill.GetIsGround()

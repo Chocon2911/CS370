@@ -34,7 +34,7 @@ public class AirJumpSkill
 
     public void Jump(IAirJumpSkill user)
     {
-        MovementManager.Instance.Jump(user.GetRb(), user.GetJumpSpeed());
+        user.GetRb().velocity = new Vector2(user.GetRb().velocity.x, user.GetJumpSpeed());
         user.GetIsAirJumping() = true;
         user.GetIsUsed() = true;
     }
@@ -49,7 +49,7 @@ public class AirJumpSkill
     {
         if (!user.CanJump()) return;
         if (user.GetIsAirJumping()) return; // is air jumping
-        if (user.GetIsUsed()) return;
+        if (user.GetIsUsed()) return; // is used
         this.Jump(user);
     }
 

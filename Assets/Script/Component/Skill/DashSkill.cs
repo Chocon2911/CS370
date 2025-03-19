@@ -8,6 +8,7 @@ public interface IDashSkill
     // Property
     Rigidbody2D GetRb();
     int GetMoveDir();
+    ref int GetDashDir();
     float GetDashSpeed();
     Cooldown GetSkillCD();
     Cooldown GetDashCD();
@@ -80,14 +81,15 @@ public class DashSkill
         else
         {
             if (!user.CanDash()) return;
-            else if (!user.GetSkillCD().IsReady) return; // skill not ready
+            if (!user.GetSkillCD().IsReady) return; // skill not ready
+            user.GetDashDir() = user.GetMoveDir();
             this.Dash(user);
         }
     }
 
     private void Dash(IDashSkill user)
     {
-        user.GetRb().velocity = new Vector2(user.GetDashSpeed() * user.GetMoveDir(), 0);
+        user.GetRb().velocity = new Vector2(user.GetDashSpeed() * user.GetDashDir(), 0);
         user.GetIsDashing() = true;
         user.GetSkillCD().ResetStatus();
     }
