@@ -557,8 +557,8 @@ MonoBehaviour:
   exeOrder: 0
   leftMove: 97
   rightMove: 100
-  frontMove: 119
-  backMove: 115
+  topMove: 119
+  downMove: 115
   shift: 304
   space: 32
   hotBar1: 49
