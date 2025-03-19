@@ -11,14 +11,15 @@ public class MovementManager : HuyMonoBehaviour
     //===========================================Unity============================================
     protected override void Awake()
     {
-        base.Awake();
         if (instance != null)
         {
-            Debug.LogError("One Instance only", transform.gameObject);
+            Debug.LogError("instance not null (transform)", transform.gameObject);
+            Debug.LogError("Instance not null (instance)", instance.gameObject);
             return;
         }
 
         instance = this;
+        base.Awake();
     }
 
     //============================================Move============================================
