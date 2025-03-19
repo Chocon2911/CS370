@@ -255,7 +255,7 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
         foreach (SkillType skillType in this.unlockedSkills)
         {
             if (skillType != SkillType.AIR_JUMP) continue;
-            if (InputManager.Instance.SpaceState == 0) return false; // not press or hold space
+            if (InputManager.Instance.SpaceState != 1) return false; // not press or hold space
             if (this.isGround) return false; // is ground
             if (this.isJumping) return false; // is jumping
             if (this.isDashing) return false; // is dashing

@@ -11,8 +11,8 @@ public class InputManager : HuyMonoBehaviour
     //===Input===
     [SerializeField] private KeyCode leftMove = KeyCode.A;
     [SerializeField] private KeyCode rightMove = KeyCode.D;
-    [SerializeField] private KeyCode frontMove = KeyCode.W;
-    [SerializeField] private KeyCode backMove = KeyCode.S;
+    [SerializeField] private KeyCode topMove = KeyCode.W;
+    [SerializeField] private KeyCode downMove = KeyCode.S;
 
     [SerializeField] private KeyCode shift = KeyCode.LeftShift;
     [SerializeField] private KeyCode space = KeyCode.Space;
@@ -51,8 +51,8 @@ public class InputManager : HuyMonoBehaviour
     //===Input===
     public KeyCode LeftMove => leftMove;
     public KeyCode RightMove => rightMove;
-    public KeyCode FrontMove => frontMove;
-    public KeyCode BackMove => backMove;
+    public KeyCode TopMove => topMove;
+    public KeyCode DownMove => downMove;
 
 
     public KeyCode Shift => shift;
@@ -116,18 +116,21 @@ public class InputManager : HuyMonoBehaviour
         if (Input.GetKeyDown(this.rightMove) || Input.GetKey(this.rightMove)) this.moveDir.x = 1;
         else if (Input.GetKeyDown(this.leftMove) || Input.GetKey(this.leftMove)) this.moveDir.x = -1;
 
-        if (Input.GetKeyDown(this.backMove) || Input.GetKey(this.backMove)) this.moveDir.y = -1;
-        else if (Input.GetKeyDown(this.frontMove) || Input.GetKey(this.frontMove)) this.moveDir.y = 1;
+        if (Input.GetKeyDown(this.downMove) || Input.GetKey(this.downMove)) this.moveDir.y = -1;
+        else if (Input.GetKeyDown(this.topMove) || Input.GetKey(this.topMove)) this.moveDir.y = 1;
 
         // LeftMouse State
         if (Input.GetKey(this.leftMouse))
         {
             if (this.leftClickCD.IsReady) this.leftClickState = 2;
-            else { this.leftClickCD.WaitTime = Time.deltaTime; this.leftClickCD.CoolingDown(); }
+            else
+            {
+                this.leftClickState = 1;
+                this.leftClickCD.CoolingDown();
+            }
         }
         else if (Input.GetKeyUp(this.leftMouse))
         {
-            if (!this.leftClickCD.IsReady) this.leftClickState = 1;
             this.leftClickCD.ResetStatus();
         }
 
@@ -135,12 +138,15 @@ public class InputManager : HuyMonoBehaviour
         if (Input.GetKey(this.rightMouse))
         {
             if (this.rightClickCD.IsReady) this.rightClickState = 2;
-            else { this.rightClickCD.WaitTime = Time.deltaTime; this.rightClickCD.CoolingDown(); }
+            else 
+            { 
+                this.rightClickState = 1; 
+                this.rightClickCD.CoolingDown(); 
+            }
         }
 
         else if (Input.GetKeyUp(this.rightMouse))
         {
-            if (!this.rightClickCD.IsReady) this.rightClickState = 1;
             this.rightClickCD.ResetStatus();
         }
 
@@ -148,11 +154,14 @@ public class InputManager : HuyMonoBehaviour
         if (Input.GetKey(this.shift))
         {
             if (this.shiftCD.IsReady) this.shiftState = 2;
-            else { this.shiftCD.WaitTime = Time.deltaTime; this.shiftCD.CoolingDown(); }
+            else 
+            { 
+                this.shiftCD.WaitTime = Time.deltaTime; 
+                this.shiftCD.CoolingDown(); 
+            }
         }
         else if (Input.GetKeyUp(this.shift))
         {
-            if (!this.shiftCD.IsReady) this.shiftState = 1;
             this.shiftCD.ResetStatus();
         }
 
@@ -160,11 +169,14 @@ public class InputManager : HuyMonoBehaviour
         if (Input.GetKey(this.space))
         {
             if (this.spaceCD.IsReady) this.spaceState = 2;
-            else { this.spaceCD.WaitTime = Time.deltaTime; this.spaceCD.CoolingDown(); }
+            else 
+            { 
+                this.spaceState = 1; 
+                this.spaceCD.CoolingDown(); 
+            }
         }
         else if (Input.GetKeyUp(this.space))
         {
-            if (!this.spaceCD.IsReady) this.spaceState = 1;
             this.spaceCD.ResetStatus();
         }
 
