@@ -6,7 +6,7 @@ public class SystemManager : HuyMonoBehaviour
 {
     //==========================================Variable==========================================
     [Header("System Manager")]
-    [SerializeField] private static SystemManager instance;
+    private static SystemManager instance;
 
     //==========================================Get Set===========================================
     public static SystemManager Instance => instance;

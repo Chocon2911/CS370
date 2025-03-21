@@ -10,6 +10,7 @@ public interface IDashSkill
     int GetMoveDir();
     ref int GetDashDir();
     float GetDashSpeed();
+    float GetGravityScale();
     Cooldown GetSkillCD();
     Cooldown GetDashCD();
     ref bool GetIsDashing();
@@ -34,6 +35,7 @@ public class DashSkill
     {
         user.GetIsDashing() = false;
         user.GetDashCD().ResetStatus();
+        user.GetRb().gravityScale = user.GetGravityScale();
     }
 
     public void MakeSkillReady(IDashSkill user)
@@ -69,8 +71,7 @@ public class DashSkill
         user.GetDashCD().CoolingDown();
 
         if (!user.GetDashCD().IsReady) return; // not finish recharge dash
-        user.GetDashCD().ResetStatus();
-        user.GetIsDashing() = false;
+        this.FinishDash(user);
     }
 
     //============================================Dash============================================
@@ -92,5 +93,6 @@ public class DashSkill
         user.GetRb().velocity = new Vector2(user.GetDashSpeed() * user.GetDashDir(), 0);
         user.GetIsDashing() = true;
         user.GetSkillCD().ResetStatus();
+        user.GetRb().gravityScale = 0;
     }
 }

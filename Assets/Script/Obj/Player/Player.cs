@@ -38,6 +38,7 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
     [Header("Dash Skill")]
     [SerializeField] protected Cooldown dashSkillCD;
     [SerializeField] protected Cooldown dashCD;
+    [SerializeField] protected float gravityScale;
     [SerializeField] protected float dashSpeed;
     [SerializeField] protected int dashDir;
     [SerializeField] protected bool isDashing;
@@ -248,6 +249,11 @@ public class Player : HuyMonoBehaviour, IDashSkill, IAirJumpSkill
     float IDashSkill.GetDashSpeed()
     {
         return this.dashSpeed;
+    }
+
+    float IDashSkill.GetGravityScale()
+    {
+        return this.gravityScale;
     }
 
     Cooldown IDashSkill.GetSkillCD()
