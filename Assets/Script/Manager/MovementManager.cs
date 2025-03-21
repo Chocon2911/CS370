@@ -78,9 +78,11 @@ public class MovementManager : HuyMonoBehaviour
         this.Move(rb, new Vector2(applySpeed, 0));
     }
 
-    public void StopMove(Rigidbody2D rb)
+    public virtual void ChaseTarget(Transform user, Transform target, float speed) 
     {
-        rb.velocity = new Vector2(0, rb.velocity.y);
+        float xVel = target.position.x - user.position.x ;
+        float yVel = target.position.y - user.position.y;
+        user.Translate(new Vector3(xVel, yVel, 0) * speed * Time.deltaTime);
     }
 
     //============================================Jump============================================
@@ -89,12 +91,17 @@ public class MovementManager : HuyMonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
     }
 
+    //============================================Stop============================================
+    public void StopMove(Rigidbody2D rb)
+    {
+        rb.velocity = new Vector2(0, rb.velocity.y);
+    }
+
     public void StopJump(Rigidbody2D rb)
     {
         rb.velocity = new Vector2(rb.velocity.x, 0);
     }
 
-    //=========================================Stop Move==========================================
     public void Stop(Rigidbody2D rb)
     {
         rb.velocity = Vector2.zero;
