@@ -28,4 +28,26 @@ public class UtilManager : HuyMonoBehaviour
         if (dir >= 0) obj.rotation = Quaternion.Euler(0, 0, 0);
         else obj.rotation = Quaternion.Euler(0, 180, 0);
     }
+
+    //==========================================Raycast===========================================
+    public void CheckIsGround(CapsuleCollider2D col, LayerMask layer, string tag, ref bool prevIsGround, ref bool isGround)
+    {
+        Vector2 size = col.size;
+        Vector2 pos = col.transform.position;
+        CapsuleDirection2D dir = col.direction;
+        float angle = 0;
+
+        Collider2D[] targetCols = Physics2D.OverlapCapsuleAll(pos, size, dir, angle, layer);
+
+        foreach (Collider2D targetCol in targetCols)
+        {
+            if (targetCol.tag != tag) continue;
+            prevIsGround = isGround;
+            isGround = true;
+            return;
+        }
+
+        prevIsGround = isGround;
+        isGround = false;
+    }
 }
