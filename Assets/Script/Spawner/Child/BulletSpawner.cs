@@ -20,4 +20,10 @@ public class BulletSpawner : Spawner
         instance = this;
         base.Awake();
     }
+
+    public Transform Spawn(BulletType type, Vector2 spawnPos, Quaternion spawnRot)
+    {
+        return this.Spawn(this.prefabs[(int)type], spawnPos, spawnRot);
+    }
+
 }

@@ -26,7 +26,7 @@ public class PlayerAnimator : HuyMonoBehaviour
     }
 
     //===========================================Method===========================================
-    public virtual void HandlingAnimator(Player player)
+    public virtual void HandlingAnimator(MyPlayer player)
     {
         this.SetAnimatorState((int)PlayerAnimatorState.IDLE);
 

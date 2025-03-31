@@ -50,4 +50,15 @@ public class UtilManager : HuyMonoBehaviour
         prevIsGround = isGround;
         isGround = false;
     }
+
+    public Transform ShootRaycast(float distance, LayerMask layer, string tag, Vector2 start, Vector2 dir)
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(start, dir.normalized, distance, layer);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && hit.collider.CompareTag(tag)) return hit.transform;
+        }
+
+        return null;
+    }
 }

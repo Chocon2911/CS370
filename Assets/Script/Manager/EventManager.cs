@@ -14,6 +14,8 @@ public class EventManager : HuyMonoBehaviour
     public Action OnPlayerGetNewSkill;
     public Action OnPlayerHit;
     public Action OnMenuAppear;
+    public Action OnMenuDisappear;
+    public Action OnGoThroughDoor;
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -32,11 +34,6 @@ public class EventManager : HuyMonoBehaviour
         this.OnPlayerAppear += PrintPlayerAppear;
     }
 
-    protected virtual void Update()
-    {
-        this.OpeningMenu();
-    }
-
     //===========================================Method===========================================
     private void PrintPlayerDead()
     {
@@ -46,13 +43,5 @@ public class EventManager : HuyMonoBehaviour
     private void PrintPlayerAppear()
     {
         Debug.Log("Player Appear");
-    }
-
-    private void OpeningMenu()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            this.OnMenuAppear?.Invoke();
-        }
     }
 }

@@ -38,11 +38,13 @@ public class GameManager : HuyMonoBehaviour
             {
                 isPause = false;
                 Time.timeScale = 1;
+                EventManager.Instance.OnMenuDisappear?.Invoke();
             }
             else
             {
                 isPause = true;
                 Time.timeScale = 0;
+                EventManager.Instance.OnMenuAppear?.Invoke();
             }
         }
     }
