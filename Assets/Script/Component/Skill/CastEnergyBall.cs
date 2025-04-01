@@ -29,6 +29,17 @@ public class CastEnergyBall
         this.ActivatingSkill(user);
     }
 
+    public void Finish(ICastEnergyBall user)
+    {
+        user.GetIsCharging() = false;
+        user.GetIsFinishing() = false;
+        user.GetEndCD().ResetStatus();
+        user.GetChargeCD().ResetStatus();
+        if (user.GetRb().constraints == RigidbodyConstraints2D.FreezePositionY) user.GetRb().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+        if (user.GetRb().constraints == RigidbodyConstraints2D.FreezePositionX) user.GetRb().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+        user.GetRb().WakeUp();
+    }
+
     //=======================================Recharge Skill=======================================
     private void RechargingSkill(ICastEnergyBall user)
     {

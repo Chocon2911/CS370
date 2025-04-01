@@ -12,6 +12,7 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected CapsuleCollider2D bodyCol;
     [SerializeField] protected PlayerAnimator playerAnimator;
+    [SerializeField] protected PlayerStateMachine playerStateMachine;
     [SerializeField] protected Transform shootPoint;
 
     [Header("Stat")]
@@ -99,6 +100,7 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         this.LoadComponent(ref this.rb, transform, "LoadRb()");
         this.LoadComponent(ref this.bodyCol, transform, "LoadBodyCol()");
         this.LoadComponent(ref this.playerAnimator, transform.Find("Model"), "LoadAnimator()");
+        this.LoadComponent(ref this.playerStateMachine, transform, "LoadStateMachine()");
         this.LoadComponent(ref this.shootPoint, transform.Find("ShootPoint"), "LoadShootPoint()");
     }
 

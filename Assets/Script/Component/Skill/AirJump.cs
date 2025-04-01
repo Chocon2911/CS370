@@ -29,6 +29,7 @@ public class AirJump
 
     public void FinishAirJump(IAirJump user) 
     {
+        user.GetRb().velocity = new Vector2(user.GetRb().velocity.x, 0);
         user.GetIsAirJumping() = false;
     }
 
