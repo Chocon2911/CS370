@@ -7,9 +7,11 @@ public interface ICastEnergyBall
     Rigidbody2D GetRb();
     Cooldown GetSkillCD();
     Cooldown GetChargeCD();
+    Cooldown GetEndCD();
     int GetDir();
     Vector2 GetBallSpawnPos();
     ref bool GetIsCharging();
+    ref bool GetIsFinishing();
 
     // Condition
     bool CanRechargeSkill();
@@ -21,6 +23,7 @@ public class CastEnergyBall
     //===========================================Method===========================================
     public void Update(ICastEnergyBall user)
     {
+        this.Finishing(user);
         this.Shooting(user);
         this.RechargingSkill(user);
         this.ActivatingSkill(user);
@@ -46,6 +49,8 @@ public class CastEnergyBall
         user.GetIsCharging() = true;
         user.GetSkillCD().ResetStatus();
         user.GetRb().velocity = Vector2.zero;
+        user.GetRb().constraints |= RigidbodyConstraints2D.FreezePositionY;
+        user.GetRb().constraints |= RigidbodyConstraints2D.FreezePositionX;
     }
 
     //===========================================Shoot============================================
@@ -60,14 +65,31 @@ public class CastEnergyBall
 
     private void Shoot(ICastEnergyBall user)
     {
-        float angle = user.GetDir() * Mathf.Deg2Rad;
+        float angle = 0;
+
+        if (user.GetDir() == -1) angle = 180; 
         Vector2 spawnPos = user.GetBallSpawnPos();
-        Quaternion spawnRot = Quaternion.Euler(0, 0, angle * user.GetDir());
+        Quaternion spawnRot = Quaternion.Euler(0, 0, angle);
 
         Transform newEBall = BulletSpawner.Instance.Spawn(BulletType.ENERGY_BALL, spawnPos, spawnRot);
         newEBall.gameObject.SetActive(true);
 
         user.GetChargeCD().ResetStatus();
         user.GetIsCharging() = false;
+        user.GetIsFinishing() = true;
+    }
+
+    //===========================================Finish===========================================
+    private void Finishing(ICastEnergyBall user)
+    {
+        if (!user.GetIsFinishing()) return;
+        user.GetEndCD().CoolingDown();
+
+        if (!user.GetEndCD().IsReady) return;
+        user.GetIsFinishing() = false;
+        user.GetEndCD().ResetStatus();
+        user.GetRb().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+        user.GetRb().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+        user.GetRb().WakeUp();
     }
 }

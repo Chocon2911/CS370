@@ -93,5 +93,6 @@ public class Dash
         user.GetIsDashing() = true;
         user.GetSkillCD().ResetStatus();
         user.GetRb().constraints |= RigidbodyConstraints2D.FreezePositionY;
+        user.GetRb().WakeUp();
     }
 }

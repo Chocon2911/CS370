@@ -8,10 +8,10 @@ public class PlayerManager : HuyMonoBehaviour
     private static PlayerManager instance;
     public static PlayerManager Instance => instance;
 
-    [SerializeField] private MyPlayer player;
+    [SerializeField] private Player player;
 
     //==========================================Get Set===========================================
-    public MyPlayer Player => player;
+    public Player Player => player;
 
     //===========================================Unity============================================
     protected override void Awake()
