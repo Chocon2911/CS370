@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e254de7c08ff7b04797a794abff27bca, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  interactDetectLength: 5
+  moveSpeed: 5
+  moveSpeedUpTime: 0.3
+  moveSlowDownTime: 0.1
+  jumpStartDuration: 0.3
+  jumpSpeed: 17
+  dashRestoreDuration: 0.5
+  dashDuration: 0.2
+  dashSpeed: 15
+  airJumpSpeed: 13
+  airJumpStartDuration: 0.3
+  cebRestoreDuration: 1
+  cebChargeDuration: 0.5
+  cebEndDuration: 0.3

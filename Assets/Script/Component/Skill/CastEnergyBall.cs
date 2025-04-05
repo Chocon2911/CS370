@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public interface ICastEnergyBall
@@ -12,10 +13,13 @@ public interface ICastEnergyBall
     Vector2 GetBallSpawnPos();
     ref bool GetIsCharging();
     ref bool GetIsFinishing();
+    ref bool GetIsCasting();
 
     // Condition
-    bool CanRechargeSkill();
     bool CanCastEnergyBall();
+
+    // Addition
+    void Enter();
 }
 
 public class CastEnergyBall
@@ -31,6 +35,7 @@ public class CastEnergyBall
 
     public void Finish(ICastEnergyBall user)
     {
+        user.GetIsCasting() = false;
         user.GetIsCharging() = false;
         user.GetIsFinishing() = false;
         user.GetEndCD().ResetStatus();
@@ -52,11 +57,13 @@ public class CastEnergyBall
     {
         if (!user.CanCastEnergyBall()) return;
         if (!user.GetSkillCD().IsReady) return;
+        user.Enter();
         this.ActivateSkill(user);
     }
 
     private void ActivateSkill(ICastEnergyBall user)
     {
+        user.GetIsCasting() = true;
         user.GetIsCharging() = true;
         user.GetSkillCD().ResetStatus();
         user.GetRb().velocity = Vector2.zero;
@@ -97,6 +104,7 @@ public class CastEnergyBall
         user.GetEndCD().CoolingDown();
 
         if (!user.GetEndCD().IsReady) return;
+        user.GetIsCasting() = false;
         user.GetIsFinishing() = false;
         user.GetEndCD().ResetStatus();
         user.GetRb().constraints &= ~RigidbodyConstraints2D.FreezePositionY;

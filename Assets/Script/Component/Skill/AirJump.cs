@@ -11,10 +11,11 @@ public interface IAirJump
     ref bool GetIsUsed();
 
     // Condition
-    bool CanRestoreSkill();
+    bool CanRestore();
     bool CanJump();
-    bool CanFinishAirJump();
-    bool GetIsGround();
+
+    // Addition
+    void Enter();
 }
 
 public class AirJump
@@ -29,20 +30,8 @@ public class AirJump
 
     public void FinishAirJump(IAirJump user) 
     {
-        user.GetRb().velocity = new Vector2(user.GetRb().velocity.x, 0);
+        MovementManager.Instance.StopJump(user.GetRb());
         user.GetIsAirJumping() = false;
-    }
-
-    public void Jump(IAirJump user)
-    {
-        user.GetRb().velocity = new Vector2(user.GetRb().velocity.x, user.GetJumpSpeed());
-        user.GetIsAirJumping() = true;
-        user.GetIsUsed() = true;
-    }
-
-    public void RestoreSkill(IAirJump user)
-    {
-        user.GetIsUsed() = false;
     }
 
     //============================================Jump============================================
@@ -51,22 +40,33 @@ public class AirJump
         if (!user.CanJump()) return;
         if (user.GetIsAirJumping()) return; // is air jumping
         if (user.GetIsUsed()) return; // is used
+        user.Enter();
         this.Jump(user);
+    }
+
+    private void Jump(IAirJump user)
+    {
+        user.GetRb().velocity = new Vector2(user.GetRb().velocity.x, user.GetJumpSpeed());
+        user.GetIsAirJumping() = true;
+        user.GetIsUsed() = true;
     }
 
     //=======================================Restore Skill========================================
     private void RestoringSkill(IAirJump user) 
     {
-        if (!user.CanRestoreSkill()) return;
-        if (!user.GetIsGround()) return; // is not ground
+        if (!user.CanRestore()) return;
         if (!user.GetIsUsed()) return; // is used
         this.RestoreSkill(user);
+    }
+
+    private void RestoreSkill(IAirJump user)
+    {
+        user.GetIsUsed() = false;
     }
 
     //===========================================Finish===========================================
     private void FinishingAirJump(IAirJump user)
     {
-        if (!user.CanFinishAirJump()) return;
         if (!user.GetIsAirJumping()) return;
         if (user.GetRb().velocity.y > 0) return; // is Jumping
         this.FinishAirJump(user);

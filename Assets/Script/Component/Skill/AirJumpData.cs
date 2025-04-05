@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class AirJumpData
 {
-    [SerializeField] protected float jumpSpeed;
-    [SerializeField] protected Cooldown jumpStartCD;
-    [SerializeField] protected bool isJumping;
+    [SerializeField] public float jumpSpeed;
+    [SerializeField] public Cooldown jumpStartCD;
+    [SerializeField] public bool isJumping;
+    [SerializeField] public bool isJump;
 }

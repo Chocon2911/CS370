@@ -30,8 +30,8 @@ public class PlayerAnimator : HuyMonoBehaviour
     {
         this.SetAnimatorState((int)PlayerAnimatorState.IDLE);
 
-        // IS moving, ground, NOT jumping, dashing, air jumping
-        if (player.IsMoving && player.IsGround && !player.IsJumping && !player.IsDashing && !player.IsAirJumping)
+        // Is moving, ground, NOT jumping, dashing, air jumping
+        if (player.IsMoving && player.IsGround && !player.IsJumping && !player.IsDashing && !player.IsAirJumping && !player.IsCastingEnergyBall)
         {
             this.SetAnimatorState((int)PlayerAnimatorState.RUN);
         }
@@ -54,7 +54,12 @@ public class PlayerAnimator : HuyMonoBehaviour
 
         else if (player.IsDashing)
         {
-            this.SetAnimatorState((int)PlayerAnimatorState.IDLE); // Dash replace later
+            this.SetAnimatorState((int)PlayerAnimatorState.AIR_JUMP); // Dash replace later
+        }
+
+        else if (player.IsCastingEnergyBall)
+        {
+            this.SetAnimatorState((int)PlayerAnimatorState.FALL); // Cast Energy Ball replace later
         }
     }
 

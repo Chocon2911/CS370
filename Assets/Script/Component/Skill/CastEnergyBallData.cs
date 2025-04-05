@@ -11,4 +11,5 @@ public class CastEnergyBallData
     [SerializeField] public Cooldown endCD;
     [SerializeField] public bool isCharging;
     [SerializeField] public bool isFinishing;
+    [SerializeField] public bool isCasting;
 }

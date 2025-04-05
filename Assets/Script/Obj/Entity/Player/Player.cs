@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, ControllableByDoor
+public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, ControllableByDoor, DoorUser
 {
     //==========================================Variable==========================================
     [Space(50)]
@@ -12,11 +13,17 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected CapsuleCollider2D bodyCol;
     [SerializeField] protected PlayerAnimator playerAnimator;
-    [SerializeField] protected PlayerStateMachine playerStateMachine;
+    [SerializeField] protected PlayerSO so;
     [SerializeField] protected Transform shootPoint;
 
+    [Space(25)]
+    
     [Header("Stat")]
-    [SerializeField] protected List<SkillType> unlockedSkills = new List<SkillType>();
+    [SerializeField] protected bool hasDash;
+    [SerializeField] protected bool hasAirJump;
+    [SerializeField] protected bool hasCastEnergyBall;
+
+    [Space(25)]
 
     [Header("Ground Check")]
     [SerializeField] protected CapsuleCollider2D groundCol;
@@ -25,6 +32,14 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     [SerializeField] protected bool prevIsGround;
     [SerializeField] protected bool isGround;
 
+    [Space(25)]
+
+    [Header("Interact Check")]
+    [SerializeField] protected float interactDetectLength;
+    [SerializeField] protected Transform interactableObj;
+
+    [Space(25)]
+
     [Header("Move")]
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float moveSpeedUpTime;
@@ -32,26 +47,26 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     [SerializeField] protected int moveDir;
     [SerializeField] protected bool isMoving;
 
+    [Space(25)]
+
     [Header("Jump")]
     [SerializeField] protected float jumpSpeed;
     [SerializeField] protected Cooldown jumpStartCD;
     [SerializeField] protected bool isJumping;
 
+    [Space(25)]
+
     [Header("Dash")]
-    [SerializeField] protected Cooldown dashSkillCD;
-    [SerializeField] protected Cooldown dashCD;
-    [SerializeField] protected float dashSpeed;
-    [SerializeField] protected int dashDir;
-    [SerializeField] protected bool isDashing;
+    [SerializeField] protected DashData dash;
     // Support
-    [SerializeField] protected EffectSpawner.EffectType dashEffectType;
-    [SerializeField] protected Transform tempDashEffect;
-    [SerializeField] protected Vector2 dashEffectPos;
+    [SerializeField] protected TrailRenderer dashTrail;
+
+    [Space(25)]
 
     [Header("Air Jump")]
-    [SerializeField] protected float airJumpSpeed;
-    [SerializeField] protected bool isAirJumping;
-    [SerializeField] protected bool isAirJump;
+    [SerializeField] protected AirJumpData airJump;
+
+    [Space(25)]
 
     [Header("Cast Energy Ball")]
     [SerializeField] protected CastEnergyBallData castEnergyBall;
@@ -60,37 +75,30 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     // ===Component===
     public Rigidbody2D Rb => this.rb;
     public CapsuleCollider2D BodyCol => this.bodyCol;
-    public PlayerAnimator PlayerAnimator => this.playerAnimator;
     
     // ===Stat===
     public int MaxHealth => this.maxHealth;
     public int Health => this.health;
-    public List<SkillType> UnlockedSkills => this.unlockedSkills;
 
     // ===Ground Check===
     public bool PrevIsGround => this.prevIsGround;
     public bool IsGround => this.isGround;
 
     // ===Move===
-    public float MoveSpeed => this.moveSpeed;
-    public int MoveDir => this.moveDir;
     public bool IsMoving => this.isMoving;
 
     // ===Jump===
-    public float JumpSpeed => this.jumpSpeed;
     public bool IsJumping => this.isJumping;
 
     // ===Dash Skill===
-    public Cooldown DashSkillCD => this.dashSkillCD;
-    public Cooldown DashCD => this.dashCD;
-    public float DashSpeed => this.dashSpeed;
-    public int DashDir => this.dashDir;
-    public bool IsDashing => this.isDashing;
+    public bool IsDashing => this.dash.isDashing;
 
     // ===Air Jump Skill===
-    public float AirJumpSpeed => this.airJumpSpeed;
-    public bool IsAirJumping => this.isAirJumping;
-    public bool IsAirJump => this.isAirJump;
+    public bool IsAirJumping => this.airJump.isJumping;
+    public bool IsAirJump => this.airJump.isJump;
+
+    // ===Cast Energy Ball===
+    public bool IsCastingEnergyBall => this.castEnergyBall.isCasting;
 
     //===========================================Unity============================================
     public override void LoadComponents()
@@ -100,19 +108,26 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         this.LoadComponent(ref this.rb, transform, "LoadRb()");
         this.LoadComponent(ref this.bodyCol, transform, "LoadBodyCol()");
         this.LoadComponent(ref this.playerAnimator, transform.Find("Model"), "LoadAnimator()");
-        this.LoadComponent(ref this.playerStateMachine, transform, "LoadStateMachine()");
         this.LoadComponent(ref this.shootPoint, transform.Find("ShootPoint"), "LoadShootPoint()");
+        this.LoadComponent(ref this.dashTrail, transform.Find("DashEffect"), "LoadDashTrail()");
+        this.DefaultStat();
+    }
+
+    protected virtual void Start()
+    {
+        DontDestroyOnLoad(gameObject);
     }
 
     protected virtual void Update()
     {
         this.GroundChecking();
+        this.InteractChecking();
         this.Moving();
         this.Jumping();
         this.Facing();
-        this.Dashing();
-        SkillManager.Instance.CastEBall.Update(this);
-        SkillManager.Instance.AirJump.Update(this);
+        if (this.hasDash) this.Dashing();
+        if (this.hasAirJump) this.AirJumping();
+        if (this.hasCastEnergyBall) this.CastingEnergyBall();
         this.playerAnimator.HandlingAnimator(this);
     }
 
@@ -133,25 +148,85 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         UtilManager.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, ref this.isGround);
     }
 
+    //=======================================Interact Check=======================================
+    protected virtual void InteractChecking()
+    {
+        this.interactableObj = null;
+
+        Vector2 start = transform.position;
+        float xDir = Mathf.Cos(transform.rotation.eulerAngles.y * Mathf.Deg2Rad);
+        Vector2 dir = new Vector2(xDir, 0);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(start, dir, this.interactDetectLength);
+        Interactable interactable = null;
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            interactable = hit.transform.GetComponent<Interactable>();
+            if (interactable != null)
+            {
+                this.interactableObj = hit.transform;
+                break;
+            }
+        }
+
+        if (interactable != null)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                interactable.Interact(this);
+                return;
+            }
+        }
+
+        Debug.DrawRay(start, dir * this.interactDetectLength, Color.red);
+    }
+
+    public virtual Interactable DetectInteractObj()
+    {
+        Vector2 start = transform.position;
+        Vector2 dir = new Vector2(Mathf.Cos(transform.rotation.y), 0);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(start, dir, this.interactDetectLength);
+
+        this.interactableObj = null;
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            Interactable interactable = hit.transform.GetComponent<Interactable>();
+            if (interactable != null)
+            {
+                this.interactableObj = hit.transform;
+                return interactable;
+            }
+        }
+
+        return null;
+    }
+
     //============================================Move============================================
     protected virtual void Moving()
     {
-        if (!this.isDashing)
+        if (!this.dash.isDashing && !this.castEnergyBall.isCasting)
         {
             this.moveDir = (int)InputManager.Instance.MoveDir.x;
             MovementManager.Instance.MoveWithAcceleration(this.rb, this.moveDir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
         }
 
-        if (this.rb.velocity.x >= Mathf.Pow(1, 1) || this.rb.velocity.x <= -Mathf.Pow(1, 1) || this.moveDir != 0) this.isMoving = true;
+        if (this.rb.velocity.x >= Mathf.Pow(1, 1) || this.rb.velocity.x <= -Mathf.Pow(1, 1)) this.isMoving = true;
         else this.isMoving = false;
+    }
+
+    protected virtual void FinishMove()
+    {
+        MovementManager.Instance.StopMove(this.rb);
+        this.isMoving = false;
     }
 
     //============================================Jump============================================
     protected virtual void Jumping()
     {
-        if (this.isGround) this.jumpStartCD.ResetStatus();
+        if (this.isGround && !this.isJumping) this.jumpStartCD.ResetStatus();
 
-        if (!this.isDashing)
+        if (!this.dash.isDashing)
         {
             bool isSpacePressed = InputManager.Instance.SpaceState != 0;
             MovementManager movment = MovementManager.Instance;
@@ -168,15 +243,22 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
                 else
                 {
                     if (!isSpacePressed) movment.StopJump(this.rb);
-                    if (this.rb.velocity.y <= 0) this.isJumping = false;
+                    if (this.rb.velocity.y <= Mathf.Pow(0.1f, 3)) this.isJumping = false;
                 }
             }
         }
     }
 
+    protected virtual void FinishJump()
+    {
+        MovementManager.Instance.StopJump(this.rb);
+        this.isJumping = false;
+    }
+
     //============================================Face============================================
     protected virtual void Facing()
     {
+        if (this.dash.isDashing) return;
         if (this.moveDir == 0) return;
         UtilManager.Instance.RotateFaceDir(this.moveDir, this.transform);
     }
@@ -185,26 +267,74 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     protected virtual void Dashing()
     {
         SkillManager.Instance.Dash.Update(this);
-
-        if (this.isDashing && this.dashCD.Timer == 0)
-        {
-            float xPos = this.dashDir * this.dashEffectPos.x;
-            Vector2 spawnPos = new Vector2(xPos, this.dashEffectPos.y);
-            Quaternion spawnRot = Quaternion.identity;
-
-            this.tempDashEffect = EffectSpawner.Instance.SpawnByType(this.dashEffectType, spawnPos, spawnRot);
-            this.tempDashEffect.parent = this.transform;
-            this.tempDashEffect.localPosition = spawnPos;
-            this.tempDashEffect.gameObject.SetActive(true);
-        }
-
-        else if (this.tempDashEffect != null && !this.isDashing)
-        {
-            EffectSpawner.Instance.Despawn(this.tempDashEffect);
-            this.tempDashEffect = null;
-        }
     }
 
+    protected virtual void FinishDash()
+    {
+        SkillManager.Instance.Dash.FinishDash(this);
+    }
+
+    //==========================================Air Jump==========================================
+    protected virtual void AirJumping()
+    {
+        SkillManager.Instance.AirJump.Update(this);
+    }
+
+    protected virtual void FinishAirJump()
+    {
+        SkillManager.Instance.AirJump.FinishAirJump(this);
+    }
+
+    //======================================Cast Energy Ball======================================
+    protected virtual void CastingEnergyBall()
+    {
+        SkillManager.Instance.CastEBall.Update(this);
+    }
+
+    protected virtual void FinishCastEnergyBall()
+    {
+        SkillManager.Instance.CastEBall.Finish(this);
+    }
+
+    //===========================================Other============================================
+    protected virtual void DefaultStat()
+    {
+        if (this.so == null)
+        {
+            Debug.LogError("No PlayerSO", transform.gameObject);
+            return;
+        }
+
+        // Entity.Stat
+        this.maxHealth = this.so.maxHealth;
+        this.health = this.maxHealth;
+
+        // Move
+        this.moveSpeed = this.so.moveSpeed;
+        this.moveSpeedUpTime = this.so.moveSpeedUpTime;
+        this.moveSlowDownTime = this.so.moveSlowDownTime;
+
+        // Jump
+        this.jumpSpeed = this.so.jumpSpeed;
+        this.jumpStartCD = new Cooldown(this.so.jumpStartDuration, 0);
+
+        // Dash
+        this.dash = new DashData();
+        this.dash.speed = this.so.dashSpeed;
+        this.dash.restoreCD = new Cooldown(this.so.dashRestoreDuration, 0);
+        this.dash.dashCD = new Cooldown(this.so.dashDuration, 0);
+
+        // AirJump
+        this.airJump = new AirJumpData();
+        this.airJump.jumpSpeed = this.so.airJumpSpeed;
+        this.airJump.jumpStartCD = new Cooldown(this.so.airJumpStartDuration, 0);
+
+        // Cast Energy Ball
+        this.castEnergyBall = new CastEnergyBallData();
+        this.castEnergyBall.restoreCD = new Cooldown(this.so.cebRestoreDuration, 0);
+        this.castEnergyBall.chargeCD = new Cooldown(this.so.cebChargeDuration, 0);
+        this.castEnergyBall.endCD = new Cooldown(this.so.cebEndDuration, 0);
+    }
 
 
     //============================================================================================
@@ -228,60 +358,56 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
 
     ref int IDash.GetDashDir()
     {
-        return ref this.dashDir;
+        return ref this.dash.dir;
     }
 
     float IDash.GetDashSpeed()
     {
-        return this.dashSpeed;
+        return this.dash.speed;
     }
 
     Cooldown IDash.GetSkillCD()
     {
-        return this.dashSkillCD;
+        return this.dash.restoreCD;
     }
 
     Cooldown IDash.GetDashCD()
     {
-        return this.dashCD;
+        return this.dash.dashCD;
     }
 
     ref bool IDash.GetIsDashing()
     {
-        return ref this.isDashing;
+        return ref this.dash.isDashing;
     }
 
     // ===Condition===
     bool IDash.CanRechargeSkill()
     {
-        foreach (SkillType unlockedSkill in this.unlockedSkills)
-        {
-            if (unlockedSkill != SkillType.DASH) continue;
-            if (this.dashSkillCD.Timer > 0) return true; // already in recharging
-            if (this.isGround) return true; // is ground
-        }
-        return false;
-    }
-
-    bool IDash.CanRechargeDash()
-    {
-        foreach (SkillType unlockedSkill in this.unlockedSkills)
-        {
-            if (unlockedSkill != SkillType.DASH) continue;
-            return true;
-        }
+        if (this.dash.restoreCD.Timer > 0) return true; // already in recharging
+        if (this.isGround) return true; // is ground
         return false;
     }
 
     bool IDash.CanDash()
     {
-        foreach (SkillType unlockedSkill in this.unlockedSkills)
-        {
-            if (unlockedSkill != SkillType.DASH) continue;
-            if (InputManager.Instance.ShiftState != 0) return true; // press or hold shift
-            return false;
-        }
-        return false;
+        if (InputManager.Instance.ShiftState == 0) return false; // not press or hold shift
+        if (this.castEnergyBall.isCasting) return false; // is casting energy ball
+        return true;
+    }
+
+    // ===Additional===
+    void IDash.Enter()
+    {
+        this.dashTrail.emitting = true;
+        if (this.isJumping) this.FinishJump();
+        if (this.airJump.isJumping) this.FinishAirJump();
+        if (this.isMoving) this.FinishMove();
+    }
+
+    void IDash.Exit()
+    {
+        this.dashTrail.emitting = false;
     }
 
     //=======================================Air Jump Skill=======================================
@@ -293,57 +419,38 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
 
     float IAirJump.GetJumpSpeed()
     {
-        return this.airJumpSpeed;
+        return this.airJump.jumpSpeed;
     }
 
     ref bool IAirJump.GetIsAirJumping()
     {
-        return ref this.isAirJumping;
+        return ref this.airJump.isJumping;
     }
 
     ref bool IAirJump.GetIsUsed()
     {
-        return ref this.isAirJump;
+        return ref this.airJump.isJump;
     }
 
     // ===Condition===
-    bool IAirJump.CanRestoreSkill()
+    bool IAirJump.CanRestore()
     {
-        foreach (SkillType unlockedSkill in this.unlockedSkills)
-        {
-            if (unlockedSkill != SkillType.AIR_JUMP) continue;
-            return true;
-        }
-        return false;
+        return this.isGround;
     }
 
     bool IAirJump.CanJump()
     {
-        foreach (SkillType skillType in this.unlockedSkills)
-        {
-            if (skillType != SkillType.AIR_JUMP) continue;
-            if (InputManager.Instance.SpaceState != 1) return false; // not press or hold space
-            if (this.isGround) return false; // is ground
-            if (this.isJumping) return false; // is jumping
-            if (this.isDashing) return false; // is dashing
-            return true;
-        }
-        return false;
+        if (InputManager.Instance.SpaceState != 1) return false; // not press or hold space
+        if (this.isGround) return false; // is ground
+        if (this.isJumping) return false; // is jumping
+        if (this.castEnergyBall.isCasting) return false; // is casting energy ball
+        return true;
     }
 
-    bool IAirJump.CanFinishAirJump()
+    // ===Addition===
+    void IAirJump.Enter()
     {
-        foreach (SkillType unlockedSkill in this.unlockedSkills)
-        {
-            if (unlockedSkill != SkillType.AIR_JUMP) continue;
-            return true;
-        }
-        return false;
-    }
-
-    bool IAirJump.GetIsGround()
-    {
-        return this.isGround;
+        if (this.dash.isDashing) this.FinishDash();
     }
 
     //======================================Cast Energy Ball======================================
@@ -389,16 +496,24 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         return ref this.castEnergyBall.isFinishing;
     }
 
-    // ===Condition===
-    bool ICastEnergyBall.CanRechargeSkill()
+    ref bool ICastEnergyBall.GetIsCasting()
     {
+        return ref this.castEnergyBall.isCasting;
+    }
+
+    // ===Condition===
+    bool ICastEnergyBall.CanCastEnergyBall()
+    {
+        if (!Input.GetKeyDown(KeyCode.J)) return false;
         return true;
     }
 
-    bool ICastEnergyBall.CanCastEnergyBall()
+    // ===Addition===
+    void ICastEnergyBall.Enter()
     {
-        if (Input.GetKeyDown(KeyCode.J)) return true;
-        return false;
+        if (this.dash.isDashing) this.FinishDash();
+        if (this.isJumping) this.FinishJump();
+        if (this.airJump.isJumping) this.FinishAirJump();
     }
 
     //=========================================Damagable==========================================
@@ -423,5 +538,11 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     float ControllableByDoor.GetXPos()
     {
         return transform.position.x;
+    }
+
+    //=========================================Door User==========================================
+    Transform DoorUser.GetTrans()
+    {
+        return transform;
     }
 }

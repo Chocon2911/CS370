@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : HuyMonoBehaviour
 {
@@ -8,7 +9,8 @@ public class GameManager : HuyMonoBehaviour
     private static GameManager instance;
     public static GameManager Instance => instance;
 
-    private bool isPause;
+    [SerializeField] private Player player;
+    [SerializeField] private bool isPause;
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -17,10 +19,12 @@ public class GameManager : HuyMonoBehaviour
         {
             Debug.LogError("instance not null (transform)", transform.gameObject);
             Debug.LogError("Instance not null (instance)", instance.gameObject);
+            Destroy(gameObject);
             return;
         }
 
         instance = this;
+        DontDestroyOnLoad(gameObject);
         base.Awake();
     }
 
@@ -34,18 +38,29 @@ public class GameManager : HuyMonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPause)
+            if (this.isPause)
             {
-                isPause = false;
+                this.isPause = false;
                 Time.timeScale = 1;
                 EventManager.Instance.OnMenuDisappear?.Invoke();
             }
             else
             {
-                isPause = true;
+                this.isPause = true;
                 Time.timeScale = 0;
                 EventManager.Instance.OnMenuAppear?.Invoke();
             }
         }
+    }
+
+    public void GoThroughDoor(int nextScene, int nextDoor)
+    {
+        MySceneManager.Instance.ChangeScene(nextScene);
+        SceneManager.sceneLoaded += (scene, mode) => DoorManager.Instance.Doors[nextDoor].Exit(this.player);
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene(1);
     }
 }

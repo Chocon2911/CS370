@@ -16,8 +16,11 @@ public interface IDash
 
     // Condition
     bool CanRechargeSkill();
-    bool CanRechargeDash();
     bool CanDash();
+
+    // Addition
+    void Enter();
+    void Exit();
 }
 
 public class Dash
@@ -32,6 +35,7 @@ public class Dash
 
     public void FinishDash(IDash user)
     {
+        user.Exit();
         user.GetIsDashing() = false;
         user.GetDashCD().ResetStatus();
         user.GetRb().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
@@ -60,8 +64,7 @@ public class Dash
     //=======================================Recharge Dash========================================
     private void RechargingDash(IDash user)
     {
-        if (!user.CanRechargeDash()) return;
-        else if (!user.GetIsDashing()) return; // is not dashing
+        if (!user.GetIsDashing()) return; // is not dashing
         this.RechargeDash(user);
     }
 
@@ -83,6 +86,9 @@ public class Dash
             if (!user.CanDash()) return;
             if (!user.GetSkillCD().IsReady) return; // skill not ready
             user.GetDashDir() = user.GetMoveDir();
+            user.Enter();
+            user.GetIsDashing() = true;
+            user.GetSkillCD().ResetStatus();
             this.DoDash(user);
         }
     }
@@ -90,8 +96,6 @@ public class Dash
     private void DoDash(IDash user)
     {
         user.GetRb().velocity = new Vector2(user.GetDashSpeed() * user.GetDashDir(), 0);
-        user.GetIsDashing() = true;
-        user.GetSkillCD().ResetStatus();
         user.GetRb().constraints |= RigidbodyConstraints2D.FreezePositionY;
         user.GetRb().WakeUp();
     }

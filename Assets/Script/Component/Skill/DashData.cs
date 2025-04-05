@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class DashData
 {
-    [SerializeField] protected Cooldown restoreCD;
-    [SerializeField] protected Cooldown dashCD;
-    [SerializeField] protected float speed;
-    [SerializeField] protected int dir;
-    [SerializeField] protected bool isDashing;
+    [SerializeField] public Cooldown restoreCD;
+    [SerializeField] public Cooldown dashCD;
+    [SerializeField] public float speed;
+    [SerializeField] public int dir;
+    [SerializeField] public bool isDashing;
 }
