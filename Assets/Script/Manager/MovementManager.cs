@@ -28,7 +28,16 @@ public class MovementManager : HuyMonoBehaviour
         rb.velocity += vel;
     }
 
-    public void Move(Rigidbody2D rb, int dir, float speed, float speedUpTime, float slowDownTime)
+    public void MoveForward(Rigidbody2D rb, float speed)
+    {
+        float angle = rb.transform.eulerAngles.z;
+        float xDir = Mathf.Cos(angle * Mathf.Deg2Rad);
+        float yDir = Mathf.Sin(angle * Mathf.Deg2Rad);
+        Vector2 dir = new Vector2(xDir, yDir).normalized;
+        rb.velocity = dir * speed;
+    }
+
+    public void MoveWithAcceleration(Rigidbody2D rb, int dir, float speed, float speedUpTime, float slowDownTime)
     {
         float xVel = rb.velocity.x;
         float applySpeed = 0;

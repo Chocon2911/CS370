@@ -13,6 +13,9 @@ public class EventManager : HuyMonoBehaviour
     public Action OnPlayerAppear;
     public Action OnPlayerGetNewSkill;
     public Action OnPlayerHit;
+    public Action OnMenuAppear;
+    public Action OnMenuDisappear;
+    public Action OnGoThroughDoor;
 
     //===========================================Unity============================================
     protected override void Awake()
