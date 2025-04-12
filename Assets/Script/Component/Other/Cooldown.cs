@@ -24,6 +24,7 @@ public class Cooldown
     public float Timer
     {
         get => timer;
+        set => this.timer = value;
     }
 
     public float WaitTime

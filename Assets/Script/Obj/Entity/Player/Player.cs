@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, ControllableByDoor, DoorUser
@@ -75,10 +74,6 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     // ===Component===
     public Rigidbody2D Rb => this.rb;
     public CapsuleCollider2D BodyCol => this.bodyCol;
-    
-    // ===Stat===
-    public int MaxHealth => this.maxHealth;
-    public int Health => this.health;
 
     // ===Ground Check===
     public bool PrevIsGround => this.prevIsGround;
@@ -99,6 +94,21 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
 
     // ===Cast Energy Ball===
     public bool IsCastingEnergyBall => this.castEnergyBall.isCasting;
+    
+    // ===Db===
+    public PlayerDbData PlayerDbData
+    {
+        get => new PlayerDbData(transform.position, transform.rotation, this.id, this.health, this.dash.dashCD.Timer, this.castEnergyBall.restoreCD.Timer);
+        set
+        {
+            this.transform.position = new Vector3(value.xPos, value.yPos, value.zPos);
+            this.transform.rotation = Quaternion.Euler(value.xRot, value.yRot, value.zRot);
+            this.id = value.id;
+            this.health = value.health;
+            this.dash.dashCD.Timer = value.dashRestoreTimer;
+            this.castEnergyBall.restoreCD.Timer = value.cebRestoreTimer;
+        }
+    }
 
     //===========================================Unity============================================
     public override void LoadComponents()
@@ -111,11 +121,6 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         this.LoadComponent(ref this.shootPoint, transform.Find("ShootPoint"), "LoadShootPoint()");
         this.LoadComponent(ref this.dashTrail, transform.Find("DashEffect"), "LoadDashTrail()");
         this.DefaultStat();
-    }
-
-    protected virtual void Start()
-    {
-        DontDestroyOnLoad(gameObject);
     }
 
     protected virtual void Update()
@@ -179,27 +184,6 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         }
 
         Debug.DrawRay(start, dir * this.interactDetectLength, Color.red);
-    }
-
-    public virtual Interactable DetectInteractObj()
-    {
-        Vector2 start = transform.position;
-        Vector2 dir = new Vector2(Mathf.Cos(transform.rotation.y), 0);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(start, dir, this.interactDetectLength);
-
-        this.interactableObj = null;
-
-        foreach (RaycastHit2D hit in hits)
-        {
-            Interactable interactable = hit.transform.GetComponent<Interactable>();
-            if (interactable != null)
-            {
-                this.interactableObj = hit.transform;
-                return interactable;
-            }
-        }
-
-        return null;
     }
 
     //============================================Move============================================
@@ -297,7 +281,7 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     }
 
     //===========================================Other============================================
-    protected virtual void DefaultStat()
+    public virtual void DefaultStat()
     {
         if (this.so == null)
         {

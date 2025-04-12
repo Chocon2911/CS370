@@ -19,7 +19,7 @@ MonoBehaviour:
   moveSlowDownTime: 0.1
   jumpStartDuration: 0.3
   jumpSpeed: 17
-  dashRestoreDuration: 0.5
+  dashRestoreDuration: 0.3
   dashDuration: 0.2
   dashSpeed: 15
   airJumpSpeed: 13

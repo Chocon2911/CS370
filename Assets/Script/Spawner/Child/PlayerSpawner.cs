@@ -20,4 +20,22 @@ public class PlayerSpawner : Spawner
         instance = this;
         base.Awake();
     }
+
+    //===========================================Method===========================================
+    public Player SpawnPlayer(PlayerDbData data, Vector2 spawnPos, Quaternion spawnRot)
+    {
+        Transform newPlayerObj = this.Spawn(this.prefabs[0], spawnPos, spawnRot);
+        Player player = newPlayerObj.GetComponent<Player>();
+        player.DefaultStat();
+        player.PlayerDbData = data;
+        return player;
+    }
+
+    public Player SpawnPlayer(Vector2 spawnPos, Quaternion spawnRot)
+    {
+        Transform newPlayerObj = this.SpawnByObj(this.prefabs[0], spawnPos, spawnRot);
+        Player player = newPlayerObj.GetComponentInChildren<Player>();
+        player.DefaultStat();
+        return newPlayerObj.GetComponentInChildren<Player>();
+    }
 }
