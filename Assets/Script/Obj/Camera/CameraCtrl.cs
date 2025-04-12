@@ -21,6 +21,11 @@ public class CameraCtrl : HuyMonoBehaviour
         this.LoadComponent(ref this.rb, transform, "LoadRb()");
     }
 
+    protected virtual void Start()
+    {
+        EventManager.Instance.OnPlayerAppear += OnPlayerAppear;
+    }
+
     protected virtual void Update()
     {
         Moving();
@@ -31,5 +36,10 @@ public class CameraCtrl : HuyMonoBehaviour
     {
         this.rb.velocity = Vector2.zero;
         MovementManager.Instance.ChaseTarget(transform, this.target, this.moveSpeed);
+    }
+
+    protected virtual void OnPlayerAppear() 
+    {
+        this.target = GameManager.Instance.Player.transform;
     }
 }
