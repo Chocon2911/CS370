@@ -3,30 +3,44 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+public enum PlayerAnimatorState
+{
+    IDLE = 1,
+    RUN = 2,
+    JUMP = 3,
+    FALL = 4,
+    AIR_JUMP = 5,
+    DASH = 6,
+    CAST_ENERGY_BALL = 7,
+}
+
 public class PlayerAnimator : HuyMonoBehaviour
 {
-    public enum PlayerAnimatorState
-    {
-        IDLE = 1,
-        RUN = 2,
-        JUMP = 3,
-        FALL = 4,
-        AIR_JUMP = 5,
-        WALL_CLIMB = 6,
-    }
-
     //==========================================Variable==========================================
-    [SerializeField] private Animator animator;
+    [SerializeField] protected Player player; 
+    [SerializeField] protected Animator animator;
 
     //===========================================Unity============================================
     public override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadComponent(ref this.animator, transform, "LoadAnimator()");
+        this.LoadComponent(ref this.player, transform.parent, "LoadPlayer()");
     }
 
     //===========================================Method===========================================
     public virtual void HandlingAnimator(Player player)
+    {
+        this.HandleAnimation();
+        this.HandleAnimationState();
+    }
+
+    protected virtual void HandleAnimation()
+    {
+        this.animator.SetFloat("Move Speed", this.player.MoveSpeed);
+    }
+
+    protected virtual void HandleAnimationState()
     {
         this.SetAnimatorState((int)PlayerAnimatorState.IDLE);
 
@@ -54,14 +68,17 @@ public class PlayerAnimator : HuyMonoBehaviour
 
         else if (player.IsDashing)
         {
-            this.SetAnimatorState((int)PlayerAnimatorState.AIR_JUMP); // Dash replace later
+            this.SetAnimatorState((int)PlayerAnimatorState.DASH);
         }
 
         else if (player.IsCastingEnergyBall)
         {
-            this.SetAnimatorState((int)PlayerAnimatorState.FALL); // Cast Energy Ball replace later
+            this.SetAnimatorState((int)PlayerAnimatorState.CAST_ENERGY_BALL);
+            if (this.player.IsChargingEnergyBall) this.animator.SetInteger("Cast Energy Ball State", 0);
+            else if (this.player.IsShootingEnergyBall) this.animator.SetInteger("Cast Energy Ball State", 1);
+            else Debug.LogError("Cast Energy Ball Animation problem", transform.gameObject);
         }
-    }
+    }    
 
     protected virtual void SetAnimatorState(int state)
     {

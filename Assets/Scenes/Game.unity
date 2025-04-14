@@ -5096,6 +5096,37 @@ Transform:
   - {fileID: 1395664527}
   m_Father: {fileID: 1835690366}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &202531136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 202531137}
+  m_Layer: 0
+  m_Name: SlashCol
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &202531137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202531136}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1395664527}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &299034373
 GameObject:
   m_ObjectHideFlags: 0
@@ -5312,6 +5343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a274557bb18f484aad6fef7e1baf4d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   animator: {fileID: 397519373}
 --- !u!1 &451647142
 GameObject:
@@ -6778,6 +6810,7 @@ Transform:
   - {fileID: 559573304}
   - {fileID: 2117736353}
   - {fileID: 1946543889}
+  - {fileID: 202531137}
   m_Father: {fileID: 191433327}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1395664529
@@ -6859,6 +6892,7 @@ MonoBehaviour:
   health: 10
   rb: {fileID: 1395664530}
   bodyCol: {fileID: 1395664529}
+  animator: {fileID: 0}
   playerAnimator: {fileID: 397519375}
   so: {fileID: 11400000, guid: 11a7cf06f00cb26419cd8d2240c2ee74, type: 2}
   shootPoint: {fileID: 2117736353}
@@ -6921,14 +6955,27 @@ MonoBehaviour:
       timer: 0
       waitTime: 0
       isReady: 0
-    endCD:
-      timeLimit: 0.3
+    shootCD:
+      timeLimit: 0
       timer: 0
       waitTime: 0
       isReady: 0
     isCharging: 0
-    isFinishing: 0
+    isShooting: 0
     isCasting: 0
+  slash:
+    restoreCD:
+      timeLimit: 0
+      timer: 0
+      waitTime: 0
+      isReady: 0
+    attackCD:
+      timeLimit: 0
+      timer: 0
+      waitTime: 0
+      isReady: 0
+    slashCol: {fileID: 0}
+    isAttacking: 0
 --- !u!1 &1395700585
 GameObject:
   m_ObjectHideFlags: 0

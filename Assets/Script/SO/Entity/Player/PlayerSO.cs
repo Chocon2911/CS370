@@ -42,4 +42,11 @@ public class PlayerSO : EntitySO
     public float cebRestoreDuration;
     public float cebChargeDuration;
     public float cebEndDuration;
+
+    [Space(10)]
+
+    [Header("Slash")]
+    public float slashRestoreDuration;
+    public float slashDuration;
+    public int slashDamage;
 }

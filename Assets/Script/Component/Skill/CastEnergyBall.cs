@@ -6,13 +6,13 @@ public interface ICastEnergyBall
 {
     // Property
     Rigidbody2D GetRb();
-    Cooldown GetSkillCD();
+    Cooldown GetRestoreCD();
     Cooldown GetChargeCD();
-    Cooldown GetEndCD();
+    Cooldown GetShootCD();
     int GetDir();
     Vector2 GetBallSpawnPos();
     ref bool GetIsCharging();
-    ref bool GetIsFinishing();
+    ref bool GetIsShooting();
     ref bool GetIsCasting();
 
     // Condition
@@ -28,7 +28,7 @@ public class CastEnergyBall
     public void Update(ICastEnergyBall user)
     {
         this.Finishing(user);
-        this.Shooting(user);
+        this.Charging(user);
         this.RechargingSkill(user);
         this.ActivatingSkill(user);
     }
@@ -37,8 +37,8 @@ public class CastEnergyBall
     {
         user.GetIsCasting() = false;
         user.GetIsCharging() = false;
-        user.GetIsFinishing() = false;
-        user.GetEndCD().ResetStatus();
+        user.GetIsShooting() = false;
+        user.GetShootCD().ResetStatus();
         user.GetChargeCD().ResetStatus();
         if (user.GetRb().constraints == RigidbodyConstraints2D.FreezePositionY) user.GetRb().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
         if (user.GetRb().constraints == RigidbodyConstraints2D.FreezePositionX) user.GetRb().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
@@ -49,14 +49,14 @@ public class CastEnergyBall
     private void RechargingSkill(ICastEnergyBall user)
     {
         if (user.GetIsCharging()) return;
-        user.GetSkillCD().CoolingDown();
+        user.GetRestoreCD().CoolingDown();
     }
 
     //=======================================Activate Skill=======================================
     private void ActivatingSkill(ICastEnergyBall user)
     {
         if (!user.CanCastEnergyBall()) return;
-        if (!user.GetSkillCD().IsReady) return;
+        if (!user.GetRestoreCD().IsReady) return;
         user.Enter();
         this.ActivateSkill(user);
     }
@@ -65,14 +65,14 @@ public class CastEnergyBall
     {
         user.GetIsCasting() = true;
         user.GetIsCharging() = true;
-        user.GetSkillCD().ResetStatus();
+        user.GetRestoreCD().ResetStatus();
         user.GetRb().velocity = Vector2.zero;
         user.GetRb().constraints |= RigidbodyConstraints2D.FreezePositionY;
         user.GetRb().constraints |= RigidbodyConstraints2D.FreezePositionX;
     }
 
     //===========================================Shoot============================================
-    private void Shooting(ICastEnergyBall user)
+    private void Charging(ICastEnergyBall user)
     {
         if (!user.GetIsCharging()) return;
         user.GetChargeCD().CoolingDown();
@@ -94,19 +94,19 @@ public class CastEnergyBall
 
         user.GetChargeCD().ResetStatus();
         user.GetIsCharging() = false;
-        user.GetIsFinishing() = true;
+        user.GetIsShooting() = true;
     }
 
     //===========================================Finish===========================================
     private void Finishing(ICastEnergyBall user)
     {
-        if (!user.GetIsFinishing()) return;
-        user.GetEndCD().CoolingDown();
+        if (!user.GetIsShooting()) return;
+        user.GetShootCD().CoolingDown();
 
-        if (!user.GetEndCD().IsReady) return;
+        if (!user.GetShootCD().IsReady) return;
         user.GetIsCasting() = false;
-        user.GetIsFinishing() = false;
-        user.GetEndCD().ResetStatus();
+        user.GetIsShooting() = false;
+        user.GetShootCD().ResetStatus();
         user.GetRb().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
         user.GetRb().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
         user.GetRb().WakeUp();

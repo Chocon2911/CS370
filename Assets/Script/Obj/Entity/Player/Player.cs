@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, ControllableByDoor, DoorUser
+public class Player : Entity, IDash, IAirJump, ICastEnergyBall, ISlash, Damagable, ControllableByDoor, DoorUser
 {
     //==========================================Variable==========================================
     [Space(50)]
@@ -11,6 +11,7 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     [Header("Component")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected CapsuleCollider2D bodyCol;
+    [SerializeField] protected Animator animator;
     [SerializeField] protected PlayerAnimator playerAnimator;
     [SerializeField] protected PlayerSO so;
     [SerializeField] protected Transform shootPoint;
@@ -59,6 +60,7 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     [SerializeField] protected DashData dash;
     // Support
     [SerializeField] protected TrailRenderer dashTrail;
+    [SerializeField] protected float dashTrailDistance;
 
     [Space(25)]
 
@@ -70,16 +72,21 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     [Header("Cast Energy Ball")]
     [SerializeField] protected CastEnergyBallData castEnergyBall;
 
+    [Header("Slash")]
+    [SerializeField] protected SlashData slash;
+
     //==========================================Get Set===========================================
     // ===Component===
     public Rigidbody2D Rb => this.rb;
     public CapsuleCollider2D BodyCol => this.bodyCol;
+    public Animator Animator => animator;
 
     // ===Ground Check===
     public bool PrevIsGround => this.prevIsGround;
     public bool IsGround => this.isGround;
 
     // ===Move===
+    public float MoveSpeed => this.moveSpeed;
     public bool IsMoving => this.isMoving;
 
     // ===Jump===
@@ -94,19 +101,32 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
 
     // ===Cast Energy Ball===
     public bool IsCastingEnergyBall => this.castEnergyBall.isCasting;
+    public bool IsChargingEnergyBall => this.castEnergyBall.isCharging;
+    public bool IsShootingEnergyBall => this.castEnergyBall.isShooting;
+
+    // ===Slash===
+    public bool isSlashing => this.slash.isAttacking;
     
     // ===Db===
     public PlayerDbData PlayerDbData
     {
-        get => new PlayerDbData(transform.position, transform.rotation, this.id, this.health, this.dash.dashCD.Timer, this.castEnergyBall.restoreCD.Timer);
+        get
+        {
+            return new PlayerDbData(transform.position, transform.rotation, this.id, this.health, 
+                this.dash.dashCD.Timer, this.castEnergyBall.restoreCD.Timer, this.hasDash, this.hasAirJump, 
+                this.hasCastEnergyBall);
+        }
         set
         {
-            this.transform.position = new Vector3(value.xPos, value.yPos, value.zPos);
-            this.transform.rotation = Quaternion.Euler(value.xRot, value.yRot, value.zRot);
+            this.transform.position = new Vector3(value.XPos, value.YPos, value.ZPos);
+            this.transform.rotation = Quaternion.Euler(value.XRot, value.YRot, value.ZRot);
             this.id = value.id;
-            this.health = value.health;
-            this.dash.dashCD.Timer = value.dashRestoreTimer;
-            this.castEnergyBall.restoreCD.Timer = value.cebRestoreTimer;
+            this.health = value.Health;
+            this.dash.dashCD.Timer = value.DashRestoreTimer;
+            this.castEnergyBall.restoreCD.Timer = value.CebRestoreTimer;
+            this.hasDash = value.HasDash;
+            this.hasAirJump = value.HasAirJump;
+            this.hasCastEnergyBall = value.HasCastEnergyBall;
         }
     }
 
@@ -117,6 +137,7 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         this.LoadChildComponent(ref this.groundCol, transform.Find("Ground"), "LoadGroundCol()");
         this.LoadComponent(ref this.rb, transform, "LoadRb()");
         this.LoadComponent(ref this.bodyCol, transform, "LoadBodyCol()");
+        this.LoadComponent(ref this.animator, transform.Find("Model"), "LoadAnimator()");
         this.LoadComponent(ref this.playerAnimator, transform.Find("Model"), "LoadAnimator()");
         this.LoadComponent(ref this.shootPoint, transform.Find("ShootPoint"), "LoadShootPoint()");
         this.LoadComponent(ref this.dashTrail, transform.Find("DashEffect"), "LoadDashTrail()");
@@ -130,6 +151,7 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         this.Moving();
         this.Jumping();
         this.Facing();
+        this.Slashing();
         if (this.hasDash) this.Dashing();
         if (this.hasAirJump) this.AirJumping();
         if (this.hasCastEnergyBall) this.CastingEnergyBall();
@@ -187,7 +209,7 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
     }
 
     //============================================Move============================================
-    protected virtual void Moving()
+    public virtual void Moving()
     {
         if (!this.dash.isDashing && !this.castEnergyBall.isCasting)
         {
@@ -224,11 +246,8 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
             else if (this.isJumping)
             {
                 if (!this.jumpStartCD.IsReady) this.jumpStartCD.CoolingDown();
-                else
-                {
-                    if (!isSpacePressed) movment.StopJump(this.rb);
-                    if (this.rb.velocity.y <= Mathf.Pow(0.1f, 3)) this.isJumping = false;
-                }
+                else if (this.rb.velocity.y <= Mathf.Pow(0.1f, 3) 
+                    || !isSpacePressed) this.FinishJump();
             }
         }
     }
@@ -280,6 +299,22 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         SkillManager.Instance.CastEBall.Finish(this);
     }
 
+    //===========================================Slash============================================
+    protected virtual void Slashing()
+    {
+        SkillManager.Instance.Slash.Restoring(this);
+        SkillManager.Instance.Slash.Attacking(this);
+        if (Input.GetKey(KeyCode.J))
+        {
+            SkillManager.Instance.Slash.TriggerAttack(this);
+        }
+
+        if (this.slash.isAttacking)
+        {
+
+        }
+    }
+
     //===========================================Other============================================
     public virtual void DefaultStat()
     {
@@ -317,8 +352,17 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         this.castEnergyBall = new CastEnergyBallData();
         this.castEnergyBall.restoreCD = new Cooldown(this.so.cebRestoreDuration, 0);
         this.castEnergyBall.chargeCD = new Cooldown(this.so.cebChargeDuration, 0);
-        this.castEnergyBall.endCD = new Cooldown(this.so.cebEndDuration, 0);
+        this.castEnergyBall.shootCD = new Cooldown(this.so.cebEndDuration, 0);
+
+        // Slash
+        this.slash = new SlashData();
+        this.slash.damage = this.so.slashDamage;
+        this.slash.restoreCD = new Cooldown(this.so.slashRestoreDuration, 0);
+        this.slash.attackCD = new Cooldown(this.so.slashDuration, 0);
+        this.slash.isAttacking = false;
+        this.LoadComponent(ref this.slash.slashCol, transform.Find("SlashCol"), "LoadSlashCol()");
     }
+
 
 
     //============================================================================================
@@ -444,7 +488,7 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         return this.rb;
     }
 
-    Cooldown ICastEnergyBall.GetSkillCD()
+    Cooldown ICastEnergyBall.GetRestoreCD()
     {
         return this.castEnergyBall.restoreCD;
     }
@@ -454,9 +498,9 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         return this.castEnergyBall.chargeCD;
     }
 
-    Cooldown ICastEnergyBall.GetEndCD()
+    Cooldown ICastEnergyBall.GetShootCD()
     {
-        return this.castEnergyBall.endCD;
+        return this.castEnergyBall.shootCD;
     }
 
     int ICastEnergyBall.GetDir()
@@ -475,9 +519,9 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         return ref this.castEnergyBall.isCharging;
     }
 
-    ref bool ICastEnergyBall.GetIsFinishing()
+    ref bool ICastEnergyBall.GetIsShooting()
     {
-        return ref this.castEnergyBall.isFinishing;
+        return ref this.castEnergyBall.isShooting;
     }
 
     ref bool ICastEnergyBall.GetIsCasting()
@@ -498,6 +542,22 @@ public class Player : Entity, IDash, IAirJump, ICastEnergyBall, Damagable, Contr
         if (this.dash.isDashing) this.FinishDash();
         if (this.isJumping) this.FinishJump();
         if (this.airJump.isJumping) this.FinishAirJump();
+    }
+
+    //===========================================Slash============================================
+    Cooldown ISlash.GetRestoreCD()
+    {
+        return this.slash.restoreCD;
+    }
+
+    Cooldown ISlash.GetAttackCD()
+    {
+        return this.slash.attackCD;
+    }
+
+    ref bool ISlash.GetIsAttacking()
+    {
+        return ref this.slash.isAttacking;
     }
 
     //=========================================Damagable==========================================

@@ -69,8 +69,8 @@ public class GameManager : HuyMonoBehaviour
     protected void GoThroughDoorSceneLoaded(int nextDoor)
     {
         PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
-        Vector2 spawnPos = new Vector2(data.xPos, data.yPos);
-        Quaternion spawnRot = Quaternion.Euler(data.xRot, data.yRot, data.zRot);
+        Vector2 spawnPos = new Vector2(data.XPos, data.YPos);
+        Quaternion spawnRot = Quaternion.Euler(data.XRot, data.YRot, data.ZRot);
         this.player = PlayerSpawner.Instance.SpawnPlayer(data, spawnPos, spawnRot);
         DoorManager.Instance.Doors[nextDoor].Exit(this.player);
     }
@@ -91,8 +91,8 @@ public class GameManager : HuyMonoBehaviour
     private void ContinueGameSceneLoaded()
     {
         PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
-        Vector2 spawnPos = new Vector2(data.xPos, data.yPos);
-        Quaternion spawnRot = Quaternion.Euler(data.xRot, data.yRot, data.zRot);
+        Vector2 spawnPos = new Vector2(data.XPos, data.YPos);
+        Quaternion spawnRot = Quaternion.Euler(data.XRot, data.YRot, data.ZRot);
         this.player = PlayerSpawner.Instance.SpawnPlayer(data, spawnPos, spawnRot);
         this.player.gameObject.SetActive(true);
     }

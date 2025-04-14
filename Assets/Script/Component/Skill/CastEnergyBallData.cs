@@ -8,8 +8,8 @@ public class CastEnergyBallData
 {
     [SerializeField] public Cooldown restoreCD;
     [SerializeField] public Cooldown chargeCD;
-    [SerializeField] public Cooldown endCD;
+    [SerializeField] public Cooldown shootCD;
     [SerializeField] public bool isCharging;
-    [SerializeField] public bool isFinishing;
+    [SerializeField] public bool isShooting;
     [SerializeField] public bool isCasting;
 }
