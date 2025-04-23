@@ -6,15 +6,11 @@ public class SkillManager : HuyMonoBehaviour
 {
     //==========================================Variable==========================================
     private static SkillManager instance;
-    private Dash dash;
-    private AirJump airJump;
-    private CastEnergyBall castEBall;
+    private Slash slash;
 
     //==========================================Get Set===========================================
     public static SkillManager Instance => instance;
-    public Dash Dash => dash;
-    public AirJump AirJump => airJump;
-    public CastEnergyBall CastEBall => castEBall;
+    public Slash Slash => slash;
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -28,8 +24,6 @@ public class SkillManager : HuyMonoBehaviour
 
         instance = this;
         base.Awake();
-        this.dash = new Dash();
-        this.airJump = new AirJump();
-        this.castEBall = new CastEnergyBall();
+        this.slash = new Slash();
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : HuyMonoBehaviour
@@ -11,10 +12,12 @@ public class GameManager : HuyMonoBehaviour
 
     [SerializeField] private string playerId;
     [SerializeField] private Player player;
+    [SerializeField] private int currSceneIndex;
     [SerializeField] private bool isPause;
 
     //==========================================Get Set===========================================
     public Player Player => this.player;
+    public int CurrSceneIndex => this.currSceneIndex;
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -23,7 +26,6 @@ public class GameManager : HuyMonoBehaviour
         {
             Debug.LogError("instance not null (transform)", transform.gameObject);
             Debug.LogError("Instance not null (instance)", instance.gameObject);
-            Destroy(gameObject);
             return;
         }
 
@@ -57,22 +59,49 @@ public class GameManager : HuyMonoBehaviour
         }
     }
 
+    private void LoadSceneWithEvent(int nextScene, UnityAction onSceneLoaded)
+    {
+        UnityAction<Scene, LoadSceneMode> callback = null;
+
+        callback = (scene, mode) =>
+        {
+            if (scene.buildIndex == nextScene)
+            {
+                onSceneLoaded?.Invoke();
+                SceneManager.sceneLoaded -= callback;
+            }
+        };
+
+        SceneManager.sceneLoaded += callback;
+        SceneManager.LoadScene(nextScene);
+    }
+
     //======================================Go Through Door=======================================
     public void GoThroughDoor(int nextScene, int nextDoor)
     {
+        // Update player data in database with current player in scene
+        // Then load next scene and call method after scene loaded
+
+        this.currSceneIndex = nextScene;
         DataBaseManager.Instance.Player.Update(this.player.PlayerDbData);
         this.player = null;
-        MySceneManager.Instance.ChangeScene(nextScene);
-        SceneManager.sceneLoaded += (scene, mode) => GoThroughDoorSceneLoaded(nextDoor);
+        EventManager.Instance.OnGoThroughDoor?.Invoke();
+        LoadSceneWithEvent(nextScene, () => GoThroughDoorAfterSceneLoaded(nextDoor, nextScene));
     }
 
-    protected void GoThroughDoorSceneLoaded(int nextDoor)
+    protected void GoThroughDoorAfterSceneLoaded(int nextDoor, int nextScene)
     {
+        // Find player in database with stored id
+        // Then spawn player and call Exit() of door function
+
         PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
-        Vector2 spawnPos = new Vector2(data.xPos, data.yPos);
-        Quaternion spawnRot = Quaternion.Euler(data.xRot, data.yRot, data.zRot);
-        this.player = PlayerSpawner.Instance.SpawnPlayer(data, spawnPos, spawnRot);
+        Door door = DoorManager.Instance.Doors[nextDoor];
+        this.player = PlayerSpawner.Instance.SpawnPlayer(data);
+        this.player.gameObject.SetActive(true);
         DoorManager.Instance.Doors[nextDoor].Exit(this.player);
+        DataBaseManager.Instance.Player.Update(this.player.PlayerDbData);
+        Debug.Log(this.player.transform.position, transform.gameObject);
+        Debug.Log("Finish going through door", transform.gameObject);
     }
 
     //=========================================Start Game=========================================
@@ -84,33 +113,39 @@ public class GameManager : HuyMonoBehaviour
 
     private void ContinueGame()
     {
-        SceneManager.sceneLoaded += (scene, mode) => ContinueGameSceneLoaded();
-        SceneManager.LoadScene(1);
+        List<PlayerDbData> players = DataBaseManager.Instance.Player.QueryAll();
+        PlayerDbData data = players[0];
+        this.currSceneIndex = data.CurrSceneIndex;
+        this.playerId = data.Id;
+        this.LoadSceneWithEvent(this.currSceneIndex, () => this.ContinueGameAfterSceneLoaded(data));
     }
 
-    private void ContinueGameSceneLoaded()
+    private void ContinueGameAfterSceneLoaded(PlayerDbData data)
     {
-        PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
-        Vector2 spawnPos = new Vector2(data.xPos, data.yPos);
-        Quaternion spawnRot = Quaternion.Euler(data.xRot, data.yRot, data.zRot);
-        this.player = PlayerSpawner.Instance.SpawnPlayer(data, spawnPos, spawnRot);
+        // Spawn Player
+
+        Vector2 spawnPos = new Vector2(data.XPos, data.YPos);
+        Quaternion spawnRot = Quaternion.Euler(data.XRot, data.YRot, data.ZRot);
+        this.player = PlayerSpawner.Instance.SpawnPlayer(data);
         this.player.gameObject.SetActive(true);
     }
     
     private void NewGame()
     {
-        SceneManager.sceneLoaded += (scene, mode) => NewGameSceneLoaded();
-        SceneManager.LoadScene(1);
+        this.currSceneIndex = 1;
+        LoadSceneWithEvent(1, () => NewGameSceneLoaded());
     }
 
     private void NewGameSceneLoaded()
     {
+        // Create a new player in database
+        // Then spawn the player
+
         Vector2 spawnPos = new Vector2(0, 0);
         Quaternion spawnRot = Quaternion.Euler(0, 0, 0);
         this.player = PlayerSpawner.Instance.SpawnPlayer(spawnPos, spawnRot);
+        this.playerId = this.player.PlayerDbData.Id;
         this.player.gameObject.SetActive(true);
-        this.playerId = "01";
-        this.player.FirstBorn(this.playerId);
         DataBaseManager.Instance.Player.Insert(this.player.PlayerDbData);
     }
 }

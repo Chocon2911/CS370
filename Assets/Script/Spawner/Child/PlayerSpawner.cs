@@ -22,9 +22,9 @@ public class PlayerSpawner : Spawner
     }
 
     //===========================================Method===========================================
-    public Player SpawnPlayer(PlayerDbData data, Vector2 spawnPos, Quaternion spawnRot)
+    public Player SpawnPlayer(PlayerDbData data)
     {
-        Transform newPlayerObj = this.Spawn(this.prefabs[0], spawnPos, spawnRot);
+        Transform newPlayerObj = this.Spawn(this.prefabs[0], Vector3.zero, Quaternion.identity);
         Player player = newPlayerObj.GetComponent<Player>();
         player.DefaultStat();
         player.PlayerDbData = data;
@@ -35,6 +35,7 @@ public class PlayerSpawner : Spawner
     {
         Transform newPlayerObj = this.SpawnByObj(this.prefabs[0], spawnPos, spawnRot);
         Player player = newPlayerObj.GetComponentInChildren<Player>();
+        player.RandomId();
         player.DefaultStat();
         return newPlayerObj.GetComponentInChildren<Player>();
     }

@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
+public class Player : Entity, ICastEnergyBall, ISlash, Damagable, ControllableByDoor, DoorUser
 {
     //==========================================Variable==========================================
     [Space(50)]
@@ -23,7 +22,6 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     [SerializeField] protected bool hasDash;
     [SerializeField] protected bool hasAirJump;
     [SerializeField] protected bool hasCastEnergyBall;
-    [SerializeField] protected bool isRest;
 
     [Space(25)]
 
@@ -48,11 +46,6 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     [SerializeField] protected float moveSlowDownTime;
     [SerializeField] protected int moveDir;
     [SerializeField] protected bool isMoving;
-
-    [Space(25)]
-
-    [Header("Face")]
-    [SerializeField] protected int faceDir;
 
     [Space(25)]
 
@@ -90,9 +83,6 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     public CapsuleCollider2D BodyCol => this.bodyCol;
     public Animator Animator => animator;
 
-    // ===Stat===
-    public bool IsRest => this.isRest;
-
     // ===Ground Check===
     public bool PrevIsGround => this.prevIsGround;
     public bool IsGround => this.isGround;
@@ -124,17 +114,15 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     {
         get
         {
-            return new PlayerDbData(GameManager.Instance.CurrSceneIndex, transform.position, transform.rotation, 
-                this.id, this.health, this.dash.dashCD.Timer, this.castEnergyBall.restoreCD.Timer, this.hasDash, 
-                this.hasAirJump, this.hasCastEnergyBall);
+            return new PlayerDbData(transform.position, transform.rotation, this.id, this.health, 
+                this.dash.dashCD.Timer, this.castEnergyBall.restoreCD.Timer, this.hasDash, this.hasAirJump, 
+                this.hasCastEnergyBall);
         }
         set
         {
-            Debug.Log(value.XPos + ", " + value.YPos + ", " + value.ZPos, gameObject);
-            transform.position = new Vector3(value.XPos, value.YPos, value.ZPos);
-            Debug.Log(transform.position, gameObject);
-            transform.rotation = Quaternion.Euler(value.XRot, value.YRot, value.ZRot);
-            this.id = value.Id;
+            this.transform.position = new Vector3(value.XPos, value.YPos, value.ZPos);
+            this.transform.rotation = Quaternion.Euler(value.XRot, value.YRot, value.ZRot);
+            this.id = value.id;
             this.health = value.Health;
             this.dash.dashCD.Timer = value.DashRestoreTimer;
             this.castEnergyBall.restoreCD.Timer = value.CebRestoreTimer;
@@ -155,25 +143,21 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         this.LoadComponent(ref this.playerAnimator, transform.Find("Model"), "LoadAnimator()");
         this.LoadComponent(ref this.shootPoint, transform.Find("ShootPoint"), "LoadShootPoint()");
         this.LoadComponent(ref this.dashTrail, transform.Find("DashEffect"), "LoadDashTrail()");
-        this.LoadComponent(ref this.slash.slashCol, transform.Find("SlashCol"), "LoadSlashCol()");
         this.DefaultStat();
     }
 
     protected virtual void Update()
     {
-        if (!this.isRest)
-        {
-            this.GroundChecking();
-            this.InteractChecking();
-            this.Moving();
-            this.Jumping();
-            this.Facing();
-            this.Slashing();
-            if (this.hasDash) this.Dashing();
-            if (this.hasAirJump) this.AirJumping();
-            if (this.hasCastEnergyBall) this.CastingEnergyBall();
-            //this.playerAnimator.HandlingAnimator(this);
-        }
+        this.GroundChecking();
+        this.InteractChecking();
+        this.Moving();
+        this.Jumping();
+        this.Facing();
+        this.Slashing();
+        if (this.hasDash) this.Dashing();
+        if (this.hasAirJump) this.AirJumping();
+        if (this.hasCastEnergyBall) this.CastingEnergyBall();
+        this.playerAnimator.HandlingAnimator(this);
     }
 
     protected override void OnEnable()
@@ -183,7 +167,6 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     }
 
 
-
     //============================================================================================
     //===========================================Method===========================================
     //============================================================================================
@@ -191,7 +174,7 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     //========================================Ground Check========================================
     protected virtual void GroundChecking()
     {
-        Util.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, ref this.isGround);
+        UtilManager.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, ref this.isGround);
     }
 
     //=======================================Interact Check=======================================
@@ -227,21 +210,13 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         Debug.DrawRay(start, dir * this.interactDetectLength, Color.red);
     }
 
-    //========================================Dash Effect=========================================
-    protected virtual void HandlingDashEffect()
-    {
-        float yPos = this.dashTrail.transform.localPosition.y;
-        float zPos = this.dashTrail.transform.localPosition.z;
-        this.dashTrail.transform.localPosition = new Vector3(this.dashTrailDistance, yPos, zPos);
-    }
-
     //============================================Move============================================
     public virtual void Moving()
     {
         if (!this.dash.isDashing && !this.castEnergyBall.isCasting)
         {
             this.moveDir = (int)InputManager.Instance.MoveDir.x;
-            Util.Instance.MoveWithAcceleration(this.rb, this.moveDir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
+            MovementManager.Instance.MoveWithAcceleration(this.rb, this.moveDir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
         }
 
         if (this.rb.velocity.x >= Mathf.Pow(1, 1) || this.rb.velocity.x <= -Mathf.Pow(1, 1)) this.isMoving = true;
@@ -250,7 +225,7 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
 
     protected virtual void FinishMove()
     {
-        Util.Instance.StopMove(this.rb);
+        MovementManager.Instance.StopMove(this.rb);
         this.isMoving = false;
     }
 
@@ -262,7 +237,7 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         if (!this.dash.isDashing)
         {
             bool isSpacePressed = InputManager.Instance.SpaceState != 0;
-            Util movment = Util.Instance;
+            MovementManager movment = MovementManager.Instance;
 
             if (this.isGround && isSpacePressed && !this.isJumping)
             {
@@ -287,7 +262,7 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
 
     protected virtual void FinishJump()
     {
-        Util.Instance.StopJump(this.rb);
+        MovementManager.Instance.StopJump(this.rb);
         this.isJumping = false;
     }
 
@@ -296,18 +271,13 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     {
         if (this.dash.isDashing) return;
         if (this.moveDir == 0) return;
-        Util.Instance.RotateFaceDir(this.moveDir, this.transform);
-
-        if (this.moveDir >= 1) this.faceDir = 1;
-        else if (this.moveDir <= -1) this.faceDir = -1;
+        UtilManager.Instance.RotateFaceDir(this.moveDir, this.transform);
     }
 
     //============================================Dash============================================
     protected virtual void Dashing()
     {
-        if (!this.hasDash || this.castEnergyBall.isCasting) return;
-
-        else if (!this.dash.isDashing && !this.dash.restoreCD.IsReady && (this.dash.restoreCD.Timer > 0 || this.isGround))
+        if (!this.dash.isDashing && !this.dash.restoreCD.IsReady)
         {
             this.RechargeDash();
         }
@@ -334,8 +304,9 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         if (this.airJump.isJumping) this.FinishAirJump();
         if (this.isMoving) this.FinishMove();
 
-        if (this.moveDir != 0) this.dash.dir = this.moveDir;
-        else this.dash.dir = this.faceDir;
+        if (this.moveDir == 0) this.dash.dir = (int)Mathf.Cos(transform.eulerAngles.y * Mathf.Deg2Rad);
+        else this.dash.dir = this.moveDir;
+        this.dash.dir = this.moveDir;
         this.dash.isDashing = true;
         this.dash.restoreCD.ResetStatus();
         this.dashTrail.emitting = true;
@@ -358,15 +329,13 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         this.dash.isDashing = false;
         this.dash.dashCD.ResetStatus();
         this.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-        Util.Instance.StopMove(this.rb);
+        MovementManager.Instance.StopMove(this.rb);
     }
 
     //==========================================Air Jump==========================================
     protected virtual void AirJumping()
     {
-        if (!this.hasAirJump && this.castEnergyBall.isCasting) return;
-
-        else if (this.isGround && !this.airJump.isJumping && this.airJump.isJump)
+        if (this.isGround && !this.airJump.isJumping && this.airJump.isJump)
         {
             this.RestoreAirJump();
         }
@@ -386,7 +355,7 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     protected virtual void StartAirJump()
     {
         if (this.dash.isDashing) this.FinishDash();
-        Util.Instance.Jump(this.rb, this.airJump.jumpSpeed);
+        MovementManager.Instance.Jump(this.rb, this.airJump.jumpSpeed);
         this.airJump.isJumping = true;
         this.airJump.isJump = true;
     }
@@ -404,106 +373,27 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     //======================================Cast Energy Ball======================================
     protected virtual void CastingEnergyBall()
     {
-        if (!this.hasCastEnergyBall) return;
-        else if (!this.castEnergyBall.isCasting && !this.castEnergyBall.restoreCD.IsReady)
-        {
-            this.RechargeCastEnergyBall();
-        }
-
-        else if (Input.GetKeyDown(KeyCode.J) && this.castEnergyBall.restoreCD.IsReady)
-        {
-            this.ActivateCastEnergyBall();
-        }
-
-        else if (this.castEnergyBall.isCasting)
-        {
-            this.CastEnergyBall();
-        }
+        SkillManager.Instance.CastEBall.Update(this);
     }
 
     protected virtual void RechargeCastEnergyBall()
     {
-        this.castEnergyBall.restoreCD.CoolingDown();
+
     }
 
     protected virtual void ActivateCastEnergyBall()
     {
-        if (this.dash.isDashing) this.FinishDash();
-        if (this.isJumping) this.FinishJump();
-        if (this.airJump.isJumping) this.FinishAirJump();
 
-        this.castEnergyBall.isCasting = true;
-        this.castEnergyBall.isCharging = true;
-        this.rb.velocity = Vector2.zero;
-        this.rb.constraints |= RigidbodyConstraints2D.FreezePositionY;
-        this.rb.constraints |= RigidbodyConstraints2D.FreezePositionX;
-        this.rb.WakeUp();
     }
 
     protected virtual void CastEnergyBall()
     {
-        if (this.castEnergyBall.isCharging)
-        {
-            this.ChargeEnergyBall();    
-        }
 
-        else if (this.castEnergyBall.isShooting)
-        {
-            this.AfterShootEnergyBall();
-        }
-    }
-
-    protected virtual void ChargeEnergyBall()
-    {
-        this.castEnergyBall.chargeCD.CoolingDown();
-
-        if (!this.castEnergyBall.chargeCD.IsReady) return;
-        this.castEnergyBall.chargeCD.ResetStatus();
-        this.castEnergyBall.isCharging = false;
-        this.castEnergyBall.isShooting = true;
-        this.ShootEnergyBall();
-    }
-
-    protected virtual void ShootEnergyBall()
-    {
-        float angle = 0;
-
-        if (this.faceDir == -1) angle = 180;
-        Vector2 spawnPos = this.shootPoint.position;
-        Quaternion spawnRot = Quaternion.Euler(0, 0, angle);
-
-        Transform newEBall = BulletSpawner.Instance.Spawn(BulletType.ENERGY_BALL, spawnPos, spawnRot);
-        newEBall.gameObject.SetActive(true);
-    }
-
-    protected virtual void AfterShootEnergyBall()
-    {
-        this.castEnergyBall.shootCD.CoolingDown();
-
-        if (!this.castEnergyBall.shootCD.IsReady) return;
-        this.FinishCastEnergyBall();
     }
 
     protected virtual void FinishCastEnergyBall()
     {
-        this.castEnergyBall.isCasting = false;
-        this.castEnergyBall.isShooting = false;
-        this.castEnergyBall.shootCD.ResetStatus();
-        this.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-        this.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
-        this.rb.WakeUp();
-    }
-
-    protected virtual void FinishImediatelyCastEnergyBall()
-    {
-        this.castEnergyBall.isCasting = false;
-        this.castEnergyBall.isCharging = false;
-        this.castEnergyBall.isShooting = false;
-        this.castEnergyBall.shootCD.ResetStatus();
-        this.castEnergyBall.chargeCD.ResetStatus();
-        if (this.rb.constraints == RigidbodyConstraints2D.FreezePositionY) this.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-        if (this.rb.constraints == RigidbodyConstraints2D.FreezePositionX) this.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
-        this.rb.WakeUp();
+        SkillManager.Instance.CastEBall.Finish(this);
     }
 
     //===========================================Slash============================================
@@ -538,16 +428,6 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         }
     }
 
-    protected virtual void RechargeSlash()
-    {
-        this.slash.restoreCD.CoolingDown();
-    }
-
-    protected virtual void Slash()
-    {
-
-    }
-
     //===========================================Other============================================
     public virtual void DefaultStat()
     {
@@ -560,9 +440,6 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         // Entity.Stat
         this.maxHealth = this.so.maxHealth;
         this.health = this.maxHealth;
-
-        // Interact Check
-        this.interactDetectLength = this.so.interactDetectLength;
 
         // Move
         this.moveSpeed = this.so.moveSpeed;
@@ -596,18 +473,77 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         this.slash.restoreCD = new Cooldown(this.so.slashRestoreDuration, 0);
         this.slash.attackCD = new Cooldown(this.so.slashDuration, 0);
         this.slash.isAttacking = false;
+        this.LoadComponent(ref this.slash.slashCol, transform.Find("SlashCol"), "LoadSlashCol()");
     }
 
-    protected virtual void Rest()
-    {
-        this.health = this.maxHealth;
-    }
 
-    
 
     //============================================================================================
     //=========================================Interface==========================================
     //============================================================================================
+
+    //======================================Cast Energy Ball======================================
+    // ===Property===
+    Rigidbody2D ICastEnergyBall.GetRb()
+    {
+        return this.rb;
+    }
+
+    Cooldown ICastEnergyBall.GetRestoreCD()
+    {
+        return this.castEnergyBall.restoreCD;
+    }
+
+    Cooldown ICastEnergyBall.GetChargeCD()
+    {
+        return this.castEnergyBall.chargeCD;
+    }
+
+    Cooldown ICastEnergyBall.GetShootCD()
+    {
+        return this.castEnergyBall.shootCD;
+    }
+
+    int ICastEnergyBall.GetDir()
+    {
+        if (transform.eulerAngles.y == 180f) return -1;
+        else return 1;
+    }
+
+    Vector2 ICastEnergyBall.GetBallSpawnPos()
+    {
+        return this.shootPoint.position;
+    }
+
+    ref bool ICastEnergyBall.GetIsCharging()
+    {
+        return ref this.castEnergyBall.isCharging;
+    }
+
+    ref bool ICastEnergyBall.GetIsShooting()
+    {
+        return ref this.castEnergyBall.isShooting;
+    }
+
+    ref bool ICastEnergyBall.GetIsCasting()
+    {
+        return ref this.castEnergyBall.isCasting;
+    }
+
+    // ===Condition===
+    bool ICastEnergyBall.CanCastEnergyBall()
+    {
+        if (!Input.GetKeyDown(KeyCode.J)) return false;
+        return true;
+    }
+
+    // ===Addition===
+    void ICastEnergyBall.Enter()
+    {
+        if (this.dash.isDashing) this.FinishDash();
+        if (this.isJumping) this.FinishJump();
+        if (this.airJump.isJumping) this.FinishAirJump();
+    }
 
     //===========================================Slash============================================
     Cooldown ISlash.GetRestoreCD()
@@ -646,7 +582,7 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     //====================================Controllable By Door====================================
     void ControllableByDoor.Move(int dir)
     {
-        Util.Instance.MoveWithAcceleration(this.rb, dir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
+        MovementManager.Instance.MoveWithAcceleration(this.rb, dir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
     }
 
     float ControllableByDoor.GetXPos()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerDb : DataBase
@@ -27,7 +28,6 @@ public class PlayerDb : DataBase
     {
         using (var connection = GetConnection())
         {
-            connection.CreateTable<PlayerDbData>();
             return connection.Insert(data) > 0;
         }
     }
@@ -45,6 +45,14 @@ public class PlayerDb : DataBase
         using (var connection = GetConnection())
         {
             return connection.Find<PlayerDbData>(id);
+        }
+    }
+
+    public List<PlayerDbData> QueryAll()
+    {
+        using (var connection = GetConnection())
+        {
+            return connection.Table<PlayerDbData>().ToList();
         }
     }
 

@@ -9,13 +9,14 @@ public class EventManager : HuyMonoBehaviour
     private static EventManager instance;
     public static EventManager Instance => instance;
 
-    public Action OnPlayerDead;
-    public Action OnPlayerAppear;
-    public Action OnPlayerGetNewSkill;
-    public Action OnPlayerHit;
-    public Action OnMenuAppear;
-    public Action OnMenuDisappear;
-    public Action OnGoThroughDoor;
+    public Action OnPlayerDead { get; set; }
+    public Action OnPlayerAppear { get; set; }
+    public Action OnPlayerGetNewSkill { get; set; }
+    public Action OnPlayerHit { get; set; }
+    public Action OnMenuAppear { get; set; }
+    public Action OnMenuDisappear { get; set; }
+    public Action OnGoThroughDoor { get; set; }
+    public Action OnBonfireResting { get; set; }
 
     //===========================================Unity============================================
     protected override void Awake()

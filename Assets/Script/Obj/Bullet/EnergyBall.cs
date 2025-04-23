@@ -58,12 +58,12 @@ public class EnergyBall : HuyMonoBehaviour
     //============================================Move============================================
     protected virtual void Moving()
     {
-        MovementManager.Instance.MoveForward(this.rb, this.flySpeed);
+        Util.Instance.MoveForward(this.rb, this.flySpeed);
     }
 
     //======================================Despawn By Time=======================================
     protected virtual void Despawning()
     {
-        DespawnManager.Instance.DespawnByTime(this.despawnCD ,transform, BulletSpawner.Instance);
+        Util.Instance.DespawnByTime(this.despawnCD ,transform, BulletSpawner.Instance);
     }
 }

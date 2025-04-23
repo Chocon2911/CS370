@@ -7,13 +7,12 @@ using UnityEngine;
 public abstract class DbData
 {
     //==========================================Variable==========================================
-    [PrimaryKey] 
-    public string id { get; set; }
+    [PrimaryKey] public string Id { get; set; }
 
     //========================================Constructor=========================================
     public DbData(string id)
     {
-        this.id = id;
+        this.Id = id;
     }
 
     public DbData() { }
