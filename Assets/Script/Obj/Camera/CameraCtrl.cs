@@ -35,7 +35,7 @@ public class CameraCtrl : HuyMonoBehaviour
     protected virtual void Moving()
     {
         this.rb.velocity = Vector2.zero;
-        MovementManager.Instance.ChaseTarget(transform, this.target, this.moveSpeed);
+        Util.Instance.ChaseTarget(transform, this.target, this.moveSpeed);
     }
 
     protected virtual void OnPlayerAppear() 

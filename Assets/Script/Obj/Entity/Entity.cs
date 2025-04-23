@@ -17,9 +17,8 @@ public class Entity : HuyMonoBehaviour
     public int MaxHealth => maxHealth;
     public int Health => health;
 
-    //===========================================Method===========================================
-    public void FirstBorn(string id)
+    public void RandomId()
     {
-        this.id = id;
+        this.id = System.Guid.NewGuid().ToString();
     }
 }

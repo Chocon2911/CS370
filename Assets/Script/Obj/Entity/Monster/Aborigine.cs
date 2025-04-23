@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,6 +53,8 @@ public class Aborigine : Entity
     [SerializeField] protected float jumpSpeed;
     [SerializeField] protected bool isJumping;
 
+    
+
     //===========================================Unity============================================
     public override void LoadComponents()
     {
@@ -81,7 +82,7 @@ public class Aborigine : Entity
     //======================================Ground Checking=======================================
     protected virtual void CheckingIsGround()
     {
-        UtilManager.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, ref this.isGround);
+        Util.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, ref this.isGround);
     }
 
     //=======================================Wall Detection=======================================
@@ -89,12 +90,12 @@ public class Aborigine : Entity
     {
         float xDir = Mathf.Cos(transform.eulerAngles.y * Mathf.Deg2Rad);
         float yDir = 0;
-        Vector2 rayStart = transform.position;
+        Vector2 rayStart = transform.position + new Vector3(0, -0.5f, 0);
         Vector2 rayDir = new Vector2(xDir, yDir);
 
-        Transform target = UtilManager.Instance.ShootRaycast(this.wallDetectDistance, this.wallLayer, this.wallTag, rayStart, rayDir);
+        Transform target = Util.Instance.ShootRaycast(this.wallDetectDistance, this.wallLayer, this.wallTag, rayStart, rayDir);
         this.isWallDetected = (target != null);
-        Debug.DrawRay(rayStart, rayDir * wallDetectDistance, this.isWallDetected ? Color.red : Color.green);
+        Debug.DrawRay(rayStart, rayDir * wallDetectDistance, this.isWallDetected ? Color.green : Color.red);
     }
 
     //======================================Target Detection======================================
@@ -106,7 +107,7 @@ public class Aborigine : Entity
         Vector2 rayStart = transform.position;
         Vector2 rayDir = new Vector2(xDir, yDir);
 
-        this.target = UtilManager.Instance.ShootRaycast(this.targetDetectDistance, this.targetLayer, this.targetTag, rayStart, rayDir);
+        this.target = Util.Instance.ShootRaycast(this.targetDetectDistance, this.targetLayer, this.targetTag, rayStart, rayDir);
         Debug.DrawRay(rayStart, rayDir * this.targetDetectDistance, this.target != null ? Color.green : Color.red);
     }
 
@@ -146,7 +147,7 @@ public class Aborigine : Entity
     protected virtual void Facing()
     {
         if (this.moveDir == 0) return;
-        UtilManager.Instance.RotateFaceDir(this.moveDir, this.transform);
+        Util.Instance.RotateFaceDir(this.moveDir, this.transform);
     }
 
     //========================================Chase Target========================================
@@ -164,14 +165,14 @@ public class Aborigine : Entity
         if (this.target == null)
         {
             this.MoveRandomly();
-            MovementManager.Instance.MoveWithAcceleration(this.rb, this.moveDir, this.walkSpeed, this.speedUpTime, this.slowDownTime);
+            Util.Instance.MoveWithAcceleration(this.rb, this.moveDir, this.walkSpeed, this.speedUpTime, this.slowDownTime);
             this.isWalking = true;
         }
 
         else
         {
             this.ChaseTarget();
-            MovementManager.Instance.MoveWithAcceleration(this.rb, this.moveDir, this.chaseSpeed, this.speedUpTime, this.slowDownTime);
+            Util.Instance.MoveWithAcceleration(this.rb, this.moveDir, this.chaseSpeed, this.speedUpTime, this.slowDownTime);
             this.isChasingTarget = true;
         }
     }
@@ -179,12 +180,17 @@ public class Aborigine : Entity
     //============================================Jump============================================
     protected virtual void Jumping()
     {
-        if (this.isWallDetected) this.Jump();
+        if (this.isWallDetected && this.isGround) this.Jump();
+
+        if (this.isJumping)
+        {
+            if (this.rb.velocity.y <= Mathf.Pow(0.1f, 3)) this.isJumping = false;
+        }
     }
 
     protected virtual void Jump()
     {
-        MovementManager.Instance.Jump(this.rb, this.jumpSpeed);
+        Util.Instance.Jump(this.rb, this.jumpSpeed);
         this.isJumping = true;
     }
 }

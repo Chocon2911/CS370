@@ -11,4 +11,7 @@ public class SlashData
     public int damage;
     public CircleCollider2D slashCol;
     public bool isAttacking;
+    public LayerMask layer;
+    public List<string> tags;
+    public float pushForce;
 }

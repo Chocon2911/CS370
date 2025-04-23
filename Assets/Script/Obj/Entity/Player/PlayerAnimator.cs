@@ -12,6 +12,7 @@ public enum PlayerAnimatorState
     AIR_JUMP = 5,
     DASH = 6,
     CAST_ENERGY_BALL = 7,
+    REST = 8,
 }
 
 public class PlayerAnimator : HuyMonoBehaviour
@@ -77,6 +78,11 @@ public class PlayerAnimator : HuyMonoBehaviour
             if (this.player.IsChargingEnergyBall) this.animator.SetInteger("Cast Energy Ball State", 0);
             else if (this.player.IsShootingEnergyBall) this.animator.SetInteger("Cast Energy Ball State", 1);
             else Debug.LogError("Cast Energy Ball Animation problem", transform.gameObject);
+        }
+
+        if (this.player.IsRest)
+        {
+            this.SetAnimatorState((int)PlayerAnimatorState.REST);
         }
     }    
 

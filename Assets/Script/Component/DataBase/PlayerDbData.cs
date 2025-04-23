@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerDbData : DbData
 {
     //==========================================Variable==========================================
+    public int CurrSceneIndex { get; set; }
     public float XPos { get; set; }
     public float YPos { get; set; }
     public float ZPos { get; set; }
@@ -21,9 +22,10 @@ public class PlayerDbData : DbData
     public bool HasCastEnergyBall { get; set; }
 
     //========================================Constructor=========================================
-    public PlayerDbData(Vector3 position, Quaternion rotation, string id, int health, float dashRestoreTimer, 
+    public PlayerDbData(int currMapIndex, Vector3 position, Quaternion rotation, string id, int health, float dashRestoreTimer,
         float cebRestoreTimer, bool hasDash, bool hasAirJump, bool hasCastEnergyBall) : base(id)
     {
+        this.CurrSceneIndex = currMapIndex;
         this.XPos = position.x;
         this.YPos = position.y;
         this.ZPos = position.z;

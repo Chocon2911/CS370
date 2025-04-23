@@ -22,7 +22,7 @@ public class Door : HuyMonoBehaviour, Interactable
     {
         base.LoadComponents();
         this.LoadComponent(ref this.col, transform, "LoadCol()");
-        this.LoadComponent(ref this.spawnPoint, transform, "LoadSpawnPoint()");
+        this.LoadComponent(ref this.spawnPoint, transform.Find("SpawnPoint"), "LoadSpawnPoint()");
     }
 
     //===========================================Method===========================================
