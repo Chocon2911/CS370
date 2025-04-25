@@ -17,6 +17,7 @@ public class EventManager : HuyMonoBehaviour
     public Action OnMenuDisappear { get; set; }
     public Action OnGoThroughDoor { get; set; }
     public Action OnBonfireResting { get; set; }
+    public Action OnBonfireStopResting { get; set; }
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -38,11 +39,12 @@ public class EventManager : HuyMonoBehaviour
     //===========================================Method===========================================
     private void PrintPlayerDead()
     {
-        Debug.Log("Player Dead");
+        Debug.Log("Player Dead", gameObject);
     }
 
     private void PrintPlayerAppear()
     {
-        Debug.Log("Player Appear");
+        Debug.Log("Player Appear", gameObject);
+        Debug.Log(GameManager.Instance.Player.transform.position, gameObject);
     }
 }

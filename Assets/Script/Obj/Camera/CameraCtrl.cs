@@ -21,19 +21,20 @@ public class CameraCtrl : HuyMonoBehaviour
         this.LoadComponent(ref this.rb, transform, "LoadRb()");
     }
 
-    protected virtual void Start()
+    protected override void Awake()
     {
         EventManager.Instance.OnPlayerAppear += OnPlayerAppear;
     }
 
     protected virtual void Update()
     {
-        Moving();
+        this.Moving();
     }
 
     //============================================Move============================================
     protected virtual void Moving()
     {
+        if (this.target == null) return;
         this.rb.velocity = Vector2.zero;
         Util.Instance.ChaseTarget(transform, this.target, this.moveSpeed);
     }

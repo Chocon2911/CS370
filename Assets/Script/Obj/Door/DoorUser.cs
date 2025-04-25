@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface DoorUser
 {
+    void Move(int dir);
+    float GetXPos();
     Transform GetTrans();
 }

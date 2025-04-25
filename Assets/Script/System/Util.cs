@@ -23,6 +23,11 @@ public class Util
         Debug.LogError("wrong component source", componentObj.gameObject);
     }
 
+    public string RandomGUID()
+    {
+        return System.Guid.NewGuid().ToString();
+    }
+
     //===========================================Rotate===========================================
     public void RotateFaceDir(int dir, Transform obj)
     {
