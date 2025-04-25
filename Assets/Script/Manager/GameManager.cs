@@ -42,7 +42,7 @@ public class GameManager : HuyMonoBehaviour
     //===========================================Other============================================
     private void Pausing()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !this.player.IsRest)
         {
             if (this.isPause)
             {

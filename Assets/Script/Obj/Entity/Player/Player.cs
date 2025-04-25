@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
+public class Player : Entity, Damagable, DoorUser, BonfireUser
 {
     //==========================================Variable==========================================
     [Space(50)]
@@ -16,6 +16,8 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     [SerializeField] protected PlayerAnimator playerAnimator;
     [SerializeField] protected PlayerSO so;
     [SerializeField] protected Transform shootPoint;
+    [SerializeField] protected TrailRenderer dashTrail;
+    [SerializeField] protected Katana katana;
 
     [Space(25)]
     
@@ -67,7 +69,6 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     [Header("Dash")]
     [SerializeField] protected DashData dash;
     // Support
-    [SerializeField] protected TrailRenderer dashTrail;
     [SerializeField] protected float dashTrailDistance;
 
     [Space(25)]
@@ -79,9 +80,6 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
 
     [Header("Cast Energy Ball")]
     [SerializeField] protected CastEnergyBallData castEnergyBall;
-
-    [Header("Slash")]
-    [SerializeField] protected SlashData slash;
 
 
     //==========================================Get Set===========================================
@@ -117,7 +115,7 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     public bool IsShootingEnergyBall => this.castEnergyBall.isShooting;
 
     // ===Slash===
-    public bool isSlashing => this.slash.isAttacking;
+    public bool isSlashing => this.katana.IsAttacking;
     
     // ===Db===
     public PlayerDbData PlayerDbData
@@ -155,7 +153,7 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         this.LoadComponent(ref this.playerAnimator, transform.Find("Model"), "LoadAnimator()");
         this.LoadComponent(ref this.shootPoint, transform.Find("ShootPoint"), "LoadShootPoint()");
         this.LoadComponent(ref this.dashTrail, transform.Find("DashEffect"), "LoadDashTrail()");
-        this.LoadComponent(ref this.slash.slashCol, transform.Find("SlashCol"), "LoadSlashCol()");
+        this.LoadComponent(ref this.katana, transform.Find("Katana"), "LoadKatana()");
         this.DefaultStat();
     }
 
@@ -168,11 +166,21 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
             this.Moving();
             this.Jumping();
             this.Facing();
-            this.Slashing();
+            this.HandlingKatana();
             if (this.hasDash) this.Dashing();
             if (this.hasAirJump) this.AirJumping();
             if (this.hasCastEnergyBall) this.CastingEnergyBall();
             //this.playerAnimator.HandlingAnimator(this);
+        }
+
+        else
+        {
+            this.rb.velocity = Vector2.zero;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                EventManager.Instance.OnBonfireStopResting?.Invoke();
+                this.isRest = false;
+            }
         }
     }
 
@@ -180,6 +188,20 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     {
         base.OnEnable();
         EventManager.Instance.OnPlayerAppear?.Invoke();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Item item = collision.GetComponent<Item>();
+        if (item != null)
+        {
+            item.PickedUp();
+            SkillType unlockSkill = item.SO.unlockSkill;
+            if (unlockSkill == SkillType.DASH) this.hasDash = true;
+            else if (unlockSkill == SkillType.AIR_JUMP) this.hasAirJump = true;
+            else if (unlockSkill == SkillType.CAST_ENERGY_BALL) this.hasCastEnergyBall = true;
+            collision.gameObject.SetActive(false);
+        }
     }
 
 
@@ -294,12 +316,18 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     //============================================Face============================================
     protected virtual void Facing()
     {
-        if (this.dash.isDashing) return;
-        if (this.moveDir == 0) return;
+        if (this.dash.isDashing || this.moveDir == 0 || this.katana.IsAttacking) return;
         Util.Instance.RotateFaceDir(this.moveDir, this.transform);
 
         if (this.moveDir >= 1) this.faceDir = 1;
         else if (this.moveDir <= -1) this.faceDir = -1;
+    }
+
+    //===========================================Katana===========================================
+    protected virtual void HandlingKatana()
+    {
+        this.katana.MyUpdate();
+        if (Input.GetKey(KeyCode.K)) this.katana.Attack();
     }
 
     //============================================Dash============================================
@@ -506,48 +534,6 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         this.rb.WakeUp();
     }
 
-    //===========================================Slash============================================
-    protected virtual void Slashing()
-    {
-        SkillManager.Instance.Slash.Restoring(this);
-        SkillManager.Instance.Slash.Attacking(this);
-        if (Input.GetKey(KeyCode.J))
-        {
-            SkillManager.Instance.Slash.TriggerAttack(this);
-        }
-
-        if (this.slash.isAttacking)
-        {
-            Collider2D[] targets = Physics2D.OverlapCircleAll(this.slash.slashCol.transform.position,
-                this.slash.slashCol.radius, this.slash.layer);
-            foreach (Collider2D target in targets)
-            {
-                Damagable damagable = target.GetComponent<Damagable>();
-                if (damagable == null) continue;
-
-                foreach (string tag in this.slash.tags)
-                {
-                    if (target.CompareTag(tag))
-                    {
-                        damagable.TakeDamage(this.slash.damage);
-                        Vector2 dir = (target.transform.position - this.slash.slashCol.transform.position).normalized;
-                        damagable.Push(dir * this.slash.pushForce);
-                    }
-                }
-            }
-        }
-    }
-
-    protected virtual void RechargeSlash()
-    {
-        this.slash.restoreCD.CoolingDown();
-    }
-
-    protected virtual void Slash()
-    {
-
-    }
-
     //===========================================Other============================================
     public virtual void DefaultStat()
     {
@@ -591,16 +577,11 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         this.castEnergyBall.shootCD = new Cooldown(this.so.cebEndDuration, 0);
 
         // Slash
-        this.slash = new SlashData();
-        this.slash.damage = this.so.slashDamage;
-        this.slash.restoreCD = new Cooldown(this.so.slashRestoreDuration, 0);
-        this.slash.attackCD = new Cooldown(this.so.slashDuration, 0);
-        this.slash.isAttacking = false;
-    }
-
-    protected virtual void Rest()
-    {
-        this.health = this.maxHealth;
+        //this.slash = new SlashData();
+        //this.slash.damage = this.so.slashDamage;
+        //this.slash.restoreCD = new Cooldown(this.so.slashRestoreDuration, 0);
+        //this.slash.attackCD = new Cooldown(this.so.slashDuration, 0);
+        //this.slash.isAttacking = false;
     }
 
     
@@ -608,22 +589,6 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
     //============================================================================================
     //=========================================Interface==========================================
     //============================================================================================
-
-    //===========================================Slash============================================
-    Cooldown ISlash.GetRestoreCD()
-    {
-        return this.slash.restoreCD;
-    }
-
-    Cooldown ISlash.GetAttackCD()
-    {
-        return this.slash.attackCD;
-    }
-
-    ref bool ISlash.GetIsAttacking()
-    {
-        return ref this.slash.isAttacking;
-    }
 
     //=========================================Damagable==========================================
     void Damagable.TakeDamage(int damage)
@@ -643,20 +608,36 @@ public class Player : Entity, ISlash, Damagable, ControllableByDoor, DoorUser
         this.rb.velocity = force;
     }
 
-    //====================================Controllable By Door====================================
-    void ControllableByDoor.Move(int dir)
+    //=========================================Door User==========================================
+    void DoorUser.Move(int dir)
     {
         Util.Instance.MoveWithAcceleration(this.rb, dir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
     }
 
-    float ControllableByDoor.GetXPos()
+    float DoorUser.GetXPos()
     {
         return transform.position.x;
     }
-
-    //=========================================Door User==========================================
     Transform DoorUser.GetTrans()
     {
         return transform;
+    }
+
+    //========================================Bonfire User========================================
+    Vector2 BonfireUser.GetPos()
+    {
+        return transform.position;
+    }
+
+    void BonfireUser.Teleport(Vector2 pos)
+    {
+        transform.position = pos;
+    }
+
+    void BonfireUser.Rest()
+    {
+        this.health = this.maxHealth;
+        this.FinishMove();
+        this.isRest = true;
     }
 }

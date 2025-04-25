@@ -9,10 +9,12 @@ public class DataBaseManager : HuyMonoBehaviour
 
     [SerializeField] private string dbName = "Cs370.db";
     [SerializeField] private PlayerDb player;
+    [SerializeField] private ItemDb item;
 
     //==========================================Get Set===========================================
     public string DbPath => Application.persistentDataPath + "/" + dbName;
     public PlayerDb Player => player;
+    public ItemDb Item => item;
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -29,6 +31,8 @@ public class DataBaseManager : HuyMonoBehaviour
         base.Awake();
 
         this.player = new PlayerDb();
+        this.item = new ItemDb();
         this.player.CreateTable();
+        this.item.CreateTable();
     }
 }
