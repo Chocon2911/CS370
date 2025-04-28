@@ -18,6 +18,7 @@ public class Katana : HuyMonoBehaviour
     [SerializeField] protected TrailRenderer slashTrail;
     [SerializeField] protected Transform katanaObj;
     [SerializeField] protected KatanaSO so;
+    [SerializeField] protected Transform wielder;
 
     [Header("Damage Collision")]
     [SerializeField] protected List<Transform> attackedObj = new List<Transform>();
@@ -33,6 +34,12 @@ public class Katana : HuyMonoBehaviour
 
     //==========================================Get Set===========================================
     public bool IsAttacking => this.isAttacking;
+
+    public Transform Wielder
+    {
+        get => this.wielder;
+        set => this.wielder = value;
+    }
 
     //===========================================Unity============================================
     public override void LoadComponents()
@@ -64,9 +71,17 @@ public class Katana : HuyMonoBehaviour
 
     public override void MyUpdate()
     {
+        //this.HandlingTrailPos();
         this.Restoring();
         this.CheckingCol();
         this.Attacking();
+    }
+
+    //===========================================Trail============================================
+    private void HandlingTrailPos()
+    {
+        Vector3 localPosition = this.slashTrail.transform.InverseTransformPoint(transform.position);
+        this.slashTrail.transform.localPosition = localPosition;
     }
 
     //=========================================Damage Col=========================================
@@ -80,30 +95,41 @@ public class Katana : HuyMonoBehaviour
         foreach (Collider2D collision in collisions)
         {
             if (this.attackedObj.Contains(collision.transform)) continue;
-            Damagable damagable = collision.GetComponent<Damagable>();
+            this.DealDamage(collision.transform);
+            this.SplashEffect(collision.transform);
+        }
+    }
 
-            if (damagable != null)
-            {
-                foreach (string tag in this.attackableTags)
-                {
-                    if (!collision.CompareTag(tag)) continue; 
-                    damagable.TakeDamage(this.damage);
-                    Vector2 pushDir = (collision.transform.position - this.transform.position).normalized;
-                    damagable.Push(pushDir * this.pushForce);
-                    this.attackedObj.Add(collision.transform);
-                    break;
-                }
-            }
+    private void DealDamage(Transform colTrans)
+    {
+        Damagable damagable = colTrans.GetComponent<Damagable>();
+
+        if (damagable == null) return;
+        foreach (string tag in this.attackableTags)
+        {
+            if (!colTrans.CompareTag(tag)) continue;
+            damagable.TakeDamage(this.damage);
+            Vector2 pushDir = (colTrans.position - this.transform.position).normalized;
+            damagable.Push(pushDir * this.pushForce);
+            this.attackedObj.Add(colTrans);
+            break;
+        }
+    }
+
+    private void SplashEffect(Transform colTrans)
+    {
+        EffectSplashable splashable = colTrans.GetComponent<EffectSplashable>();
+
+        if (splashable == null) return;
+        foreach (string tag in this.attackableTags)
+        {
+            if (!colTrans.CompareTag(tag)) continue;
+            splashable.Splash(this.wielder.position);
+            break;
         }
     }
 
     //===========================================Attack===========================================
-    private void Restoring()
-    {
-        if (this.isAttacking || this.restoreCD.IsReady) return;
-        this.restoreCD.CoolingDown();
-    }
-    
     public void Attack()
     {
         if (this.isAttacking || !this.restoreCD.IsReady) return;
@@ -114,18 +140,6 @@ public class Katana : HuyMonoBehaviour
         this.animator.SetInteger("State", (int)KatanaState.ATTACK);
     }
 
-    private void Attacking()
-    {
-        if (this.isAttacking)
-        {
-            this.attackCD.CoolingDown();
-            if (this.attackCD.IsReady)
-            {
-                this.FinishAttack();
-            }
-        }
-    }
-
     public void FinishAttack()
     {
         this.attackCD.ResetStatus();
@@ -133,6 +147,21 @@ public class Katana : HuyMonoBehaviour
         this.isAttacking = false;
         this.katanaObj.gameObject.SetActive(false);
         this.attackedObj.Clear();
+    }
+
+    private void Restoring()
+    {
+        if (this.isAttacking || this.restoreCD.IsReady) return;
+        this.restoreCD.CoolingDown();
+    }
+
+    private void Attacking()
+    {
+        if (!this.isAttacking) return;
+        this.attackCD.CoolingDown();
+
+        if (!this.attackCD.IsReady) return;
+        this.FinishAttack();
     }
 
     //===========================================Other============================================

@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
-public class EnergyBall : Bullet
+public class Arrow : Bullet
 {
     //==========================================Variable==========================================
-    [Space(50)]
-    [Header("===Energy Ball===")]
+    [Header("===Arrow===")]
     [Header("Move")]
     [SerializeField] protected float flySpeed;
+    [SerializeField] protected bool canMove;
 
     //===========================================Unity============================================
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (this.canMove) return;
+        base.OnTriggerEnter2D(collision);
+    }
+
     protected override void Update()
     {
         base.Update();
@@ -22,6 +26,13 @@ public class EnergyBall : Bullet
     //============================================Move============================================
     protected virtual void Moving()
     {
+        if (!this.canMove) return;
         Util.Instance.MoveForward(this.rb, this.flySpeed);
+    }
+
+    protected override void CollideWithTarget(Collider2D collision)
+    {
+        base.CollideWithTarget(collision);
+        transform.parent = collision.transform;
     }
 }

@@ -32,16 +32,16 @@ public class PlayerAnimator : HuyMonoBehaviour
     //===========================================Method===========================================
     public virtual void HandlingAnimator(Player player)
     {
-        this.HandleAnimation();
-        this.HandleAnimationState();
+        this.HandleStat();
+        this.HandleState();
     }
 
-    protected virtual void HandleAnimation()
+    protected virtual void HandleStat()
     {
         this.animator.SetFloat("Move Speed", this.player.MoveSpeed);
     }
 
-    protected virtual void HandleAnimationState()
+    protected virtual void HandleState()
     {
         this.SetAnimatorState((int)PlayerAnimatorState.IDLE);
 

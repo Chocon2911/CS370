@@ -8,6 +8,8 @@ public class Entity : HuyMonoBehaviour
     [Header("Basic")]
     [SerializeField] protected string id;
 
+    [Space(25)]
+
     [Header("Stat")]
     [SerializeField] protected int maxHealth;
     [SerializeField] protected int health;

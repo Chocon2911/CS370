@@ -315,7 +315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1673074232237840022
 Transform:
   m_ObjectHideFlags: 0
@@ -803,7 +803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7166883206342910370
 Transform:
   m_ObjectHideFlags: 0
@@ -813,7 +813,7 @@ Transform:
   m_GameObject: {fileID: 8518045740611549149}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 1.2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -853,9 +853,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.55, y: -0.2}
+  m_Offset: {x: 0.6, y: -0.24}
   serializedVersion: 2
-  m_Radius: 0.63
+  m_Radius: 0.5
 --- !u!1 &9104894396869304071
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,6 +928,7 @@ MonoBehaviour:
   slashTrail: {fileID: 1118635232539734174}
   katanaObj: {fileID: 7166883206342910370}
   so: {fileID: 11400000, guid: 5275b8573af2fbd4798caa233aaa4890, type: 2}
+  wielder: {fileID: 1673074232237840022}
   attackedObj: []
   attackableTags:
   - Monster
@@ -935,14 +936,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   damage: 1
-  pushForce: 10
+  pushForce: 15
   restoreCD:
-    timeLimit: 0.2
+    timeLimit: 0.5
     timer: 0
     waitTime: 0
     isReady: 0
   attackCD:
-    timeLimit: 0.1
+    timeLimit: 0.2
     timer: 0
     waitTime: 0
     isReady: 0
