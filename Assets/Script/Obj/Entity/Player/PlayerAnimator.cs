@@ -28,26 +28,11 @@ public class PlayerAnimator : EntityAnimator
     }
 
     //===========================================Method===========================================
-<<<<<<< Updated upstream
-    public virtual void HandlingAnimator(Player player)
-    {
-        this.HandleAnimation();
-        this.HandleAnimationState();
-    }
-
-    protected virtual void HandleAnimation()
-=======
     protected override void HandlingStat()
->>>>>>> Stashed changes
     {
         this.animator.SetFloat("Move Speed", this.player.MoveSpeed);
     }
-
-<<<<<<< Updated upstream
-    protected virtual void HandleAnimationState()
-=======
     protected override void HandlingState()
->>>>>>> Stashed changes
     {
         this.SetAnimatorState((int)PlayerAnimatorState.IDLE);
 

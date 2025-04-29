@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a274557bb18f484aad6fef7e1baf4d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   animator: {fileID: 9001370350668903595}
+  player: {fileID: 0}
 --- !u!1 &1950550521718312983
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1673074232237840022
 Transform:
   m_ObjectHideFlags: 0
@@ -584,7 +584,7 @@ Transform:
   m_GameObject: {fileID: 7200603696303261191}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.25660086, y: -0.1896466, z: -0.0053157555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -803,7 +803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7166883206342910370
 Transform:
   m_ObjectHideFlags: 0
@@ -813,7 +813,7 @@ Transform:
   m_GameObject: {fileID: 8518045740611549149}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 1.2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -853,13 +853,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-<<<<<<< Updated upstream
-  m_Offset: {x: 0.55, y: -0.2}
-=======
-  m_Offset: {x: 0.45, y: 0}
->>>>>>> Stashed changes
+  m_Offset: {x: 0.6, y: -0.24}
   serializedVersion: 2
-  m_Radius: 0.63
+  m_Radius: 0.5
 --- !u!1 &9104894396869304071
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,14 +935,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   damage: 1
-  pushForce: 10
+  pushForce: 15
   restoreCD:
-    timeLimit: 0.2
+    timeLimit: 0.5
     timer: 0
     waitTime: 0
     isReady: 0
   attackCD:
-    timeLimit: 0.1
+    timeLimit: 0.2
     timer: 0
     waitTime: 0
     isReady: 0

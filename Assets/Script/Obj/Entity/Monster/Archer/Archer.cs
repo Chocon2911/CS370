@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
-public class Archer : Monster, Damagable, EffectSplashable
+public class Archer : Monster
 {
     //==========================================Variable==========================================
     [Space(50)]
@@ -83,7 +83,7 @@ public class Archer : Monster, Damagable, EffectSplashable
         this.CheckingTargetOutOfRange();
         this.Facing();
         this.Moving();
-        this.Jumping();
+        //this.Jumping();
         this.UsingBow();
         this.animator.HandlingAnimator();
     }

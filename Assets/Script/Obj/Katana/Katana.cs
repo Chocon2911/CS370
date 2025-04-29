@@ -18,6 +18,7 @@ public class Katana : HuyMonoBehaviour
     [SerializeField] protected TrailRenderer slashTrail;
     [SerializeField] protected Transform katanaObj;
     [SerializeField] protected KatanaSO so;
+    [SerializeField] protected Transform wielder;
 
     [Header("Damage Collision")]
     [SerializeField] protected List<Transform> attackedObj = new List<Transform>();
@@ -42,6 +43,7 @@ public class Katana : HuyMonoBehaviour
         this.LoadComponent(ref this.damageCol, transform.Find("Obj"), "LoadDamageCol()");
         this.LoadComponent(ref this.slashTrail, transform.Find("Obj").Find("Trail"), "LoadSlashTrail()");
         this.LoadComponent(ref this.katanaObj, transform.Find("Obj"), "LoadKatanaObj()");
+        this.LoadComponent(ref this.wielder, transform.parent, "LoadWielder()");
         this.DefaultStat();
     }
 
@@ -76,6 +78,13 @@ public class Katana : HuyMonoBehaviour
                     this.attackedObj.Add(collision.transform);
                     break;
                 }
+            }
+
+            EffectSplashable splashable = collision.GetComponent<EffectSplashable>();
+
+            if (splashable != null)
+            {
+                splashable.Splash(this.wielder.position);
             }
         }
     }
