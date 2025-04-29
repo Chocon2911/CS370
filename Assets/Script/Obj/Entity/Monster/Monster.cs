@@ -90,7 +90,7 @@ public abstract class Monster : Entity, Damagable, EffectSplashable
         float xDistance = Mathf.Abs(currXPos - epXPos);
         float yDistance = Mathf.Abs(currYPos - epYPos);
 
-        if (xDistance < 0.1f && yDistance < 0.1f) return true;
+        if (xDistance < 0.3f && yDistance < 0.3f) return true; 
         else return false;
     }
 
