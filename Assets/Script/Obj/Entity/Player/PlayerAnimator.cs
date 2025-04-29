@@ -28,11 +28,26 @@ public class PlayerAnimator : EntityAnimator
     }
 
     //===========================================Method===========================================
+<<<<<<< HEAD
     protected override void HandlingStat()
     {
         this.animator.SetFloat("Move Speed", this.player.MoveSpeed);
     }
     protected override void HandlingState()
+=======
+    public virtual void HandlingAnimator(Player player)
+    {
+        this.HandleStat();
+        this.HandleState();
+    }
+
+    protected virtual void HandleStat()
+    {
+        this.animator.SetFloat("Move Speed", this.player.MoveSpeed);
+    }
+
+    protected virtual void HandleState()
+>>>>>>> 2f2a3976610e0664b609c5e885ef2642e65f8eb7
     {
         this.SetAnimatorState((int)PlayerAnimatorState.IDLE);
 

@@ -67,7 +67,12 @@ public abstract class Bullet : HuyMonoBehaviour
 
         // Push
         float xDistance = collision.transform.position.x - transform.position.x;
+<<<<<<< HEAD
         Vector2 dir = new Vector2(xDistance, 0).normalized;
+=======
+        float yDistance = collision.transform.position.y - transform.position.y;
+        Vector2 dir = new Vector2(xDistance, yDistance).normalized;
+>>>>>>> 2f2a3976610e0664b609c5e885ef2642e65f8eb7
         damagable.Push(this.pushForce * dir);
 
         // Stick to Collision
