@@ -928,7 +928,6 @@ MonoBehaviour:
   slashTrail: {fileID: 1118635232539734174}
   katanaObj: {fileID: 7166883206342910370}
   so: {fileID: 11400000, guid: 5275b8573af2fbd4798caa233aaa4890, type: 2}
-  wielder: {fileID: 1673074232237840022}
   attackedObj: []
   attackableTags:
   - Monster

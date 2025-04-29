@@ -10,7 +10,6 @@ public class Item : HuyMonoBehaviour
     [SerializeField] protected string id;
     [SerializeField] protected ItemSO so;
     [SerializeField] protected CircleCollider2D bodyCol;
-    [SerializeField] protected ItemDbData dbData;
 
     //==========================================Get Set===========================================
     public ItemSO SO => so;
@@ -33,22 +32,23 @@ public class Item : HuyMonoBehaviour
     protected override void Awake()
     {
         base.Awake();
-        this.dbData = DataBaseManager.Instance.Item.Query(this.id);
-        if (this.dbData == null)
+        ItemDbData data = DataBaseManager.Instance.Item.Query(this.id);
+        if (data == null)
         {
-            this.dbData = new ItemDbData(this.id, false);
-            DataBaseManager.Instance.Item.Insert(this.dbData);
+            ItemDbData newData = new ItemDbData(this.id, false);
+            DataBaseManager.Instance.Item.Insert(newData);
         }
-        else if (this.dbData.IsTaken)
+        else if (data.IsTaken)
         {
             gameObject.SetActive(false);
+        
         }
-
-        EventManager.Instance.OnSave += () => DataBaseManager.Instance.Item.Update(this.dbData);
     }
 
     public void PickedUp()
     {
-        this.dbData.IsTaken = true;
+        ItemDbData data = DataBaseManager.Instance.Item.Query(this.id);
+        data.IsTaken = true;
+        DataBaseManager.Instance.Item.Update(data);
     }
 }

@@ -18,7 +18,6 @@ public class EventManager : HuyMonoBehaviour
     public Action OnGoThroughDoor { get; set; }
     public Action OnBonfireResting { get; set; }
     public Action OnBonfireStopResting { get; set; }
-    public Action OnSave { get; set; }
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -46,5 +45,6 @@ public class EventManager : HuyMonoBehaviour
     private void PrintPlayerAppear()
     {
         Debug.Log("Player Appear", gameObject);
+        Debug.Log(GameManager.Instance.Player.transform.position, gameObject);
     }
 }

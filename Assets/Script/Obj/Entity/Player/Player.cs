@@ -128,7 +128,9 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
         }
         set
         {
+            Debug.Log(value.XPos + ", " + value.YPos + ", " + value.ZPos, gameObject);
             transform.position = new Vector3(value.XPos, value.YPos, value.ZPos);
+            Debug.Log(transform.position, gameObject);
             transform.rotation = Quaternion.Euler(value.XRot, value.YRot, value.ZRot);
             this.id = value.Id;
             this.health = value.Health;
@@ -152,7 +154,6 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
         this.LoadComponent(ref this.shootPoint, transform.Find("ShootPoint"), "LoadShootPoint()");
         this.LoadComponent(ref this.dashTrail, transform.Find("DashEffect"), "LoadDashTrail()");
         this.LoadComponent(ref this.katana, transform.Find("Katana"), "LoadKatana()");
-        this.katana.Wielder = transform;
         this.DefaultStat();
     }
 
@@ -195,20 +196,12 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
         if (item != null)
         {
             item.PickedUp();
-            DataBaseManager.Instance.Player.Update(this.PlayerDbData);
             SkillType unlockSkill = item.SO.unlockSkill;
-
             if (unlockSkill == SkillType.DASH) this.hasDash = true;
             else if (unlockSkill == SkillType.AIR_JUMP) this.hasAirJump = true;
             else if (unlockSkill == SkillType.CAST_ENERGY_BALL) this.hasCastEnergyBall = true;
             collision.gameObject.SetActive(false);
         }
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-        EventManager.Instance.OnSave += () => DataBaseManager.Instance.Player.Update(this.PlayerDbData);
     }
 
 

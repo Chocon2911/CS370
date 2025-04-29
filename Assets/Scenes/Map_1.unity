@@ -1983,11 +1983,7 @@ MonoBehaviour:
     waitTime: 0
     isReady: 0
   flySpeed: 20
-<<<<<<< HEAD
   isCollided: 0
-=======
-  canMove: 1
->>>>>>> 2f2a3976610e0664b609c5e885ef2642e65f8eb7
 --- !u!58 &1473801535
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2085,11 +2081,7 @@ MonoBehaviour:
   slashTrail: {fileID: 0}
   katanaObj: {fileID: 228071754}
   so: {fileID: 11400000, guid: 5275b8573af2fbd4798caa233aaa4890, type: 2}
-<<<<<<< HEAD
   wielder: {fileID: 0}
-=======
-  wielder: {fileID: 280955973}
->>>>>>> 2f2a3976610e0664b609c5e885ef2642e65f8eb7
   attackedObj: []
   attackableTags:
   - Monster
@@ -2197,15 +2189,14 @@ MonoBehaviour:
   rb: {fileID: 1495187794}
   col: {fileID: 1495187793}
   damage: 1
-  pushForce: 0
   damageTags:
   - Player
+  flySpeed: 10
   despawnCD:
     timeLimit: 10
     timer: 0
     waitTime: 0
     isReady: 0
-  flySpeed: 10
 --- !u!58 &1495187793
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2341,20 +2332,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 84924d6e42b96324e8783fdf922d87ff, type: 3}
-=======
-  m_Sprite: {fileID: 21300000, guid: a7f217990d4c0694089d0975828f7c54, type: 3}
->>>>>>> 2f2a3976610e0664b609c5e885ef2642e65f8eb7
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-<<<<<<< HEAD
   m_Size: {x: 2.5, y: 0.3125}
-=======
-  m_Size: {x: 1, y: 2}
->>>>>>> 2f2a3976610e0664b609c5e885ef2642e65f8eb7
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -7711,7 +7694,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 122266023342599778, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
       propertyPath: m_Name
-<<<<<<< HEAD
       value: Archer
       objectReference: {fileID: 0}
     - target: {fileID: 2393398658860882749, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
@@ -7733,9 +7715,6 @@ PrefabInstance:
     - target: {fileID: 2915191182929345290, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
-=======
-      value: Monster
->>>>>>> 2f2a3976610e0664b609c5e885ef2642e65f8eb7
       objectReference: {fileID: 0}
     - target: {fileID: 6083835201460814336, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7777,7 +7756,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 8291019254500181174, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
       propertyPath: m_Offset.x
       value: 0
@@ -7794,8 +7772,6 @@ PrefabInstance:
       propertyPath: groundLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
-=======
->>>>>>> 2f2a3976610e0664b609c5e885ef2642e65f8eb7
     - target: {fileID: 8430526629340658020, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
       propertyPath: endPoints.Array.data[0]
       value: 
