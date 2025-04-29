@@ -15,21 +15,20 @@ public enum PlayerAnimatorState
     REST = 8,
 }
 
-public class PlayerAnimator : HuyMonoBehaviour
+public class PlayerAnimator : EntityAnimator
 {
     //==========================================Variable==========================================
-    [SerializeField] protected Player player; 
-    [SerializeField] protected Animator animator;
+    [SerializeField] protected Player player;
 
     //===========================================Unity============================================
     public override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadComponent(ref this.animator, transform, "LoadAnimator()");
         this.LoadComponent(ref this.player, transform.parent, "LoadPlayer()");
     }
 
     //===========================================Method===========================================
+<<<<<<< Updated upstream
     public virtual void HandlingAnimator(Player player)
     {
         this.HandleAnimation();
@@ -37,11 +36,18 @@ public class PlayerAnimator : HuyMonoBehaviour
     }
 
     protected virtual void HandleAnimation()
+=======
+    protected override void HandlingStat()
+>>>>>>> Stashed changes
     {
         this.animator.SetFloat("Move Speed", this.player.MoveSpeed);
     }
 
+<<<<<<< Updated upstream
     protected virtual void HandleAnimationState()
+=======
+    protected override void HandlingState()
+>>>>>>> Stashed changes
     {
         this.SetAnimatorState((int)PlayerAnimatorState.IDLE);
 

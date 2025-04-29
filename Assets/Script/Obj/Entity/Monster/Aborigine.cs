@@ -1,15 +1,21 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+<<<<<<< Updated upstream:Assets/Script/Obj/Entity/Monster/Aborigine.cs
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
 public class Aborigine : Entity
+=======
+public abstract class Monster : Entity, Damagable, EffectSplashable
+>>>>>>> Stashed changes:Assets/Script/Obj/Entity/Monster/Monster.cs
 {
     //==========================================Variable==========================================
     [Space(50)]
     [Header("===Monster===")]
     [Header("Component")]
     [SerializeField] protected Rigidbody2D rb;
+<<<<<<< Updated upstream:Assets/Script/Obj/Entity/Monster/Aborigine.cs
     [SerializeField] protected CapsuleCollider2D col;
 
     [Header("Ground Check")]
@@ -30,20 +36,37 @@ public class Aborigine : Entity
     [SerializeField] protected float targetDetectDistance;
     [SerializeField] protected LayerMask targetLayer;
     [SerializeField] protected string targetTag = "Player";
+=======
+    [SerializeField] protected CapsuleCollider2D bodyCol;
+    [SerializeField] protected ParticleSystem damageEff;
+>>>>>>> Stashed changes:Assets/Script/Obj/Entity/Monster/Monster.cs
 
     [Header("Target Out Of Range")]
     [SerializeField] protected Vector2 targetDetectingArea;
 
+<<<<<<< Updated upstream:Assets/Script/Obj/Entity/Monster/Aborigine.cs
+=======
+    [Space(25)]
+
+    [Header("Target Detection")]
+    [SerializeField] protected Transform target;
+    [SerializeField] protected LayerMask targetLayer;
+    [SerializeField] protected string targetTag = "Player";
+
+    [Space(25)]
+
+>>>>>>> Stashed changes:Assets/Script/Obj/Entity/Monster/Monster.cs
     [Header("Move Randomly")]
-    [SerializeField] protected float walkSpeed;
+    [SerializeField] protected float slowSpeed;
     [SerializeField] protected List<Transform> endPoints = new List<Transform>();
     [SerializeField] protected int currEndPoint;
-    [SerializeField] protected bool isWalking;
+    [SerializeField] protected bool isMovingRandomly;
 
     [Header("Chase Target")]
     [SerializeField] protected float chaseSpeed;
     [SerializeField] protected bool isChasingTarget;
 
+<<<<<<< Updated upstream:Assets/Script/Obj/Entity/Monster/Aborigine.cs
     [Header("Move")]
     [SerializeField] protected int moveDir;
     [SerializeField] protected float slowDownTime;
@@ -54,12 +77,23 @@ public class Aborigine : Entity
     [SerializeField] protected bool isJumping;
 
     
+=======
+    //==========================================Get Set===========================================
+    // ===Move Randomly===
+    public float SlowSpeed => this.slowSpeed;
+    public bool IsMovingRandomly => this.isMovingRandomly;
+
+    // ===Chase Target===
+    public float ChaseSpeed => this.chaseSpeed;
+    public bool IsChasingTarget => this.isChasingTarget;
+>>>>>>> Stashed changes:Assets/Script/Obj/Entity/Monster/Monster.cs
 
     //===========================================Unity============================================
     public override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadComponent(ref this.rb, transform, "LoadRb()");
+<<<<<<< Updated upstream:Assets/Script/Obj/Entity/Monster/Aborigine.cs
         this.LoadComponent(ref this.col, transform, "LoadCol()");
         this.LoadComponent(ref this.groundCol, transform.Find("Ground"), "LoadGroundCol()");
     }
@@ -74,42 +108,22 @@ public class Aborigine : Entity
         this.Moving();
         this.Jumping();
     }
+=======
+        this.LoadComponent(ref this.bodyCol, transform, "LoadBodyCol()");
+        this.LoadComponent(ref this.damageEff, transform.Find("DamageEffect"), "LoadDamageEff()");
+    }
+
+
+>>>>>>> Stashed changes:Assets/Script/Obj/Entity/Monster/Monster.cs
 
     //============================================================================================
     //===========================================Method===========================================
     //============================================================================================
 
-    //======================================Ground Checking=======================================
-    protected virtual void CheckingIsGround()
-    {
-        Util.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, ref this.isGround);
-    }
-
-    //=======================================Wall Detection=======================================
-    protected virtual void DetectingWall()
-    {
-        float xDir = Mathf.Cos(transform.eulerAngles.y * Mathf.Deg2Rad);
-        float yDir = 0;
-        Vector2 rayStart = transform.position + new Vector3(0, -0.5f, 0);
-        Vector2 rayDir = new Vector2(xDir, yDir);
-
-        Transform target = Util.Instance.ShootRaycast(this.wallDetectDistance, this.wallLayer, this.wallTag, rayStart, rayDir);
-        this.isWallDetected = (target != null);
-        Debug.DrawRay(rayStart, rayDir * wallDetectDistance, this.isWallDetected ? Color.green : Color.red);
-    }
-
-    //======================================Target Detection======================================
-    protected virtual void DetectingTarget()
-    {
-        if (this.target != null) return;
-        float xDir = Mathf.Cos(transform.eulerAngles.y * Mathf.Deg2Rad);
-        float yDir = 0;
-        Vector2 rayStart = transform.position;
-        Vector2 rayDir = new Vector2(xDir, yDir);
-
-        this.target = Util.Instance.ShootRaycast(this.targetDetectDistance, this.targetLayer, this.targetTag, rayStart, rayDir);
-        Debug.DrawRay(rayStart, rayDir * this.targetDetectDistance, this.target != null ? Color.green : Color.red);
-    }
+    //==========================================Abstract==========================================
+    protected abstract void Moving();
+    protected abstract void DetectingTarget();
+    protected abstract void Facing();
 
     //====================================Target Out Of Range=====================================
     protected virtual void CheckingTargetOutOfRange()
@@ -121,6 +135,7 @@ public class Aborigine : Entity
         if (xDistance > this.targetDetectingArea.x || yDistance > this.targetDetectingArea.y) this.target = null;
     }
 
+<<<<<<< Updated upstream:Assets/Script/Obj/Entity/Monster/Aborigine.cs
     //=======================================Move Randomly========================================
     protected virtual void MoveRandomly()
     {
@@ -129,6 +144,9 @@ public class Aborigine : Entity
         this.moveDir = this.endPoints[this.currEndPoint].position.x > transform.position.x ? 1 : -1;
     }
 
+=======
+    //============================================Move============================================
+>>>>>>> Stashed changes:Assets/Script/Obj/Entity/Monster/Monster.cs
     protected virtual bool IsReachedEndPoint()
     {
         float currXPos = transform.position.x;
@@ -143,6 +161,7 @@ public class Aborigine : Entity
         else return false;
     }
 
+<<<<<<< Updated upstream:Assets/Script/Obj/Entity/Monster/Aborigine.cs
     //=======================================Face Direction=======================================
     protected virtual void Facing()
     {
@@ -192,5 +211,44 @@ public class Aborigine : Entity
     {
         Util.Instance.Jump(this.rb, this.jumpSpeed);
         this.isJumping = true;
+=======
+    //=======================================Damage Effect========================================
+    protected virtual void PlayDamageEffect(Vector2 dir)
+    {
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        this.damageEff.transform.rotation = Quaternion.Euler(0, 0, angle - 20f);
+        this.damageEff.Play();
+    }
+
+
+
+    //============================================================================================
+    //=========================================Interface==========================================
+    //============================================================================================
+
+    //=========================================Damagable==========================================
+    void Damagable.TakeDamage(int damage)
+    {
+        this.health -= damage;
+        this.damageEff.Play();
+
+        if (this.health <= 0)
+        {
+            this.health = 0;
+            Debug.Log("Dead", gameObject);
+        }
+    }
+
+    void Damagable.Push(Vector2 force)
+    {
+        this.rb.velocity = force;
+    }
+
+    //=====================================Effect Splashable======================================
+    void EffectSplashable.Splash(Vector2 pos)
+    {
+        Vector2 dir = ((Vector2)transform.position - pos).normalized;
+        this.PlayDamageEffect(dir);
+>>>>>>> Stashed changes:Assets/Script/Obj/Entity/Monster/Monster.cs
     }
 }

@@ -90,7 +90,12 @@ public class Util
 
         if (dir > 0)
         {
-            if (xVel > Mathf.Pow(-0.1f, 3))
+            if (xVel >= speed)
+            {
+                this.SlowingDownWithAcceleration(rb, speed, slowDownTime);
+                return;
+            }
+            else if (xVel > Mathf.Pow(-0.1f, 3))
             {
                 applySpeed = dir * speed / speedUpTime * Time.deltaTime;
                 if (applySpeed > speed - xVel) applySpeed = speed - xVel;
@@ -104,7 +109,12 @@ public class Util
 
         else if (dir < 0)
         {
-            if (xVel < Mathf.Pow(0.1f, 3))
+            if (xVel <= -speed)
+            {
+                this.SlowingDownWithAcceleration(rb, speed, slowDownTime);
+                return;
+            }
+            else if (xVel < Mathf.Pow(0.1f, 3))
             {
                 applySpeed = dir * speed / speedUpTime * Time.deltaTime;
                 if (applySpeed < -speed - xVel) applySpeed = -speed - xVel;
@@ -118,16 +128,27 @@ public class Util
 
         else
         {
-            if (xVel > Mathf.Pow(0.1f, 3))
-            {
-                applySpeed = -speed / slowDownTime * Time.deltaTime;
-                if (-applySpeed > xVel) applySpeed = -xVel;
-            }
-            else if (xVel < Mathf.Pow(-0.1f, 3))
-            {
-                applySpeed = speed / slowDownTime * Time.deltaTime;
-                if (applySpeed > -xVel) applySpeed = -xVel;
-            }
+            this.SlowingDownWithAcceleration(rb, speed, slowDownTime);
+            return;
+        }
+
+        this.Move(rb, new Vector2(applySpeed, 0));
+    }
+
+    public void SlowingDownWithAcceleration(Rigidbody2D rb, float speed, float slowDownTime)
+    {
+        float xVel = rb.velocity.x;
+        float applySpeed = 0;
+
+        if (xVel > 0)
+        {
+            applySpeed = -speed / slowDownTime * Time.deltaTime;
+            if (-applySpeed > xVel) applySpeed = -xVel;
+        }
+        else if (xVel < 0)
+        {
+            applySpeed = speed / slowDownTime * Time.deltaTime;
+            if (applySpeed > -xVel) applySpeed = -xVel;
         }
 
         this.Move(rb, new Vector2(applySpeed, 0));

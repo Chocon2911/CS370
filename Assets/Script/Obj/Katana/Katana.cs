@@ -45,23 +45,6 @@ public class Katana : HuyMonoBehaviour
         this.DefaultStat();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        foreach (string tag in this.attackableTags)
-        {
-            if (collision.CompareTag(tag))
-            {
-                Damagable damagable = collision.GetComponent<Damagable>();
-                if (damagable != null)
-                {
-                    damagable.TakeDamage(this.damage);
-                    Vector2 pushDir = (collision.transform.position - this.transform.position).normalized;
-                    damagable.Push(pushDir * this.pushForce);
-                }
-            }
-        }
-    }
-
     public override void MyUpdate()
     {
         this.Restoring();
@@ -73,7 +56,7 @@ public class Katana : HuyMonoBehaviour
     private void CheckingCol()
     {
         if (!this.isAttacking) return;
-        Vector2 pos = (Vector2)this.katanaObj.position + this.damageCol.offset;
+        Vector2 pos = (Vector2)this.katanaObj.position + (this.damageCol.offset * Mathf.Cos(transform.eulerAngles.y * Mathf.Deg2Rad));
         float radius = this.damageCol.radius;
         Collider2D[] collisions = Physics2D.OverlapCircleAll(pos, radius, this.attackableLayer);
 
