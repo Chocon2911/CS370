@@ -2081,6 +2081,7 @@ MonoBehaviour:
   slashTrail: {fileID: 0}
   katanaObj: {fileID: 228071754}
   so: {fileID: 11400000, guid: 5275b8573af2fbd4798caa233aaa4890, type: 2}
+  wielder: {fileID: 0}
   attackedObj: []
   attackableTags:
   - Monster
@@ -7697,7 +7698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2393398658860882749, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 2915191182929345290, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
       propertyPath: m_Size.x
@@ -7753,6 +7754,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6083835201460814336, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291019254500181174, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291019254500181174, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
+      propertyPath: m_Offset.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8430526629340658020, guid: 8dc45f348c2f58b4d97520f88951de93, type: 3}
