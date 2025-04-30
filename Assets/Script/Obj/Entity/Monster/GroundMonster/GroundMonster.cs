@@ -1,15 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(CapsuleCollider2D))]
-public class Archer : Monster
+public class GroundMonster : Monster
 {
     //==========================================Variable==========================================
     [Space(50)]
-    [Header("===Archer===")]
+    [Header("===Ground Monster===")]
     [Header("Component")]
-    [SerializeField] protected ArcherAnimator animator;
     [SerializeField] protected CapsuleCollider2D groundCol;
 
     [Space(25)]
@@ -46,49 +44,12 @@ public class Archer : Monster
     [SerializeField] protected float jumpSpeed;
     [SerializeField] protected bool isJumping;
 
-    [Space(25)]
-
-    [Header("Bow Attack")]
-    [SerializeField] protected Transform shootPoint;
-    [SerializeField] protected string arrowName;
-    [SerializeField] protected float attackDistance;
-    [SerializeField] protected Cooldown bowRestoreCD;
-    [SerializeField] protected Cooldown chargeBowCD;
-    [SerializeField] protected bool isChargingBow;
-
-    //==========================================Get Set===========================================    
-    // ===Bow Attack===
-    public Cooldown ChargBowCD => this.chargeBowCD;
-    public bool IsChargingBow => this.isChargingBow;
-
-
-
     //===========================================Unity============================================
     public override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadComponent(ref this.animator, transform.Find("Model"), "LoadModel()");
-        this.LoadComponent(ref this.rb, transform, "LoadRb()");
-        this.LoadComponent(ref this.bodyCol, transform, "LoadCol()");
         this.LoadComponent(ref this.groundCol, transform.Find("Ground"), "LoadGroundCol()");
-        this.LoadComponent(ref this.damageEff, transform.Find("DamageEffect"), "LoadDamageEff()");
-        this.LoadComponent(ref this.shootPoint, transform.Find("ShootPoint"), "LoadShootPoint()");
     }
-
-    protected virtual void Update()
-    {
-        this.DetectingWall();
-        this.CheckingIsGround();
-        this.DetectingTarget();
-        this.CheckingTargetOutOfRange();
-        this.Facing();
-        this.Moving();
-        //this.Jumping();
-        this.UsingBow();
-        this.animator.HandlingAnimator();
-    }
-
-
 
     //============================================================================================
     //===========================================Method===========================================
@@ -134,7 +95,7 @@ public class Archer : Monster
     }
 
     //============================================Move============================================
-    protected override void Moving() 
+    protected override void Moving()
     {
         this.isMovingRandomly = false;
         this.isChasingTarget = false;
@@ -185,55 +146,5 @@ public class Archer : Monster
     {
         Util.Instance.Jump(this.rb, this.jumpSpeed);
         this.isJumping = true;
-    }
-
-    //========================================Shoot Arrow=========================================
-    protected virtual void UsingBow()
-    {
-        if (this.target == null)
-        {
-            this.isChargingBow = false;
-            this.chargeBowCD.ResetStatus();
-            return;
-        }
-
-        this.ChargingBow();
-        this.RestoringBow();
-    }
-
-    protected virtual void RestoringBow()
-    {
-        if (this.isChargingBow) return;
-        this.bowRestoreCD.CoolingDown();
-        float currDistance = Vector2.Distance(this.target.position, transform.position);
-
-        if (!this.bowRestoreCD.IsReady || this.target == null || currDistance > this.attackDistance) return;
-        this.isChargingBow = true;
-        this.bowRestoreCD.ResetStatus();
-    }
-
-    protected virtual void ShootArrow()
-    {
-        Vector2 spawnPos = this.shootPoint.position;
-        float xDistance = this.target.position.x - transform.position.x;
-        float zRot = xDistance > 0 ? 0 : 180;
-        Quaternion spawnRot = Quaternion.Euler(0, 0, zRot);
-        Debug.Log(xDistance, gameObject);
-        Debug.Log(zRot, gameObject);
-        Debug.Log(spawnRot, gameObject);
-
-        Transform newArrow = BulletSpawner.Instance.SpawnByName(this.arrowName, spawnPos, spawnRot);
-        newArrow.gameObject.SetActive(true);
-    }
-
-    protected virtual void ChargingBow()
-    {
-        if (!this.isChargingBow) return;
-        this.chargeBowCD.CoolingDown();
-
-        if (!this.chargeBowCD.IsReady) return;
-        this.ShootArrow();
-        this.isChargingBow = false;
-        this.chargeBowCD.ResetStatus();
     }
 }
