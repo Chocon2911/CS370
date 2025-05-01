@@ -27,10 +27,15 @@ public class MushroomMan : GroundMonster
     [SerializeField] protected bool isChargingBite;
     [SerializeField] protected bool isBiteAttacking;
 
+    //==========================================Get Set===========================================
+    //===Bite===
+    public bool IsBiting => this.isBiting;
+
     //===========================================Unity============================================
     public override void LoadComponents()
     {
         base.LoadComponents();
+        this.LoadComponent(ref this.animator, transform.Find("Model"), "LoadAnimator()");
         this.LoadComponent(ref this.biteCol, transform.Find("Bite"), "LoadBiteCol()");
     }
 

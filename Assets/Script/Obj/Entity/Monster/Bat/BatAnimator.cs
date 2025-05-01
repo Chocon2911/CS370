@@ -26,9 +26,8 @@ public class BatAnimator : EntityAnimator
     protected override void HandlingStat()
     {
         this.animator.SetFloat("ChargeSpeed", 1 / this.bat.GoreChargeCD.TimeLimit);
-        if (this.bat.IsMovingRandomly) this.animator.SetFloat("MoveSpeed", this.bat.SlowSpeed / 5);
-        else if (this.bat.IsChasingTarget) this.animator.SetFloat("MoveSpeed", this.bat.ChaseSpeed / 5);
-
+        if (this.bat.IsChasingTarget) this.animator.SetFloat("MoveSpeed", this.bat.ChaseSpeed / 5);
+        else this.animator.SetFloat("MoveSpeed", this.bat.SlowSpeed / 5);
     }
 
     protected override void HandlingState()

@@ -1036,12 +1036,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  maxHealth: 0
-  health: 0
+  maxHealth: 100
+  health: 100
   rb: {fileID: 882795994}
   bodyCol: {fileID: 882795993}
   damageEff: {fileID: 919246314}
-  targetDetectingArea: {x: 0, y: 0}
+  targetDetectingArea: {x: 10, y: 5}
   target: {fileID: 0}
   targetLayer:
     serializedVersion: 2
@@ -1051,10 +1051,10 @@ MonoBehaviour:
   endPoints:
   - {fileID: 1994549534}
   - {fileID: 17722097}
-  currEndPoint: 0
+  currEndPoint: 1
   isMovingRandomly: 0
-  stopChaseDistance: 5
-  chaseSpeed: 0
+  stopChaseDistance: 3
+  chaseSpeed: 5
   isChasingTarget: 0
   groundCol: {fileID: 1416974655}
   groundLayer:
@@ -1069,13 +1069,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   wallTag: Terrain
-  targetDetectDistance: 0
-  moveDir: 0
+  targetDetectDistance: 10
+  moveDir: 1
   slowDownTime: 0
   speedUpTime: 0
   jumpSpeed: 0
   isJumping: 0
-  animator: {fileID: 0}
+  animator: {fileID: 2019467244}
   attackableTags:
   - Player
   attackabelLayer:
@@ -1089,7 +1089,7 @@ MonoBehaviour:
     timeLimit: 1
     timer: 0
     waitTime: 0
-    isReady: 0
+    isReady: 1
   biteChargeCD:
     timeLimit: 0.3
     timer: 0
@@ -1280,8 +1280,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 1046034519}
-  nextScene: 1
-  linkedDoor: 0
+  nextScene: 2
+  linkedDoor: 1
   spawnPoint: {fileID: 510301970}
 --- !u!70 &1046034519
 CapsuleCollider2D:
