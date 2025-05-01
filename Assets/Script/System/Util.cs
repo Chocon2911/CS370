@@ -83,6 +83,11 @@ public class Util
         rb.velocity = dir * speed;
     }
 
+    public void FlyWithAcceleration(Rigidbody2D rb, Vector2 dir, float speed, float speedUpTime, float slowDownTime)
+    {
+
+    }
+
     public void MoveWithAcceleration(Rigidbody2D rb, int dir, float speed, float speedUpTime, float slowDownTime)
     {
         float xVel = rb.velocity.x;

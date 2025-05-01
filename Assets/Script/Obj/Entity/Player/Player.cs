@@ -575,13 +575,6 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
         this.castEnergyBall.restoreCD = new Cooldown(this.so.cebRestoreDuration, 0);
         this.castEnergyBall.chargeCD = new Cooldown(this.so.cebChargeDuration, 0);
         this.castEnergyBall.shootCD = new Cooldown(this.so.cebEndDuration, 0);
-
-        // Slash
-        //this.slash = new SlashData();
-        //this.slash.damage = this.so.slashDamage;
-        //this.slash.restoreCD = new Cooldown(this.so.slashRestoreDuration, 0);
-        //this.slash.attackCD = new Cooldown(this.so.slashDuration, 0);
-        //this.slash.isAttacking = false;
     }
 
     
