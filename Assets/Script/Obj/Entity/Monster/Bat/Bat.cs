@@ -22,6 +22,8 @@ public class Bat : Monster
 
     [Header("Move")]
     [SerializeField] protected Vector2 moveDir;
+    [SerializeField] protected float slowDownTime;
+    [SerializeField] protected float speedUpTime;
 
     [Space(25)]
 
@@ -106,8 +108,7 @@ public class Bat : Monster
         this.isMovingRandomly = false;
 
         if (this.isGoring) return;
-        this.rb.velocity = Vector2.zero;
-
+    
         if (this.target == null) this.MovingRandomly();
         else this.ChasingTarget();
     }
@@ -139,7 +140,7 @@ public class Bat : Monster
         float yDistance = target.position.y - transform.position.y;
 
         this.moveDir = new Vector2(xDistance, yDistance).normalized;
-        this.rb.velocity = this.moveDir * speed;
+        Util.Instance.FlyingWithAcceleration(this.rb, this.moveDir, speed, this.speedUpTime, this.slowDownTime);
     }
 
     //============================================Gore============================================

@@ -83,12 +83,25 @@ public class Util
         rb.velocity = dir * speed;
     }
 
-    public void FlyWithAcceleration(Rigidbody2D rb, Vector2 dir, float speed, float speedUpTime, float slowDownTime)
+    public void FlyingWithAcceleration(Rigidbody2D rb, Vector2 dir, float speed, float speedUpTime, float slowDownTime)
     {
+        float xVel = rb.velocity.x;
+        float yVel = rb.velocity.y;
 
+        // x dir
+        int xDir = dir.x > 0 ? 1 : -1;
+        if (xDir <= Mathf.Pow(0.1f, 3) && xDir >= -Mathf.Pow(0.1f, 3)) xDir = 0;
+        float xSpeed = Mathf.Abs(dir.x * speed);
+        this.MovingWithAccelerationInHorizontal(rb, xDir, xSpeed, speedUpTime, slowDownTime);
+
+        // y dir
+        int yDir = dir.y > 0 ? 1 : -1;
+        if (yDir <= Mathf.Pow(0.1f, 3) && yDir >= -Mathf.Pow(0.1f, 3)) yDir = 0;
+        float ySpeed = Mathf.Abs(dir.y * speed);
+        this.MovingWithAccelerationInVertical(rb, yDir, ySpeed, speedUpTime, slowDownTime);
     }
 
-    public void MoveWithAcceleration(Rigidbody2D rb, int dir, float speed, float speedUpTime, float slowDownTime)
+    public void MovingWithAccelerationInHorizontal(Rigidbody2D rb, int dir, float speed, float speedUpTime, float slowDownTime)
     {
         float xVel = rb.velocity.x;
         float applySpeed = 0;
@@ -97,7 +110,7 @@ public class Util
         {
             if (xVel >= speed)
             {
-                this.SlowingDownWithAcceleration(rb, speed, slowDownTime);
+                this.SlowingDownWithAccelerationInHorizontal(rb, speed, slowDownTime);
                 return;
             }
             else if (xVel > Mathf.Pow(-0.1f, 3))
@@ -116,7 +129,7 @@ public class Util
         {
             if (xVel <= -speed)
             {
-                this.SlowingDownWithAcceleration(rb, speed, slowDownTime);
+                this.SlowingDownWithAccelerationInHorizontal(rb, speed, slowDownTime);
                 return;
             }
             else if (xVel < Mathf.Pow(0.1f, 3))
@@ -133,14 +146,66 @@ public class Util
 
         else
         {
-            this.SlowingDownWithAcceleration(rb, speed, slowDownTime);
+            this.SlowingDownWithAccelerationInHorizontal(rb, speed, slowDownTime);
             return;
         }
 
         this.Move(rb, new Vector2(applySpeed, 0));
     }
 
-    public void SlowingDownWithAcceleration(Rigidbody2D rb, float speed, float slowDownTime)
+    public void MovingWithAccelerationInVertical(Rigidbody2D rb, int dir, float speed, float speedUpTime, float slowDownTime)
+    {
+        float yVel = rb.velocity.y;
+        float applySpeed = 0;
+
+        if (dir > 0)
+        {
+            if (yVel >= speed)
+            {
+                this.SlowingDownWithAccelerationInVertical(rb, speed, slowDownTime);
+                return;
+            }
+            else if (yVel > Mathf.Pow(-0.1f, 3))
+            {
+                applySpeed = dir * speed / speedUpTime * Time.deltaTime;
+                if (applySpeed > speed - yVel) applySpeed = speed - yVel;
+            }
+            else
+            {
+                applySpeed = dir * speed / slowDownTime * Time.deltaTime;
+                if (applySpeed > -yVel) applySpeed = -yVel;
+            }
+        }
+
+        else if (dir < 0)
+        {
+            if (yVel <= -speed)
+            {
+                this.SlowingDownWithAccelerationInVertical(rb, speed, slowDownTime);
+                return;
+            }
+            else if (yVel < Mathf.Pow(0.1f, 3))
+            {
+                applySpeed = dir * speed / speedUpTime * Time.deltaTime;
+                if (applySpeed < -speed - yVel) applySpeed = -speed - yVel;
+            }
+            else
+            {
+                applySpeed = dir * speed / slowDownTime * Time.deltaTime;
+                if (-applySpeed > yVel) applySpeed = -yVel;
+            }
+        }
+
+        else
+        {
+            this.SlowingDownWithAccelerationInVertical(rb, speed, slowDownTime);
+            return;
+        }
+
+        this.Move(rb, new Vector2(0, applySpeed));
+    }
+
+    public void SlowingDownWithAccelerationInHorizontal(Rigidbody2D rb, float speed, float slowDownTime)
     {
         float xVel = rb.velocity.x;
         float applySpeed = 0;
@@ -157,6 +222,25 @@ public class Util
         }
 
         this.Move(rb, new Vector2(applySpeed, 0));
+    }
+
+    public void SlowingDownWithAccelerationInVertical(Rigidbody2D rb, float speed, float slowDownTime)
+    {
+        float yVel = rb.velocity.y;
+        float applySpeed = 0;
+
+        if (yVel > 0)
+        {
+            applySpeed = -speed / slowDownTime * Time.deltaTime;
+            if (-applySpeed > yVel) applySpeed = -yVel;
+        }
+        else if (yVel < 0)
+        {
+            applySpeed = speed / slowDownTime * Time.deltaTime;
+            if (applySpeed > -yVel) applySpeed = -yVel;
+        }
+
+        this.Move(rb, new Vector2(0, applySpeed));
     }
 
     public virtual void ChaseTarget(Transform user, Transform target, float speed)
