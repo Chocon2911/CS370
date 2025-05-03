@@ -977,6 +977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doors:
   - {fileID: 1046034518}
+  - {fileID: 568511911}
 --- !u!1 &763744962
 GameObject:
   m_ObjectHideFlags: 0
@@ -16873,6 +16874,8 @@ MonoBehaviour:
   rb: {fileID: 7138026389955684349}
   bodyCol: {fileID: 4123078817853228160}
   damageEff: {fileID: 4849498681033051472}
+  sceneIndex: 0
+  monsterType: 0
   targetDetectingArea: {x: 20, y: 10}
   target: {fileID: 0}
   targetLayer:
@@ -16894,6 +16897,8 @@ MonoBehaviour:
   - Player
   targetCol: {fileID: 1429231857968631832}
   moveDir: {x: 0, y: 0}
+  slowDownTime: 0.1
+  speedUpTime: 0.2
   goreSpeed: 15
   goreDistance: 5
   goreTargetpos: {x: 0, y: 0}

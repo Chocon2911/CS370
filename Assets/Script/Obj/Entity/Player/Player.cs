@@ -20,7 +20,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     [SerializeField] protected Katana katana;
 
     [Space(25)]
-    
+
     [Header("Stat")]
     [SerializeField] protected bool hasDash;
     [SerializeField] protected bool hasAirJump;
@@ -263,7 +263,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
         if (!this.dash.isDashing && !this.castEnergyBall.isCasting)
         {
             this.moveDir = (int)InputManager.Instance.MoveDir.x;
-            Util.Instance.MoveWithAcceleration(this.rb, this.moveDir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
+            Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
         }
 
         if (this.rb.velocity.x >= Mathf.Pow(1, 1) || this.rb.velocity.x <= -Mathf.Pow(1, 1)) this.isMoving = true;
@@ -604,7 +604,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     //=========================================Door User==========================================
     void DoorUser.Move(int dir)
     {
-        Util.Instance.MoveWithAcceleration(this.rb, dir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
+        Util.Instance.MovingWithAccelerationInHorizontal(this.rb, dir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
     }
 
     float DoorUser.GetXPos()

@@ -7,6 +7,7 @@ public class PlayerSO : EntitySO
 {
     [Space(25)]
     [Header("===Player===")]
+
     [Header("Interact Check")]
     public float interactDetectLength;
 
