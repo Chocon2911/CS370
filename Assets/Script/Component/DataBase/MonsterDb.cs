@@ -64,11 +64,24 @@ public class MonsterDb : DataBase
         }
     }
 
-    public bool IsPlayerExist()
+    public bool IsMonsterExist(string id)
     {
         using (var connection = GetConnection())
         {
-            return connection.Table<MonsterDbData>().Count() > 0;
+            return connection.Table<MonsterDbData>().Count(x => x.Id == id) > 0;
         }
+    }
+
+    public void ReviveAll()
+    {
+        using (var connection = GetConnection())
+        {
+            connection.Table<MonsterDbData>().ToList().ForEach(x => x.Health = x.MaxHealth); 
+        }
+    }
+
+    public void OnPlayerRest()
+    {
+        this.ReviveAll();
     }
 }

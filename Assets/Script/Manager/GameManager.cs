@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,12 +9,26 @@ public class GameManager : HuyMonoBehaviour
     private static GameManager instance;
     public static GameManager Instance => instance;
 
+    // System
+    [SerializeField] private bool isPause;
+
+    // Player
+    [SerializeField] private int respawnSceneIndex;
+    [SerializeField] private Vector3 respawnPos;
+    [SerializeField] private Quaternion respawnRot;
     [SerializeField] private string playerId;
     [SerializeField] private Player player;
     [SerializeField] private int currSceneIndex;
-    [SerializeField] private bool isPause;
+
+    // Respawn
+    [SerializeField] private Cooldown respawnCD;
+    [SerializeField] private bool isRespawning;
 
     //==========================================Get Set===========================================
+    // Player
+    public int RespawnSceneIndex => this.respawnSceneIndex;
+    public Vector3 RespawnPos => this.respawnPos;
+    public Quaternion RespawnRot => this.respawnRot;
     public Player Player => this.player;
     public int CurrSceneIndex => this.currSceneIndex;
 
@@ -30,13 +43,14 @@ public class GameManager : HuyMonoBehaviour
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
         base.Awake();
+        DontDestroyOnLoad(gameObject);
     }
 
     protected virtual void Update()
     {
         this.Pausing();
+        this.Respawning();
     }
 
     //===========================================Other============================================
@@ -76,6 +90,13 @@ public class GameManager : HuyMonoBehaviour
         SceneManager.LoadScene(nextScene);
     }
 
+    private void GameSceneLoaded()
+    {
+        EventManager.Instance.OnBonfireResting += OnPlayerResting;
+        EventManager.Instance.OnPlayerDead += OnPlayerDead;
+        EventManager.Instance.OnBonfireResting += DataBaseManager.Instance.Monster.OnPlayerRest;
+    }
+
     //======================================Go Through Door=======================================
     public void GoThroughDoor(int nextScene, int nextDoor)
     {
@@ -91,6 +112,8 @@ public class GameManager : HuyMonoBehaviour
 
     protected void GoThroughDoorAfterSceneLoaded(int nextDoor, int nextScene)
     {
+        this.GameSceneLoaded();
+
         // Find player in database with stored id
         // Then spawn player and call Exit() of door function
 
@@ -122,6 +145,8 @@ public class GameManager : HuyMonoBehaviour
 
     private void ContinueGameAfterSceneLoaded(PlayerDbData data)
     {
+        this.GameSceneLoaded();
+
         // Spawn Player
 
         Vector2 spawnPos = new Vector2(data.XPos, data.YPos);
@@ -132,20 +157,63 @@ public class GameManager : HuyMonoBehaviour
     
     private void NewGame()
     {
+        this.respawnSceneIndex = 1;
         this.currSceneIndex = 1;
-        LoadSceneWithEvent(1, () => NewGameSceneLoaded());
+        LoadSceneWithEvent(this.currSceneIndex, () => NewGameSceneLoaded());
     }
 
     private void NewGameSceneLoaded()
     {
+        this.GameSceneLoaded();
+
         // Create a new player in database
         // Then spawn the player
 
-        Vector2 spawnPos = new Vector2(0, 0);
-        Quaternion spawnRot = Quaternion.Euler(0, 0, 0);
-        this.player = PlayerSpawner.Instance.SpawnPlayer(spawnPos, spawnRot);
+        this.respawnPos = Vector3.zero;
+        this.respawnRot = Quaternion.Euler(0, 0, 0);
+        this.player = PlayerSpawner.Instance.SpawnPlayer(this.respawnPos, this.respawnRot);
         this.playerId = this.player.PlayerDbData.Id;
         this.player.gameObject.SetActive(true);
         DataBaseManager.Instance.Player.Insert(this.player.PlayerDbData);
+    }
+
+    //=====================================On Player Resting======================================
+    private void OnPlayerResting()
+    {
+        this.respawnSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        this.respawnPos = this.player.transform.position;
+        this.respawnRot = this.player.transform.rotation;
+        DataBaseManager.Instance.Player.Update(this.player.PlayerDbData);
+    }
+
+    //=======================================On Player Dead=======================================
+    private void OnPlayerDead()
+    {
+        this.isRespawning = true;
+    }    
+
+    private void Respawning()
+    {
+        if (!this.isRespawning) return;
+        this.respawnCD.CoolingDown();
+
+        if (!this.respawnCD.IsReady) return;
+        this.isRespawning = false;
+        this.respawnCD.ResetStatus();
+        this.currSceneIndex = this.respawnSceneIndex;
+        DataBaseManager.Instance.Player.Update(this.player.PlayerDbData);
+        this.LoadSceneWithEvent(this.currSceneIndex, () => this.RespawnAfterSceneLoaded());
+    }
+
+    private void RespawnAfterSceneLoaded()
+    {
+        this.GameSceneLoaded();
+
+        PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
+        this.player = PlayerSpawner.Instance.SpawnPlayer(data);
+        this.player.transform.position = this.respawnPos;
+        this.player.transform.rotation = this.respawnRot;
+        this.player.Revive();
+        this.player.gameObject.SetActive(true);
     }
 }

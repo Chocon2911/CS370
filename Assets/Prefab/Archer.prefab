@@ -118,12 +118,16 @@ MonoBehaviour:
   rb: {fileID: 4986725787558871572}
   bodyCol: {fileID: 0}
   damageEff: {fileID: 5554772105934600358}
+  sceneIndex: 0
+  monsterType: 0
   targetDetectingArea: {x: 20, y: 5}
   target: {fileID: 0}
   targetLayer:
     serializedVersion: 2
     m_Bits: 1
   targetTag: Player
+  slowDownTime: 0.1
+  speedUpTime: 0.1
   slowSpeed: 0
   endPoints:
   - {fileID: 0}
@@ -133,7 +137,6 @@ MonoBehaviour:
   stopChaseDistance: 5
   chaseSpeed: 5
   isChasingTarget: 0
-  animator: {fileID: 5688125983385299022}
   groundCol: {fileID: 5897117833863219566}
   groundLayer:
     serializedVersion: 2
@@ -149,10 +152,10 @@ MonoBehaviour:
   wallTag: Terrain
   targetDetectDistance: 5
   moveDir: 0
-  slowDownTime: 0.1
-  speedUpTime: 0.1
   jumpSpeed: 5
   isJumping: 0
+  animator: {fileID: 5688125983385299022}
+  so: {fileID: 11400000, guid: 58da84e62e8bcb44b90000b31f0a3081, type: 2}
   shootPoint: {fileID: 5008349017400386434}
   arrowName: Arrow
   attackDistance: 5

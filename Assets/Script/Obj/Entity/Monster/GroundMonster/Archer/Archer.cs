@@ -27,8 +27,6 @@ public class Archer : GroundMonster
     public Cooldown ChargBowCD => this.chargeBowCD;
     public bool IsChargingBow => this.isChargingBow;
 
-
-
     //===========================================Unity============================================
     public override void LoadComponents()
     {
@@ -65,6 +63,9 @@ public class Archer : GroundMonster
             Debug.LogError("Archer SO is null", gameObject);
             return;
         }
+
+        this.DefaultMonsterStat(this.so);
+        this.DefaultGroundMonsterStat(this.so);
 
         // bow attack
         this.attackDistance = this.so.AttackDistance;

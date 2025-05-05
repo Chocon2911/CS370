@@ -24,12 +24,6 @@ public abstract class GroundMonsterSO : MonsterSO
 
     [Space(10)]
 
-    [Header("Move")]
-    public float SlowDownTime;
-    public float SpeedUpTime;
-
-    [Space(10)]
-
     [Header("Jump")]
     public float JumpSpeed;
 }

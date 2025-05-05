@@ -220,10 +220,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cec94aa91e9ac41a4d99263ff2f68f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPause: 0
+  respawnSceneIndex: 0
+  respawnPos: {x: 0, y: 0, z: 0}
+  respawnRot: {x: 0, y: 0, z: 0, w: 0}
   playerId: 
   player: {fileID: 0}
   currSceneIndex: 0
-  isPause: 0
+  respawnCD:
+    timeLimit: 0
+    timer: 0
+    waitTime: 0
+    isReady: 0
+  isRespawning: 0
 --- !u!4 &280371535
 Transform:
   m_ObjectHideFlags: 0

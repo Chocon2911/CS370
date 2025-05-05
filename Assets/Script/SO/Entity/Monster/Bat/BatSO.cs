@@ -8,14 +8,14 @@ public class BatSO : MonsterSO
     [Space(25)]
     [Header("===Bat===")]
     [Header("Target Detection")]
-    public List<string> TargetTags;
+    public float DetectionRad;
 
     [Space(10)]
 
     [Header("Gore")]
     public float GoreSpeed;
     public float GoreDistance;
-    public float GoreStoreDelay;
+    public float GoreRestoreDelay;
     public float GoreChargeDelay;
     public float GoreAttackDelay;
 }
