@@ -8,6 +8,7 @@ public class MushroomMan : GroundMonster
     [Header("===Mushroom Man===")]
     [Header("Component")]
     [SerializeField] protected MushroomManAnimator animator;
+    [SerializeField] protected MushroomManSO so;
 
     [Header("Stat")]
     [SerializeField] protected List<string> attackableTags;

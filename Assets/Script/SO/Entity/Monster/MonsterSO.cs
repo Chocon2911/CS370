@@ -17,6 +17,11 @@ public abstract class MonsterSO : EntitySO
 
     [Space(10)]
 
+    public float SlowDownTime;
+    public float SpeedUpTime;
+
+    [Space(10)]
+
     [Header("Move Randomly")]
     public float SlowSpeed;
 

@@ -15,6 +15,7 @@ public abstract class Monster : Entity, Damagable, EffectSplashable
     [SerializeField] protected ParticleSystem damageEff;
 
     [Space(25)]
+
     [Header("Stat")]
     [SerializeField] protected int sceneIndex;
     [SerializeField] protected MonsterType monsterType;
@@ -30,6 +31,11 @@ public abstract class Monster : Entity, Damagable, EffectSplashable
     [SerializeField] protected Transform target;
     [SerializeField] protected LayerMask targetLayer;
     [SerializeField] protected string targetTag = "Player";
+
+    [Space(25)]
+    [Header("Move")]
+    [SerializeField] protected float slowDownTime;
+    [SerializeField] protected float speedUpTime;
 
     [Space(25)]
 
@@ -60,8 +66,7 @@ public abstract class Monster : Entity, Damagable, EffectSplashable
     {
         get
         {
-            return new MonsterDbData(this.sceneIndex, this.monsterType, this.health, transform.position, 
-                transform.rotation, this.id);
+            return new MonsterDbData(this.sceneIndex, this.monsterType, this.health, this.id);
         }
 
         set
@@ -69,8 +74,6 @@ public abstract class Monster : Entity, Damagable, EffectSplashable
             this.sceneIndex = value.SceneIndex;
             this.monsterType = value.Type;
             this.health = value.Health;
-            transform.position = new Vector3(value.XPos, value.YPos, value.ZPos);
-            transform.rotation = Quaternion.Euler(value.XRot, value.YRot, value.ZRot);
             this.id = value.Id;
         }
     }
@@ -82,6 +85,12 @@ public abstract class Monster : Entity, Damagable, EffectSplashable
         this.LoadComponent(ref this.rb, transform, "LoadRb()");
         this.LoadComponent(ref this.bodyCol, transform, "LoadBodyCol()");
         this.LoadComponent(ref this.damageEff, transform.Find("DamageEffect"), "LoadDamageEff()");
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        this.LoadDb();
     }
 
 
@@ -100,12 +109,35 @@ public abstract class Monster : Entity, Damagable, EffectSplashable
         this.targetLayer = so.TargetLayer;
         this.targetTag = so.TargetTag;
 
+        // move
+        this.slowDownTime = so.SlowDownTime;
+        this.speedUpTime = so.SpeedUpTime;
+
         // move randomly
         this.slowSpeed = so.SlowSpeed;
 
         // chase target
         this.stopChaseDistance = so.StopChaseDistance;
         this.chaseSpeed = so.ChaseSpeed;
+    }
+
+    //==========================================Database==========================================
+    protected virtual void LoadDb()
+    {
+        if (DataBaseManager.Instance.Monster.IsMonsterExist(this.id))
+        {
+            this.Db = DataBaseManager.Instance.Monster.Query(this.id);
+        }
+
+        else
+        {
+            DataBaseManager.Instance.Monster.Insert(this.Db);
+        }
+    }
+
+    protected virtual void OnSceneEnd()
+    {
+        DataBaseManager.Instance.Monster.Update(this.Db);
     }
 
     //==========================================Abstract==========================================

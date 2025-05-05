@@ -18,6 +18,14 @@ public class GameUI : HuyMonoBehaviour
     public override void LoadComponents()
     {
         base.LoadComponents();
+        this.LoadComponent(ref this.healthBarBackground, transform.Find("HealthBar").Find("Background"), "LoadHealthBarBackground()");
+        this.LoadComponent(ref this.healthSlider, transform.Find("HealthBar").Find("Slider"), "LoadSlider()");
+    }
+
+    private void FixedUpdate()
+    {
+        this.healthSlider.maxValue = GameManager.Instance.Player.MaxHealth;
+        this.healthSlider.value = GameManager.Instance.Player.Health;
     }
 
     //===========================================Method===========================================

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entity : HuyMonoBehaviour
+public abstract class Entity : HuyMonoBehaviour
 {
     [Header("===Entity===")]
     [Header("Basic")]
@@ -17,6 +17,7 @@ public class Entity : HuyMonoBehaviour
     public int MaxHealth => maxHealth;
     public int Health => health;
 
+    //===========================================Method===========================================
     public void RandomId()
     {
         this.id = System.Guid.NewGuid().ToString();

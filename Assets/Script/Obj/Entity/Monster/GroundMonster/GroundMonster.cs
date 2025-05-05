@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundMonster : Monster
+public abstract class GroundMonster : Monster
 {
     //==========================================Variable==========================================
     [Space(50)]
@@ -35,8 +35,6 @@ public class GroundMonster : Monster
 
     [Header("Move")]
     [SerializeField] protected int moveDir;
-    [SerializeField] protected float slowDownTime;
-    [SerializeField] protected float speedUpTime;
 
     [Space(25)]
 
@@ -69,10 +67,6 @@ public class GroundMonster : Monster
 
         // target detection
         this.targetDetectDistance = so.TargetDetectDistance;
-
-        // move
-        this.slowDownTime = so.SlowDownTime;
-        this.speedUpTime = so.SpeedUpTime;
 
         // jump 
         this.jumpSpeed = so.JumpSpeed;

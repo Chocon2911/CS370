@@ -12,7 +12,6 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     [Header("Component")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected CapsuleCollider2D bodyCol;
-    [SerializeField] protected Animator animator;
     [SerializeField] protected PlayerAnimator playerAnimator;
     [SerializeField] protected PlayerSO so;
     [SerializeField] protected Transform shootPoint;
@@ -86,7 +85,6 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     // ===Component===
     public Rigidbody2D Rb => this.rb;
     public CapsuleCollider2D BodyCol => this.bodyCol;
-    public Animator Animator => animator;
 
     // ===Stat===
     public bool IsRest => this.isRest;
@@ -122,9 +120,11 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     {
         get
         {
-            return new PlayerDbData(GameManager.Instance.CurrSceneIndex, transform.position, transform.rotation, 
-                this.id, this.health, this.dash.dashCD.Timer, this.castEnergyBall.restoreCD.Timer, this.hasDash, 
-                this.hasAirJump, this.hasCastEnergyBall);
+            GameManager gameManager = GameManager.Instance;
+            return new PlayerDbData(gameManager.RespawnSceneIndex, gameManager.RespawnPos, 
+                gameManager.RespawnRot.eulerAngles, gameManager.CurrSceneIndex, transform.position, transform.rotation, this.id, this.health, 
+                this.dash.dashCD.Timer, this.castEnergyBall.restoreCD.Timer, this.hasDash, this.hasAirJump, 
+                this.hasCastEnergyBall);
         }
         set
         {
@@ -133,6 +133,10 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
             Debug.Log(transform.position, gameObject);
             transform.rotation = Quaternion.Euler(value.XRot, value.YRot, value.ZRot);
             this.id = value.Id;
+            //GameManager.Instance.RespawnSceneIndex = value.RespawnSceneIndex;
+            //GameManager.Instance.RespawnPos = new Vector3(value.RespawnXPos, value.RespawnYPos, value.RespawnZPos);
+            //GameManager.Instance.RespawnRot = Quaternion.Euler(value.RespawnXRot, value.RespawnYRot, value.RespawnZRot);
+            //GameManager.Instance.CurrSceneIndex = value.CurrSceneIndex;
             this.health = value.Health;
             this.dash.dashCD.Timer = value.DashRestoreTimer;
             this.castEnergyBall.restoreCD.Timer = value.CebRestoreTimer;
@@ -149,7 +153,6 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
         this.LoadChildComponent(ref this.groundCol, transform.Find("Ground"), "LoadGroundCol()");
         this.LoadComponent(ref this.rb, transform, "LoadRb()");
         this.LoadComponent(ref this.bodyCol, transform, "LoadBodyCol()");
-        this.LoadComponent(ref this.animator, transform.Find("Model"), "LoadAnimator()");
         this.LoadComponent(ref this.playerAnimator, transform.Find("Model"), "LoadAnimator()");
         this.LoadComponent(ref this.shootPoint, transform.Find("ShootPoint"), "LoadShootPoint()");
         this.LoadComponent(ref this.dashTrail, transform.Find("DashEffect"), "LoadDashTrail()");
@@ -170,7 +173,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
             if (this.hasDash) this.Dashing();
             if (this.hasAirJump) this.AirJumping();
             if (this.hasCastEnergyBall) this.CastingEnergyBall();
-            //this.playerAnimator.HandlingAnimator(this);
+            this.playerAnimator.HandlingAnimator();
         }
 
         else
@@ -213,7 +216,8 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     //========================================Ground Check========================================
     protected virtual void GroundChecking()
     {
-        Util.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, ref this.isGround);
+        Util.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, 
+            ref this.isGround);
     }
 
     //=======================================Interact Check=======================================
@@ -263,7 +267,8 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
         if (!this.dash.isDashing && !this.castEnergyBall.isCasting)
         {
             this.moveDir = (int)InputManager.Instance.MoveDir.x;
-            Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
+            Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.moveSpeed, 
+                this.moveSpeedUpTime, this.moveSlowDownTime);
         }
 
         if (this.rb.velocity.x >= Mathf.Pow(1, 1) || this.rb.velocity.x <= -Mathf.Pow(1, 1)) this.isMoving = true;
@@ -335,7 +340,8 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     {
         if (!this.hasDash || this.castEnergyBall.isCasting) return;
 
-        else if (!this.dash.isDashing && !this.dash.restoreCD.IsReady && (this.dash.restoreCD.Timer > 0 || this.isGround))
+        else if (!this.dash.isDashing && !this.dash.restoreCD.IsReady && (this.dash.restoreCD.Timer > 0 
+            || this.isGround))
         {
             this.RechargeDash();
         }
@@ -529,8 +535,10 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
         this.castEnergyBall.isShooting = false;
         this.castEnergyBall.shootCD.ResetStatus();
         this.castEnergyBall.chargeCD.ResetStatus();
-        if (this.rb.constraints == RigidbodyConstraints2D.FreezePositionY) this.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-        if (this.rb.constraints == RigidbodyConstraints2D.FreezePositionX) this.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
+        if (this.rb.constraints == RigidbodyConstraints2D.FreezePositionY) 
+            this.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+        if (this.rb.constraints == RigidbodyConstraints2D.FreezePositionX) 
+            this.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionX;
         this.rb.WakeUp();
     }
 
@@ -577,6 +585,11 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
         this.castEnergyBall.shootCD = new Cooldown(this.so.cebEndDuration, 0);
     }
 
+    public void Revive()
+    {
+        this.health = this.maxHealth;
+    }
+
     
 
     //============================================================================================
@@ -604,13 +617,15 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     //=========================================Door User==========================================
     void DoorUser.Move(int dir)
     {
-        Util.Instance.MovingWithAccelerationInHorizontal(this.rb, dir, this.moveSpeed, this.moveSpeedUpTime, this.moveSlowDownTime);
+        Util.Instance.MovingWithAccelerationInHorizontal(this.rb, dir, this.moveSpeed, this.moveSpeedUpTime, 
+            this.moveSlowDownTime);
     }
 
     float DoorUser.GetXPos()
     {
         return transform.position.x;
     }
+
     Transform DoorUser.GetTrans()
     {
         return transform;

@@ -10,9 +10,8 @@ public enum PlayerAnimatorState
     JUMP = 3,
     FALL = 4,
     AIR_JUMP = 5,
-    DASH = 6,
-    CAST_ENERGY_BALL = 7,
-    REST = 8,
+    WALL_CLIMB = 6,
+    DEAD = 7,
 }
 
 public class PlayerAnimator : EntityAnimator
@@ -34,38 +33,38 @@ public class PlayerAnimator : EntityAnimator
     }
     protected override void HandlingState()
     {
-        this.SetAnimatorState((int)PlayerAnimatorState.IDLE);
+        this.SetAnimatorState(PlayerAnimatorState.IDLE);
 
         // Is moving, ground, NOT jumping, dashing, air jumping
         if (player.IsMoving && player.IsGround && !player.IsJumping && !player.IsDashing && !player.IsAirJumping && !player.IsCastingEnergyBall)
         {
-            this.SetAnimatorState((int)PlayerAnimatorState.RUN);
+            this.SetAnimatorState(PlayerAnimatorState.RUN);
         }
 
         else if (player.IsJumping)
         {
-            this.SetAnimatorState((int)PlayerAnimatorState.JUMP);
+            this.SetAnimatorState(PlayerAnimatorState.JUMP);
         }
 
         // yVelocity < 0, NOT ground
         else if (player.Rb.velocity.y < 0 && !player.IsGround)
         {
-            this.SetAnimatorState((int)PlayerAnimatorState.FALL);
+            this.SetAnimatorState(PlayerAnimatorState.FALL);
         }
 
         else if (player.IsAirJumping)
         {
-            this.SetAnimatorState((int)PlayerAnimatorState.AIR_JUMP);
+            this.SetAnimatorState(PlayerAnimatorState.AIR_JUMP);
         }
 
         else if (player.IsDashing)
         {
-            this.SetAnimatorState((int)PlayerAnimatorState.DASH);
+            this.SetAnimatorState(PlayerAnimatorState.JUMP);
         }
 
         else if (player.IsCastingEnergyBall)
         {
-            this.SetAnimatorState((int)PlayerAnimatorState.CAST_ENERGY_BALL);
+            this.SetAnimatorState(PlayerAnimatorState.FALL);
             if (this.player.IsChargingEnergyBall) this.animator.SetInteger("Cast Energy Ball State", 0);
             else if (this.player.IsShootingEnergyBall) this.animator.SetInteger("Cast Energy Ball State", 1);
             else Debug.LogError("Cast Energy Ball Animation problem", transform.gameObject);
@@ -73,12 +72,12 @@ public class PlayerAnimator : EntityAnimator
 
         if (this.player.IsRest)
         {
-            this.SetAnimatorState((int)PlayerAnimatorState.REST);
+            this.SetAnimatorState(PlayerAnimatorState.IDLE);
         }
     }    
 
-    protected virtual void SetAnimatorState(int state)
+    protected virtual void SetAnimatorState(PlayerAnimatorState state)
     {
-        this.animator.SetInteger("State", state);
+        this.animator.SetInteger("State", (int)state);
     }
 }
