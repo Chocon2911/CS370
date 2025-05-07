@@ -1,0 +1,551 @@
+fileFormatVersion: 2
+guid: 9022ee2c2f654e64f8e7175fdcb9ecd4
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 16
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 638816074907080386
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: undead_death_Frame_0
+    originalName: 
+    pivot: {x: 1, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 36
+      width: 30
+      height: 26
+    spriteID: 756aa3d9cbb5eac40a6cde556c074a9e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 36}
+  - name: undead_death_Frame_1
+    originalName: 
+    pivot: {x: 1.1153847, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 128
+      y: 36
+      width: 26
+      height: 26
+    spriteID: 66306c5829f3efb458a5b08edaa8337c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 128, y: 36}
+  - name: undead_death_Frame_2
+    originalName: 
+    pivot: {x: 1.4, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 70
+      width: 20
+      height: 26
+    spriteID: f63d196d96be6944b9859f0055297823
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 70}
+  - name: undead_death_Frame_3
+    originalName: 
+    pivot: {x: 1.4, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 32
+      y: 70
+      width: 20
+      height: 25
+    spriteID: 477c88a735981e2409c2326f19b2fd34
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 32, y: 70}
+  - name: undead_death_Frame_4
+    originalName: 
+    pivot: {x: 1.125, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 196
+      y: 36
+      width: 24
+      height: 25
+    spriteID: cc31a0d03a2920344b57d4a01b8f34eb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 196, y: 36}
+  - name: undead_death_Frame_5
+    originalName: 
+    pivot: {x: 1.125, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 228
+      y: 36
+      width: 24
+      height: 25
+    spriteID: 78340c8d013042d44b1627160a4259d3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 228, y: 36}
+  - name: undead_death_Frame_6
+    originalName: 
+    pivot: {x: 1.0769231, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 162
+      y: 36
+      width: 26
+      height: 25
+    spriteID: bdc4b6d021d985e42b8379b1fec7e742
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 162, y: 36}
+  - name: undead_death_Frame_7
+    originalName: 
+    pivot: {x: 0.90000004, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 42
+      y: 36
+      width: 30
+      height: 26
+    spriteID: 61c860d93bbff73459158a96d7917876
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 42, y: 36}
+  - name: undead_death_Frame_8
+    originalName: 
+    pivot: {x: 0.8181819, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 33
+      height: 24
+    spriteID: ba6fc7c4899ac3e41896d2ca461e8e9a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: undead_death_Frame_9
+    originalName: 
+    pivot: {x: 0.67499995, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 80
+      y: 36
+      width: 40
+      height: 17
+    spriteID: 835afbb85643f9844bdaaa1462124df8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 80, y: 36}
+  - name: undead_death_Frame_10
+    originalName: 
+    pivot: {x: 0.64285713, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 70
+      width: 42
+      height: 9
+    spriteID: 0bde74d60b61b7b4fb7134d7dfe5ef5a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 70}
+  - name: undead_death_Frame_11
+    originalName: 
+    pivot: {x: 0.64285713, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 70
+      width: 42
+      height: 7
+    spriteID: 3d6812c697a55714ebe5cb73d61e8ad8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 70}
+  - name: undead_death_Frame_12
+    originalName: 
+    pivot: {x: 0.64285713, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 160
+      y: 70
+      width: 42
+      height: 5
+    spriteID: 759b050db1b0a4f4785292616b274a11
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 160, y: 70}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 1194191078
+    name: undead_death
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: undead_death_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 6
+        y: 0
+        width: 30
+        height: 26
+      spriteId: 756aa3d9cbb5eac40a6cde556c074a9e
+    - name: undead_death_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 7
+        y: 0
+        width: 26
+        height: 26
+      spriteId: 66306c5829f3efb458a5b08edaa8337c
+    - name: undead_death_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 8
+        y: 0
+        width: 20
+        height: 26
+      spriteId: f63d196d96be6944b9859f0055297823
+    - name: undead_death_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 8
+        y: 0
+        width: 20
+        height: 25
+      spriteId: 477c88a735981e2409c2326f19b2fd34
+    - name: undead_death_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 9
+        y: 0
+        width: 24
+        height: 25
+      spriteId: cc31a0d03a2920344b57d4a01b8f34eb
+    - name: undead_death_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 9
+        y: 0
+        width: 24
+        height: 25
+      spriteId: 78340c8d013042d44b1627160a4259d3
+    - name: undead_death_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 8
+        y: 0
+        width: 26
+        height: 25
+      spriteId: bdc4b6d021d985e42b8379b1fec7e742
+    - name: undead_death_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 9
+        y: 0
+        width: 30
+        height: 26
+      spriteId: 61c860d93bbff73459158a96d7917876
+    - name: undead_death_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 9
+        y: 0
+        width: 33
+        height: 24
+      spriteId: ba6fc7c4899ac3e41896d2ca461e8e9a
+    - name: undead_death_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 9
+        y: 0
+        width: 40
+        height: 17
+      spriteId: 835afbb85643f9844bdaaa1462124df8
+    - name: undead_death_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 9
+        y: 0
+        width: 42
+        height: 9
+      spriteId: 0bde74d60b61b7b4fb7134d7dfe5ef5a
+    - name: undead_death_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 9
+        y: 0
+        width: 42
+        height: 7
+      spriteId: 3d6812c697a55714ebe5cb73d61e8ad8
+    - name: undead_death_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 9
+        y: 0
+        width: 42
+        height: 5
+      spriteId: 759b050db1b0a4f4785292616b274a11
+    linkedCells: []
+    parentIndex: -1
+  platformSettings:
+  - name: Default
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 72, y: 32}
