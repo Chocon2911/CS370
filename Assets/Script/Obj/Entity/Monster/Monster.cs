@@ -14,6 +14,13 @@ public abstract class Monster : Entity, Damagable, EffectSplashable
     [SerializeField] protected CapsuleCollider2D bodyCol;
     [SerializeField] protected ParticleSystem damageEff;
 
+    [Space(25)]
+
+    [Header("Stat")]
+    [SerializeField] protected int sceneIndex;
+    [SerializeField] protected MonsterType monsterType;
+
+    [Space(25)]
 
     [Header("Target Out Of Range")]
     [SerializeField] protected Vector2 targetDetectingArea;
@@ -24,6 +31,11 @@ public abstract class Monster : Entity, Damagable, EffectSplashable
     [SerializeField] protected Transform target;
     [SerializeField] protected LayerMask targetLayer;
     [SerializeField] protected string targetTag = "Player";
+
+    [Space(25)]
+    [Header("Move")]
+    [SerializeField] protected float slowDownTime;
+    [SerializeField] protected float speedUpTime;
 
     [Space(25)]
 
@@ -49,6 +61,23 @@ public abstract class Monster : Entity, Damagable, EffectSplashable
     public float ChaseSpeed => this.chaseSpeed;
     public bool IsChasingTarget => this.isChasingTarget;
 
+    // ===Db===
+    public MonsterDbData Db
+    {
+        get
+        {
+            return new MonsterDbData(this.sceneIndex, this.monsterType, this.health, this.id);
+        }
+
+        set
+        {
+            this.sceneIndex = value.SceneIndex;
+            this.monsterType = value.Type;
+            this.health = value.Health;
+            this.id = value.Id;
+        }
+    }
+
     //===========================================Unity============================================
     public override void LoadComponents()
     {
@@ -58,11 +87,58 @@ public abstract class Monster : Entity, Damagable, EffectSplashable
         this.LoadComponent(ref this.damageEff, transform.Find("DamageEffect"), "LoadDamageEff()");
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        this.LoadDb();
+    }
+
 
 
     //============================================================================================
     //===========================================Method===========================================
     //============================================================================================
+
+    //===========================================Other============================================
+    protected virtual void DefaultMonsterStat(MonsterSO so)
+    {
+        // target out of range
+        this.targetDetectingArea = so.TargetDetectingArea;
+
+        // target detection
+        this.targetLayer = so.TargetLayer;
+        this.targetTag = so.TargetTag;
+
+        // move
+        this.slowDownTime = so.SlowDownTime;
+        this.speedUpTime = so.SpeedUpTime;
+
+        // move randomly
+        this.slowSpeed = so.SlowSpeed;
+
+        // chase target
+        this.stopChaseDistance = so.StopChaseDistance;
+        this.chaseSpeed = so.ChaseSpeed;
+    }
+
+    //==========================================Database==========================================
+    protected virtual void LoadDb()
+    {
+        if (DataBaseManager.Instance.Monster.IsMonsterExist(this.id))
+        {
+            this.Db = DataBaseManager.Instance.Monster.Query(this.id);
+        }
+
+        else
+        {
+            DataBaseManager.Instance.Monster.Insert(this.Db);
+        }
+    }
+
+    protected virtual void OnSceneEnd()
+    {
+        DataBaseManager.Instance.Monster.Update(this.Db);
+    }
 
     //==========================================Abstract==========================================
     protected abstract void Moving();

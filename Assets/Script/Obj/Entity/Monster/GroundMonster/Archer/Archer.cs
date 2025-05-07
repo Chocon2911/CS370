@@ -10,6 +10,7 @@ public class Archer : GroundMonster
     [Header("===Archer===")]
     [Header("Component")]
     [SerializeField] protected ArcherAnimator animator;
+    [SerializeField] protected ArcherSO so;
 
     [Space(25)]
 
@@ -26,14 +27,13 @@ public class Archer : GroundMonster
     public Cooldown ChargBowCD => this.chargeBowCD;
     public bool IsChargingBow => this.isChargingBow;
 
-
-
     //===========================================Unity============================================
     public override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadComponent(ref this.animator, transform.Find("Model"), "LoadModel()");
         this.LoadComponent(ref this.shootPoint, transform.Find("ShootPoint"), "LoadShootPoint()");
+        this.DefaultArcherStat();
     }
 
     protected virtual void Update()
@@ -54,6 +54,24 @@ public class Archer : GroundMonster
     //============================================================================================
     //===========================================Method===========================================
     //============================================================================================
+
+    //===========================================Other============================================
+    protected virtual void DefaultArcherStat()
+    {
+        if (this.so == null)
+        {
+            Debug.LogError("Archer SO is null", gameObject);
+            return;
+        }
+
+        this.DefaultMonsterStat(this.so);
+        this.DefaultGroundMonsterStat(this.so);
+
+        // bow attack
+        this.attackDistance = this.so.AttackDistance;
+        this.bowRestoreCD = new Cooldown(this.so.BowRestoreDelay, 0);
+        this.chargeBowCD = new Cooldown(this.so.ChargeBowDelay, 0);
+    }
 
     //========================================Shoot Arrow=========================================
     protected virtual void UsingBow()

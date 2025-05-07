@@ -11,11 +11,11 @@ public class Bat : Monster
     [Header("===Bat===")]
     [SerializeField] protected BatAnimator animator;
     [SerializeField] protected TrailRenderer goreTrail;
+    [SerializeField] protected BatSO so;
 
     [Space(25)]
 
     [Header("Target Detection")]
-    [SerializeField] protected List<string> targetTags;
     [SerializeField] protected CircleCollider2D targetCol;
 
     [Space(25)]
@@ -72,6 +72,26 @@ public class Bat : Monster
     //===========================================Method===========================================
     //============================================================================================
 
+    //===========================================Other============================================
+    protected virtual void DefaultBatStat()
+    {
+        if (this.so == null)
+        {
+            Debug.LogError("Bat SO is null", gameObject);
+            return;
+        }
+
+        // Target Detection
+        this.targetCol.radius = this.so.DetectionRad;
+
+        // Gore
+        this.goreSpeed = this.so.GoreSpeed;
+        this.goreDistance = this.so.GoreDistance;
+        this.goreRestoreCD = new Cooldown(this.so.GoreRestoreDelay, 0);
+        this.goreChargeCD = new Cooldown(this.so.GoreChargeDelay, 0);
+        this.goreAttackCD = new Cooldown(this.so.GoreAttackDelay, 0);
+    }
+
     //======================================Target Detection======================================
     protected override void DetectingTarget()
     {
@@ -83,12 +103,9 @@ public class Bat : Monster
         
         foreach (Collider2D target in targets)
         {
-            foreach (string tag in this.targetTags)
-            {
-                if (target.tag != tag) continue;
-                this.target = target.transform;
-                return;
-            }
+            if (target.tag != this.targetTag) continue;
+            this.target = target.transform;
+            return;
         }
     }
 
@@ -106,8 +123,7 @@ public class Bat : Monster
         this.isMovingRandomly = false;
 
         if (this.isGoring) return;
-        this.rb.velocity = Vector2.zero;
-
+    
         if (this.target == null) this.MovingRandomly();
         else this.ChasingTarget();
     }
@@ -139,7 +155,7 @@ public class Bat : Monster
         float yDistance = target.position.y - transform.position.y;
 
         this.moveDir = new Vector2(xDistance, yDistance).normalized;
-        this.rb.velocity = this.moveDir * speed;
+        Util.Instance.FlyingWithAcceleration(this.rb, this.moveDir, speed, this.speedUpTime, this.slowDownTime);
     }
 
     //============================================Gore============================================

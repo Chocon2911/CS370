@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundMonster : Monster
+public abstract class GroundMonster : Monster
 {
     //==========================================Variable==========================================
     [Space(50)]
@@ -35,8 +35,6 @@ public class GroundMonster : Monster
 
     [Header("Move")]
     [SerializeField] protected int moveDir;
-    [SerializeField] protected float slowDownTime;
-    [SerializeField] protected float speedUpTime;
 
     [Space(25)]
 
@@ -54,6 +52,25 @@ public class GroundMonster : Monster
     //============================================================================================
     //===========================================Method===========================================
     //============================================================================================
+
+    //===========================================Other============================================
+    protected virtual void DefaultGroundMonsterStat(GroundMonsterSO so)
+    {
+        // ground check
+        this.groundLayer = so.GroundLayer;
+        this.groundTag = so.GroundTag;
+
+        // wall detection
+        this.wallDetectDistance = so.WallDetectDistance;
+        this.wallLayer = so.WallLayer;
+        this.wallTag = so.WallTag;
+
+        // target detection
+        this.targetDetectDistance = so.TargetDetectDistance;
+
+        // jump 
+        this.jumpSpeed = so.JumpSpeed;
+    }
 
     //======================================Ground Checking=======================================
     protected virtual void CheckingIsGround()
@@ -114,7 +131,7 @@ public class GroundMonster : Monster
         }
 
         this.moveDir = this.endPoints[this.currEndPoint].position.x > transform.position.x ? 1 : -1;
-        Util.Instance.MoveWithAcceleration(this.rb, this.moveDir, this.slowSpeed, this.speedUpTime, this.slowDownTime);
+        Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.slowSpeed, this.speedUpTime, this.slowDownTime);
         this.isMovingRandomly = true;
     }
 
@@ -126,11 +143,11 @@ public class GroundMonster : Monster
 
         if (currDistance <= this.stopChaseDistance)
         {
-            Util.Instance.SlowingDownWithAcceleration(this.rb, this.chaseSpeed, this.slowDownTime);
+            Util.Instance.SlowingDownWithAccelerationInHorizontal(this.rb, this.chaseSpeed, this.slowDownTime);
         }
         else
         {
-            Util.Instance.MoveWithAcceleration(this.rb, this.moveDir, this.chaseSpeed, this.speedUpTime, this.slowDownTime);
+            Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.chaseSpeed, this.speedUpTime, this.slowDownTime);
             this.isChasingTarget = true;
         }
     }

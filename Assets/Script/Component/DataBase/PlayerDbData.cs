@@ -7,6 +7,13 @@ using UnityEngine;
 public class PlayerDbData : DbData
 {
     //==========================================Variable==========================================
+    public int RespawnSceneIndex { get; set; }
+    public float RespawnXPos { get; set; }
+    public float RespawnYPos { get; set; }
+    public float RespawnZPos { get; set; }
+    public float RespawnXRot { get; set; }
+    public float RespawnYRot { get; set; }
+    public float RespawnZRot { get; set; }
     public int CurrSceneIndex { get; set; }
     public float XPos { get; set; }
     public float YPos { get; set; }
@@ -22,10 +29,17 @@ public class PlayerDbData : DbData
     public bool HasCastEnergyBall { get; set; }
 
     //========================================Constructor=========================================
-    public PlayerDbData(int currMapIndex, Vector3 position, Quaternion rotation, string id, int health, float dashRestoreTimer,
+    public PlayerDbData(int respawnSceneIndex, Vector3 respawnPos, Vector3 respawnRot, int currSceneIndex, Vector3 position, Quaternion rotation, string id, int health, float dashRestoreTimer,
         float cebRestoreTimer, bool hasDash, bool hasAirJump, bool hasCastEnergyBall) : base(id)
     {
-        this.CurrSceneIndex = currMapIndex;
+        this.RespawnSceneIndex = respawnSceneIndex;
+        this.RespawnXPos = respawnPos.x;
+        this.RespawnYPos = respawnPos.y;
+        this.RespawnZPos = respawnPos.z;
+        this.RespawnXRot = respawnRot.x;
+        this.RespawnYRot = respawnRot.y;
+        this.RespawnZRot = respawnRot.z;
+        this.CurrSceneIndex = currSceneIndex;
         this.XPos = position.x;
         this.YPos = position.y;
         this.ZPos = position.z;

@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 9001370350668903595}
-  player: {fileID: 0}
+  player: {fileID: 6609135049568108798}
 --- !u!1 &1950550521718312983
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +415,6 @@ MonoBehaviour:
   health: 10
   rb: {fileID: 2989173332274308274}
   bodyCol: {fileID: 6519426757431235623}
-  animator: {fileID: 9001370350668903595}
   playerAnimator: {fileID: 7162992546539807616}
   so: {fileID: 11400000, guid: 11a7cf06f00cb26419cd8d2240c2ee74, type: 2}
   shootPoint: {fileID: 7170116871163145608}
