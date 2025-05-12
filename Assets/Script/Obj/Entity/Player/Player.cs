@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Player : Entity, Damagable, DoorUser, BonfireUser
+public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
 {
     //==========================================Variable==========================================
     [Space(50)]
@@ -40,6 +40,13 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     [Header("Interact Check")]
     [SerializeField] protected float interactDetectLength;
     [SerializeField] protected Transform interactableObj;
+
+    [Space(25)]
+
+    [Header("Invincible")]
+    [SerializeField] protected Cooldown invincibleCD;
+    [SerializeField] protected bool isInvincible;
+
 
     [Space(25)]
 
@@ -164,8 +171,8 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     {
         if (!this.isRest)
         {
-            this.GroundChecking();
-            this.InteractChecking();
+            this.CheckingGround();
+            this.CheckingInteract();
             this.Moving();
             this.Jumping();
             this.Facing();
@@ -205,6 +212,21 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
             else if (unlockSkill == SkillType.CAST_ENERGY_BALL) this.hasCastEnergyBall = true;
             collision.gameObject.SetActive(false);
         }
+
+        if (collision.CompareTag("JumpPad"))
+        {
+            JumpPad jumpPad = collision.transform.parent.GetComponent<JumpPad>();
+            if (jumpPad != null) jumpPad.Collide(this);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Spike"))
+        {
+            Spike spike = collision.transform.GetComponent<Spike>();
+            if (spike != null) spike.Collide(this);
+        }
     }
 
 
@@ -214,14 +236,14 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     //============================================================================================
 
     //========================================Ground Check========================================
-    protected virtual void GroundChecking()
+    protected virtual void CheckingGround()
     {
         Util.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, 
             ref this.isGround);
     }
 
     //=======================================Interact Check=======================================
-    protected virtual void InteractChecking()
+    protected virtual void CheckingInteract()
     {
         this.interactableObj = null;
 
@@ -243,6 +265,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
 
         if (interactable != null)
         {
+            interactable.Detected(this);
             if (Input.GetKeyDown(KeyCode.E))
             {
                 interactable.Interact(this);
@@ -259,6 +282,16 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
         float yPos = this.dashTrail.transform.localPosition.y;
         float zPos = this.dashTrail.transform.localPosition.z;
         this.dashTrail.transform.localPosition = new Vector3(this.dashTrailDistance, yPos, zPos);
+    }
+
+    //=========================================Invincible=========================================
+    protected virtual void HandlingInvincible()
+    {
+        if (!this.isInvincible) return;
+        this.invincibleCD.CoolingDown();
+
+        if (!this.invincibleCD.IsReady) return;
+        this.isInvincible = false;
     }
 
     //============================================Move============================================
@@ -599,8 +632,9 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
     //=========================================Damagable==========================================
     void Damagable.TakeDamage(int damage)
     {
-        if (this.health <= 0) return;
+        if (this.isInvincible || this.health <= 0) return;
         this.health -= damage;
+        this.isInvincible = true;
         
         if (this.health <= 0)
         {
@@ -611,6 +645,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
 
     void Damagable.Push(Vector2 force)
     {
+        if (this.isInvincible) return;
         this.rb.velocity = force;
     }
 
@@ -647,5 +682,16 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser
         this.health = this.maxHealth;
         this.FinishMove();
         this.isRest = true;
+    }
+
+    //===========================================ISpike===========================================
+    Transform ISpike.GetTarget()
+    {
+        return transform;
+    }
+
+    Damagable ISpike.GetDamagable()
+    {
+        return this;
     }
 }

@@ -14,7 +14,7 @@ public enum PlayerAnimatorState
     DEAD = 7,
 }
 
-public class PlayerAnimator : EntityAnimator
+public class PlayerAnimator : BaseAnimator
 {
     //==========================================Variable==========================================
     [SerializeField] protected Player player;
