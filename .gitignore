@@ -70,3 +70,22 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Material/Effect/Damage.mat
+Assets/Outside/Arcane archer.meta
+Assets/Outside/Arcane archer/projectile.png.meta
+Assets/Outside/Arcane archer/spritesheet.aseprite.meta
+Assets/Outside/Arcane archer/spritesheet.png.meta
+Assets/Outside/Textures.meta
+Assets/Outside/Textures/circle with soft edge.png.meta
+Assets/Outside/Textures/Circle.png.meta
+Assets/Outside/Textures/Smoke.png.meta
+Assets/Scenes/Map_1.unity
+Assets/Script/Obj/Bullet/Arrow.cs
+Assets/Script/Obj/Bullet/Bullet.cs
+Assets/Script/Obj/Entity/EffectSplashable.cs.meta
+Assets/Script/Obj/Entity/Monster/Aborigine.cs.meta
+Assets/Script/Obj/Entity/Monster/Archer/Archer.cs.meta
+Assets/Script/Obj/Entity/Monster/Monster.cs
+Assets/Script/Obj/Entity/Monster/Monster.cs.meta
+Assets/Script/Obj/Entity/Player/PlayerAnimator.cs
+Assets/Script/Obj/Katana/Katana.cs
