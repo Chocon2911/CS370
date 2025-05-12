@@ -56,6 +56,11 @@ public class Bonfire : HuyMonoBehaviour, Interactable
             this.chosentRestPoint = restPoint;
         }
 
-        tempUser.Teleport(this.chosentRestPoint.position);
+        this.tempUser.Teleport(this.chosentRestPoint.position);
+    }
+
+    void Interactable.Detected(Player player)
+    {
+        return;
     }
 }

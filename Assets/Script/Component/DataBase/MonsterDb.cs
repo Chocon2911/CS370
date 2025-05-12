@@ -64,6 +64,7 @@ public class MonsterDb : DataBase
         }
     }
 
+    //===========================================Other============================================
     public bool IsMonsterExist(string id)
     {
         using (var connection = GetConnection())
@@ -76,7 +77,12 @@ public class MonsterDb : DataBase
     {
         using (var connection = GetConnection())
         {
-            connection.Table<MonsterDbData>().ToList().ForEach(x => x.Health = x.MaxHealth); 
+            var minions = connection.Table<MonsterDbData>().Where(x => x.Type == (int)MonsterType.MINION).ToList();
+            foreach (var minion in minions)
+            {
+                minion.Health = minion.MaxHealth;
+                connection.Update(minion);
+            }
         }
     }
 
