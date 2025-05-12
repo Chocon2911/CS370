@@ -48,6 +48,7 @@ public class Reaper : Enemy
     [Header("Chase Target")]
     [SerializeField] protected Transform target;
     [SerializeField] protected float chaseSpeed;
+    [SerializeField] protected float startChaseDistance;
     [SerializeField] protected float stopChaseDistance;
 
     [Space(25)]
@@ -106,10 +107,13 @@ public class Reaper : Enemy
     [Header("Teleport")]
     [SerializeField] protected TeleLightning teleLightning;
     [SerializeField] protected List<Transform> telePoints;
+    [SerializeField] protected int teleTimes;
+    [SerializeField] protected int currTimes;
     [SerializeField] protected Cooldown restoreTeleCD;
     [SerializeField] protected Cooldown teleCD;
     [SerializeField] protected Cooldown teleAppearCD;
     [SerializeField] protected bool isTeleporting;
+    [SerializeField] protected bool isTeleAppearing;
 
     //==========================================Get Set===========================================
     // Move
@@ -145,6 +149,7 @@ public class Reaper : Enemy
         this.LoadComponent(ref this.slashCol, transform.Find("Slash"), "LoadSlashCol()");
         this.LoadComponent(ref this.slashShootPoint, transform.Find("SlashShootPoint"), "LoadSlashShootPoint()");
         this.LoadComponent(ref this.castBallShootPoint, transform.Find("CastBallShootPoint"), "LoadCastBallShootPoint()");
+        this.LoadComponent(ref this.teleLightning, transform.Find("Lightning"), "LoadTeleLightning()");
     }
 
     protected virtual void Update()
@@ -152,6 +157,7 @@ public class Reaper : Enemy
         this.CheckingGround();
         this.Moving();
         this.Facing();
+        this.HandlingTeleport();
         this.HandlingRisingHand();
         this.CastingBall();
         this.Slashing();
@@ -192,7 +198,7 @@ public class Reaper : Enemy
         this.moveDir = this.target.position.x - this.transform.position.x > 0 ? 1 : -1;
         float distance = Vector2.Distance(this.transform.position, this.target.position);
 
-        if (distance < this.stopChaseDistance || this.isRisingHand || this.isSlashing || this.isCastingBall)
+        if (distance > this.startChaseDistance || distance < this.stopChaseDistance || this.isRisingHand || this.isSlashing || this.isCastingBall)
             Util.Instance.SlowingDownWithAccelerationInHorizontal(this.rb, this.chaseSpeed, this.slowDownTime);
         else
             Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.chaseSpeed, this.speedUpTime, this.slowDownTime);
@@ -209,7 +215,8 @@ public class Reaper : Enemy
             this.FinishingSlash();
         }
 
-        if (!this.slashRestoreCD.IsReady || this.target == null || this.isCastingBall || this.isRisingHand) return;
+        if (!this.slashRestoreCD.IsReady || this.target == null || this.isCastingBall || this.isRisingHand
+            || this.isTeleporting) return;
         float xDistance = Mathf.Abs(this.transform.position.x - this.target.position.x);
         
         if (xDistance > this.slashRange) return;
@@ -295,10 +302,11 @@ public class Reaper : Enemy
             this.RiseHandAttacking();
         }
 
-        if (!this.restoreRiseHandCD.IsReady || this.target == null || this.isSlashing || this.IsCastingBall) return;
+        if (!this.restoreRiseHandCD.IsReady || this.target == null || this.isSlashing || this.IsCastingBall
+            || this.isTeleporting) return;
         float distace = Vector2.Distance(this.transform.position, this.target.position);
 
-        if (distace > this.slashRange) return;
+        if (distace < this.slashRange) return;
         this.isRisingHand = true;
         this.currRiseHandState = RiseHandState.CHARGE;
         this.restoreRiseHandCD.ResetStatus();
@@ -316,9 +324,6 @@ public class Reaper : Enemy
         this.chargeRiseHandCD.CoolingDown();
 
         if (!this.chargeRiseHandCD.IsReady) return;
-        float distance = Vector2.Distance(this.transform.position, this.target.position);
-
-        if (distance > this.slashRange) return;
         this.currRiseHandState = RiseHandState.ATTACK;
         this.chargeRiseHandCD.ResetStatus();
         Vector2 spawnPos = (Vector2)this.target.position + this.riseHandSpawnPosRange;
@@ -360,7 +365,7 @@ public class Reaper : Enemy
         if (!this.restoreCastBallCD.IsReady || this.target == null || this.isSlashing || this.isRisingHand) return;
         float distance = Vector2.Distance(this.transform.position, this.target.position);
 
-        if (distance > this.castBallRange) return;
+        if (distance < this.castBallRange) return;
         this.isCastingBall = true;
         this.restoreCastBallCD.ResetStatus();
     }
@@ -399,18 +404,48 @@ public class Reaper : Enemy
     //==========================================Teleport==========================================
     protected virtual void HandlingTeleport()
     {
+        this.RestoringTeleport();
+        this.Teleporting();
+        this.TeleAppearing();
 
+        if (this.target == null || !this.restoreTeleCD.IsReady || this.isSlashing || this.isCastingBall || this.isRisingHand) return;
+        this.isTeleporting = true;
+        this.restoreTeleCD.ResetStatus();
+    }
+
+    protected virtual void RestoringTeleport()
+    {
+        if (this.isTeleporting) return;
+        this.restoreTeleCD.CoolingDown();
     }
     
     protected virtual void Teleporting()
     {
-        if (!this.isTeleporting) return;
+        if (!this.isTeleporting || this.isTeleAppearing) return;
         this.teleCD.CoolingDown();
 
-        if (!this.teleCD.IsReady) return;
-        this.isTeleporting = false;
+        if (!this.teleCD.IsReady || this.isSlashing || this.isCastingBall || this.isRisingHand) return;
+        this.isTeleAppearing = true;
         this.teleCD.ResetStatus();
+        this.teleLightning.CallDisappear();
+        this.avatar.gameObject.SetActive(false);
+        this.bodyCol.isTrigger = true;
+    }
+
+    protected virtual void TeleAppearing()
+    {
+        if (!this.isTeleAppearing) return;
+        this.teleAppearCD.CoolingDown();
+
+        if (!this.teleAppearCD.IsReady) return;
+        this.teleAppearCD.ResetStatus();
+        this.isTeleAppearing = false;
         this.Teleport();
+        this.currTimes++;
+
+        if (this.currTimes < this.teleTimes) return;
+        this.currTimes = 0;
+        this.isTeleporting = false;
     }
 
     protected virtual void Teleport()
@@ -428,5 +463,6 @@ public class Reaper : Enemy
         this.avatar.gameObject.SetActive(true);
         this.bodyCol.isTrigger = false;
         this.transform.position = chosenPoint.position;
+        this.teleLightning.CallAppear();
     }
 }

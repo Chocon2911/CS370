@@ -13,6 +13,7 @@ public class ReaperAnimator : BaseAnimator
         FINISH_SLASH = 4,
         CHARGE_CAST_SPELL = 5,
         ATTACK_CAST_SPELL = 6,
+        Dead = 7,
     }
 
     //==========================================Variable==========================================
@@ -74,6 +75,11 @@ public class ReaperAnimator : BaseAnimator
                 else if (this.reaper.CurrRiseHandState == Reaper.RiseHandState.ATTACK)
                     this.animator.SetInteger("State", (int)ReaperState.ATTACK_CAST_SPELL);
             }
+        }
+
+        if (this.reaper.Health <= 0)
+        {
+            this.animator.SetInteger("State", (int)ReaperState.Dead);
         }
     }
 }
