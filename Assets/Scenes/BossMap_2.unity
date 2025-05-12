@@ -308,6 +308,37 @@ Transform:
   - {fileID: 17722097}
   m_Father: {fileID: 2058825345}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &144076627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 144076628}
+  m_Layer: 0
+  m_Name: TelePoint_2
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &144076628
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144076627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.12, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 574395605}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &166961765
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,6 +499,37 @@ Transform:
   m_Children:
   - {fileID: 6989622261530368883}
   m_Father: {fileID: 2124350347}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &236897592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 236897593}
+  m_Layer: 0
+  m_Name: TelePoint_1
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &236897593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236897592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.86, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 574395605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &303137441
 GameObject:
@@ -831,7 +893,7 @@ MonoBehaviour:
   damageEff: {fileID: 965402581}
   sceneIndex: 0
   monsterType: 0
-  avatar: {fileID: 0}
+  avatar: {fileID: 1885656591}
   animator: {fileID: 1885656593}
   groundCol: {fileID: 166961767}
   groundLayer:
@@ -846,6 +908,7 @@ MonoBehaviour:
   isMoving: 0
   target: {fileID: 1626769252}
   chaseSpeed: 5
+  startChaseDistance: 10
   stopChaseDistance: 3
   attackableLayer:
     serializedVersion: 2
@@ -880,7 +943,7 @@ MonoBehaviour:
     isReady: 0
   isSlashing: 0
   riseHandName: ClaspedMagicHand
-  riseHandRange: 0
+  riseHandRange: 5
   currRiseHandState: 0
   riseHandSpawnPosRange: {x: 0, y: -0.5}
   restoreRiseHandCD:
@@ -907,7 +970,7 @@ MonoBehaviour:
     waitTime: 0
     isReady: 0
   ballName: MagicBall
-  castBallRange: 0
+  castBallRange: 5
   castBallShootPoint: {fileID: 450436841}
   restoreCastBallCD:
     timeLimit: 5
@@ -920,24 +983,29 @@ MonoBehaviour:
     waitTime: 0
     isReady: 0
   isCastingBall: 0
-  teleLightning: {fileID: 0}
-  telePoints: []
+  teleLightning: {fileID: 1802530129}
+  telePoints:
+  - {fileID: 236897593}
+  - {fileID: 144076628}
+  teleTimes: 2
+  currTimes: 0
   restoreTeleCD:
-    timeLimit: 0
+    timeLimit: 10
     timer: 0
     waitTime: 0
     isReady: 0
   teleCD:
-    timeLimit: 0
+    timeLimit: 3
     timer: 0
     waitTime: 0
     isReady: 0
   teleAppearCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
   isTeleporting: 0
+  isTeleAppearing: 0
 --- !u!70 &552530456
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1000,6 +1068,39 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &574395604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 574395605}
+  m_Layer: 0
+  m_Name: TelePoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &574395605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574395604}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 236897593}
+  - {fileID: 144076628}
+  m_Father: {fileID: 763744963}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &609636917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,6 +1615,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 425670161}
+  - {fileID: 574395605}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &806179058
@@ -3193,6 +3295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2034151653}
   - component: {fileID: 2034151654}
+  - component: {fileID: 2034151655}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -3267,6 +3370,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2034151655
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034151652}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 52bbfd501335fa24a93b03ee274416e9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2058825344
 GameObject:
   m_ObjectHideFlags: 0
