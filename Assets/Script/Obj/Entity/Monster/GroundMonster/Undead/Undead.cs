@@ -20,6 +20,7 @@ public class Undead : GroundMonster, Damagable
     [Header("===Undead===")]
     [Header("Component")]
     [SerializeField] protected UndeadAnimator animator;
+    [SerializeField] protected UndeadSO so;
 
     [Space(25)]
 
@@ -71,6 +72,7 @@ public class Undead : GroundMonster, Damagable
         base.LoadComponents();
         this.LoadComponent(ref this.animator, transform.Find("Model"), "LoadAnimator()");
         this.LoadComponent(ref this.cutCol, transform.Find("Cut"), "LoadCutCol()");
+        this.DefaultUndeadStat();
     }
 
     protected virtual void Update()
@@ -96,6 +98,23 @@ public class Undead : GroundMonster, Damagable
     //===========================================Method===========================================
     //============================================================================================
 
+    protected virtual void DefaultUndeadStat()
+    {
+        if (this.so == null) return;
+        this.DefaultMonsterStat(this.so);
+        this.DefaultGroundMonsterStat(this.so);
+
+        this.cutCol.radius = this.so.CutRadius;
+        this.cutDamage = this.so.CutDamage;
+        this.cutPushForce = this.so.CutPushForce;
+        this.cutRange = this.so.CutRange;
+        this.cutRestoreCD = new Cooldown(this.so.CutRestoreCD, 0);
+        this.cutAttackCD = new Cooldown(this.so.CutAttackCD, 0);
+        this.cutChargeCD = new Cooldown(this.so.CutChargeCD, 0);
+        this.cutFinishCD = new Cooldown(this.so.CutFinishCD, 0);
+        this.attackabelLayer = this.so.AttackableLayer;
+        this.attackableTags = new List<string>(this.so.AttackableTags);
+    }
 
     //==========================================Attacked==========================================
     protected virtual void HandlingAttacked()
