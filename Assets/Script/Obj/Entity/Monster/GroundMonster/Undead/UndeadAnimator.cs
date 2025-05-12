@@ -13,7 +13,7 @@ public enum UndeadState
     FINISHATTACK = 3,
     HURT = 4
 }
-public class UndeadAnimator : EntityAnimator
+public class UndeadAnimator : BaseAnimator
 {
     //==========================================Variable==========================================
     [Header("===Tree Sentinel===")]

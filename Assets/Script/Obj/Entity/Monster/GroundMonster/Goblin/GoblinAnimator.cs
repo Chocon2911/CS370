@@ -13,7 +13,7 @@ public enum GoblinState
     FINISHATTACK = 3,
     HURT = 4
 }
-public class GoblinAnimator : EntityAnimator
+public class GoblinAnimator : BaseAnimator
 {
     //==========================================Variable==========================================
     [Header("===Tree Sentinel===")]
