@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public abstract class Bullet : HuyMonoBehaviour
 {
     //==========================================Variable==========================================
     [Header("===Bullet===")]
     [Header("Component")]
     [SerializeField] protected Rigidbody2D rb;
-    [SerializeField] protected CircleCollider2D col;
 
     [Space(25)]
 
@@ -28,7 +27,6 @@ public abstract class Bullet : HuyMonoBehaviour
     {
         base.LoadComponents();
         this.LoadComponent(ref this.rb, transform, "LoadRb()");
-        this.LoadComponent(ref this.col, transform, "LoadCol()");
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -48,6 +46,12 @@ public abstract class Bullet : HuyMonoBehaviour
         this.despawnCD.ResetStatus();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        this.despawnCD.ResetStatus();
+    }
+
     protected virtual void Update()
     {
         this.Despawning();
@@ -63,14 +67,12 @@ public abstract class Bullet : HuyMonoBehaviour
     {
         // Deal Damage
         Damagable damagable = collision.GetComponent<Damagable>();
+        if (damagable == null) return;
         damagable.TakeDamage(this.damage);
 
         // Push
         float xDistance = collision.transform.position.x - transform.position.x;
         Vector2 dir = new Vector2(xDistance, 0).normalized;
         damagable.Push(this.pushForce * dir);
-
-        // Stick to Collision
-        transform.parent = collision.transform;
     }
 }

@@ -6,21 +6,22 @@ using UnityEngine;
 public interface ISpike
 {
     Transform GetTarget();
-    void Damage(int damage);
-    void Push(int pushForce, Vector2 pushDir);
+    Damagable GetDamagable();
 }
 
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public class Spike : HuyMonoBehaviour
 {
     //==========================================Variable==========================================
     [Header("===Spike===")]
     [Header("Component")]
-    [SerializeField] protected BoxCollider2D col;
+    [SerializeField] protected CapsuleCollider2D col;
 
     [Header("Stat")]
     [SerializeField] protected int damage;
     [SerializeField] protected int pushForce;
+    [SerializeField] protected LayerMask targetLayer;
+    [SerializeField] protected string targetTag;
 
     //===========================================Unity============================================
     public override void LoadComponents()
@@ -36,7 +37,7 @@ public class Spike : HuyMonoBehaviour
         float yDir = user.GetTarget().position.y - transform.position.y;
         Vector2 pushDir = new Vector2(xDir, yDir).normalized;
 
-        user.Damage(this.damage);
-        user.Push(this.pushForce, pushDir);
+        user.GetDamagable().TakeDamage(this.damage);
+        user.GetDamagable().Push(this.pushForce * pushDir);
     }
 }

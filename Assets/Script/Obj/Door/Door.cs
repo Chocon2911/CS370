@@ -9,6 +9,10 @@ public class Door : HuyMonoBehaviour, Interactable
     [Header("===Door===")]
     [Header("Component")]
     [SerializeField] protected CapsuleCollider2D col;
+    [SerializeField] protected Transform guideArrow;
+
+    [Header("Stat")]
+    [SerializeField] protected bool isDetected;
 
     [Header("Enter")]
     [SerializeField] protected int nextScene;
@@ -23,6 +27,20 @@ public class Door : HuyMonoBehaviour, Interactable
         base.LoadComponents();
         this.LoadComponent(ref this.col, transform, "LoadCol()");
         this.LoadComponent(ref this.spawnPoint, transform.Find("SpawnPoint"), "LoadSpawnPoint()");
+        this.LoadComponent(ref this.guideArrow, transform.Find("Arrow"), "LoadGuideArrow()");
+    }
+
+    protected virtual void LateUpdate()
+    {
+        if (this.isDetected)
+        {
+            this.guideArrow.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.guideArrow.gameObject.SetActive(false);
+        }
+        this.isDetected = false;
     }
 
     //===========================================Method===========================================
@@ -35,5 +53,10 @@ public class Door : HuyMonoBehaviour, Interactable
     void Interactable.Interact(Player player)
     {
         GameManager.Instance.GoThroughDoor(this.nextScene, this.linkedDoor);
+    }
+
+    void Interactable.Detected(Player player)
+    {
+        this.isDetected = true;
     }
 }

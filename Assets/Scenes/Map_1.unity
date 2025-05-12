@@ -9032,6 +9032,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   targetTag: Player
+  slowDownTime: 0.1
+  speedUpTime: 0.1
   slowSpeed: 5
   endPoints:
   - {fileID: 299034374}
@@ -9056,8 +9058,6 @@ MonoBehaviour:
   wallTag: Terrain
   targetDetectDistance: 5
   moveDir: 0
-  slowDownTime: 0.1
-  speedUpTime: 0.1
   jumpSpeed: 5
   isJumping: 0
   animator: {fileID: 742926880121848846}

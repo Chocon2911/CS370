@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Terrain
   - Monster
+  - JumpPad
+  - Spike
   layers:
   - Default
   - TransparentFX
