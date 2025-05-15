@@ -12,6 +12,7 @@ public enum PlayerAnimatorState
     AIR_JUMP = 5,
     WALL_CLIMB = 6,
     DEAD = 7,
+    HURT = 8,
 }
 
 public class PlayerAnimator : BaseAnimator
@@ -30,13 +31,20 @@ public class PlayerAnimator : BaseAnimator
     protected override void HandlingStat()
     {
         this.animator.SetFloat("Move Speed", this.player.MoveSpeed);
+        this.animator.SetFloat("Hurt Speed", 1 / this.player.HurtCD.TimeLimit);
     }
     protected override void HandlingState()
     {
         this.SetAnimatorState(PlayerAnimatorState.IDLE);
 
+        if (this.player.IsHurting)
+        {
+            this.SetAnimatorState(PlayerAnimatorState.HURT);
+        }
+
         // Is moving, ground, NOT jumping, dashing, air jumping
-        if (player.IsMoving && player.IsGround && !player.IsJumping && !player.IsDashing && !player.IsAirJumping && !player.IsCastingEnergyBall)
+        else if (player.IsMoving && player.IsGround && !player.IsJumping && !player.IsDashing 
+            && !player.IsAirJumping && !player.IsCastingEnergyBall)
         {
             this.SetAnimatorState(PlayerAnimatorState.RUN);
         }

@@ -76,15 +76,12 @@ public class Katana : HuyMonoBehaviour
                     Vector2 pushDir = (collision.transform.position - this.transform.position).normalized;
                     damagable.Push(pushDir * this.pushForce);
                     this.attackedObj.Add(collision.transform);
+                    
+                    EffectSplashable splashable = collision.GetComponent<EffectSplashable>();
+
+                    if (splashable != null) splashable.Splash(this.wielder.position);
                     break;
                 }
-            }
-
-            EffectSplashable splashable = collision.GetComponent<EffectSplashable>();
-
-            if (splashable != null)
-            {
-                splashable.Splash(this.wielder.position);
             }
         }
     }

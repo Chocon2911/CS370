@@ -40,8 +40,9 @@ public class MushroomMan : GroundMonster
         this.LoadComponent(ref this.biteCol, transform.Find("Bite"), "LoadBiteCol()");
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
         this.DetectingWall();
         this.CheckingIsGround();
         this.DetectingTarget();

@@ -14,6 +14,7 @@ public class ReaperAnimator : BaseAnimator
         CHARGE_CAST_SPELL = 5,
         ATTACK_CAST_SPELL = 6,
         Dead = 7,
+        Hurt = 8,
     }
 
     //==========================================Variable==========================================
@@ -34,6 +35,7 @@ public class ReaperAnimator : BaseAnimator
         this.animator.SetFloat("ChargeSlashSpeed", 1 / this.reaper.SlashChargeCD.TimeLimit);
         this.animator.SetFloat("AttackSlashSpeed", 1 / this.reaper.SlashAttackCD.TimeLimit);
         this.animator.SetFloat("FinishSlashSpeed", 1 / this.reaper.SlashFinishCD.TimeLimit);
+        this.animator.SetFloat("HurtSpeed", 1 / this.reaper.HurtCD.TimeLimit);
     }
 
     protected override void HandlingState()
@@ -75,6 +77,11 @@ public class ReaperAnimator : BaseAnimator
                 else if (this.reaper.CurrRiseHandState == Reaper.RiseHandState.ATTACK)
                     this.animator.SetInteger("State", (int)ReaperState.ATTACK_CAST_SPELL);
             }
+        }
+
+        if (this.reaper.IsHurting)
+        {
+            this.animator.SetInteger("State", (int)ReaperState.Hurt);
         }
 
         if (this.reaper.Health <= 0)
