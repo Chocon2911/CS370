@@ -30,6 +30,7 @@ public class FlyAnimator : BaseAnimator
         this.animator.SetFloat("AttackSpeed", 1 / this.fly.ChargeFireCD.TimeLimit);
         if (this.fly.IsMovingRandomly) this.animator.SetFloat("MoveSpeed", this.fly.SlowSpeed / 5);
         else this.animator.SetFloat("RunSpeed", this.fly.RunAwaySpeed / 5);
+        this.animator.SetFloat("HurtSpeed", 1 /this.fly.HurtCD.TimeLimit);
     }
 
     protected override void HandlingState()
@@ -48,10 +49,14 @@ public class FlyAnimator : BaseAnimator
         {
             this.animator.SetInteger("State", (int)FlyState.ATTACK);
         }
+        if (this.fly.IsHurting)
+        {
+            this.animator.SetInteger("State", (int)FlyState.HURT);
+        }
         if (this.fly.Health <= 0)
         {
             this.animator.SetInteger("State", (int)FlyState.DEAD);
         }
-        //Chua lam Hurt
+        
     }
 }
