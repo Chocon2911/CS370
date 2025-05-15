@@ -36,8 +36,9 @@ public class Archer : GroundMonster
         this.DefaultArcherStat();
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
         this.DetectingWall();
         this.CheckingIsGround();
         this.DetectingTarget();

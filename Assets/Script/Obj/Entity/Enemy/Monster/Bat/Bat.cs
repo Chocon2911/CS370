@@ -52,8 +52,9 @@ public class Bat : Monster
         this.LoadComponent(ref this.goreTrail, transform.Find("Trail"), "LoadGoreTrail()");
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
         this.DetectingTarget();
         this.CheckingTargetOutOfRange();
         this.Facing();
@@ -130,6 +131,7 @@ public class Bat : Monster
 
     protected virtual void MovingRandomly()
     {
+        if (this.endPoints.Count == 0) return;
         this.isMovingRandomly = true;
         this.Move(this.endPoints[this.currEndPoint], this.slowSpeed);
 

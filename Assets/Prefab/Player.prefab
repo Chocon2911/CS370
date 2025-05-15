@@ -413,6 +413,12 @@ MonoBehaviour:
   id: 
   maxHealth: 10
   health: 10
+  hurtCD:
+    timeLimit: 0
+    timer: 0
+    waitTime: 0
+    isReady: 0
+  isHurting: 0
   rb: {fileID: 2989173332274308274}
   bodyCol: {fileID: 6519426757431235623}
   playerAnimator: {fileID: 7162992546539807616}
@@ -433,6 +439,12 @@ MonoBehaviour:
   isGround: 0
   interactDetectLength: 5
   interactableObj: {fileID: 0}
+  invincibleCD:
+    timeLimit: 0
+    timer: 0
+    waitTime: 0
+    isReady: 0
+  isInvincible: 0
   moveSpeed: 5
   moveSpeedUpTime: 0.3
   moveSlowDownTime: 0.1

@@ -1,19 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public abstract class Enemy : Entity, Damagable, EffectSplashable
 {
     //==========================================Variable==========================================
+    [Space(50)]
     [Header("===Enemy===")]
     [Header("Component")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected CapsuleCollider2D bodyCol;
     [SerializeField] protected ParticleSystem damageEff;
 
+    [Space(25)]
+
     [Header("Stat")]
     [SerializeField] protected int sceneIndex;
     [SerializeField] protected MonsterType monsterType;
+
+    [Space(25)]
+
+    [Header("Body Collide")]
+    [SerializeField] protected List<string> bodyAttackableTags;
+    [SerializeField] protected int bodyDamage;
+    [SerializeField] protected float bodyPushForce;
 
     //==========================================Get Set===========================================
     // ===Db===
@@ -46,6 +57,18 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     {
         base.Awake();
         //this.LoadDb();
+    }
+
+    protected virtual void OnCollisionStay2D(Collision2D collision)
+    {
+        if (this.bodyAttackableTags.Contains(collision.gameObject.tag))
+        {
+            Damagable damagable = collision.gameObject.GetComponent<Damagable>();
+            if (damagable == null) return;
+            damagable.TakeDamage(this.bodyDamage);
+            Vector2 dir = (collision.transform.position - this.transform.position).normalized;
+            damagable.Push(this.bodyPushForce * dir);
+        }
     }
 
 
@@ -91,9 +114,11 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     void Damagable.TakeDamage(int damage)
     {
         this.health -= damage;
+        this.isHurting = true;
 
         if (this.health <= 0)
         {
+            this.isHurting = false;
             this.health = 0;
             Debug.Log("Dead", gameObject);
         }

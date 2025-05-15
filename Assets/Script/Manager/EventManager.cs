@@ -45,6 +45,6 @@ public class EventManager : HuyMonoBehaviour
     private void PrintPlayerAppear()
     {
         Debug.Log("Player Appear", gameObject);
-        Debug.Log(GameManager.Instance.Player.transform.position, gameObject);
+        //Debug.Log(GameManager.Instance.Player.transform.position, gameObject);
     }
 }
