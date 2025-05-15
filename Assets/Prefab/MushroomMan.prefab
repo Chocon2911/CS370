@@ -303,11 +303,20 @@ MonoBehaviour:
   id: 
   maxHealth: 100
   health: 100
+  hurtCD:
+    timeLimit: 0.2
+    timer: 0
+    waitTime: 0
+    isReady: 0
+  isHurting: 0
   rb: {fileID: 7576700174079203766}
   bodyCol: {fileID: 1220723206271471428}
   damageEff: {fileID: 5462219654675449015}
   sceneIndex: 0
   monsterType: 0
+  bodyAttackableTags: []
+  bodyDamage: 0
+  bodyPushForce: 0
   targetDetectingArea: {x: 10, y: 5}
   target: {fileID: 0}
   targetLayer:
@@ -317,9 +326,7 @@ MonoBehaviour:
   slowDownTime: 0
   speedUpTime: 0
   slowSpeed: 5
-  endPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  endPoints: []
   currEndPoint: 1
   isMovingRandomly: 0
   stopChaseDistance: 3

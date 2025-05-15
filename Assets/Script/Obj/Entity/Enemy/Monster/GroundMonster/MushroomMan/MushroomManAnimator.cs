@@ -8,6 +8,7 @@ public enum MushroomManState
     RUN = 1,
     DEAD = 2,
     ATTACK = 3,
+    HURT = 4,
 }
 
 public class MushroomManAnimator : BaseAnimator
@@ -26,6 +27,7 @@ public class MushroomManAnimator : BaseAnimator
     //===========================================Method===========================================
     protected override void HandlingStat()
     {
+        this.animator.SetFloat("HurtSpeed", 1 / this.mushroomMan.HurtCD.TimeLimit);
         if (this.mushroomMan.IsChasingTarget) this.animator.SetFloat("MoveSpeed", this.mushroomMan.ChaseSpeed / 5);
         else this.animator.SetFloat("MoveSpeed", this.mushroomMan.SlowSpeed / 5);
     }
@@ -42,6 +44,11 @@ public class MushroomManAnimator : BaseAnimator
         if (this.mushroomMan.IsBiting)
         {
             this.animator.SetInteger("State", (int)MushroomManState.ATTACK);
+        }
+
+        if (this.mushroomMan.IsHurting)
+        {
+            this.animator.SetInteger("State", (int)MushroomManState.HURT);
         }
 
         if (this.mushroomMan.Health <= 0)

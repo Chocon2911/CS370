@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.113628834, g: 0.28558633, b: 0.326751, a: 1}
+  m_IndirectSpecularColor: {r: 0.11362705, g: 0.28558296, b: 0.3267464, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1124,7 +1124,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2021607704, guid: 031cb2bc5dbc20242abe1a3124c86442, type: 3}
+  m_Sprite: {fileID: -1625172045, guid: f23def9e20ed9d4499dd40980b269eec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1132,7 +1132,7 @@ SpriteRenderer:
   m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &516913293
@@ -1610,11 +1610,20 @@ MonoBehaviour:
   id: 
   maxHealth: 100
   health: 10
+  hurtCD:
+    timeLimit: 0
+    timer: 0
+    waitTime: 0
+    isReady: 0
+  isHurting: 0
   rb: {fileID: 894931899}
   bodyCol: {fileID: 894931898}
   damageEff: {fileID: 0}
   sceneIndex: 0
   monsterType: 0
+  bodyAttackableTags: []
+  bodyDamage: 0
+  bodyPushForce: 0
   targetDetectingArea: {x: 10, y: 5}
   target: {fileID: 0}
   targetLayer:
@@ -17892,11 +17901,20 @@ MonoBehaviour:
   id: 
   maxHealth: 10
   health: 10
+  hurtCD:
+    timeLimit: 0
+    timer: 0
+    waitTime: 0
+    isReady: 0
+  isHurting: 0
   rb: {fileID: 7138026389955684349}
   bodyCol: {fileID: 4123078817853228160}
   damageEff: {fileID: 4849498681033051472}
   sceneIndex: 0
   monsterType: 0
+  bodyAttackableTags: []
+  bodyDamage: 0
+  bodyPushForce: 0
   targetDetectingArea: {x: 20, y: 10}
   target: {fileID: 0}
   targetLayer:

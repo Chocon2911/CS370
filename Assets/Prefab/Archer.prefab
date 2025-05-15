@@ -115,11 +115,20 @@ MonoBehaviour:
   id: 
   maxHealth: 100
   health: 100
+  hurtCD:
+    timeLimit: 0.2
+    timer: 0
+    waitTime: 0
+    isReady: 0
+  isHurting: 0
   rb: {fileID: 4986725787558871572}
   bodyCol: {fileID: 0}
   damageEff: {fileID: 5554772105934600358}
   sceneIndex: 0
   monsterType: 0
+  bodyAttackableTags: []
+  bodyDamage: 0
+  bodyPushForce: 0
   targetDetectingArea: {x: 20, y: 5}
   target: {fileID: 0}
   targetLayer:
@@ -140,7 +149,7 @@ MonoBehaviour:
   groundCol: {fileID: 5897117833863219566}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   groundTag: Terrain
   prevIsGround: 0
   isGround: 0
@@ -276,15 +285,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1382334037, guid: b7950ad1dd2f60045817b32837193950, type: 3}
+  m_Sprite: {fileID: -789467903, guid: 58d9d327c753cad438115d134882ec14, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &7462402495583431991

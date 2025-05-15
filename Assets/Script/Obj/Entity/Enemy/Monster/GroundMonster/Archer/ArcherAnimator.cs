@@ -8,44 +8,51 @@ public enum ArcherState
     RUN = 1,
     SHOOT = 2,
     DEAD = 3,
+    HURT = 4,
 }
 
 public class ArcherAnimator : BaseAnimator
 {
     //==========================================Variable==========================================
     [Header("===Archer===")]
-    [SerializeField] protected Archer monster;
+    [SerializeField] protected Archer archer;
 
     //===========================================Unity============================================
     public override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadComponent(ref this.monster, transform.parent, "LoadMonster()");
+        this.LoadComponent(ref this.archer, transform.parent, "LoadMonster()");
     }
 
     //===========================================Method===========================================
     protected override void HandlingStat()
     {
-        this.animator.SetFloat("ChargeSpeed", 1 / (2 * this.monster.ChargBowCD.TimeLimit));
-        if (this.monster.IsMovingRandomly) this.animator.SetFloat("MoveSpeed", this.monster.SlowSpeed / 5);
-        else this.animator.SetFloat("MoveSpeed", this.monster.ChaseSpeed / 5);
+        this.animator.SetFloat("ChargeSpeed", 1 / (2 * this.archer.ChargBowCD.TimeLimit));
+        this.animator.SetFloat("HurtSpeed", 1 / this.archer.HurtCD.TimeLimit);
+        if (this.archer.IsMovingRandomly) this.animator.SetFloat("MoveSpeed", this.archer.SlowSpeed / 5);
+        else this.animator.SetFloat("MoveSpeed", this.archer.ChaseSpeed / 5);
     }
 
     protected override void HandlingState()
     {
         this.animator.SetInteger("State", (int)ArcherState.IDLE);
 
-        if (this.monster.IsMovingRandomly || this.monster.IsChasingTarget)
+        if (this.archer.IsMovingRandomly || this.archer.IsChasingTarget)
         {
             this.animator.SetInteger("State", (int)ArcherState.RUN);
         }
 
-        if (this.monster.IsChargingBow)
+        if (this.archer.IsChargingBow)
         {
             this.animator.SetInteger("State", (int)ArcherState.SHOOT);
         }
 
-        if (this.monster.Health <= 0)
+        if (this.archer.IsHurting)
+        {
+            this.animator.SetInteger("State", (int)ArcherState.HURT);
+        }
+
+        if (this.archer.Health <= 0)
         {
             this.animator.SetInteger("State", (int)ArcherState.DEAD);
         }

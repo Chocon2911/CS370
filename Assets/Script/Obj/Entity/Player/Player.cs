@@ -100,6 +100,10 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     public bool PrevIsGround => this.prevIsGround;
     public bool IsGround => this.isGround;
 
+    // ===Invincible===
+    public Cooldown InvincibleCD => this.invincibleCD;
+    public bool IsInvincible => this.isInvincible;
+
     // ===Move===
     public float MoveSpeed => this.moveSpeed;
     public bool IsMoving => this.isMoving;
@@ -167,8 +171,10 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         this.DefaultStat();
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (!this.isRest)
         {
             this.CheckingGround();
@@ -176,6 +182,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
             this.Moving();
             this.Jumping();
             this.Facing();
+            this.HandlingInvincible();
             this.HandlingKatana();
             if (this.hasDash) this.Dashing();
             if (this.hasAirJump) this.AirJumping();
@@ -292,6 +299,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
 
         if (!this.invincibleCD.IsReady) return;
         this.isInvincible = false;
+        this.invincibleCD.ResetStatus();
     }
 
     //============================================Move============================================
@@ -384,7 +392,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
             this.OnDash();
         }
 
-        else if (this.dash.restoreCD.IsReady && InputManager.Instance.ShiftState != 0)
+        else if (this.dash.restoreCD.IsReady && (InputManager.Instance.ShiftState != 0 || Input.GetKey(KeyCode.L)))
         {
             this.StartDash();
         }
@@ -635,7 +643,8 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         if (this.isInvincible || this.health <= 0) return;
         this.health -= damage;
         this.isInvincible = true;
-        
+        this.isHurting = true;
+
         if (this.health <= 0)
         {
             this.health = 0;
@@ -645,7 +654,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
 
     void Damagable.Push(Vector2 force)
     {
-        if (this.isInvincible) return;
+        if (this.isInvincible && this.invincibleCD.Timer > 0) return;
         this.rb.velocity = force;
     }
 
