@@ -36,7 +36,7 @@ public class Goblin : GroundMonster, Damagable
 
     [Space(25)]
 
-    [Header("Bite")]
+    [Header("Hit")]
     [SerializeField] protected CircleCollider2D hitCol;
     [SerializeField] protected int hitDamage;
     [SerializeField] protected float hitPushForce;
@@ -75,9 +75,16 @@ public class Goblin : GroundMonster, Damagable
         this.DefaultGoblinStat();
     }
 
+    protected override void OnCollisionStay2D(Collision2D collision)
+    {
+        if (this.health <= 0) return;
+        base.OnCollisionStay2D(collision);
+    }
+
     protected override void Update()
     {
         base.Update();
+        
         this.DetectingWall();
         this.CheckingIsGround();
         this.DetectingTarget();
@@ -85,9 +92,10 @@ public class Goblin : GroundMonster, Damagable
         this.Facing();
         this.Moving();
         this.Hitting();
+            
         //this.Jumping();
-        this.animator.HandlingAnimator();
 
+        this.animator.HandlingAnimator();
         // Huy temp
         if (this.health <= 0)
         {
@@ -139,7 +147,7 @@ public class Goblin : GroundMonster, Damagable
         if (!this.hitRestoreCD.IsReady || this.target == null) return;
         float distance = Vector2.Distance(this.transform.position, this.target.transform.position);
 
-        if (distance < this.hitRange) return;
+        if (distance > this.hitRange) return;
         this.isHitting = true;
         this.currHitState = HitState.CHARGE;
         this.hitRestoreCD.ResetStatus();

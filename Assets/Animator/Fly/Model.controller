@@ -23,13 +23,14 @@ AnimatorStateMachine:
     m_Position: {x: 270, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5737820555456503291}
-    m_Position: {x: 290, y: 350, z: 0}
+    m_Position: {x: 290, y: 320, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -2925100622070058813}
   - {fileID: -4088583667880266192}
   - {fileID: -2769627574180492204}
   - {fileID: 947151106897208941}
+  - {fileID: 2435346901285392226}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
@@ -198,6 +199,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: HurtSpeed
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -221,9 +228,34 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: State
-    m_EventTreshold: 2
+    m_EventTreshold: 4
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2462978100123655863}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 0
+--- !u!1101 &2435346901285392226
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 6
+    m_ConditionEvent: State
+    m_EventTreshold: 2
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 5737820555456503291}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -296,7 +328,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Hurt
-  m_Speed: 1
+  m_Speed: 0.4
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -304,13 +336,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 62b6e01163982674da77861ff55ba036, type: 2}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: HurtSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
