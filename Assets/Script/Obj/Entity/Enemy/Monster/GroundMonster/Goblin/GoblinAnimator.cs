@@ -34,9 +34,10 @@ public class GoblinAnimator : BaseAnimator
         else this.animator.SetFloat("MoveSpeed", this.goblin.SlowSpeed / 5);
 
         // Cut
-        this.animator.SetFloat("AttackSpeed", 0.2f / this.goblin.HitAttackCD.TimeLimit);
-        this.animator.SetFloat("ChargeSpeed", 0.2f / this.goblin.HitChargeCD.TimeLimit);
-        this.animator.SetFloat("FinishSpeed", 0.3f / this.goblin.HitFinishCD.TimeLimit);
+        this.animator.SetFloat("AttackSpeed", 1 / this.goblin.HitAttackCD.TimeLimit);
+        this.animator.SetFloat("ChargeSpeed", 1 / this.goblin.HitChargeCD.TimeLimit);
+        this.animator.SetFloat("FinishSpeed", 1 / this.goblin.HitFinishCD.TimeLimit);
+        this.animator.SetFloat("HurtSpeed", 1 / this.goblin.HurtCD.TimeLimit);
     }
 
     protected override void HandlingState()
@@ -64,7 +65,7 @@ public class GoblinAnimator : BaseAnimator
         {
             this.animator.SetInteger("State", (int)GoblinState.CHARGEATTACK);
         }
-        if (this.goblin.IsAttackedPush == true)
+        if (this.goblin.IsHurting)
         {
             this.animator.SetInteger("State", (int)GoblinState.HURT);
         }

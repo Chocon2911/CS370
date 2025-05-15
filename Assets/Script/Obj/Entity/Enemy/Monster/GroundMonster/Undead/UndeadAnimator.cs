@@ -34,9 +34,10 @@ public class UndeadAnimator : BaseAnimator
         else this.animator.SetFloat("MoveSpeed", this.undead.SlowSpeed / 5);
 
         // Cut
-        this.animator.SetFloat("AttackSpeed", 0.2f/ this.undead.CutAttackCD.TimeLimit );
-        this.animator.SetFloat("ChargeSpeed", 0.7f/ this.undead.CutChargeCD.TimeLimit);
-        this.animator.SetFloat("FinishSpeed", 1.1f/ this.undead.CutFinishCD.TimeLimit);
+        this.animator.SetFloat("AttackSpeed", 1/ this.undead.CutAttackCD.TimeLimit );
+        this.animator.SetFloat("ChargeSpeed", 1/ this.undead.CutChargeCD.TimeLimit);
+        this.animator.SetFloat("FinishSpeed", 1/ this.undead.CutFinishCD.TimeLimit);
+        this.animator.SetFloat("HurtSpeed", 1 / this.undead.HurtCD.TimeLimit);
     }
 
     protected override void HandlingState()
@@ -64,7 +65,7 @@ public class UndeadAnimator : BaseAnimator
         {
             this.animator.SetInteger("State", (int)UndeadState.CHARGEATTACK);
         }
-        if (this.undead.IsAttackedPush == true)
+        if (this.undead.IsHurting)
         {
             this.animator.SetInteger("State", (int)UndeadState.HURT);
         }
