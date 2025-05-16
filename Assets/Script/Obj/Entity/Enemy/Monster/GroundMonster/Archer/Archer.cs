@@ -105,10 +105,6 @@ public class Archer : GroundMonster
         float xDistance = this.target.position.x - transform.position.x;
         float zRot = xDistance > 0 ? 0 : 180;
         Quaternion spawnRot = Quaternion.Euler(0, 0, zRot);
-        Debug.Log(xDistance, gameObject);
-        Debug.Log(zRot, gameObject);
-        Debug.Log(spawnRot, gameObject);
-
         Transform newArrow = BulletSpawner.Instance.SpawnByName(this.arrowName, spawnPos, spawnRot);
         newArrow.gameObject.SetActive(true);
     }

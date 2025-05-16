@@ -78,7 +78,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.49, y: 1}
+  m_Size: {x: 1.49, y: 0.56}
   m_EdgeRadius: 0
 --- !u!114 &7647575813434894389
 MonoBehaviour:
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyCol: {fileID: 2628666328658992940}
   pushCol: {fileID: 7818352715214181812}
-  pushForce: 0
+  pushForce: 8
   pushLayer:
     serializedVersion: 2
     m_Bits: 1
