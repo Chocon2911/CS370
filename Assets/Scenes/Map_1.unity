@@ -8828,7 +8828,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8056547433127881078, guid: f89f962cd7f0e1a47828847216b3877e, type: 3}
       propertyPath: m_Value
-      value: 100
+      value: 9.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056547433127881078, guid: f89f962cd7f0e1a47828847216b3877e, type: 3}
+      propertyPath: m_MaxValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056547433127881078, guid: f89f962cd7f0e1a47828847216b3877e, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8059758609013470514, guid: f89f962cd7f0e1a47828847216b3877e, type: 3}
       propertyPath: m_SizeDelta.x

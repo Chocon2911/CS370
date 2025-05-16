@@ -446,14 +446,14 @@ MonoBehaviour:
     isReady: 0
   isInvincible: 0
   moveSpeed: 5
-  moveSpeedUpTime: 0.3
+  moveSpeedUpTime: 0.1
   moveSlowDownTime: 0.1
   moveDir: 0
   isMoving: 0
   faceDir: 0
-  jumpSpeed: 17
+  jumpSpeed: 20
   jumpStartCD:
-    timeLimit: 0.3
+    timeLimit: 0.1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
       timer: 0
       waitTime: 0
       isReady: 0
-    speed: 15
+    speed: 20
     dir: 0
     isDashing: 0
   dashTrailDistance: 0

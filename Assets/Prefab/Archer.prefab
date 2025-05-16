@@ -50,7 +50,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 1.8890545
+  m_Mass: 2.0664754
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3
@@ -97,8 +97,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.026952744, y: -0.14}
-  m_Size: {x: 1.3085775, y: 1.724417}
+  m_Offset: {x: 0.026952744, y: -0.24}
+  m_Size: {x: 1.3085775, y: 1.86}
   m_Direction: 0
 --- !u!114 &8430526629340658020
 MonoBehaviour:
@@ -138,9 +138,7 @@ MonoBehaviour:
   slowDownTime: 0.1
   speedUpTime: 0.1
   slowSpeed: 0
-  endPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  endPoints: []
   currEndPoint: 0
   isMovingRandomly: 0
   stopChaseDistance: 5
@@ -330,7 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7462402495583431991}
-  monster: {fileID: 8430526629340658020}
+  archer: {fileID: 8430526629340658020}
 --- !u!1 &9003681823981461206
 GameObject:
   m_ObjectHideFlags: 0
