@@ -14,6 +14,7 @@ public class Fan : HuyMonoBehaviour
     [Header("Push")]
     [SerializeField] protected BoxCollider2D pushCol;
     [SerializeField] protected float pushForce;
+    [SerializeField] protected Vector2 pushDir;
     [SerializeField] protected LayerMask pushLayer;
     [SerializeField] protected List<string> pushTags;
 
@@ -35,7 +36,7 @@ public class Fan : HuyMonoBehaviour
     {
         Vector2 point = this.pushCol.transform.position;
         Vector2 size = this.pushCol.size;
-        float angle = 0;
+        float angle = transform.eulerAngles.z;
 
         Collider2D[] colliders = Physics2D.OverlapBoxAll(point, size, angle, this.pushLayer);
         foreach (Collider2D collider in colliders)
@@ -44,7 +45,9 @@ public class Fan : HuyMonoBehaviour
             Rigidbody2D rb = collider.GetComponent<Rigidbody2D>();
 
             if (rb == null) continue;
-            rb.velocity = new Vector2(rb.velocity.x, this.pushForce);
+            float xSpeed = (this.pushDir.x <= Mathf.Pow(0.1f, 3) && this.pushDir.x >= Mathf.Pow(-0.1f, 3)) ? rb.velocity.x : this.pushDir.x * this.pushForce;
+            float ySpeed = (this.pushDir.y <= Mathf.Pow(0.1f, 3) && this.pushDir.y >= Mathf.Pow(-0.1f, 3)) ? rb.velocity.y : this.pushDir.y * this.pushForce;
+            rb.velocity = new Vector2(xSpeed, ySpeed);
         }
     }
 }

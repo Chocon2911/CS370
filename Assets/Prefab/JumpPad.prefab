@@ -65,7 +65,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.2, y: 0.1}
+  m_Size: {x: 1.44, y: 0.1}
   m_Direction: 1
 --- !u!1 &6584683079063175676
 GameObject:
@@ -268,5 +268,5 @@ MonoBehaviour:
   bodyCol: {fileID: 1010504000691637897}
   headCol: {fileID: 2621594016067371327}
   animator: {fileID: 1309900546991271051}
-  pushForce: 20
-  pushDir: {x: 0, y: 1}
+  pushForce: 25
+  pushDir: {x: -1, y: 1}
