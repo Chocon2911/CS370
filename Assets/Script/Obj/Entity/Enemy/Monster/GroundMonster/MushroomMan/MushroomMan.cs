@@ -16,6 +16,13 @@ public class MushroomMan : GroundMonster
 
     [Space(25)]
 
+    [Header("Chase Target")]
+    [SerializeField] protected float stopChaseDistance;
+    [SerializeField] protected float chaseSpeed;
+    [SerializeField] protected bool isChasingTarget;
+
+    [Space(25)]
+
     [Header("Bite")]
     [SerializeField] protected CircleCollider2D biteCol;
     [SerializeField] protected int biteDamage;
@@ -29,7 +36,13 @@ public class MushroomMan : GroundMonster
     [SerializeField] protected bool isBiteAttacking;
 
     //==========================================Get Set===========================================
+    // ===Chase Target===
+    public float ChaseSpeed => this.chaseSpeed;
+    public bool IsChasingTarget => this.isChasingTarget;
+
     //===Bite===
+    public Cooldown BiteChargeCD => this.biteChargeCD;
+    public Cooldown BiteAttackCD => this.biteAttackCD;
     public bool IsBiting => this.isBiting;
 
     //===========================================Unity============================================
@@ -38,25 +51,85 @@ public class MushroomMan : GroundMonster
         base.LoadComponents();
         this.LoadComponent(ref this.animator, transform.Find("Model"), "LoadAnimator()");
         this.LoadComponent(ref this.biteCol, transform.Find("Bite"), "LoadBiteCol()");
+        this.DefaultStat();
     }
 
     protected override void Update()
     {
-        base.Update();
-        this.DetectingWall();
-        this.CheckingIsGround();
-        this.DetectingTarget();
-        this.CheckingTargetOutOfRange();
-        this.Facing();
-        this.Moving();
-        this.Biting();
-        //this.Jumping();
+        if (this.health > 0)
+        {
+            base.Update();
+            this.DetectingWall();
+            this.CheckingIsGround();
+            this.DetectingTarget();
+            this.CheckingTargetOutOfRange();
+            this.Facing();
+            this.Moving();
+            this.Biting();
+            //this.Jumping();
+        }
+        else if (this.health <= 0)
+        {
+            this.rb.velocity = new Vector2(0, this.rb.velocity.y);
+        }
         this.animator.HandlingAnimator();
     }
+
+
 
     //============================================================================================
     //===========================================Method===========================================
     //============================================================================================
+
+    //===========================================Other============================================
+    protected override void Moving()
+    {
+        this.isChasingTarget = false;
+        base.Moving();
+
+        if (this.target != null) this.ChaseTarget();
+    }
+
+    protected virtual void DefaultStat()
+    {
+        if (this.so == null)
+        {
+            Debug.LogError("SO is null", gameObject);
+            return;
+        }
+
+        this.DefaultMonsterStat(this.so);
+        this.DefaultGroundMonsterStat(this.so);
+
+        // chase target
+        this.stopChaseDistance = this.so.StopChaseDistance;
+        this.chaseSpeed = this.so.ChaseSpeed;
+
+        // bite
+        this.biteDamage = this.so.BiteDamage;
+        this.bitePushForce = this.so.BitePushForce;
+        this.biteRange = this.so.BiteRange;
+        this.biteRestoreCD = new Cooldown(this.so.BiteRestoreDelay, 0);
+        this.biteChargeCD = new Cooldown(this.so.BiteChargeDelay, 0);
+        this.biteAttackCD = new Cooldown(this.so.BiteAttackDelay, 0);
+    }
+
+    //============================================Move============================================
+    protected virtual void ChaseTarget()
+    {
+        float currDistance = Vector2.Distance(this.target.position, transform.position);
+        this.moveDir = this.target.position.x > transform.position.x ? 1 : -1;
+
+        if (currDistance <= this.stopChaseDistance)
+        {
+            Util.Instance.SlowingDownWithAccelerationInHorizontal(this.rb, this.chaseSpeed, this.slowDownTime);
+        }
+        else
+        {
+            Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.chaseSpeed, this.speedUpTime, this.slowDownTime);
+            this.isChasingTarget = true;
+        }
+    }
 
     //============================================Bite============================================
     protected virtual void Biting()

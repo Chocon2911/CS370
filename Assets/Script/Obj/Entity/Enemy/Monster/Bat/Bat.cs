@@ -25,6 +25,20 @@ public class Bat : Monster
 
     [Space(25)]
 
+    [Header("Chase Target")]
+    [SerializeField] protected float stopChaseDistance;
+    [SerializeField] protected float chaseSpeed;
+    [SerializeField] protected bool isChasingTarget;
+
+    [Space(25)]
+
+    [Header("Fly Up")]
+    [SerializeField] protected float flyUpSpeed;
+    [SerializeField] protected Cooldown flyUpCD;
+    [SerializeField] protected bool isFlyingUp;
+
+    [Space(25)]
+
     [Header("Gore")]
     [SerializeField] protected float goreSpeed;
     [SerializeField] protected float goreDistance;
@@ -37,6 +51,10 @@ public class Bat : Monster
     [SerializeField] protected bool isGoreAttacking;
 
     //==========================================Get Set===========================================
+    // ===Chase Target===
+    public float ChaseSpeed => this.chaseSpeed;
+    public bool IsChasingTarget => this.isChasingTarget;
+
     // ===Gore===
     public Cooldown GoreChargeCD => this.goreChargeCD;
     public bool IsGoring => this.isGoring;
@@ -50,16 +68,24 @@ public class Bat : Monster
         this.LoadComponent(ref this.targetCol, transform.Find("Target"), "LoadTargetCol()");
         this.LoadComponent(ref this.animator, transform.Find("Model"), "LoadAnimator()");
         this.LoadComponent(ref this.goreTrail, transform.Find("Trail"), "LoadGoreTrail()");
+        this.DefaultBatStat();
     }
 
     protected override void Update()
     {
-        base.Update();
-        this.DetectingTarget();
-        this.CheckingTargetOutOfRange();
-        this.Facing();
-        this.Moving();
-        this.Goring();
+        if (this.health > 0)
+        {
+            base.Update();
+            this.DetectingTarget();
+            this.CheckingTargetOutOfRange();
+            this.Facing();
+            this.Moving();
+            this.Goring();
+        }
+        else if (this.health <= 0)
+        {
+            this.rb.velocity = new Vector2(0, this.rb.velocity.y);
+        }
         this.animator.HandlingAnimator();
     }
 
@@ -82,8 +108,18 @@ public class Bat : Monster
             return;
         }
 
+        this.DefaultMonsterStat(this.so);
+
         // Target Detection
         this.targetCol.radius = this.so.DetectionRad;
+
+        // chase target
+        this.stopChaseDistance = so.StopChaseDistance;
+        this.chaseSpeed = so.ChaseSpeed;
+
+        // fly up
+        this.flyUpSpeed = this.so.FlyUpSpeed;
+        this.flyUpCD = new Cooldown(this.so.FlyUpDelay, 0);
 
         // Gore
         this.goreSpeed = this.so.GoreSpeed;
@@ -124,24 +160,27 @@ public class Bat : Monster
         this.isMovingRandomly = false;
 
         if (this.isGoring) return;
-    
-        if (this.target == null) this.MovingRandomly();
+
+        if (this.isFlyingUp) this.FlyingUp();
+        else if (this.target == null) this.MovingRandomly();
         else this.ChasingTarget();
     }
 
+    //===Move Randomly===
     protected virtual void MovingRandomly()
     {
-        if (this.endPoints.Count == 0) return;
-        this.isMovingRandomly = true;
-        this.Move(this.endPoints[this.currEndPoint], this.slowSpeed);
-
+        if (this.endPoints.Count == 0 || this.endPoints[this.currEndPoint] == null) return;
         if (this.IsReachedEndPoint())
         {
             if (this.currEndPoint == this.endPoints.Count - 1) this.currEndPoint = 0;
             else this.currEndPoint++;
         }
+
+        this.isMovingRandomly = true;
+        this.Move(this.endPoints[this.currEndPoint], this.slowSpeed);
     }
     
+    //===Chase Target===
     protected virtual void ChasingTarget()
     {
         float currDistance = Vector2.Distance(this.transform.position, this.target.position);
@@ -159,6 +198,18 @@ public class Bat : Monster
         this.moveDir = new Vector2(xDistance, yDistance).normalized;
         Util.Instance.FlyingWithAcceleration(this.rb, this.moveDir, speed, this.speedUpTime, this.slowDownTime);
     }
+
+    //===Fly Up===
+    protected virtual void FlyingUp()
+    {
+        this.flyUpCD.CoolingDown();
+        Util.Instance.MovingWithAccelerationInVertical(this.rb, 1, this.flyUpSpeed, this.speedUpTime, this.slowDownTime);
+
+        if (!this.flyUpCD.IsReady) return;
+        this.flyUpCD.ResetStatus();
+        this.isFlyingUp = false;
+    }
+
 
     //============================================Gore============================================
     protected virtual void Goring()

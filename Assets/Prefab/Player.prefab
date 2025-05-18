@@ -414,7 +414,7 @@ MonoBehaviour:
   maxHealth: 10
   health: 10
   hurtCD:
-    timeLimit: 0
+    timeLimit: 0.3
     timer: 0
     waitTime: 0
     isReady: 0
@@ -440,7 +440,7 @@ MonoBehaviour:
   interactDetectLength: 5
   interactableObj: {fileID: 0}
   invincibleCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0

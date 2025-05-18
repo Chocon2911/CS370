@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -47,6 +48,10 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     [SerializeField] protected Cooldown invincibleCD;
     [SerializeField] protected bool isInvincible;
 
+    [Space(25)]
+
+    [Header("Despawn By Time")]
+    [SerializeField] protected Cooldown despawnCD;
 
     [Space(25)]
 
@@ -61,6 +66,12 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
 
     [Header("Face")]
     [SerializeField] protected int faceDir;
+
+    [Space(25)]
+
+    [Header("Appear")]
+    [SerializeField] protected Cooldown appearCD;
+    [SerializeField] protected bool isAppearing = true;
 
     [Space(25)]
 
@@ -104,9 +115,16 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     public Cooldown InvincibleCD => this.invincibleCD;
     public bool IsInvincible => this.isInvincible;
 
+    // ===Despawn By Time===
+    public Cooldown DespawnCD => this.despawnCD;
+
     // ===Move===
     public float MoveSpeed => this.moveSpeed;
     public bool IsMoving => this.isMoving;
+
+    // ===Appear===
+    public Cooldown AppearCD => this.appearCD;
+    public bool IsAppearing => this.isAppearing;
 
     // ===Jump===
     public bool IsJumping => this.isJumping;
@@ -175,7 +193,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     {
         base.Update();
 
-        if (!this.isRest)
+        if (!this.isRest && this.health > 0 && !this.isAppearing)
         {
             this.CheckingGround();
             this.CheckingInteract();
@@ -187,7 +205,6 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
             if (this.hasDash) this.Dashing();
             if (this.hasAirJump) this.AirJumping();
             if (this.hasCastEnergyBall) this.CastingEnergyBall();
-            this.playerAnimator.HandlingAnimator();
         }
 
         else
@@ -199,12 +216,25 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
                 this.isRest = false;
             }
         }
+
+        this.playerAnimator.HandlingAnimator();
+        this.Appearing();
+        this.Despawning();
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        if (this.isAppearing)
+        {
+            this.rb.velocity = Vector2.zero;
+        }
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
         EventManager.Instance.OnPlayerAppear?.Invoke();
+        this.isAppearing = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -302,6 +332,17 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         this.invincibleCD.ResetStatus();
     }
 
+    //======================================Despawn By Time=======================================
+    protected virtual void Despawning()
+    {
+        if (this.health > 0) return;
+        Util.Instance.DespawnByTime(this.despawnCD, transform, PlayerSpawner.Instance);
+
+        if (!this.despawnCD.IsReady) return;
+        this.despawnCD.ResetStatus();
+        EventManager.Instance.OnPlayerDead?.Invoke();
+    }
+
     //============================================Move============================================
     public virtual void Moving()
     {
@@ -376,6 +417,18 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         if (Input.GetKey(KeyCode.K)) this.katana.Attack();
     }
 
+    //===========================================Appear===========================================
+    protected virtual void Appearing()
+    {
+        if (!this.isAppearing) return;
+        this.appearCD.CoolingDown();
+        this.rb.velocity = Vector2.zero;
+
+        if (!this.appearCD.IsReady) return;
+        this.appearCD.ResetStatus();
+        this.isAppearing = false;
+    }
+
     //============================================Dash============================================
     protected virtual void Dashing()
     {
@@ -446,7 +499,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
             this.RestoreAirJump();
         }
 
-        else if (InputManager.Instance.SpaceState == 1 && !this.airJump.isJumping && this.isJump
+        else if (InputManager.Instance.SpaceState == 1 && !this.airJump.isJumping
             && !this.isJumping && !this.airJump.isJump)
         {
             this.StartAirJump();
@@ -547,7 +600,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         Vector2 spawnPos = this.shootPoint.position;
         Quaternion spawnRot = Quaternion.Euler(0, 0, angle);
 
-        Transform newEBall = BulletSpawner.Instance.Spawn(BulletType.ENERGY_BALL, spawnPos, spawnRot);
+        Transform newEBall = BulletSpawner.Instance.SpawnByName("EnergyBall", spawnPos, spawnRot);
         newEBall.gameObject.SetActive(true);
     }
 
@@ -591,6 +644,8 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
             Debug.LogError("No PlayerSO", transform.gameObject);
             return;
         }
+
+        this.DefaultEntity(this.so);
 
         // Entity.Stat
         this.maxHealth = this.so.maxHealth;
@@ -648,7 +703,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         if (this.health <= 0)
         {
             this.health = 0;
-            EventManager.Instance.OnPlayerDead?.Invoke();
+            gameObject.layer = LayerMask.NameToLayer("Dead");
         }
     }
 

@@ -18,6 +18,7 @@ public class EventManager : HuyMonoBehaviour
     public Action OnGoThroughDoor { get; set; }
     public Action OnBonfireResting { get; set; }
     public Action OnBonfireStopResting { get; set; }
+    public Action OnQuit { get; set; }
 
     //===========================================Unity============================================
     protected override void Awake()

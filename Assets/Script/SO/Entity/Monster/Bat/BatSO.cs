@@ -12,6 +12,17 @@ public class BatSO : MonsterSO
 
     [Space(10)]
 
+    [Header("Chase Target")]
+    public float StopChaseDistance;
+    public float ChaseSpeed;
+
+    [Space(10)]
+    [Header("Fly Up")]
+    public float FlyUpSpeed;
+    public float FlyUpDelay;
+
+    [Space(10)]
+
     [Header("Gore")]
     public float GoreSpeed;
     public float GoreDistance;

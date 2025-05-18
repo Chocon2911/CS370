@@ -5,7 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/Entity/Goblin")]
 public class GoblinSO : GroundMonsterSO
 {
+    [Space(25)]
     [Header("===Goblin===")]
+    [Header("Chase Target")]
+    public float StopChaseDistance;
+    public float ChaseSpeed;
+
+    [Space(10)]
+
     [Header("Hit")]
     public float HitRadius;
     public int HitDamage;
