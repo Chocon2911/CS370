@@ -5,7 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/Entity/Undead")]
 public class UndeadSO : GroundMonsterSO
 {
+    [Space(25)]
     [Header("===Undead===")]
+    [Header("Chase Target")]
+    public float StopChaseDistance;
+    public float ChaseSpeed;
+    
+    [Space(10)]
+    
     [Header("Cut")]
     public float CutRadius;
     public int CutDamage;

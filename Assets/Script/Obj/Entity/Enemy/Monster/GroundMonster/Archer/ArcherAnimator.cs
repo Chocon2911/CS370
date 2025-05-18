@@ -27,7 +27,7 @@ public class ArcherAnimator : BaseAnimator
     //===========================================Method===========================================
     protected override void HandlingStat()
     {
-        this.animator.SetFloat("ChargeSpeed", 1 / (2 * this.archer.ChargBowCD.TimeLimit));
+        this.animator.SetFloat("ChargeSpeed", 1 / this.archer.ChargBowCD.TimeLimit);
         this.animator.SetFloat("HurtSpeed", 1 / this.archer.HurtCD.TimeLimit);
         if (this.archer.IsMovingRandomly) this.animator.SetFloat("MoveSpeed", this.archer.SlowSpeed / 5);
         else this.animator.SetFloat("MoveSpeed", this.archer.ChaseSpeed / 5);

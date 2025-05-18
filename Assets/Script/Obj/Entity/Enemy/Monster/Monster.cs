@@ -10,7 +10,7 @@ public abstract class Monster : Enemy
     [Space(50)]
     [Header("===Monster===")]
     [Header("Target Out Of Range")]
-    [SerializeField] protected Vector2 targetDetectingArea;
+    [SerializeField] protected BoxCollider2D targetDetectingArea;
 
     [Space(25)]
 
@@ -33,13 +33,6 @@ public abstract class Monster : Enemy
     [SerializeField] protected int currEndPoint;
     [SerializeField] protected bool isMovingRandomly;
 
-    [Space(25)]
-
-    [Header("Chase Target")]
-    [SerializeField] protected float stopChaseDistance;
-    [SerializeField] protected float chaseSpeed;
-    [SerializeField] protected bool isChasingTarget;
-
 
 
     //==========================================Get Set===========================================
@@ -47,9 +40,20 @@ public abstract class Monster : Enemy
     public float SlowSpeed => this.slowSpeed;
     public bool IsMovingRandomly => this.isMovingRandomly;
 
-    // ===Chase Target===
-    public float ChaseSpeed => this.chaseSpeed;
-    public bool IsChasingTarget => this.isChasingTarget;
+
+
+    //===========================================Unity============================================
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        gameObject.layer = LayerMask.NameToLayer("Monster");
+    }
+
+    public override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadComponent(ref this.targetDetectingArea, transform.Find("OutRange"), "LoadTargetDetectingArea()");
+    }
 
 
 
@@ -60,8 +64,10 @@ public abstract class Monster : Enemy
     //===========================================Other============================================
     protected virtual void DefaultMonsterStat(MonsterSO so)
     {
+        this.DefaultEnenmy(so);
+
         // target out of range
-        this.targetDetectingArea = so.TargetDetectingArea;
+        this.targetDetectingArea.size = so.TargetDetectingArea;
 
         // target detection
         this.targetLayer = so.TargetLayer;
@@ -73,10 +79,6 @@ public abstract class Monster : Enemy
 
         // move randomly
         this.slowSpeed = so.SlowSpeed;
-
-        // chase target
-        this.stopChaseDistance = so.StopChaseDistance;
-        this.chaseSpeed = so.ChaseSpeed;
     }
 
     //==========================================Abstract==========================================
@@ -91,7 +93,14 @@ public abstract class Monster : Enemy
         float xDistance = Mathf.Abs(this.target.position.x - transform.position.x);
         float yDistance = Mathf.Abs(this.target.position.y - transform.position.y);
 
-        if (xDistance > this.targetDetectingArea.x || yDistance > this.targetDetectingArea.y) this.target = null;
+        Debug.Log(xDistance, gameObject);
+        Debug.Log(this.targetDetectingArea.size.x, gameObject);
+
+        if (xDistance > this.targetDetectingArea.size.x / 2 || yDistance > this.targetDetectingArea.size.y / 2)
+        {
+            this.target = null;
+            this.DetectingTarget();
+        }
     }
 
     //============================================Move============================================

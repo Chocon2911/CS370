@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
-public class Item : HuyMonoBehaviour
+public class Item : DbObj
 {
     //==========================================Variable==========================================
     [Header("===Item===")]
-    [SerializeField] protected string id;
     [SerializeField] protected ItemSO so;
     [SerializeField] protected CircleCollider2D bodyCol;
 
     //==========================================Get Set===========================================
     public ItemSO SO => so;
-    public string ID => id;
 
     //===========================================Unity============================================
     public override void LoadComponents()
@@ -24,7 +22,6 @@ public class Item : HuyMonoBehaviour
 
     protected virtual void Reset()
     {
-        this.id = Util.Instance.RandomGUID();
         this.so = null;
         this.bodyCol = null;
     }

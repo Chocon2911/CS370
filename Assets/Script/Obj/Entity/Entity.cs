@@ -2,14 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Entity : HuyMonoBehaviour
+public abstract class Entity : DbObj
 {
     [Header("===Entity===")]
-    [Header("Basic")]
-    [SerializeField] protected string id;
-
-    [Space(25)]
-
     [Header("Stat")]
     [SerializeField] protected int maxHealth;
     [SerializeField] protected int health;
@@ -22,7 +17,6 @@ public abstract class Entity : HuyMonoBehaviour
 
     //==========================================Get Set===========================================
     // Stat
-    public string Id => id;
     public int MaxHealth => maxHealth;
     public int Health => health;
 
@@ -37,9 +31,11 @@ public abstract class Entity : HuyMonoBehaviour
     }
 
     //===========================================Method===========================================
-    public void RandomId()
+    protected virtual void DefaultEntity(EntitySO so)
     {
-        this.id = System.Guid.NewGuid().ToString();
+        this.maxHealth = so.maxHealth;
+        this.health = this.maxHealth;
+        this.hurtCD = new Cooldown(so.HurtDelay, 0);
     }
 
     //============================================Hurt============================================

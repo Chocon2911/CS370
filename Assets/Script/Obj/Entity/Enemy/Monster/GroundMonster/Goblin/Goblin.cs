@@ -30,6 +30,13 @@ public class Goblin : GroundMonster, Damagable
 
     [Space(25)]
 
+    [Header("Chase Target")]
+    [SerializeField] protected float stopChaseDistance;
+    [SerializeField] protected float chaseSpeed;
+    [SerializeField] protected bool isChasingTarget;
+
+    [Space(25)]
+
     [Header("Attacked")]
     [SerializeField] protected Cooldown attackedCD;
     [SerializeField] protected bool isAttackedPush;
@@ -56,7 +63,9 @@ public class Goblin : GroundMonster, Damagable
     // Attacked
     public bool IsAttackedPush => this.isAttackedPush;
 
-    // Standing
+    // ===Chase Target===
+    public float ChaseSpeed => this.chaseSpeed;
+    public bool IsChasingTarget => this.isChasingTarget;
 
 
     // Cut
@@ -84,28 +93,40 @@ public class Goblin : GroundMonster, Damagable
     protected override void Update()
     {
         base.Update();
-        
-        this.DetectingWall();
-        this.CheckingIsGround();
-        this.DetectingTarget();
-        this.CheckingTargetOutOfRange();
-        this.Facing();
-        this.Moving();
-        this.Hitting();
-            
-        //this.Jumping();
 
-        this.animator.HandlingAnimator();
-        // Huy temp
-        if (this.health <= 0)
+        if (this.health > 0)
+        {
+            this.DetectingWall();
+            this.CheckingIsGround();
+            this.DetectingTarget();
+            this.CheckingTargetOutOfRange();
+            this.Facing();
+            this.Moving();
+            this.Hitting();
+            //this.Jumping();
+        }
+        else if (this.health <= 0)
         {
             this.rb.velocity = new Vector2(0, this.rb.velocity.y);
         }
+
+        
+
+        this.animator.HandlingAnimator();
     }
 
     //============================================================================================
     //===========================================Method===========================================
     //============================================================================================
+
+    //===========================================Other============================================
+    protected override void Moving()
+    {
+        this.isChasingTarget = false;
+        base.Moving();
+
+        if (this.target != null) this.ChaseTarget();
+    }
 
     protected virtual void DefaultGoblinStat()
     {
@@ -113,6 +134,11 @@ public class Goblin : GroundMonster, Damagable
         this.DefaultMonsterStat(this.so);
         this.DefaultGroundMonsterStat(this.so);
 
+        // chase target
+        this.stopChaseDistance = so.StopChaseDistance;
+        this.chaseSpeed = so.ChaseSpeed;
+
+        // attack
         this.hitCol.radius = this.so.HitRadius;
         this.hitDamage = this.so.HitDamage;
         this.hitPushForce = this.so.HitPushForce;
@@ -134,6 +160,23 @@ public class Goblin : GroundMonster, Damagable
         if (!this.attackedCD.IsReady) return;
         this.attackedCD.ResetStatus();
         this.isAttackedPush = false;
+    }
+
+    //============================================Move============================================
+    protected virtual void ChaseTarget()
+    {
+        float currDistance = Vector2.Distance(this.target.position, transform.position);
+        this.moveDir = this.target.position.x > transform.position.x ? 1 : -1;
+
+        if (currDistance <= this.stopChaseDistance)
+        {
+            Util.Instance.SlowingDownWithAccelerationInHorizontal(this.rb, this.chaseSpeed, this.slowDownTime);
+        }
+        else
+        {
+            Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.chaseSpeed, this.speedUpTime, this.slowDownTime);
+            this.isChasingTarget = true;
+        }
     }
 
     //============================================Bite============================================

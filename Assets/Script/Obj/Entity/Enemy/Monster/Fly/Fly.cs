@@ -12,7 +12,7 @@ public class Fly : Monster
     [Header("Component")]
     [SerializeField] protected FlyAnimator animator;
     [SerializeField] protected TrailRenderer waveTrail;
-    //[SerializeField] protected FlySO so;
+    [SerializeField] protected FlySO so;
 
     [Space(25)]
 
@@ -59,16 +59,24 @@ public class Fly : Monster
         this.LoadComponent(ref this.animator, transform.Find("Model"), "LoadAnimator()");
         this.LoadComponent(ref this.waveTrail, transform.Find("Trail"), "LoadWaveTrail()");
         this.LoadComponent(ref this.shootPoint, transform.Find("ShootPoint"), "LoadShootPoint()");
+        this.DefaultFlyStat();
     }
 
     protected override void Update()
     {
-        base.Update();
-        this.DetectingTarget();
-        this.CheckingTargetOutOfRange();
-        this.Facing();
-        this.Moving();
-        this.Firing();
+        if (this.health > 0)
+        {
+            base.Update();
+            this.DetectingTarget();
+            this.CheckingTargetOutOfRange();
+            this.Facing();
+            this.Moving();
+            this.Firing();
+        }
+        else if (this.health <= 0)
+        {
+            this.rb.velocity = new Vector2(0, this.rb.velocity.y);
+        }
         this.animator.HandlingAnimator();
     }
 
@@ -83,25 +91,25 @@ public class Fly : Monster
     //============================================================================================
 
     //===========================================Other============================================
-    //protected virtual void DefaultFlyStat()
-    //{
-    //    if (this.so == null)
-    //    {
-    //        Debug.LogError("Fly SO is null", gameObject);
-    //        return;
-    //    }
+    protected virtual void DefaultFlyStat()
+    {
+        if (this.so == null)
+        {
+            Debug.LogError("Fly SO is null", gameObject);
+            return;
+        }
 
-    //    // Target Detection
-    //    this.targetCol.radius = this.so.DetectionRad;
+        this.DefaultMonsterStat(so);
 
-    //    // Fire
-    //    this.fireSpeed = this.so.FireSpeed;
-    //    this.fireDistance = this.so.FireDistance;
-    //    this.checkDistance = this.so.CheckDistance;
-    //    this.fireRestoreCD = new Cooldown(this.so.FireRestoreDelay, 0);
-    //    this.fireChargeCD = new Cooldown(this.so.FireChargeDelay, 0);
-    //    this.fireAttackCD = new Cooldown(this.so.FireAttackDelay, 0);
-    //}
+        // Target Detection
+        this.targetCol.radius = this.so.TargetDetectRad;
+
+        // Fire
+        this.bulletName = this.so.BulletName;
+        this.attackDistance = this.so.AttackDistance;
+        this.fireRestoreCD = new Cooldown(this.so.FireRestoreDelay, 0);
+        this.chargeFireCD = new Cooldown(this.so.ChargeFireDelay, 0);
+    }
 
     //======================================Target Detection======================================
     protected override void DetectingTarget()
@@ -130,7 +138,6 @@ public class Fly : Monster
     //============================================Move============================================
     protected override void Moving()
     {
-        this.isChasingTarget = false;
         this.isMovingRandomly = false;
 
         if (this.isFiring) return;
@@ -141,14 +148,15 @@ public class Fly : Monster
 
     protected virtual void MovingRandomly()
     {
-        this.isMovingRandomly = true;
-        this.Move(this.endPoints[this.currEndPoint], this.slowSpeed);
-
+        if (this.endPoints.Count == 0 || this.endPoints[this.currEndPoint] == null) return;
         if (this.IsReachedEndPoint())
         {
             if (this.currEndPoint == this.endPoints.Count - 1) this.currEndPoint = 0;
             else this.currEndPoint++;
         }
+
+        this.isMovingRandomly = true;
+        this.Move(this.endPoints[this.currEndPoint], this.slowSpeed);
     }
     protected virtual void RunAwayTarget()
     {
