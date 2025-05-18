@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MonsterSO : EntitySO
+public abstract class MonsterSO : EnemySO
 {
     [Space(25)]
     [Header("===Monster===")]
@@ -17,6 +17,7 @@ public abstract class MonsterSO : EntitySO
 
     [Space(10)]
 
+    [Header("Move")]
     public float SlowDownTime;
     public float SpeedUpTime;
 
@@ -24,10 +25,4 @@ public abstract class MonsterSO : EntitySO
 
     [Header("Move Randomly")]
     public float SlowSpeed;
-
-    [Space(10)]
-
-    [Header("Chase Target")]
-    public float StopChaseDistance;
-    public float ChaseSpeed;
 }

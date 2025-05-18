@@ -12,31 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f83ef4a7c11d8b4fa22e050928288d7, type: 3}
   m_Name: Elite
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  TargetDetectingArea: {x: 0, y: 0}
+  maxHealth: 8
+  HurtDelay: 0.3
+  BodyDamage: 1
+  BodyPushForce: 20
+  BodyAttackableTags:
+  - Player
+  TargetDetectingArea: {x: 20, y: 10}
   TargetLayer:
     serializedVersion: 2
-    m_Bits: 0
-  TargetTag: 
-  SlowDownTime: 0
-  SpeedUpTime: 0
-  SlowSpeed: 0
-  StopChaseDistance: 0
-  ChaseSpeed: 0
+    m_Bits: 1
+  TargetTag: Player
+  SlowDownTime: 0.1
+  SpeedUpTime: 0.1
+  SlowSpeed: 2
   GroundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  GroundTag: 
+    m_Bits: 64
+  GroundTag: Terrain
   WallDetectDistance: 0
   WallLayer:
     serializedVersion: 2
     m_Bits: 0
   WallTag: 
-  TargetDetectDistance: 0
+  TargetDetectDistance: 5
   JumpSpeed: 0
-  BiteDamage: 0
-  BitePushForce: 0
-  BiteRange: 0
-  BiteRestoreDelay: 0
-  BiteChargeDelay: 0
-  BiteAttackDelay: 0
+  StopChaseDistance: 5
+  ChaseSpeed: 4
+  BiteDamage: 2
+  BitePushForce: 20
+  BiteRange: 4
+  BiteRestoreDelay: 1.5
+  BiteChargeDelay: 0.5
+  BiteAttackDelay: 0.5

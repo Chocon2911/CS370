@@ -13,22 +13,38 @@ public interface BonfireUser
 public class Bonfire : HuyMonoBehaviour, Interactable
 {
     //==========================================Variable==========================================
+    [SerializeField] protected Transform guideArrow;
     [SerializeField] protected List<Transform> restPoints;
     [SerializeField] protected BonfireUser tempUser;
     [SerializeField] protected Transform chosentRestPoint;
     [SerializeField] protected bool isResting;
+    [SerializeField] protected bool isDetected;
 
     //===========================================Unity============================================
     public override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadComponent(ref this.restPoints, transform.Find("RestPoints"), "LoadRestPoints()");
+        this.LoadComponent(ref this.guideArrow, transform.Find("Arrow"), "LoadGuideArrow()");
     }
 
     protected override void Awake()
     {
         base.Awake();
         EventManager.Instance.OnBonfireStopResting += StopResting;
+    }
+
+    protected virtual void LateUpdate()
+    {
+        if (this.isDetected)
+        {
+            this.guideArrow.gameObject.SetActive(true);
+        }
+        else
+        {
+            this.guideArrow.gameObject.SetActive(false);
+        }
+        this.isDetected = false;
     }
 
     //===========================================Method===========================================
@@ -61,6 +77,6 @@ public class Bonfire : HuyMonoBehaviour, Interactable
 
     void Interactable.Detected(Player player)
     {
-        return;
+        this.isDetected = true;
     }
 }

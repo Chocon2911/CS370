@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class Enemy : Entity, Damagable, EffectSplashable
 {
@@ -16,7 +17,6 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     [Space(25)]
 
     [Header("Stat")]
-    [SerializeField] protected int sceneIndex;
     [SerializeField] protected MonsterType monsterType;
 
     [Space(25)]
@@ -32,12 +32,11 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     {
         get
         {
-            return new MonsterDbData(this.sceneIndex, this.monsterType, this.health, this.maxHealth, this.id);
+            return new MonsterDbData(SceneManager.GetActiveScene().buildIndex, this.monsterType, this.health, this.maxHealth, this.id);
         }
 
         set
         {
-            this.sceneIndex = value.SceneIndex;
             this.monsterType = value.Type;
             this.health = value.Health;
             this.id = value.Id;
@@ -76,6 +75,16 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     //============================================================================================
     //===========================================Method===========================================
     //============================================================================================
+
+    //===========================================Other============================================
+    protected virtual void DefaultEnenmy(EnemySO so)
+    {
+        this.DefaultEntity(so);
+
+        this.bodyDamage = so.BodyDamage;
+        this.bodyPushForce = so.BodyPushForce;
+        this.bodyAttackableTags = so.BodyAttackableTags;
+    }
 
     //==========================================Database==========================================
     protected virtual void LoadDb()
@@ -120,6 +129,7 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
         {
             this.isHurting = false;
             this.health = 0;
+            gameObject.layer = LayerMask.NameToLayer("Dead");
             Debug.Log("Dead", gameObject);
         }
     }
