@@ -81,11 +81,6 @@ public class PlayerAnimator : BaseAnimator
             else Debug.LogError("Cast Energy Ball Animation problem", transform.gameObject);
         }
 
-        if (this.player.IsRest)
-        {
-            this.SetAnimatorState(PlayerAnimatorState.IDLE);
-        }
-
         if (this.player.Health <= 0)
         {
             this.SetAnimatorState(PlayerAnimatorState.DEAD);

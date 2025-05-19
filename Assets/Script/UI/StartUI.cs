@@ -10,12 +10,12 @@ public class StartUI : HuyMonoBehaviour
     [SerializeField] private Button startBtn;
     [SerializeField] private Button quitBtn;
 
-
+    //===========================================Unity============================================
     public override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadComponent(ref this.startBtn, transform.Find("StartButton"), "LoadStartBtn()");
-        this.LoadComponent(ref this.quitBtn, transform.Find("QuitButton"), "LoadQuitBtn()");
+        this.LoadComponent(ref this.startBtn, transform.Find("StartBtn"), "LoadStartBtn()");
+        this.LoadComponent(ref this.quitBtn, transform.Find("QuitBtn"), "LoadQuitBtn()");
     }
 
     private void Start()

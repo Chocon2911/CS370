@@ -12,6 +12,9 @@ public class Map2Manager : HuyMonoBehaviour
     [SerializeField] private Fly eliteFly;
     [SerializeField] private List<Transform> portals1;
 
+    [Header("On Boss Dead")]
+    [SerializeField] protected Transform bossPortal;
+
     //===========================================Unity============================================
     protected override void Awake()
     {
@@ -24,6 +27,7 @@ public class Map2Manager : HuyMonoBehaviour
 
         instance = this;
         base.Awake();
+        EventManager.Instance.OnBossDead += this.OnBossDead;
     }
 
     protected virtual void FixedUpdate()
@@ -46,5 +50,11 @@ public class Map2Manager : HuyMonoBehaviour
         {
             portal.gameObject.SetActive(true);
         }
+    }
+
+    //=========================================Boss Dead==========================================
+    protected virtual void OnBossDead()
+    {
+        this.bossPortal.gameObject.SetActive(true);
     }
 }

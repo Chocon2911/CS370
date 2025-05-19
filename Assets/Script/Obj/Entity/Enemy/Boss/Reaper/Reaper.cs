@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(CapsuleCollider2D))]
-public class Reaper : Enemy
+public class Reaper : Boss
 {
     public enum SlashState
     {
@@ -163,10 +163,14 @@ public class Reaper : Enemy
     protected override void Update()
     {
         base.Update();
-        this.CheckingGround();
-        this.TransitioningAttack();
-        if (this.health > 0)
+        if (this.isAppearing)
         {
+            this.Appearing();
+        }
+        else if (this.health > 0 && !this.isAppearing)
+        {
+            this.CheckingGround();
+            this.TransitioningAttack();
             this.Moving();
             this.Facing();
             this.HandlingFollowingHand();
@@ -174,6 +178,11 @@ public class Reaper : Enemy
             this.HandlingRisingHand();
             this.CastingBall();
             this.Slashing();
+        }
+
+        else if (this.health < 0 && !this.isAppearing)
+        {
+            this.Despawning();
         }
         this.animator.HandlingAnimator();
     }

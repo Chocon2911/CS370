@@ -27,7 +27,7 @@ public class PlayerSpawner : Spawner
         Transform newPlayerObj = this.Spawn(this.prefabs[0], Vector3.zero, Quaternion.identity);
         Player player = newPlayerObj.GetComponent<Player>();
         player.DefaultStat();
-        player.PlayerDbData = data;
+        player.Db = data;
         return player;
     }
 

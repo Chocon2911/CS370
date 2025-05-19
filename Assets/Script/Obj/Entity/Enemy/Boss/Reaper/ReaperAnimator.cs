@@ -15,6 +15,7 @@ public class ReaperAnimator : BaseAnimator
         ATTACK_CAST_SPELL = 6,
         Dead = 7,
         Hurt = 8,
+        APPEAR = 9,
     }
 
     //==========================================Variable==========================================
@@ -36,6 +37,7 @@ public class ReaperAnimator : BaseAnimator
         this.animator.SetFloat("AttackSlashSpeed", 1 / this.reaper.SlashAttackCD.TimeLimit);
         this.animator.SetFloat("FinishSlashSpeed", 1 / this.reaper.SlashFinishCD.TimeLimit);
         this.animator.SetFloat("HurtSpeed", 1 / this.reaper.HurtCD.TimeLimit);
+        this.animator.SetFloat("AppearSpeed", 1 / this.reaper.AppearCD.TimeLimit);
     }
 
     protected override void HandlingState()
@@ -87,6 +89,11 @@ public class ReaperAnimator : BaseAnimator
         if (this.reaper.Health <= 0)
         {
             this.animator.SetInteger("State", (int)ReaperState.Dead);
+        }
+
+        if (this.reaper.IsAppearing)
+        {
+            this.animator.SetInteger("State", (int)ReaperState.APPEAR);
         }
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public interface BonfireUser
 {
     Vector2 GetPos();
-    void Teleport(Vector2 pos);
     void Rest();
 }
 
@@ -58,7 +57,6 @@ public class Bonfire : HuyMonoBehaviour, Interactable
     void Interactable.Interact(Player player)
     {
         this.tempUser = player;
-        EventManager.Instance.OnBonfireResting?.Invoke();
         float distance = float.MaxValue;
         this.isResting = true;
         this.tempUser.Rest();
@@ -72,7 +70,8 @@ public class Bonfire : HuyMonoBehaviour, Interactable
             this.chosentRestPoint = restPoint;
         }
 
-        this.tempUser.Teleport(this.chosentRestPoint.position);
+        GameManager.Instance.SetRestPoint(this.chosentRestPoint.position, this.chosentRestPoint.rotation);
+        EventManager.Instance.OnBonfireResting?.Invoke();
     }
 
     void Interactable.Detected(Player player)
