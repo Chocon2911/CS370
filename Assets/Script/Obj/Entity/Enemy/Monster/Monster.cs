@@ -29,6 +29,7 @@ public abstract class Monster : Enemy
 
     [Header("Move Randomly")]
     [SerializeField] protected float slowSpeed;
+    [SerializeField] protected int pathIndex;
     [SerializeField] protected List<Transform> endPoints = new List<Transform>();
     [SerializeField] protected int currEndPoint;
     [SerializeField] protected bool isMovingRandomly;
@@ -52,6 +53,7 @@ public abstract class Monster : Enemy
     public override void LoadComponents()
     {
         base.LoadComponents();
+        this.LoadPath();
         this.LoadComponent(ref this.targetDetectingArea, transform.Find("OutRange"), "LoadTargetDetectingArea()");
     }
 
@@ -79,6 +81,13 @@ public abstract class Monster : Enemy
 
         // move randomly
         this.slowSpeed = so.SlowSpeed;
+    }
+
+    //============================================Path============================================
+    protected virtual void LoadPath()
+    {
+        PathManager pathManager = FindObjectOfType<PathManager>();
+        this.endPoints = pathManager.Paths[this.pathIndex].Points;
     }
 
     //==========================================Abstract==========================================
