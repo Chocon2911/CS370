@@ -65,9 +65,6 @@ public abstract class GroundMonster : Monster
         this.wallLayer = so.WallLayer;
         this.wallTag = so.WallTag;
 
-        // target detection
-        this.targetDetectDistance = so.TargetDetectDistance;
-
         // jump 
         this.jumpSpeed = so.JumpSpeed;
     }
@@ -75,7 +72,7 @@ public abstract class GroundMonster : Monster
     //======================================Ground Checking=======================================
     protected virtual void CheckingIsGround()
     {
-        Util.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, ref this.isGround);
+        Util.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, ref this.isGround, transform.localScale);
     }
 
     //=======================================Wall Detection=======================================
@@ -132,6 +129,18 @@ public abstract class GroundMonster : Monster
         this.moveDir = this.endPoints[this.currEndPoint].position.x > transform.position.x ? 1 : -1;
         this.isMovingRandomly = true;
         Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.slowSpeed, this.speedUpTime, this.slowDownTime);
+    }
+
+    // ===End Points===
+    protected override bool IsReachedEndPoint()
+    {
+        float currXPos = transform.position.x;
+        float epXPos = this.endPoints[this.currEndPoint].position.x;
+
+        float xDistance = Mathf.Abs(currXPos - epXPos);
+
+        if (xDistance < 0.3f) return true;
+        else return false;
     }
 
     //============================================Jump============================================

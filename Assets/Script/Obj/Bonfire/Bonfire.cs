@@ -27,12 +27,6 @@ public class Bonfire : HuyMonoBehaviour, Interactable
         this.LoadComponent(ref this.guideArrow, transform.Find("Arrow"), "LoadGuideArrow()");
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-        EventManager.Instance.OnBonfireStopResting += StopResting;
-    }
-
     protected virtual void LateUpdate()
     {
         if (this.isDetected)
@@ -46,19 +40,11 @@ public class Bonfire : HuyMonoBehaviour, Interactable
         this.isDetected = false;
     }
 
-    //===========================================Method===========================================
-    protected virtual void StopResting()
-    {
-        this.isResting = false;
-        this.tempUser = null;
-    }
-
     //========================================Interactable========================================
     void Interactable.Interact(Player player)
     {
         this.tempUser = player;
         float distance = float.MaxValue;
-        this.isResting = true;
         this.tempUser.Rest();
 
         foreach (Transform restPoint in this.restPoints)

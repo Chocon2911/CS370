@@ -132,7 +132,11 @@ public class Goblin : GroundMonster, Damagable
 
     protected virtual void DefaultGoblinStat()
     {
-        if (this.so == null) return;
+        if (this.so == null)
+        {
+            Debug.LogError("SO is null");
+            return;
+        }
         this.DefaultMonsterStat(this.so);
         this.DefaultGroundMonsterStat(this.so);
 
@@ -240,7 +244,7 @@ public class Goblin : GroundMonster, Damagable
     protected virtual void HitColliding()
     {
         Vector2 pos = this.hitCol.transform.position;
-        float rad = this.hitCol.radius;
+        float rad = this.hitCol.radius * transform.localScale.x;
 
         Collider2D[] collisions = Physics2D.OverlapCircleAll(pos, rad, this.attackabelLayer);
 

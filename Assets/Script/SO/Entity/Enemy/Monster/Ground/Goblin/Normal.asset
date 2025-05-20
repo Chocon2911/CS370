@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad4ae464a29abb44a919a2ad004994bf, type: 3}
+  m_Name: Normal
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  HurtDelay: 0.3
+  BodyDamage: 1
+  BodyPushForce: 15
+  BodyAttackableTags:
+  - Player
+  GravityScale: 3
+  TargetLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  TargetTag: Player
+  SlowDownTime: 0.1
+  SpeedUpTime: 0.01
+  SlowSpeed: 3
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  GroundTag: Terrain
+  WallDetectDistance: 0
+  WallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  WallTag: 
+  JumpSpeed: 0
+  StopChaseDistance: 3
+  ChaseSpeed: 5
+  HitRadius: 1.55
+  HitDamage: 1
+  HitPushForce: 15
+  HitRange: 3
+  HitRestoreCD: 0.9
+  HitChargeCD: 0.5
+  HitAttackCD: 0.2
+  HitFinishCD: 0.1
+  AttackableLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  AttackableTags:
+  - Player

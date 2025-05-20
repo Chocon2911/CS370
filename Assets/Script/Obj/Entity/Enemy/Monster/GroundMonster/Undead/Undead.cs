@@ -125,7 +125,11 @@ public class Undead : GroundMonster, Damagable
 
     protected virtual void DefaultUndeadStat()
     {
-        if (this.so == null) return;
+        if (this.so == null)
+        {
+            Debug.LogError("SO is null");
+            return;
+        }
         this.DefaultMonsterStat(this.so);
         this.DefaultGroundMonsterStat(this.so);
 
@@ -233,7 +237,7 @@ public class Undead : GroundMonster, Damagable
     protected virtual void CutColliding()
     {
         Vector2 pos = this.cutCol.transform.position;
-        float rad = this.cutCol.radius;
+        float rad = this.cutCol.radius * transform.localScale.x;
 
         Collider2D[] collisions = Physics2D.OverlapCircleAll(pos, rad, this.attackabelLayer);
 

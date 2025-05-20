@@ -55,7 +55,7 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     protected override void Awake()
     {
         base.Awake();
-        //this.LoadDb();
+        this.LoadDb();
         this.RegisterOnQuit();
     }
 
@@ -100,9 +100,13 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     {
         this.DefaultEntity(so);
 
+        // Body
         this.bodyDamage = so.BodyDamage;
         this.bodyPushForce = so.BodyPushForce;
         this.bodyAttackableTags = so.BodyAttackableTags;
+
+        // Other
+        this.rb.gravityScale = so.GravityScale;
     }
 
     //==========================================Database==========================================

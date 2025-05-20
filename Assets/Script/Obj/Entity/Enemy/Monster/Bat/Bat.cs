@@ -114,9 +114,6 @@ public class Bat : Monster
 
         this.DefaultMonsterStat(this.so);
 
-        // Target Detection
-        this.targetCol.radius = this.so.DetectionRad;
-
         // chase target
         this.stopChaseDistance = so.StopChaseDistance;
         this.chaseSpeed = so.ChaseSpeed;
@@ -138,7 +135,7 @@ public class Bat : Monster
     {
         if (this.target != null) return;
         Vector2 pos = this.targetCol.transform.position;
-        float rad = this.targetCol.radius;
+        float rad = this.targetCol.radius * transform.localScale.x;
 
         Collider2D[] targets = Physics2D.OverlapCircleAll(pos, rad, this.targetLayer);
         
@@ -260,5 +257,6 @@ public class Bat : Monster
         this.isGoring = false;
         this.isGoreAttacking = false;
         this.goreTrail.emitting = false;
+        this.isFlyingUp = true;
     }
 }

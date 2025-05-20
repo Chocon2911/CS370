@@ -20,8 +20,9 @@ public class GameManager : HuyMonoBehaviour
     [SerializeField] private string playerId;
     [SerializeField] private Player player;
     [SerializeField] private int currSceneIndex;
-    [SerializeField] private Vector2 restPos;
-    [SerializeField] private Quaternion restRot;
+
+    [Header("Camera")]
+    [SerializeField] private Camera mainCamera;
 
     [Header("Respawn")]
     [SerializeField] private Cooldown respawnCD;
@@ -216,11 +217,18 @@ public class GameManager : HuyMonoBehaviour
     {
         yield return null;
 
+        // Spawn Player at Respawn Point
         PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
         this.player = PlayerSpawner.Instance.SpawnPlayer(data);
-        this.player.transform.position = this.restPos;
-        this.player.transform.rotation = this.restRot;
+        this.player.transform.position = this.respawnPos;
+        this.player.transform.rotation = this.respawnRot;
         this.player.gameObject.SetActive(true);
+
+        // Tele Camera to Respawn Point
+        Camera mainCamera = FindFirstObjectByType<Camera>();
+        mainCamera.transform.position = new Vector3(respawnPos.x, respawnPos.y, mainCamera.transform.position.z);
+
+        this.GameSceneLoaded();
     }
 
     public void SetRestPoint(Vector2 pos, Quaternion rot)
@@ -234,7 +242,7 @@ public class GameManager : HuyMonoBehaviour
     private void OnPlayerDead()
     {
         this.isRespawning = true;
-    }    
+    }
 
     private void Respawning()
     {
@@ -245,7 +253,6 @@ public class GameManager : HuyMonoBehaviour
         this.isRespawning = false;
         this.respawnCD.ResetStatus();
         this.currSceneIndex = this.respawnSceneIndex;
-        DataBaseManager.Instance.Player.Update(this.player.Db);
         this.LoadSceneWithEvent(this.currSceneIndex, () => this.RespawnAfterSceneLoaded());
     }
 
@@ -258,6 +265,7 @@ public class GameManager : HuyMonoBehaviour
         this.player.transform.position = this.respawnPos;
         this.player.transform.rotation = this.respawnRot;
         this.player.Revive();
+        DataBaseManager.Instance.Player.Update(this.player.Db);
         this.player.gameObject.SetActive(true);
     }
 }

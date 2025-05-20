@@ -13,6 +13,20 @@ public class EntityManager : HuyMonoBehaviour
             if (entity != null)
             {
                 entity.LoadComponents();
+                entity.gameObject.layer = LayerMask.NameToLayer("Monster");
+                entity.gameObject.tag = "Monster";
+            }
+        }
+    }
+
+    protected void Reset()
+    {
+        foreach (Transform obj in transform)
+        {
+            Entity entity = obj.GetComponent<Entity>();
+            if (entity != null)
+            {
+                entity.RandomId();
             }
         }
     }

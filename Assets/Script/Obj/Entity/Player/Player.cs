@@ -148,9 +148,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         }
         set
         {
-            Debug.Log(value.XPos + ", " + value.YPos + ", " + value.ZPos, gameObject);
             transform.position = new Vector3(value.XPos, value.YPos, value.ZPos);
-            Debug.Log(transform.position, gameObject);
             transform.rotation = Quaternion.Euler(value.XRot, value.YRot, value.ZRot);
             this.id = value.Id;
             //GameManager.Instance.RespawnSceneIndex = value.RespawnSceneIndex;
@@ -183,7 +181,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     protected override void Awake()
     {
         base.Awake();
-        //this.Register();
+        this.Register();
     }
 
     protected override void Update()
@@ -348,7 +346,11 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     //======================================Despawn By Time=======================================
     protected override void Despawning()
     {
+        if (this.health > 0) return;
+        this.despawnCD.CoolingDown();
+
         if (!this.despawnCD.IsReady) return;
+        this.despawnCD.ResetStatus();
         EventManager.Instance.OnPlayerDead?.Invoke();
     }
 

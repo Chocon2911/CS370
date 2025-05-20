@@ -312,7 +312,7 @@ public class Reaper : Boss
     protected virtual void CollidingSlash()
     {
         Vector2 point = this.slashCol.transform.position;
-        float rad = this.slashCol.radius;
+        float rad = this.slashCol.radius * transform.localScale.x;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(point, rad, this.attackableLayer);
         foreach (Collider2D collider in colliders)

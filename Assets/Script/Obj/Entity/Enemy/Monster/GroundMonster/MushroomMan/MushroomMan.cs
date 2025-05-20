@@ -184,7 +184,7 @@ public class MushroomMan : GroundMonster
     protected virtual void BiteColliding()
     {
         Vector2 pos = this.biteCol.transform.position;
-        float rad = this.biteCol.radius;
+        float rad = this.biteCol.radius * transform.localScale.x;
 
         Collider2D[] collisions = Physics2D.OverlapCircleAll(pos, rad, this.attackabelLayer);
 
