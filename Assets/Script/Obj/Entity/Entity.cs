@@ -15,6 +15,11 @@ public abstract class Entity : DbObj
     [SerializeField] protected Cooldown hurtCD;
     [SerializeField] protected bool isHurting;
 
+    [Space(25)]
+
+    [Header("Despawn By Time")]
+    [SerializeField] protected Cooldown despawnCD;    
+
     //==========================================Get Set===========================================
     // Stat
     public int MaxHealth => maxHealth;
@@ -48,4 +53,7 @@ public abstract class Entity : DbObj
         this.hurtCD.ResetStatus();
         this.isHurting = false;
     }
+
+    //==========================================Despawn===========================================
+    protected abstract void Despawning();
 }

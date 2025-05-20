@@ -9,6 +9,7 @@ public class Item : DbObj
     [Header("===Item===")]
     [SerializeField] protected ItemSO so;
     [SerializeField] protected CircleCollider2D bodyCol;
+    [SerializeField] protected bool isRestorable;
 
     //==========================================Get Set===========================================
     public ItemSO SO => so;
@@ -20,28 +21,23 @@ public class Item : DbObj
         this.LoadComponent(ref this.bodyCol, transform, "LoadBodyCol()");
     }
 
-    protected virtual void Reset()
-    {
-        this.so = null;
-        this.bodyCol = null;
-    }
-
     protected override void Awake()
     {
         base.Awake();
         ItemDbData data = DataBaseManager.Instance.Item.Query(this.id);
         if (data == null)
         {
-            ItemDbData newData = new ItemDbData(this.id, false);
+            ItemDbData newData = new ItemDbData(this.id, false, this.isRestorable);
             DataBaseManager.Instance.Item.Insert(newData);
         }
         else if (data.IsTaken)
         {
             gameObject.SetActive(false);
-        
         }
+        this.isRestorable = data.IsRestorable;
     }
 
+    //===========================================Method===========================================
     public void PickedUp()
     {
         ItemDbData data = DataBaseManager.Instance.Item.Query(this.id);

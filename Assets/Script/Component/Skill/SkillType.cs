@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum SkillType
 {
-    DASH = 0,
-    AIR_JUMP = 1,
-    CAST_ENERGY_BALL = 2,
+    NULL = 0,
+    DASH = 1,
+    AIR_JUMP = 2,
+    CAST_ENERGY_BALL = 3,
 }

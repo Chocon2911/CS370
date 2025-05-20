@@ -77,6 +77,10 @@ public class Fly : Monster
         {
             this.rb.velocity = new Vector2(0, this.rb.velocity.y);
         }
+        else if (this.health < 0)
+        {
+            this.Despawning();
+        }
         this.animator.HandlingAnimator();
     }
 
@@ -101,9 +105,6 @@ public class Fly : Monster
 
         this.DefaultMonsterStat(so);
 
-        // Target Detection
-        this.targetCol.radius = this.so.TargetDetectRad;
-
         // Fire
         this.bulletName = this.so.BulletName;
         this.attackDistance = this.so.AttackDistance;
@@ -116,7 +117,7 @@ public class Fly : Monster
     {
         if (this.target != null) return;
         Vector2 pos = this.targetCol.transform.position;
-        float rad = this.targetCol.radius;
+        float rad = this.targetCol.radius * transform.localScale.x;
 
         Collider2D[] targets = Physics2D.OverlapCircleAll(pos, rad, this.targetLayer);
 
@@ -160,7 +161,7 @@ public class Fly : Monster
     }
     protected virtual void RunAwayTarget()
     {
-        float currDistance = transform.position.x - target.position.x;
+        float currDistance = Mathf.Abs(transform.position.x - target.position.x);
 
         if (currDistance > this.stopRunAwayDistance)
         {
@@ -211,7 +212,7 @@ public class Fly : Monster
         this.fireRestoreCD.CoolingDown();
         float currDistance = Vector2.Distance(this.target.position, transform.position);
 
-        if (!this.fireRestoreCD.IsReady || this.target == null || currDistance < this.attackDistance) return;
+        if (!this.fireRestoreCD.IsReady || this.target == null || currDistance > this.attackDistance) return;
         this.isChargingFire = true;
         this.fireRestoreCD.ResetStatus();
     }
