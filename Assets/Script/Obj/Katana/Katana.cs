@@ -72,7 +72,7 @@ public class Katana : HuyMonoBehaviour
                 foreach (string tag in this.attackableTags)
                 {
                     if (!collision.CompareTag(tag)) continue; 
-                    damagable.TakeDamage(this.damage);
+                    damagable.TakeDamage(this.damage, transform);
                     Vector2 pushDir = (collision.transform.position - this.transform.position).normalized;
                     damagable.Push(pushDir * this.pushForce);
                     this.attackedObj.Add(collision.transform);

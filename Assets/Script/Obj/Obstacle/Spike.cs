@@ -36,7 +36,7 @@ public class Spike : HuyMonoBehaviour
         float yDir = user.GetTarget().position.y - transform.position.y;
         Vector2 pushDir = new Vector2(xDir, yDir).normalized;
 
-        user.GetDamagable().TakeDamage(this.damage);
+        user.GetDamagable().TakeDamage(this.damage, user.GetTarget());
         user.GetDamagable().Push(this.pushForce * pushDir);
     }
 }

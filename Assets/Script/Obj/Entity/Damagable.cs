@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface Damagable
 {
-    void TakeDamage(int damage);
+    void TakeDamage(int damage, Transform attacker);
     void Push(Vector2 force);
 }

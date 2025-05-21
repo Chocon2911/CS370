@@ -31,6 +31,7 @@ public class PathManager : HuyMonoBehaviour
     public override void LoadComponents()
     {
         base.LoadComponents();
+        this.paths = new List<Path>();
         List<Transform> tempPaths = new List<Transform>();
         this.LoadComponent(ref tempPaths, transform, "LoadPaths()");
         foreach (Transform path in tempPaths)

@@ -704,7 +704,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     //============================================================================================
 
     //=========================================Damagable==========================================
-    void Damagable.TakeDamage(int damage)
+    void Damagable.TakeDamage(int damage, Transform attacker)
     {
         if (this.isInvincible || this.health <= 0) return;
         this.health -= damage;

@@ -34,7 +34,7 @@ public class EnergyBall : HuyMonoBehaviour
         foreach (string tag in this.damageTags)
         {
             if (!collision.CompareTag(tag)) continue;
-            collision.GetComponent<Damagable>().TakeDamage(this.damage);
+            collision.GetComponent<Damagable>().TakeDamage(this.damage, transform);
         }
     }
 

@@ -68,7 +68,7 @@ public abstract class Bullet : HuyMonoBehaviour
         // Deal Damage
         Damagable damagable = collision.GetComponent<Damagable>();
         if (damagable == null) return;
-        damagable.TakeDamage(this.damage);
+        damagable.TakeDamage(this.damage, transform);
 
         // Push
         float xDistance = collision.transform.position.x - transform.position.x;

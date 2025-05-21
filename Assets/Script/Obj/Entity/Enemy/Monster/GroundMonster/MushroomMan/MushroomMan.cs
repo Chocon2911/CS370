@@ -195,7 +195,7 @@ public class MushroomMan : GroundMonster
                 Damagable damagable = collision.GetComponent<Damagable>();
 
                 if (damagable == null) return;
-                damagable.TakeDamage(this.biteDamage);
+                damagable.TakeDamage(this.biteDamage, transform);
 
                 float xDir = collision.transform.position.x - this.transform.position.x;
                 float yDir = collision.transform.position.y - this.transform.position.y;

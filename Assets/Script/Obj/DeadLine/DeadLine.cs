@@ -14,6 +14,6 @@ public class DeadLine : HuyMonoBehaviour
         Damagable damagable = collision.GetComponent<Damagable>();
         
         if (damagable == null) return;
-        damagable.TakeDamage(damage);
+        damagable.TakeDamage(damage, transform);
     }
 }
