@@ -28,6 +28,12 @@ public class MagicBall : Bullet
         this.Moving();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        this.target = GameManager.Instance.Player.transform;
+    }
+
     //============================================Move============================================
     protected virtual void Moving()
     {

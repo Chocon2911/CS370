@@ -56,11 +56,45 @@ public class ItemDb : DataBase
         }
     }
 
-    public bool IsPlayerExist()
+    public bool IsItemExist(string id)
     {
         using (var connection = GetConnection())
         {
-            return connection.Table<ItemDbData>().Count() > 0;
+            return connection.Table<ItemDbData>().Count(x => x.Id == id) > 0;
         }
+    }
+
+    public bool InsertUpdate(ItemDbData data)
+    {
+        using (var connection = GetConnection())
+        {
+            if (IsItemExist(data.Id))
+            {
+                return connection.Update(data) > 0;
+            }
+            else
+            {
+                return connection.Insert(data) > 0;
+            }
+        }
+    }
+
+    public void ReviveAll()
+    {
+        using (var connection = GetConnection())
+        {
+            var takenItems = connection.Table<ItemDbData>().Where(x => x.IsTaken == true).ToList();
+            foreach (var takenItem in takenItems)
+            {
+                if (!takenItem.IsRestorable) continue;
+                takenItem.IsTaken = false;
+                connection.Update(takenItem);
+            }
+        }
+    }
+
+    public void OnPlayerRest()
+    {
+        this.ReviveAll();
     }
 }

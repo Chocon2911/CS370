@@ -57,6 +57,27 @@ public class Util
         isGround = false;
     }
 
+    public void CheckIsGround(CapsuleCollider2D groundCol, LayerMask layer, string tag, ref bool prevIsGround, ref bool isGround, Vector2 scale)
+    {
+        Vector2 size = groundCol.size * scale;
+        Vector2 pos = groundCol.transform.position;
+        CapsuleDirection2D dir = groundCol.direction;
+        float angle = 0;
+
+        Collider2D[] targetCols = Physics2D.OverlapCapsuleAll(pos, size, dir, angle, layer);
+
+        foreach (Collider2D targetCol in targetCols)
+        {
+            if (targetCol.tag != tag) continue;
+            prevIsGround = isGround;
+            isGround = true;
+            return;
+        }
+
+        prevIsGround = isGround;
+        isGround = false;
+    }
+
     public Transform ShootRaycast(float distance, LayerMask layer, string tag, Vector2 start, Vector2 dir)
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(start, dir.normalized, distance, layer);

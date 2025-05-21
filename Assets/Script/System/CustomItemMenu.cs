@@ -16,7 +16,7 @@ public class CustomItemMenu
         EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
     }
 
-    [MenuItem("CONTEXT/Entity/Random Id")]
+    [MenuItem("CONTEXT/DbObj/Random Id")]
     private static void RandomIdButton()
     {
         Entity entity = Selection.activeGameObject.GetComponent<Entity>();

@@ -414,11 +414,16 @@ MonoBehaviour:
   maxHealth: 10
   health: 10
   hurtCD:
-    timeLimit: 0
+    timeLimit: 0.3
     timer: 0
     waitTime: 0
     isReady: 0
   isHurting: 0
+  despawnCD:
+    timeLimit: 0.5
+    timer: 0
+    waitTime: 0
+    isReady: 0
   rb: {fileID: 2989173332274308274}
   bodyCol: {fileID: 6519426757431235623}
   playerAnimator: {fileID: 7162992546539807616}
@@ -429,7 +434,6 @@ MonoBehaviour:
   hasDash: 0
   hasAirJump: 0
   hasCastEnergyBall: 0
-  isRest: 0
   groundCol: {fileID: 3171477079729397107}
   groundLayer:
     serializedVersion: 2
@@ -440,7 +444,7 @@ MonoBehaviour:
   interactDetectLength: 5
   interactableObj: {fileID: 0}
   invincibleCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -451,7 +455,13 @@ MonoBehaviour:
   moveDir: 0
   isMoving: 0
   faceDir: 0
-  jumpSpeed: 20
+  appearCD:
+    timeLimit: 0.3
+    timer: 0
+    waitTime: 0
+    isReady: 0
+  isAppearing: 1
+  jumpSpeed: 18
   jumpStartCD:
     timeLimit: 0.1
     timer: 0
@@ -945,7 +955,7 @@ MonoBehaviour:
   - Monster
   attackableLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 128
   damage: 1
   pushForce: 15
   restoreCD:

@@ -28,6 +28,7 @@ public class MushroomManAnimator : BaseAnimator
     protected override void HandlingStat()
     {
         this.animator.SetFloat("HurtSpeed", 1 / this.mushroomMan.HurtCD.TimeLimit);
+        this.animator.SetFloat("BiteChargeSpeed", 1 / this.mushroomMan.BiteChargeCD.TimeLimit);
         if (this.mushroomMan.IsChasingTarget) this.animator.SetFloat("MoveSpeed", this.mushroomMan.ChaseSpeed / 5);
         else this.animator.SetFloat("MoveSpeed", this.mushroomMan.SlowSpeed / 5);
     }

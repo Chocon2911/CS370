@@ -6,6 +6,7 @@ using UnityEngine;
 public class EventManager : HuyMonoBehaviour
 {
     //==========================================Variable==========================================
+    [Header("===Event Manager===")]
     private static EventManager instance;
     public static EventManager Instance => instance;
 
@@ -18,6 +19,9 @@ public class EventManager : HuyMonoBehaviour
     public Action OnGoThroughDoor { get; set; }
     public Action OnBonfireResting { get; set; }
     public Action OnBonfireStopResting { get; set; }
+    public Action OnQuit { get; set; }
+    public Action OnBossTriggered { get; set; }
+    public Action OnBossDead { get; set; }
 
     //===========================================Unity============================================
     protected override void Awake()

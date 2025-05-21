@@ -65,9 +65,6 @@ public abstract class GroundMonster : Monster
         this.wallLayer = so.WallLayer;
         this.wallTag = so.WallTag;
 
-        // target detection
-        this.targetDetectDistance = so.TargetDetectDistance;
-
         // jump 
         this.jumpSpeed = so.JumpSpeed;
     }
@@ -75,7 +72,7 @@ public abstract class GroundMonster : Monster
     //======================================Ground Checking=======================================
     protected virtual void CheckingIsGround()
     {
-        Util.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, ref this.isGround);
+        Util.Instance.CheckIsGround(this.groundCol, this.groundLayer, this.groundTag, ref this.prevIsGround, ref this.isGround, transform.localScale);
     }
 
     //=======================================Wall Detection=======================================
@@ -115,15 +112,14 @@ public abstract class GroundMonster : Monster
     protected override void Moving()
     {
         this.isMovingRandomly = false;
-        this.isChasingTarget = false;
 
         if (this.target == null) this.MoveRandomly();
-        else this.ChaseTarget();
     }
 
     // ===Move Randomly===
     protected virtual void MoveRandomly()
     {
+        if (this.endPoints.Count == 0 || this.endPoints[this.currEndPoint] == null) return;
         if (this.IsReachedEndPoint())
         {
             if (this.currEndPoint + 1 == this.endPoints.Count) this.currEndPoint = 0;
@@ -131,25 +127,20 @@ public abstract class GroundMonster : Monster
         }
 
         this.moveDir = this.endPoints[this.currEndPoint].position.x > transform.position.x ? 1 : -1;
-        Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.slowSpeed, this.speedUpTime, this.slowDownTime);
         this.isMovingRandomly = true;
+        Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.slowSpeed, this.speedUpTime, this.slowDownTime);
     }
 
-    // ===Chase Target===
-    protected virtual void ChaseTarget()
+    // ===End Points===
+    protected override bool IsReachedEndPoint()
     {
-        float currDistance = Vector2.Distance(this.target.position, transform.position);
-        this.moveDir = this.target.position.x > transform.position.x ? 1 : -1;
+        float currXPos = transform.position.x;
+        float epXPos = this.endPoints[this.currEndPoint].position.x;
 
-        if (currDistance <= this.stopChaseDistance)
-        {
-            Util.Instance.SlowingDownWithAccelerationInHorizontal(this.rb, this.chaseSpeed, this.slowDownTime);
-        }
-        else
-        {
-            Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.chaseSpeed, this.speedUpTime, this.slowDownTime);
-            this.isChasingTarget = true;
-        }
+        float xDistance = Mathf.Abs(currXPos - epXPos);
+
+        if (xDistance < 0.3f) return true;
+        else return false;
     }
 
     //============================================Jump============================================

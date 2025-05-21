@@ -13,17 +13,21 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   maxHealth: 10
+  HurtDelay: 0.3
   interactDetectLength: 5
   moveSpeed: 5
-  moveSpeedUpTime: 0.3
+  moveSpeedUpTime: 0.1
   moveSlowDownTime: 0.1
   jumpStartDuration: 0.3
-  jumpSpeed: 17
+  jumpSpeed: 18
   dashRestoreDuration: 0.3
   dashDuration: 0.2
-  dashSpeed: 15
+  dashSpeed: 20
   airJumpSpeed: 13
   airJumpStartDuration: 0.3
   cebRestoreDuration: 1
   cebChargeDuration: 0.5
   cebEndDuration: 0.3
+  slashRestoreDuration: 0
+  slashDuration: 0
+  slashDamage: 0

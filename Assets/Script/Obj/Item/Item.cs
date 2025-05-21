@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
-public class Item : HuyMonoBehaviour
+public class Item : DbObj
 {
     //==========================================Variable==========================================
     [Header("===Item===")]
-    [SerializeField] protected string id;
     [SerializeField] protected ItemSO so;
     [SerializeField] protected CircleCollider2D bodyCol;
+    [SerializeField] protected bool isRestorable;
 
     //==========================================Get Set===========================================
     public ItemSO SO => so;
-    public string ID => id;
 
     //===========================================Unity============================================
     public override void LoadComponents()
@@ -22,29 +21,23 @@ public class Item : HuyMonoBehaviour
         this.LoadComponent(ref this.bodyCol, transform, "LoadBodyCol()");
     }
 
-    protected virtual void Reset()
-    {
-        this.id = Util.Instance.RandomGUID();
-        this.so = null;
-        this.bodyCol = null;
-    }
-
     protected override void Awake()
     {
         base.Awake();
         ItemDbData data = DataBaseManager.Instance.Item.Query(this.id);
         if (data == null)
         {
-            ItemDbData newData = new ItemDbData(this.id, false);
+            ItemDbData newData = new ItemDbData(this.id, false, this.isRestorable);
             DataBaseManager.Instance.Item.Insert(newData);
         }
         else if (data.IsTaken)
         {
             gameObject.SetActive(false);
-        
         }
+        this.isRestorable = data.IsRestorable;
     }
 
+    //===========================================Method===========================================
     public void PickedUp()
     {
         ItemDbData data = DataBaseManager.Instance.Item.Query(this.id);

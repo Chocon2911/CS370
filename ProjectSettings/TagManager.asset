@@ -12,12 +12,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Invincible
   - Water
   - UI
   - Ground
   - Monster
-  - 
+  - Dead
   - 
   - 
   - 

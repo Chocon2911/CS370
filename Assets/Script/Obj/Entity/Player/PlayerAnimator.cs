@@ -13,6 +13,7 @@ public enum PlayerAnimatorState
     WALL_CLIMB = 6,
     DEAD = 7,
     HURT = 8,
+    APPEAR = 9,
 }
 
 public class PlayerAnimator : BaseAnimator
@@ -30,8 +31,10 @@ public class PlayerAnimator : BaseAnimator
     //===========================================Method===========================================
     protected override void HandlingStat()
     {
-        this.animator.SetFloat("Move Speed", this.player.MoveSpeed);
+        this.animator.SetFloat("Move Speed", this.player.MoveSpeed / 5);
         this.animator.SetFloat("Hurt Speed", 1 / this.player.HurtCD.TimeLimit);
+        this.animator.SetFloat("Appear Speed", 1 / this.player.AppearCD.TimeLimit);
+        this.animator.SetFloat("Dead Speed", 1 / this.player.DespawnCD.TimeLimit - 0.2f);
     }
     protected override void HandlingState()
     {
@@ -78,10 +81,16 @@ public class PlayerAnimator : BaseAnimator
             else Debug.LogError("Cast Energy Ball Animation problem", transform.gameObject);
         }
 
-        if (this.player.IsRest)
+        if (this.player.Health <= 0)
         {
-            this.SetAnimatorState(PlayerAnimatorState.IDLE);
+            this.SetAnimatorState(PlayerAnimatorState.DEAD);
         }
+
+        if (this.player.IsAppearing)
+        {
+            this.SetAnimatorState(PlayerAnimatorState.APPEAR);
+        }
+
     }    
 
     protected virtual void SetAnimatorState(PlayerAnimatorState state)
