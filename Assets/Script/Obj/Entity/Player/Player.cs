@@ -25,7 +25,6 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     [SerializeField] protected bool hasDash;
     [SerializeField] protected bool hasAirJump;
     [SerializeField] protected bool hasCastEnergyBall;
-    [SerializeField] protected bool isRest;
 
     [Space(25)]
 
@@ -47,11 +46,6 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     [Header("Invincible")]
     [SerializeField] protected Cooldown invincibleCD;
     [SerializeField] protected bool isInvincible;
-
-    [Space(25)]
-
-    [Header("Despawn By Time")]
-    [SerializeField] protected Cooldown despawnCD;
 
     [Space(25)]
 
@@ -104,9 +98,6 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     public Rigidbody2D Rb => this.rb;
     public CapsuleCollider2D BodyCol => this.bodyCol;
 
-    // ===Stat===
-    public bool IsRest => this.isRest;
-
     // ===Ground Check===
     public bool PrevIsGround => this.prevIsGround;
     public bool IsGround => this.isGround;
@@ -145,7 +136,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     public bool isSlashing => this.katana.IsAttacking;
     
     // ===Db===
-    public PlayerDbData PlayerDbData
+    public PlayerDbData Db
     {
         get
         {
@@ -157,9 +148,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         }
         set
         {
-            Debug.Log(value.XPos + ", " + value.YPos + ", " + value.ZPos, gameObject);
             transform.position = new Vector3(value.XPos, value.YPos, value.ZPos);
-            Debug.Log(transform.position, gameObject);
             transform.rotation = Quaternion.Euler(value.XRot, value.YRot, value.ZRot);
             this.id = value.Id;
             //GameManager.Instance.RespawnSceneIndex = value.RespawnSceneIndex;
@@ -189,11 +178,17 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         this.DefaultStat();
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        this.Register();
+    }
+
     protected override void Update()
     {
         base.Update();
 
-        if (!this.isRest && this.health > 0 && !this.isAppearing)
+        if (this.health > 0 && !this.isAppearing)
         {
             this.CheckingGround();
             this.CheckingInteract();
@@ -213,7 +208,6 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 EventManager.Instance.OnBonfireStopResting?.Invoke();
-                this.isRest = false;
             }
         }
 
@@ -247,6 +241,10 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
             if (unlockSkill == SkillType.DASH) this.hasDash = true;
             else if (unlockSkill == SkillType.AIR_JUMP) this.hasAirJump = true;
             else if (unlockSkill == SkillType.CAST_ENERGY_BALL) this.hasCastEnergyBall = true;
+
+            this.health += item.SO.HealthRestore;
+            if (this.health > this.maxHealth) this.health = this.maxHealth;
+
             collision.gameObject.SetActive(false);
         }
 
@@ -271,6 +269,18 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     //============================================================================================
     //===========================================Method===========================================
     //============================================================================================
+
+    //=======================================Event Register=======================================
+    protected virtual void Register()
+    {
+        if (GameManager.Instance.IsFightingBoss) return;
+        EventManager.Instance.OnQuit += this.OnQuit;
+    }
+
+    protected virtual void OnQuit()
+    {
+        DataBaseManager.Instance.Player.Update(this.Db);
+    }
 
     //========================================Ground Check========================================
     protected virtual void CheckingGround()
@@ -330,13 +340,14 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         if (!this.invincibleCD.IsReady) return;
         this.isInvincible = false;
         this.invincibleCD.ResetStatus();
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
     //======================================Despawn By Time=======================================
-    protected virtual void Despawning()
+    protected override void Despawning()
     {
         if (this.health > 0) return;
-        Util.Instance.DespawnByTime(this.despawnCD, transform, PlayerSpawner.Instance);
+        this.despawnCD.CoolingDown();
 
         if (!this.despawnCD.IsReady) return;
         this.despawnCD.ResetStatus();
@@ -699,6 +710,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         this.health -= damage;
         this.isInvincible = true;
         this.isHurting = true;
+        gameObject.layer = LayerMask.NameToLayer("Invincible");
 
         if (this.health <= 0)
         {
@@ -736,16 +748,10 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         return transform.position;
     }
 
-    void BonfireUser.Teleport(Vector2 pos)
-    {
-        transform.position = pos;
-    }
-
     void BonfireUser.Rest()
     {
         this.health = this.maxHealth;
         this.FinishMove();
-        this.isRest = true;
     }
 
     //===========================================ISpike===========================================

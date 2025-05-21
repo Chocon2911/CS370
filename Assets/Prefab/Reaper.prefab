@@ -307,15 +307,25 @@ MonoBehaviour:
     waitTime: 0
     isReady: 0
   isHurting: 0
+  despawnCD:
+    timeLimit: 0
+    timer: 0
+    waitTime: 0
+    isReady: 0
   rb: {fileID: 1952501543149014498}
   bodyCol: {fileID: 3423678653758788070}
   damageEff: {fileID: 1732606743721125156}
-  sceneIndex: 7
   monsterType: 1
   bodyAttackableTags:
   - Player
   bodyDamage: 0
   bodyPushForce: 15
+  appearCD:
+    timeLimit: 1
+    timer: 0
+    waitTime: 0
+    isReady: 0
+  isAppearing: 1
   avatar: {fileID: 8019942572220754209}
   animator: {fileID: 8204677399283820708}
   groundCol: {fileID: 6496402973537044737}

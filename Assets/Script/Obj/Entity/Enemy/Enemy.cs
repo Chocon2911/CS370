@@ -55,7 +55,8 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     protected override void Awake()
     {
         base.Awake();
-        //this.LoadDb();
+        this.LoadDb();
+        this.RegisterOnQuit();
     }
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
@@ -76,14 +77,36 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     //===========================================Method===========================================
     //============================================================================================
 
+    //==========================================Despawn===========================================
+    protected override void Despawning()
+    {
+        Util.Instance.DespawnByTime(this.despawnCD, transform, EnemySpawner.Instance);
+    }
+
+    //==========================================On Quit===========================================
+    protected virtual void RegisterOnQuit()
+    {
+        if (GameManager.Instance.IsFightingBoss) return;
+        EventManager.Instance.OnQuit += this.OnQuit;
+    }
+
+    protected virtual void OnQuit()
+    {
+        DataBaseManager.Instance.Monster.Update(this.Db);
+    }
+
     //===========================================Other============================================
     protected virtual void DefaultEnenmy(EnemySO so)
     {
         this.DefaultEntity(so);
 
+        // Body
         this.bodyDamage = so.BodyDamage;
         this.bodyPushForce = so.BodyPushForce;
         this.bodyAttackableTags = so.BodyAttackableTags;
+
+        // Other
+        this.rb.gravityScale = so.GravityScale;
     }
 
     //==========================================Database==========================================

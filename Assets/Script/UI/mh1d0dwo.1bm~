@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class PauseUI : HuyMonoBehaviour
+{
+    [Header("===Pause===")]
+    [SerializeField] protected Button resumeBtn;
+    [SerializeField] protected Button quitBtn;
+
+    public override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadComponent(ref this.resumeBtn, transform.Find("Resume"), "LoadResumeBtn()");
+        this.LoadComponent(ref this.quitBtn, transform.Find("Quit"), "LoadQuitBtn()");
+    }
+
+    protected virtual void ResumeBtnOnClick()
+    {
+        Time.timeScale = 1f;
+    }
+
+    protected virtual void QuitBtnOnClick()
+    {
+        EventManager.Instance.OnQuitGame?.Invoke();
+        Application.Quit();
+    }
+}

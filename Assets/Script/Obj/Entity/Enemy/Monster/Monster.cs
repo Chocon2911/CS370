@@ -29,18 +29,15 @@ public abstract class Monster : Enemy
 
     [Header("Move Randomly")]
     [SerializeField] protected float slowSpeed;
+    [SerializeField] protected int pathIndex;
     [SerializeField] protected List<Transform> endPoints = new List<Transform>();
     [SerializeField] protected int currEndPoint;
     [SerializeField] protected bool isMovingRandomly;
-
-
 
     //==========================================Get Set===========================================
     // ===Move Randomly===
     public float SlowSpeed => this.slowSpeed;
     public bool IsMovingRandomly => this.isMovingRandomly;
-
-
 
     //===========================================Unity============================================
     protected override void OnEnable()
@@ -52,6 +49,7 @@ public abstract class Monster : Enemy
     public override void LoadComponents()
     {
         base.LoadComponents();
+        this.LoadPath();
         this.LoadComponent(ref this.targetDetectingArea, transform.Find("OutRange"), "LoadTargetDetectingArea()");
     }
 
@@ -65,10 +63,6 @@ public abstract class Monster : Enemy
     protected virtual void DefaultMonsterStat(MonsterSO so)
     {
         this.DefaultEnenmy(so);
-
-        // target out of range
-        this.targetDetectingArea.size = so.TargetDetectingArea;
-
         // target detection
         this.targetLayer = so.TargetLayer;
         this.targetTag = so.TargetTag;
@@ -79,6 +73,13 @@ public abstract class Monster : Enemy
 
         // move randomly
         this.slowSpeed = so.SlowSpeed;
+    }
+
+    //============================================Path============================================
+    protected virtual void LoadPath()
+    {
+        PathManager pathManager = FindObjectOfType<PathManager>();
+        this.endPoints = pathManager.Paths[this.pathIndex].Points;
     }
 
     //==========================================Abstract==========================================
@@ -93,10 +94,10 @@ public abstract class Monster : Enemy
         float xDistance = Mathf.Abs(this.target.position.x - transform.position.x);
         float yDistance = Mathf.Abs(this.target.position.y - transform.position.y);
 
-        Debug.Log(xDistance, gameObject);
-        Debug.Log(this.targetDetectingArea.size.x, gameObject);
+        float maxXDistance = this.targetDetectingArea.size.x * transform.localScale.x / 2;
+        float maxYDistance = this.targetDetectingArea.size.y * transform.localScale.y / 2;
 
-        if (xDistance > this.targetDetectingArea.size.x / 2 || yDistance > this.targetDetectingArea.size.y / 2)
+        if (xDistance > maxXDistance || yDistance > maxYDistance)
         {
             this.target = null;
             this.DetectingTarget();

@@ -72,6 +72,10 @@ public class MushroomMan : GroundMonster
         {
             this.rb.velocity = new Vector2(0, this.rb.velocity.y);
         }
+        else if (this.health < 0)
+        {
+            this.Despawning();
+        }
         this.animator.HandlingAnimator();
     }
 
@@ -180,7 +184,7 @@ public class MushroomMan : GroundMonster
     protected virtual void BiteColliding()
     {
         Vector2 pos = this.biteCol.transform.position;
-        float rad = this.biteCol.radius;
+        float rad = this.biteCol.radius * transform.localScale.x;
 
         Collider2D[] collisions = Physics2D.OverlapCircleAll(pos, rad, this.attackabelLayer);
 

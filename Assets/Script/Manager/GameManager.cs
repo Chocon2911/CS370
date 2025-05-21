@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,10 +10,10 @@ public class GameManager : HuyMonoBehaviour
     private static GameManager instance;
     public static GameManager Instance => instance;
 
-    // System
+    [Header("System")]
     [SerializeField] private bool isPause;
 
-    // Player
+    [Header("Player")]
     [SerializeField] private int respawnSceneIndex;
     [SerializeField] private Vector3 respawnPos;
     [SerializeField] private Quaternion respawnRot;
@@ -20,9 +21,15 @@ public class GameManager : HuyMonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private int currSceneIndex;
 
-    // Respawn
+    [Header("Camera")]
+    [SerializeField] private Camera mainCamera;
+
+    [Header("Respawn")]
     [SerializeField] private Cooldown respawnCD;
     [SerializeField] private bool isRespawning;
+
+    [Header("Boss")]
+    [SerializeField] private bool isFightingBoss;
 
     //==========================================Get Set===========================================
     // Player
@@ -31,6 +38,9 @@ public class GameManager : HuyMonoBehaviour
     public Quaternion RespawnRot => this.respawnRot;
     public Player Player => this.player;
     public int CurrSceneIndex => this.currSceneIndex;
+
+    // Boss
+    public bool IsFightingBoss => this.isFightingBoss;
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -56,7 +66,7 @@ public class GameManager : HuyMonoBehaviour
     //===========================================Other============================================
     private void Pausing()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !this.player.IsRest)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (this.isPause)
             {
@@ -92,9 +102,24 @@ public class GameManager : HuyMonoBehaviour
 
     private void GameSceneLoaded()
     {
+        this.isFightingBoss = false;
         EventManager.Instance.OnBonfireResting += OnPlayerResting;
         EventManager.Instance.OnPlayerDead += OnPlayerDead;
         EventManager.Instance.OnBonfireResting += DataBaseManager.Instance.Monster.OnPlayerRest;
+        EventManager.Instance.OnBonfireResting += DataBaseManager.Instance.Item.OnPlayerRest;
+        EventManager.Instance.OnBossTriggered += OnBossTriggered;
+        EventManager.Instance.OnBossDead += OnBossDead;
+    }
+
+    //=====================================On Boss Triggeered=====================================
+    protected virtual void OnBossTriggered() 
+    {
+        this.isFightingBoss = true;
+    }
+
+    protected virtual void OnBossDead()
+    {
+        this.isFightingBoss = false;
     }
 
     //======================================Go Through Door=======================================
@@ -104,7 +129,7 @@ public class GameManager : HuyMonoBehaviour
         // Then load next scene and call method after scene loaded
 
         this.currSceneIndex = nextScene;
-        DataBaseManager.Instance.Player.Update(this.player.PlayerDbData);
+        DataBaseManager.Instance.Player.Update(this.player.Db);
         this.player = null;
         EventManager.Instance.OnGoThroughDoor?.Invoke();
         LoadSceneWithEvent(nextScene, () => GoThroughDoorAfterSceneLoaded(nextDoor, nextScene));
@@ -122,7 +147,7 @@ public class GameManager : HuyMonoBehaviour
         this.player = PlayerSpawner.Instance.SpawnPlayer(data);
         this.player.gameObject.SetActive(true);
         DoorManager.Instance.Doors[nextDoor].Exit(this.player);
-        DataBaseManager.Instance.Player.Update(this.player.PlayerDbData);
+        DataBaseManager.Instance.Player.Update(this.player.Db);
         Debug.Log(this.player.transform.position, transform.gameObject);
         Debug.Log("Finish going through door", transform.gameObject);
     }
@@ -172,9 +197,9 @@ public class GameManager : HuyMonoBehaviour
         this.respawnPos = Vector3.zero;
         this.respawnRot = Quaternion.Euler(0, 0, 0);
         this.player = PlayerSpawner.Instance.SpawnPlayer(this.respawnPos, this.respawnRot);
-        this.playerId = this.player.PlayerDbData.Id;
+        this.playerId = this.player.Db.Id;
         this.player.gameObject.SetActive(true);
-        DataBaseManager.Instance.Player.Insert(this.player.PlayerDbData);
+        DataBaseManager.Instance.Player.Insert(this.player.Db);
     }
 
     //=====================================On Player Resting======================================
@@ -183,14 +208,41 @@ public class GameManager : HuyMonoBehaviour
         this.respawnSceneIndex = SceneManager.GetActiveScene().buildIndex;
         this.respawnPos = this.player.transform.position;
         this.respawnRot = this.player.transform.rotation;
-        DataBaseManager.Instance.Player.Update(this.player.PlayerDbData);
+        DataBaseManager.Instance.Player.Update(this.player.Db);
+
+        this.LoadSceneWithEvent(this.currSceneIndex, () => StartCoroutine(this.OnResting()));
     }
+
+    private IEnumerator OnResting()
+    {
+        yield return null;
+
+        // Spawn Player at Respawn Point
+        PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
+        this.player = PlayerSpawner.Instance.SpawnPlayer(data);
+        this.player.transform.position = this.respawnPos;
+        this.player.transform.rotation = this.respawnRot;
+        this.player.gameObject.SetActive(true);
+
+        // Tele Camera to Respawn Point
+        Camera mainCamera = FindFirstObjectByType<Camera>();
+        mainCamera.transform.position = new Vector3(respawnPos.x, respawnPos.y, mainCamera.transform.position.z);
+
+        this.GameSceneLoaded();
+    }
+
+    public void SetRestPoint(Vector2 pos, Quaternion rot)
+    {
+        this.respawnPos = pos;
+        this.respawnRot = rot;
+    }
+
 
     //=======================================On Player Dead=======================================
     private void OnPlayerDead()
     {
         this.isRespawning = true;
-    }    
+    }
 
     private void Respawning()
     {
@@ -201,7 +253,6 @@ public class GameManager : HuyMonoBehaviour
         this.isRespawning = false;
         this.respawnCD.ResetStatus();
         this.currSceneIndex = this.respawnSceneIndex;
-        DataBaseManager.Instance.Player.Update(this.player.PlayerDbData);
         this.LoadSceneWithEvent(this.currSceneIndex, () => this.RespawnAfterSceneLoaded());
     }
 
@@ -214,6 +265,7 @@ public class GameManager : HuyMonoBehaviour
         this.player.transform.position = this.respawnPos;
         this.player.transform.rotation = this.respawnRot;
         this.player.Revive();
+        DataBaseManager.Instance.Player.Update(this.player.Db);
         this.player.gameObject.SetActive(true);
     }
 }
