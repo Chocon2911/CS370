@@ -248,7 +248,7 @@ public class Undead : GroundMonster, Damagable
                 Damagable damagable = collision.GetComponent<Damagable>();
 
                 if (damagable == null) return;
-                damagable.TakeDamage(this.cutDamage);
+                damagable.TakeDamage(this.cutDamage, collision.transform);
 
                 float xDir = collision.transform.position.x - this.transform.position.x;
                 float yDir = collision.transform.position.y - this.transform.position.y;

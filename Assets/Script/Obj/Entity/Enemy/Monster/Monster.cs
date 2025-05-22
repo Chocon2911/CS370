@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
-public abstract class Monster : Enemy
+public abstract class Monster : Enemy, Damagable
 {
     //==========================================Variable==========================================
     [Space(50)]
@@ -117,5 +117,27 @@ public abstract class Monster : Enemy
 
         if (xDistance < 0.3f && yDistance < 0.3f) return true; 
         else return false;
+    }
+
+    void Damagable.TakeDamage(int damage, Transform attacker)
+    {
+        this.health -= damage;
+        this.isHurting = true;
+
+        if (this.health <= 0)
+        {
+            this.isHurting = false;
+            this.health = 0;
+            gameObject.layer = LayerMask.NameToLayer("Dead");
+            Debug.Log("Dead", gameObject);
+            return;
+        }
+
+        Katana katana = attacker.GetComponent<Katana>();
+        if (katana != null)
+        {
+            Debug.Log("Fuck");
+            this.target = GameManager.Instance.Player.transform;
+        }
     }
 }

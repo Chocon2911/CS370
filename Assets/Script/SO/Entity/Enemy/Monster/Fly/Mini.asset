@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730dc3c44f5a9b74684a608dcca686da, type: 3}
   m_Name: Mini
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 2
   HurtDelay: 0.3
   BodyDamage: 1
   BodyPushForce: 15
@@ -25,10 +25,10 @@ MonoBehaviour:
   TargetTag: Player
   SlowDownTime: 0.1
   SpeedUpTime: 0.01
-  SlowSpeed: 3
-  RunAwaySpeed: 3
-  StopRunAwayDistance: 5
+  SlowSpeed: 2
+  RunAwaySpeed: 3.5
+  StopRunAwayDistance: 3.5
   BulletName: SoundWave
-  AttackDistance: 10
-  FireRestoreDelay: 1
+  AttackDistance: 8
+  FireRestoreDelay: 2
   ChargeFireDelay: 0.3

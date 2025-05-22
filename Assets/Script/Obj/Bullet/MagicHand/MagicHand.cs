@@ -107,7 +107,7 @@ public class MagicHand : HuyMonoBehaviour
                 Damagable damagable = collider.GetComponent<Damagable>();
                 
                 if (damagable == null) continue;
-                damagable.TakeDamage(this.damage);
+                damagable.TakeDamage(this.damage, transform);
                 Vector2 pushDir = (collider.transform.position - this.transform.position).normalized;
                 damagable.Push(pushDir * this.pushForce);
             }

@@ -65,7 +65,7 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
         {
             Damagable damagable = collision.gameObject.GetComponent<Damagable>();
             if (damagable == null) return;
-            damagable.TakeDamage(this.bodyDamage);
+            damagable.TakeDamage(this.bodyDamage, transform);
             Vector2 dir = (collision.transform.position - this.transform.position).normalized;
             damagable.Push(this.bodyPushForce * dir);
         }
@@ -143,7 +143,7 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     //============================================================================================
 
     //=========================================Damagable==========================================
-    void Damagable.TakeDamage(int damage)
+    void Damagable.TakeDamage(int damage, Transform attacker)
     {
         this.health -= damage;
         this.isHurting = true;
@@ -154,6 +154,7 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
             this.health = 0;
             gameObject.layer = LayerMask.NameToLayer("Dead");
             Debug.Log("Dead", gameObject);
+            return;
         }
     }
 
