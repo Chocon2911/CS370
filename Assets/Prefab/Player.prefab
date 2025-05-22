@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  maxHealth: 10
+  maxHealth: 40
   health: 10
   hurtCD:
     timeLimit: 0.3

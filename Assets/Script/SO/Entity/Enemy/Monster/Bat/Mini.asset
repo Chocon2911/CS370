@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c6e03ff3e8c804bbf9ad10517dc2b8, type: 3}
   m_Name: Mini
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 3
   HurtDelay: 0.3
-  BodyDamage: 1
+  BodyDamage: 4
   BodyPushForce: 15
   BodyAttackableTags:
   - Player
@@ -27,11 +27,11 @@ MonoBehaviour:
   SpeedUpTime: 0.01
   SlowSpeed: 2
   StopChaseDistance: 5
-  ChaseSpeed: 4
+  ChaseSpeed: 3.5
   FlyUpSpeed: 5
   FlyUpDelay: 1
   GoreSpeed: 15
   GoreDistance: 6
-  GoreRestoreDelay: 1
+  GoreRestoreDelay: 1.25
   GoreChargeDelay: 0.3
   GoreAttackDelay: 0.5
