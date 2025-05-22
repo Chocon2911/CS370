@@ -9,29 +9,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78c6e03ff3e8c804bbf9ad10517dc2b8, type: 3}
-  m_Name: Normal
+  m_Script: {fileID: 11500000, guid: c7543ebf63804cf49827da09540d8348, type: 3}
+  m_Name: Tower
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 2
   HurtDelay: 0.3
-  BodyDamage: 5
+  BodyDamage: 4
   BodyPushForce: 15
   BodyAttackableTags:
-  - Player
-  GravityScale: 0
+  - 
+  GravityScale: 3
   TargetLayer:
     serializedVersion: 2
     m_Bits: 1
   TargetTag: Player
   SlowDownTime: 0.1
   SpeedUpTime: 0.01
-  SlowSpeed: 2
-  StopChaseDistance: 3
-  ChaseSpeed: 3
-  FlyUpSpeed: 8
-  FlyUpDelay: 0.7
-  GoreSpeed: 15
-  GoreDistance: 3
-  GoreRestoreDelay: 1.25
-  GoreChargeDelay: 0.3
-  GoreAttackDelay: 0.5
+  SlowSpeed: 3
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  GroundTag: Ground
+  WallDetectDistance: 0
+  WallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  WallTag: 
+  JumpSpeed: 0
+  StopChaseDistance: 10
+  ChaseSpeed: 0
+  AttackDistance: 25
+  BowRestoreDelay: 1.1
+  ChargeBowDelay: 0.5

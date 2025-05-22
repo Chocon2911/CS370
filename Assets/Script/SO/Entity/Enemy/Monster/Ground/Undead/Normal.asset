@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2ceac40bc8a234b9dbae97da18ac4a, type: 3}
   m_Name: Normal
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 4
   HurtDelay: 0.3
-  BodyDamage: 1
+  BodyDamage: 6
   BodyPushForce: 15
   BodyAttackableTags:
   - Player
@@ -39,10 +39,10 @@ MonoBehaviour:
   StopChaseDistance: 2.2
   ChaseSpeed: 3
   CutRadius: 1.5
-  CutDamage: 1
+  CutDamage: 6
   CutPushForce: 15
   CutRange: 2.5
-  CutRestoreCD: 0.9
+  CutRestoreCD: 1.5
   CutChargeCD: 0.5
   CutAttackCD: 0.3
   CutFinishCD: 0.1

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   HurtDelay: 0.3
-  BodyDamage: 1
-  BodyPushForce: 15
+  BodyDamage: 3
+  BodyPushForce: 12
   BodyAttackableTags:
   - Player
   GravityScale: 3
@@ -25,7 +25,7 @@ MonoBehaviour:
   TargetTag: Player
   SlowDownTime: 0.1
   SpeedUpTime: 0.01
-  SlowSpeed: 4
+  SlowSpeed: 3.5
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -37,10 +37,10 @@ MonoBehaviour:
   WallTag: 
   JumpSpeed: 0
   StopChaseDistance: 2
-  ChaseSpeed: 7
-  BiteDamage: 1
-  BitePushForce: 15
-  BiteRange: 2
-  BiteRestoreDelay: 0.5
+  ChaseSpeed: 4.5
+  BiteDamage: 3
+  BitePushForce: 12
+  BiteRange: 1.5
+  BiteRestoreDelay: 1
   BiteChargeDelay: 0.3
   BiteAttackDelay: 0.2

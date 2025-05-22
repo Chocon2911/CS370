@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7543ebf63804cf49827da09540d8348, type: 3}
   m_Name: Normal
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 2
   HurtDelay: 0.3
-  BodyDamage: 1
+  BodyDamage: 4
   BodyPushForce: 15
   BodyAttackableTags:
   - Player
@@ -37,7 +37,7 @@ MonoBehaviour:
   WallTag: 
   JumpSpeed: 0
   StopChaseDistance: 10
-  ChaseSpeed: 5
-  AttackDistance: 10
-  BowRestoreDelay: 1
+  ChaseSpeed: 4
+  AttackDistance: 6
+  BowRestoreDelay: 1.25
   ChargeBowDelay: 0.5

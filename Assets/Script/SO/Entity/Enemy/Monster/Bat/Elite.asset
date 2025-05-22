@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   HurtDelay: 0.3
-  BodyDamage: 1
-  BodyPushForce: 20
+  BodyDamage: 6
+  BodyPushForce: 18
   BodyAttackableTags:
   - Player
   GravityScale: 0
@@ -25,13 +25,13 @@ MonoBehaviour:
   TargetTag: Player
   SlowDownTime: 0.1
   SpeedUpTime: 0.01
-  SlowSpeed: 2
+  SlowSpeed: 2.5
   StopChaseDistance: 3
-  ChaseSpeed: 3
-  FlyUpSpeed: 5
+  ChaseSpeed: 3.5
+  FlyUpSpeed: 8.5
   FlyUpDelay: 0.5
-  GoreSpeed: 15
+  GoreSpeed: 17.5
   GoreDistance: 4
-  GoreRestoreDelay: 1
+  GoreRestoreDelay: 2
   GoreChargeDelay: 0.5
-  GoreAttackDelay: 0.5
+  GoreAttackDelay: 0.55
