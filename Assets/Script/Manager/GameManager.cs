@@ -33,11 +33,11 @@ public class GameManager : HuyMonoBehaviour
 
     //==========================================Get Set===========================================
     // Player
-    public int RespawnSceneIndex => this.respawnSceneIndex;
-    public Vector3 RespawnPos => this.respawnPos;
-    public Quaternion RespawnRot => this.respawnRot;
+    public int RespawnSceneIndex { get => this.respawnSceneIndex; set => this.respawnSceneIndex = value; }
+    public Vector3 RespawnPos { get => this.respawnPos; set => this.respawnPos = value; }
+    public Quaternion RespawnRot { get => this.respawnRot; set => this.respawnRot = value; }
     public Player Player => this.player;
-    public int CurrSceneIndex => this.currSceneIndex;
+    public int CurrSceneIndex { get => this.currSceneIndex; set => this.currSceneIndex = value; }
 
     // Boss
     public bool IsFightingBoss => this.isFightingBoss;
@@ -197,6 +197,7 @@ public class GameManager : HuyMonoBehaviour
         this.respawnPos = Vector3.zero;
         this.respawnRot = Quaternion.Euler(0, 0, 0);
         this.player = PlayerSpawner.Instance.SpawnPlayer(this.respawnPos, this.respawnRot);
+        this.player.RandomId();
         this.playerId = this.player.Db.Id;
         this.player.gameObject.SetActive(true);
         DataBaseManager.Instance.Player.Insert(this.player.Db);
@@ -205,6 +206,7 @@ public class GameManager : HuyMonoBehaviour
     //=====================================On Player Resting======================================
     private void OnPlayerResting()
     {
+        this.currSceneIndex = SceneManager.GetActiveScene().buildIndex;
         this.respawnSceneIndex = SceneManager.GetActiveScene().buildIndex;
         this.respawnPos = this.player.transform.position;
         this.respawnRot = this.player.transform.rotation;
