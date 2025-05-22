@@ -66,7 +66,8 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
             Damagable damagable = collision.gameObject.GetComponent<Damagable>();
             if (damagable == null) return;
             damagable.TakeDamage(this.bodyDamage, transform);
-            Vector2 dir = (collision.transform.position - this.transform.position).normalized;
+            Vector2 dir = ((Vector2)collision.transform.position - (Vector2)transform.position).normalized;
+            Debug.Log(dir);
             damagable.Push(this.bodyPushForce * dir);
         }
     }
