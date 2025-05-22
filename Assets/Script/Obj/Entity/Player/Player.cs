@@ -151,10 +151,10 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
             transform.position = new Vector3(value.XPos, value.YPos, value.ZPos);
             transform.rotation = Quaternion.Euler(value.XRot, value.YRot, value.ZRot);
             this.id = value.Id;
-            //GameManager.Instance.RespawnSceneIndex = value.RespawnSceneIndex;
-            //GameManager.Instance.RespawnPos = new Vector3(value.RespawnXPos, value.RespawnYPos, value.RespawnZPos);
-            //GameManager.Instance.RespawnRot = Quaternion.Euler(value.RespawnXRot, value.RespawnYRot, value.RespawnZRot);
-            //GameManager.Instance.CurrSceneIndex = value.CurrSceneIndex;
+            GameManager.Instance.RespawnSceneIndex = value.RespawnSceneIndex;
+            GameManager.Instance.RespawnPos = new Vector3(value.RespawnXPos, value.RespawnYPos, value.RespawnZPos);
+            GameManager.Instance.RespawnRot = Quaternion.Euler(value.RespawnXRot, value.RespawnYRot, value.RespawnZRot);
+            GameManager.Instance.CurrSceneIndex = value.CurrSceneIndex;
             this.health = value.Health;
             this.dash.dashCD.Timer = value.DashRestoreTimer;
             this.castEnergyBall.restoreCD.Timer = value.CebRestoreTimer;
