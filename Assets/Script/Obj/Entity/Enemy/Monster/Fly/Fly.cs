@@ -105,6 +105,10 @@ public class Fly : Monster
 
         this.DefaultMonsterStat(so);
 
+        // Run Away
+        this.runAwaySpeed = this.so.RunAwaySpeed;
+        this.stopRunAwayDistance = this.so.StopRunAwayDistance;
+
         // Fire
         this.bulletName = this.so.BulletName;
         this.attackDistance = this.so.AttackDistance;

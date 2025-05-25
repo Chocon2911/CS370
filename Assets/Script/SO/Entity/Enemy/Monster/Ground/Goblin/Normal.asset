@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   HurtDelay: 0.3
-  BodyDamage: 1
+  BodyDamage: 5
   BodyPushForce: 15
   BodyAttackableTags:
   - Player
@@ -37,12 +37,12 @@ MonoBehaviour:
   WallTag: 
   JumpSpeed: 0
   StopChaseDistance: 3
-  ChaseSpeed: 5
+  ChaseSpeed: 4
   HitRadius: 1.55
-  HitDamage: 1
+  HitDamage: 5
   HitPushForce: 15
   HitRange: 3
-  HitRestoreCD: 0.9
+  HitRestoreCD: 1.25
   HitChargeCD: 0.5
   HitAttackCD: 0.2
   HitFinishCD: 0.1

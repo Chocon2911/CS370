@@ -82,8 +82,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col: {fileID: 8108920146718546082}
-  damage: 0
-  pushForce: 15
+  damage: 8
+  pushForce: 17
   targetLayer:
     serializedVersion: 2
     m_Bits: 0
