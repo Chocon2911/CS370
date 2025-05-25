@@ -28,8 +28,8 @@ MonoBehaviour:
   SlowSpeed: 2
   StopChaseDistance: 3
   ChaseSpeed: 3
-  FlyUpSpeed: 8
-  FlyUpDelay: 0.7
+  FlyUpSpeed: 5
+  FlyUpDelay: 0.6
   GoreSpeed: 15
   GoreDistance: 3
   GoreRestoreDelay: 1.25

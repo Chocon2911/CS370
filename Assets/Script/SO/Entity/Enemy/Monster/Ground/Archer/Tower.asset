@@ -25,7 +25,7 @@ MonoBehaviour:
   TargetTag: Player
   SlowDownTime: 0.1
   SpeedUpTime: 0.01
-  SlowSpeed: 3
+  SlowSpeed: 0
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64

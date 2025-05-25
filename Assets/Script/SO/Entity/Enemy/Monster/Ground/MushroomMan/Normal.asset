@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f83ef4a7c11d8b4fa22e050928288d7, type: 3}
   m_Name: Normal
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 4
   HurtDelay: 0.3
   BodyDamage: 4
   BodyPushForce: 15
