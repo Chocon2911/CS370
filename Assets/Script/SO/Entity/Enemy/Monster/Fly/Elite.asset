@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730dc3c44f5a9b74684a608dcca686da, type: 3}
   m_Name: Elite
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 4
   HurtDelay: 0.3
-  BodyDamage: 1
+  BodyDamage: 4
   BodyPushForce: 20
   BodyAttackableTags:
   - Player
@@ -25,10 +25,10 @@ MonoBehaviour:
   TargetTag: Player
   SlowDownTime: 0.1
   SpeedUpTime: 0.01
-  SlowSpeed: 2
-  RunAwaySpeed: 3
+  SlowSpeed: 2.5
+  RunAwaySpeed: 4
   StopRunAwayDistance: 2
   BulletName: SoundWave
-  AttackDistance: 2
+  AttackDistance: 10
   FireRestoreDelay: 0.75
   ChargeFireDelay: 0.2

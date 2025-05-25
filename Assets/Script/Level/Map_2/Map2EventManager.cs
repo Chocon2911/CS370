@@ -12,6 +12,7 @@ public class Map2EventManager : EventManager
     //===========================================Unity============================================
     protected override void Awake()
     {
+        base.Awake();
         if (instance1 != null)
         {
             Debug.LogError("instance not null (transform)", transform.gameObject);
@@ -20,6 +21,5 @@ public class Map2EventManager : EventManager
         }
 
         instance1 = this;
-        base.Awake();
     }
 }

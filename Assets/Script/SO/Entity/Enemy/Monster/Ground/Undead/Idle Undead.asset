@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f83ef4a7c11d8b4fa22e050928288d7, type: 3}
-  m_Name: Elite
+  m_Script: {fileID: 11500000, guid: 8a2ceac40bc8a234b9dbae97da18ac4a, type: 3}
+  m_Name: Idle Undead
   m_EditorClassIdentifier: 
-  maxHealth: 6
+  maxHealth: 4
   HurtDelay: 0.3
   BodyDamage: 6
-  BodyPushForce: 20
+  BodyPushForce: 15
   BodyAttackableTags:
-  - Player
+  - 
   GravityScale: 3
   TargetLayer:
     serializedVersion: 2
@@ -25,7 +25,7 @@ MonoBehaviour:
   TargetTag: Player
   SlowDownTime: 0.1
   SpeedUpTime: 0.01
-  SlowSpeed: 2
+  SlowSpeed: 0
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -36,11 +36,18 @@ MonoBehaviour:
     m_Bits: 0
   WallTag: 
   JumpSpeed: 0
-  StopChaseDistance: 5
-  ChaseSpeed: 4
-  BiteDamage: 6
-  BitePushForce: 20
-  BiteRange: 4
-  BiteRestoreDelay: 1.5
-  BiteChargeDelay: 0.5
-  BiteAttackDelay: 0.5
+  StopChaseDistance: 2.2
+  ChaseSpeed: 3
+  CutRadius: 1.5
+  CutDamage: 6
+  CutPushForce: 15
+  CutRange: 2.5
+  CutRestoreCD: 1.5
+  CutChargeCD: 0.5
+  CutAttackCD: 0.3
+  CutFinishCD: 0.1
+  AttackableLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  AttackableTags:
+  - Player
