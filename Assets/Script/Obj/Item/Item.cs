@@ -42,6 +42,5 @@ public class Item : DbObj
     {
         ItemDbData data = DataBaseManager.Instance.Item.Query(this.id);
         data.IsTaken = true;
-        DataBaseManager.Instance.Item.Update(data);
     }
 }
