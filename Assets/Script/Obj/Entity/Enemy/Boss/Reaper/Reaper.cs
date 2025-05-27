@@ -181,9 +181,9 @@ public class Reaper : Boss
             this.Facing();
             this.HandlingFollowingHand();
             this.HandlingTeleport();
+            this.Slashing();
             this.HandlingRisingHand();
             this.CastingBall();
-            this.Slashing();
         }
 
         else if (this.health < 0 && !this.isAppearing)

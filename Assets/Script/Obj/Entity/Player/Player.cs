@@ -236,16 +236,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
         Item item = collision.GetComponent<Item>();
         if (item != null)
         {
-            item.PickedUp();
-            SkillType unlockSkill = item.SO.unlockSkill;
-            if (unlockSkill == SkillType.DASH) this.hasDash = true;
-            else if (unlockSkill == SkillType.AIR_JUMP) this.hasAirJump = true;
-            else if (unlockSkill == SkillType.CAST_ENERGY_BALL) this.hasCastEnergyBall = true;
-
-            this.health += item.SO.HealthRestore;
-            if (this.health > this.maxHealth) this.health = this.maxHealth;
-
-            collision.gameObject.SetActive(false);
+            item.PickedUp(this);
         }
 
         if (collision.CompareTag("JumpPad"))

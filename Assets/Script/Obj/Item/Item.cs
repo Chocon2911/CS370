@@ -9,7 +9,15 @@ public class Item : DbObj
     [Header("===Item===")]
     [SerializeField] protected ItemSO so;
     [SerializeField] protected CircleCollider2D bodyCol;
-    [SerializeField] protected bool isRestorable;
+    [SerializeField] protected bool isTaken;
+
+    public ItemDbData db
+    {
+        get
+        {
+            return new ItemDbData(this.id, this.isTaken, this.so.IsRestorable);
+        }
+    }
 
     //==========================================Get Set===========================================
     public ItemSO SO => so;
@@ -27,18 +35,17 @@ public class Item : DbObj
         ItemDbData data = DataBaseManager.Instance.Item.Query(this.id);
         if (data == null)
         {
-            ItemDbData newData = new ItemDbData(this.id, false, this.isRestorable);
+            ItemDbData newData = new ItemDbData(this.id, this.isTaken, this.so.IsRestorable);
             DataBaseManager.Instance.Item.Insert(newData);
         }
         else if (data.IsTaken)
         {
             gameObject.SetActive(false);
         }
-        this.isRestorable = data.IsRestorable;
     }
 
     //===========================================Method===========================================
-    public void PickedUp()
+    public void PickedUp(Player player)
     {
         ItemDbData data = DataBaseManager.Instance.Item.Query(this.id);
         data.IsTaken = true;
