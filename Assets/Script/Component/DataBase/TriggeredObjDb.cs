@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerDb : DatabaseHandler
+public class TriggeredObjDb : DatabaseHandler
 {
     //==========================================Override==========================================
     public override bool CreateTable()
     {
         using (var connection = GetConnection())
         {
-            connection.CreateTable<PlayerDbData>();
+            connection.CreateTable<TriggeredObjDbData>();
             return true;
         }
     }
@@ -19,12 +19,12 @@ public class PlayerDb : DatabaseHandler
     {
         using (var connection = GetConnection())
         {
-            return connection.Delete<PlayerDbData>(id) > 0;
+            return connection.Delete<TriggeredObjDbData>(id) > 0;
         }
     }
 
     //===========================================Method===========================================
-    public bool Insert(PlayerDbData data)
+    public bool Insert(TriggeredObjDbData data)
     {
         using (var connection = GetConnection())
         {
@@ -32,7 +32,7 @@ public class PlayerDb : DatabaseHandler
         }
     }
 
-    public bool Update(PlayerDbData data)
+    public bool Update(TriggeredObjDbData data)
     {
         using (var connection = GetConnection())
         {
@@ -40,27 +40,39 @@ public class PlayerDb : DatabaseHandler
         }
     }
 
-    public PlayerDbData Query(string id)
+    public TriggeredObjDbData Query(string id)
     {
         using (var connection = GetConnection())
         {
-            return connection.Find<PlayerDbData>(id);
+            return connection.Table<TriggeredObjDbData>().FirstOrDefault(x => x.Id == id);
         }
     }
 
-    public List<PlayerDbData> QueryAll()
+    public List<TriggeredObjDbData> QueryAll()
     {
         using (var connection = GetConnection())
         {
-            return connection.Table<PlayerDbData>().ToList();
+            return connection.Table<TriggeredObjDbData>().ToList();
         }
     }
 
-    public bool IsPlayerExist()
+    public bool IsItemExist(string id)
     {
         using (var connection = GetConnection())
         {
-            return connection.Table<PlayerDbData>().Count() > 0;
+            return connection.Table<TriggeredObjDbData>().Count(x => x.Id == id) > 0;
+        }
+    }
+
+    public bool InsertUpdate(TriggeredObjDbData data)
+    {
+        if (IsItemExist(data.Id))
+        {
+            return this.Update(data);
+        }
+        else
+        {
+            return this.Insert(data);
         }
     }
 }

@@ -105,8 +105,6 @@ public class GameManager : HuyMonoBehaviour
         this.isFightingBoss = false;
         EventManager.Instance.OnBonfireResting += OnPlayerResting;
         EventManager.Instance.OnPlayerDead += OnPlayerDead;
-        EventManager.Instance.OnBonfireResting += DataBaseManager.Instance.Monster.OnPlayerRest;
-        EventManager.Instance.OnBonfireResting += DataBaseManager.Instance.Item.OnPlayerRest;
         EventManager.Instance.OnBossTriggered += OnBossTriggered;
         EventManager.Instance.OnBossDead += OnBossDead;
     }
@@ -206,6 +204,11 @@ public class GameManager : HuyMonoBehaviour
     //=====================================On Player Resting======================================
     private void OnPlayerResting()
     {
+        // Other Event
+        DataBaseManager.Instance.Monster.ReviveAll();
+        DataBaseManager.Instance.Item.RestoreAll();
+
+        // Player
         this.currSceneIndex = SceneManager.GetActiveScene().buildIndex;
         this.respawnSceneIndex = SceneManager.GetActiveScene().buildIndex;
         this.respawnPos = this.player.transform.position;
@@ -243,6 +246,7 @@ public class GameManager : HuyMonoBehaviour
     //=======================================On Player Dead=======================================
     private void OnPlayerDead()
     {
+        DataBaseManager.Instance.Player.Update(this.player.Db);
         this.isRespawning = true;
     }
 
@@ -252,6 +256,11 @@ public class GameManager : HuyMonoBehaviour
         this.respawnCD.CoolingDown();
 
         if (!this.respawnCD.IsReady) return;
+        // Other Event
+        DataBaseManager.Instance.Monster.ReviveAll();
+        DataBaseManager.Instance.Item.RestoreAll();
+
+        // Respawn
         this.isRespawning = false;
         this.respawnCD.ResetStatus();
         this.currSceneIndex = this.respawnSceneIndex;

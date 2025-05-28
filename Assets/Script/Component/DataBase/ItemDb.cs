@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ItemDb : DataBase
+public class ItemDb : DatabaseHandler
 {
     //==========================================Override==========================================
     public override bool CreateTable()
@@ -44,7 +44,7 @@ public class ItemDb : DataBase
     {
         using (var connection = GetConnection())
         {
-            return connection.Table<ItemDbData>().FirstOrDefault(x => x.Id == id);
+            return connection.Find<ItemDbData>(id);
         }
     }
 
@@ -66,20 +66,18 @@ public class ItemDb : DataBase
 
     public bool InsertUpdate(ItemDbData data)
     {
-        using (var connection = GetConnection())
+        if (IsItemExist(data.Id))
         {
-            if (IsItemExist(data.Id))
-            {
-                return connection.Update(data) > 0;
-            }
-            else
-            {
-                return connection.Insert(data) > 0;
-            }
+            Debug.Log("Wtf");
+            return this.Update(data);
+        }
+        else
+        {
+            return this.Insert(data);
         }
     }
 
-    public void ReviveAll()
+    public void RestoreAll()
     {
         using (var connection = GetConnection())
         {
@@ -91,10 +89,5 @@ public class ItemDb : DataBase
                 connection.Update(takenItem);
             }
         }
-    }
-
-    public void OnPlayerRest()
-    {
-        this.ReviveAll();
     }
 }

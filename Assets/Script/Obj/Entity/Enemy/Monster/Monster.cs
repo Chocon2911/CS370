@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,9 @@ public abstract class Monster : Enemy, Damagable
     // ===Move Randomly===
     public float SlowSpeed => this.slowSpeed;
     public bool IsMovingRandomly => this.isMovingRandomly;
+
+    // ===Event===
+    public Action OnDead;
 
     //===========================================Unity============================================
     protected override void OnEnable()
@@ -128,6 +132,7 @@ public abstract class Monster : Enemy, Damagable
         {
             this.isHurting = false;
             this.health = 0;
+            this.OnDead?.Invoke();
             gameObject.layer = LayerMask.NameToLayer("Dead");
             Debug.Log("Dead", gameObject);
             return;
@@ -136,7 +141,6 @@ public abstract class Monster : Enemy, Damagable
         Katana katana = attacker.GetComponent<Katana>();
         if (katana != null)
         {
-            Debug.Log("Fuck");
             this.target = GameManager.Instance.Player.transform;
         }
     }

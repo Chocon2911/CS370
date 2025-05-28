@@ -56,7 +56,7 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     {
         base.Awake();
         this.LoadDb();
-        this.RegisterOnQuit();
+        this.Register();
     }
 
     protected virtual void OnCollisionStay2D(Collision2D collision)
@@ -85,13 +85,13 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     }
 
     //==========================================On Quit===========================================
-    protected virtual void RegisterOnQuit()
+    protected virtual void Register()
     {
-        if (GameManager.Instance.IsFightingBoss) return;
-        EventManager.Instance.OnQuit += this.OnQuit;
+        EventManager.Instance.OnQuit += this.Save;
+        EventManager.Instance.OnGoThroughDoor += this.Save;
     }
 
-    protected virtual void OnQuit()
+    protected virtual void Save()
     {
         DataBaseManager.Instance.Monster.Update(this.Db);
     }
@@ -122,11 +122,6 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
         {
             DataBaseManager.Instance.Monster.Insert(this.Db);
         }
-    }
-
-    protected virtual void OnSceneEnd()
-    {
-        DataBaseManager.Instance.Monster.Update(this.Db);
     }
 
     //=======================================Damage Effect========================================

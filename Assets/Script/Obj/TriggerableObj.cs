@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillItem : Item
+public interface TriggerableObj
 {
-    
+    void Trigger();
 }

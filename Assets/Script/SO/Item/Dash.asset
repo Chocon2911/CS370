@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25ce059c60abec4b8eb35f7c26620b5, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
-  HealthRestore: 0
-  unlockSkill: 1
+  IsRestorable: 0
+  UnlockedSkill: 1
+  RestoredHealth: 0

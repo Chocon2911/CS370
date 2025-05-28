@@ -51607,6 +51607,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AirJumpItem
       objectReference: {fileID: 0}
+    - target: {fileID: 8659920312077514706, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
+      propertyPath: so
+      value: 
+      objectReference: {fileID: 11400000, guid: c72064fe592c6d74b81ac5fd854b6586, type: 2}
     - target: {fileID: 9160883753097265323, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 39.8
