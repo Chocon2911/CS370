@@ -30,5 +30,5 @@ MonoBehaviour:
   StopRunAwayDistance: 3.5
   BulletName: SoundWave
   AttackDistance: 8
-  FireRestoreDelay: 1.5
+  FireRestoreDelay: 1.25
   ChargeFireDelay: 0.3

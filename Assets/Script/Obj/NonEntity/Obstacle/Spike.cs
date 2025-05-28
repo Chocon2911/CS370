@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISpike
+public interface SpikeUser
 {
     Transform GetTarget();
     Damagable GetDamagable();
@@ -30,7 +30,7 @@ public class Spike : HuyMonoBehaviour
     }
 
     //===========================================Method===========================================
-    public void Collide(ISpike user)
+    public void Collide(SpikeUser user)
     {
         float xDir = user.GetTarget().position.x - transform.position.x;
         float yDir = user.GetTarget().position.y - transform.position.y;

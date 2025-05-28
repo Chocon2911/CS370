@@ -4,10 +4,10 @@ using System.IO;
 using SQLite4Unity3d;
 
 [Serializable]
-public abstract class DataBase
+public abstract class DatabaseHandler
 {
     //========================================Constructor=========================================
-    public DataBase() { }
+    public DatabaseHandler() { }
 
     //===========================================Method===========================================
     public SQLiteConnection GetConnection()

@@ -160,6 +160,12 @@ public class Reaper : Boss
         this.LoadComponent(ref this.teleLightning, transform.Find("Lightning"), "LoadTeleLightning()");
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        this.target = GameManager.Instance.Player.transform;
+    }
+
     protected override void Update()
     {
         base.Update();
@@ -175,9 +181,9 @@ public class Reaper : Boss
             this.Facing();
             this.HandlingFollowingHand();
             this.HandlingTeleport();
+            this.Slashing();
             this.HandlingRisingHand();
             this.CastingBall();
-            this.Slashing();
         }
 
         else if (this.health < 0 && !this.isAppearing)

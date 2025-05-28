@@ -10,10 +10,13 @@ public class EventManager : HuyMonoBehaviour
     private static EventManager instance;
     public static EventManager Instance => instance;
 
+    //===Player===
     public Action OnPlayerDead { get; set; }
     public Action OnPlayerAppear { get; set; }
     public Action OnPlayerGetNewSkill { get; set; }
     public Action OnPlayerHit { get; set; }
+
+    //===Game===
     public Action OnMenuAppear { get; set; }
     public Action OnMenuDisappear { get; set; }
     public Action OnGoThroughDoor { get; set; }
@@ -22,6 +25,11 @@ public class EventManager : HuyMonoBehaviour
     public Action OnQuit { get; set; }
     public Action OnBossTriggered { get; set; }
     public Action OnBossDead { get; set; }
+
+    //===Skill===
+    public Action OnPlayerGetDash { get; set; }
+    public Action OnPlayerGetAirJump { get; set; }
+    public Action OnPlayergetCastEnergyBall { get; set; }
 
     //===========================================Unity============================================
     protected override void Awake()

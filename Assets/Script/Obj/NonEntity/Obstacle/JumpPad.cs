@@ -25,7 +25,7 @@ public class JumpPad : HuyMonoBehaviour
     }
 
     //===========================================Method===========================================
-    public virtual void Collide(Damagable user) 
+    public virtual void Push(Damagable user) 
     {
         user.Push(this.pushForce * this.pushDir);
         this.animator.SetTrigger("Push");

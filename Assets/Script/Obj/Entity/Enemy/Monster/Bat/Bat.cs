@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -59,7 +60,7 @@ public class Bat : Monster
     public Cooldown GoreChargeCD => this.goreChargeCD;
     public bool IsGoring => this.isGoring;
     public bool IsChargingGore => this.isChargingGore;
-    public bool IsGoreAttacking => this.isGoreAttacking; 
+    public bool IsGoreAttacking => this.isGoreAttacking;
 
     //===========================================Unity============================================
     public override void LoadComponents()

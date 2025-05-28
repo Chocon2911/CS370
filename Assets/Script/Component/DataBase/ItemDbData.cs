@@ -11,8 +11,8 @@ public class ItemDbData : DbData
     //========================================Constructor=========================================
     public ItemDbData(string id, bool isTaken, bool isRestorable) : base(id)
     {
-        this.IsTaken = IsTaken;
-        this.IsRestorable = IsRestorable;
+        this.IsTaken = isTaken;
+        this.IsRestorable = isRestorable;
     }
 
     public ItemDbData() : base() { }
