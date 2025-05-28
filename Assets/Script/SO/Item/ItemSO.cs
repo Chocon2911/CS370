@@ -6,6 +6,6 @@ using UnityEngine;
 public class ItemSO : ScriptableObject
 {
     public bool IsRestorable;
-    public int HealthRestore;
-    public SkillType unlockSkill;
+    public SkillType UnlockedSkill;
+    public int RestoredHealth;
 }

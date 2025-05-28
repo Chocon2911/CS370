@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider2D))]
-public class Door : HuyMonoBehaviour, Interactable
+public class Door : DbObj, Interactable
 {
     //==========================================Variable==========================================
     [Header("===Door===")]

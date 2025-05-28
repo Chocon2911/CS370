@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25ce059c60abec4b8eb35f7c26620b5, type: 3}
   m_Name: Heart
   m_EditorClassIdentifier: 
-  HealthRestore: 5
-  unlockSkill: 0
+  IsRestorable: 1
+  UnlockedSkill: 0
+  RestoredHealth: 50

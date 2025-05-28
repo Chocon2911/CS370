@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
+public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleDoorUser, ItemUser
 {
     //==========================================Variable==========================================
     [Space(50)]
@@ -97,6 +97,11 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     // ===Component===
     public Rigidbody2D Rb => this.rb;
     public CapsuleCollider2D BodyCol => this.bodyCol;
+
+    // ===Stat===
+    public bool HasDash { get => this.hasDash; set => this.hasDash = value; }
+    public bool HasAirJump { get => this.hasAirJump; set => this.hasAirJump = value; }
+    public bool HasCastEnergyBall { get => this.hasCastEnergyBall; set => this.hasCastEnergyBall = value; }
 
     // ===Ground Check===
     public bool PrevIsGround => this.prevIsGround;
@@ -234,34 +239,19 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Item item = collision.GetComponent<Item>();
-        if (item != null)
-        {
-            item.PickedUp();
-            SkillType unlockSkill = item.SO.unlockSkill;
-            if (unlockSkill == SkillType.DASH) this.hasDash = true;
-            else if (unlockSkill == SkillType.AIR_JUMP) this.hasAirJump = true;
-            else if (unlockSkill == SkillType.CAST_ENERGY_BALL) this.hasCastEnergyBall = true;
+        if (item != null) item.PickedUp(this);
 
-            this.health += item.SO.HealthRestore;
-            if (this.health > this.maxHealth) this.health = this.maxHealth;
+        TeleDoor teleDoor = collision.GetComponent<TeleDoor>();
+        if (teleDoor != null) teleDoor.Teleport(this);
 
-            collision.gameObject.SetActive(false);
-        }
-
-        if (collision.CompareTag("JumpPad"))
-        {
-            JumpPad jumpPad = collision.transform.parent.GetComponent<JumpPad>();
-            if (jumpPad != null) jumpPad.Collide(this);
-        }
+        JumpPad jumpPad = collision?.transform?.parent?.GetComponent<JumpPad>();
+        if (jumpPad != null) jumpPad.Push(this);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.CompareTag("Spike"))
-        {
-            Spike spike = collision.transform.GetComponent<Spike>();
-            if (spike != null) spike.Collide(this);
-        }
+        Spike spike = collision.transform.GetComponent<Spike>();
+        if (spike != null) spike.Collide(this);
     }
 
 
@@ -273,11 +263,10 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     //=======================================Event Register=======================================
     protected virtual void Register()
     {
-        if (GameManager.Instance.IsFightingBoss) return;
-        EventManager.Instance.OnQuit += this.OnQuit;
+        EventManager.Instance.OnQuit += this.Save;
     }
 
-    protected virtual void OnQuit()
+    protected virtual void Save()
     {
         DataBaseManager.Instance.Player.Update(this.Db);
     }
@@ -755,13 +744,45 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, ISpike
     }
 
     //===========================================ISpike===========================================
-    Transform ISpike.GetTarget()
+    Transform SpikeUser.GetTarget()
     {
         return transform;
     }
 
-    Damagable ISpike.GetDamagable()
+    Damagable SpikeUser.GetDamagable()
     {
         return this;
+    }
+
+    //=========================================Item User==========================================
+    void ItemUser.AddHealth(int restoredHealth)
+    {
+        this.health += restoredHealth;
+        if (this.health > this.maxHealth) this.health = this.maxHealth;
+    }
+
+    void ItemUser.UnlockSkill(SkillType unlockedSkill)
+    {
+        if (unlockedSkill == SkillType.DASH)
+        {
+            this.hasDash = true;
+            EventManager.Instance.OnPlayerGetDash?.Invoke();
+        }
+        else if (unlockedSkill == SkillType.AIR_JUMP)
+        {
+            this.hasAirJump = true;
+            EventManager.Instance.OnPlayerGetAirJump?.Invoke();
+        }
+        else if (unlockedSkill == SkillType.CAST_ENERGY_BALL)
+        {
+            this.hasCastEnergyBall = true;
+            EventManager.Instance.OnPlayergetCastEnergyBall?.Invoke();
+        }
+    }
+
+    //=======================================Tele Door User=======================================
+    void TeleDoorUser.SetPos(Vector2 newPos)
+    {
+        transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
     }
 }

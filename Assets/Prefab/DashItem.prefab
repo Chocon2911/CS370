@@ -84,7 +84,7 @@ MonoBehaviour:
   id: a3c77b8e-6d17-4990-bff6-e9b24ffdcf26
   so: {fileID: 11400000, guid: 987e748731c88f24b89d494d08ad971d, type: 2}
   bodyCol: {fileID: 2158590270353371527}
-  isRestorable: 0
+  isTaken: 0
 --- !u!1 &8866833542055202319
 GameObject:
   m_ObjectHideFlags: 0

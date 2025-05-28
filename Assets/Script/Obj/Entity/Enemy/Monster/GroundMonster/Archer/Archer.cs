@@ -107,6 +107,7 @@ public class Archer : GroundMonster
         base.Moving();
 
         if (this.target != null) this.ChaseTarget();
+        
     }
 
     //============================================Move============================================

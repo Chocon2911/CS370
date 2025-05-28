@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Timeline;
 using UnityEngine;
+
+public interface TeleDoorUser
+{
+    void SetPos(Vector2 newPos);
+}
 
 [RequireComponent(typeof(CapsuleCollider2D))]
 public class TeleDoor : DbObj
@@ -9,11 +13,17 @@ public class TeleDoor : DbObj
     //==========================================Variable==========================================
     [Header("Tele Door")]
     [SerializeField] protected Transform goalPoint;
-    public ItemDbData Db
+    [SerializeField] protected bool isTriggered;
+    
+    public TriggeredObjDbData Db
     {
         get
         {
-            return new ItemDbData(this.id, gameObject.activeSelf ? true : false, false);
+            return new TriggeredObjDbData(this.id, this.isTriggered);
+        }
+        set
+        {
+            this.isTriggered = value.IsTriggered;
         }
     }
 
@@ -28,47 +38,42 @@ public class TeleDoor : DbObj
     {
         base.Awake();
         this.Register();
-    }
-
-    protected override void OnEnable()
-    {
         this.LoadDb();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Player player = collision.GetComponent<Player>();
-        if (player != null)
-        {
-            player.transform.position = goalPoint.position;
-        }
     }
 
     //=============================================Db=============================================
     protected virtual void LoadDb()
     {
-        ItemDbData data = DataBaseManager.Instance.Item.Query(this.id);
+        TriggeredObjDbData data = DataBaseManager.Instance.TriggeredObj.Query(this.id);
         if (data == null)
         {
-            ItemDbData newData = new ItemDbData(this.id, false, false);
-            DataBaseManager.Instance.Item.Insert(newData);
+            DataBaseManager.Instance.TriggeredObj.Insert(this.Db);
             gameObject.SetActive(false);
+            return;
         }
-        else if (data.IsTaken)
+
+        this.Db = data;
+        if (!this.isTriggered)
         {
             gameObject.SetActive(false);
         }
     }
 
-    //=======================================Register Event=======================================
-    protected virtual void Register()
+    //===========================================Method===========================================
+    public void Teleport(TeleDoorUser user)
     {
-        if (GameManager.Instance.IsFightingBoss) return;
-        EventManager.Instance.OnQuit += OnQuit;
+        user.SetPos(this.goalPoint.position);
     }
 
-    protected virtual void OnQuit()
+    protected virtual void Register()
     {
-        DataBaseManager.Instance.Item.InsertUpdate(this.Db);
+        EventManager.Instance.OnQuit += Save;
+        EventManager.Instance.OnBonfireResting += Save;
+        EventManager.Instance.OnPlayerDead += this.Save;
+    }
+
+    protected virtual void Save()
+    {
+        DataBaseManager.Instance.TriggeredObj.InsertUpdate(this.Db);
     }
 }

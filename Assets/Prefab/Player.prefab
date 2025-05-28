@@ -411,8 +411,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  maxHealth: 40
-  health: 40
+  maxHealth: 100
+  health: 100
   hurtCD:
     timeLimit: 0.3
     timer: 0
@@ -444,7 +444,7 @@ MonoBehaviour:
   interactDetectLength: 5
   interactableObj: {fileID: 0}
   invincibleCD:
-    timeLimit: 1
+    timeLimit: 0.7
     timer: 0
     waitTime: 0
     isReady: 0

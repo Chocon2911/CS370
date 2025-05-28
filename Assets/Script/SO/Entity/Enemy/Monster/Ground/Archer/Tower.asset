@@ -37,7 +37,7 @@ MonoBehaviour:
   WallTag: 
   JumpSpeed: 0
   StopChaseDistance: 10
-  ChaseSpeed: 0
+  ChaseSpeed: 5
   AttackDistance: 25
   BowRestoreDelay: 1.1
   ChargeBowDelay: 0.5

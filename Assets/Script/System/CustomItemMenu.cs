@@ -19,7 +19,7 @@ public class CustomItemMenu
     [MenuItem("CONTEXT/DbObj/Random Id")]
     private static void RandomIdButton()
     {
-        Entity entity = Selection.activeGameObject.GetComponent<Entity>();
+        DbObj entity = Selection.activeGameObject.GetComponent<DbObj>();
         entity.RandomId();
         EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
     }

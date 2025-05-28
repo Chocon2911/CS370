@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class MonsterDb : DataBase
+public class MonsterDb : DatabaseHandler
 {
     //==========================================Override==========================================
     public override bool CreateTable()
@@ -73,7 +73,7 @@ public class MonsterDb : DataBase
         }
     }
 
-    public void ReviveAll()
+    public virtual void ReviveAll()
     {
         using (var connection = GetConnection())
         {
@@ -84,10 +84,5 @@ public class MonsterDb : DataBase
                 connection.Update(minion);
             }
         }
-    }
-
-    public void OnPlayerRest()
-    {
-        this.ReviveAll();
     }
 }
