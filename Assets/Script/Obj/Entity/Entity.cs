@@ -18,7 +18,7 @@ public abstract class Entity : DbObj
     [Space(25)]
 
     [Header("Despawn By Time")]
-    [SerializeField] protected Cooldown despawnCD;    
+    [SerializeField] protected Cooldown despawnCD;
 
     //==========================================Get Set===========================================
     // Stat
@@ -41,6 +41,7 @@ public abstract class Entity : DbObj
         this.maxHealth = so.maxHealth;
         this.health = this.maxHealth;
         this.hurtCD = new Cooldown(so.HurtDelay, 0);
+        this.despawnCD = new Cooldown(so.DespawnDelay, 0);
     }
 
     //============================================Hurt============================================

@@ -85,7 +85,7 @@ public class Bat : Monster
         }
         else if (this.health <= 0)
         {
-            this.rb.velocity = new Vector2(0, this.rb.velocity.y);
+            this.rb.velocity = new Vector2(0, this.rb.velocity.y + Time.deltaTime);
         }
         else if (this.health < 0)
         {

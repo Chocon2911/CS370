@@ -7,4 +7,5 @@ public class EntitySO : ScriptableObject
     [Header("===Entity===")]
     public int maxHealth;
     public float HurtDelay;
+    public float DespawnDelay;
 }

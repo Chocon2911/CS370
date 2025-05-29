@@ -9,7 +9,7 @@ public class ClaspedMagicHand : HuyMonoBehaviour
 
     protected virtual void Update()
     {
-        Util.Instance.DespawnByTime(this.despawnCD, transform, BulletSpawner.Instance);
+        Util.Instance.DespawnByTime(ref this.despawnCD, transform, BulletSpawner.Instance);
     }
 
     protected override void OnEnable()

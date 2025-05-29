@@ -76,11 +76,9 @@ public class Fly : Monster
         else if (this.health <= 0)
         {
             this.rb.velocity = new Vector2(0, this.rb.velocity.y);
-        }
-        else if (this.health < 0)
-        {
             this.Despawning();
         }
+
         this.animator.HandlingAnimator();
     }
 
@@ -247,5 +245,4 @@ public class Fly : Monster
         Transform newArrow = BulletSpawner.Instance.SpawnByName(this.bulletName, spawnPos, spawnRot);
         newArrow.gameObject.SetActive(true);
     }
-
 }

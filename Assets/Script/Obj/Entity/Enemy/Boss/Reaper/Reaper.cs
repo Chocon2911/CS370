@@ -186,7 +186,7 @@ public class Reaper : Boss
             this.CastingBall();
         }
 
-        else if (this.health < 0 && !this.isAppearing)
+        else if (this.health <= 0 && !this.isAppearing)
         {
             this.Despawning();
         }

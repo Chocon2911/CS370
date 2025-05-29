@@ -81,7 +81,7 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     //==========================================Despawn===========================================
     protected override void Despawning()
     {
-        Util.Instance.DespawnByTime(this.despawnCD, transform, EnemySpawner.Instance);
+        Util.Instance.DespawnByTime(ref this.despawnCD, transform, EnemySpawner.Instance);
     }
 
     //==========================================On Quit===========================================

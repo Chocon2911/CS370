@@ -60,7 +60,7 @@ public abstract class Bullet : HuyMonoBehaviour
     //======================================Despawn By Time=======================================
     protected virtual void Despawning()
     {
-        Util.Instance.DespawnByTime(this.despawnCD, transform, BulletSpawner.Instance);
+        Util.Instance.DespawnByTime(ref this.despawnCD, transform, BulletSpawner.Instance);
     }
 
     protected virtual void CollideWithTarget(Collider2D collision)

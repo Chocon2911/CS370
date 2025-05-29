@@ -22,6 +22,6 @@ public class Bang : HuyMonoBehaviour
     //======================================Despawn By Time=======================================
     protected virtual void Despawning()
     {
-        Util.Instance.DespawnByTime(this.despawnCD, transform, BulletSpawner.Instance);
+        Util.Instance.DespawnByTime(ref despawnCD, transform, BulletSpawner.Instance);
     }
 }
