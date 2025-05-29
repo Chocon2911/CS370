@@ -2,29 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface TeleDoorUser
-{
-    void SetPos(Vector2 newPos);
-}
-
-[RequireComponent(typeof(CapsuleCollider2D))]
-public class TeleDoor : HuyMonoBehaviour
+public class BatTrigger_1 : ObjTrigger
 {
     //==========================================Variable==========================================
-    [Header("Tele Door")]
-    [SerializeField] protected Transform goalPoint;
-    [SerializeField] protected bool isTriggered;
+    [SerializeField] protected Bat bat;
 
     //===========================================Unity============================================
     public override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadComponent(ref this.goalPoint, transform.Find("GoalPoint"), "LoadGoalPoint()");
+        this.LoadComponent(ref this.bat, transform.parent, "LoadBat()");
     }
 
     //===========================================Method===========================================
-    public void Teleport(TeleDoorUser user)
+    protected override void Register()
     {
-        user.SetPos(this.goalPoint.position);
+        this.bat.OnDead += this.Trigger;
     }
 }
