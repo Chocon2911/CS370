@@ -577,7 +577,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.85, y: 0.1}
+  m_Size: {x: 1.29, y: 0.1}
   m_Direction: 1
 --- !u!1 &7200603696303261191
 GameObject:
@@ -817,7 +817,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7166883206342910370}
-  - component: {fileID: 3121712171466507974}
+  - component: {fileID: 5839809601414920677}
   m_Layer: 0
   m_Name: Obj
   m_TagString: Untagged
@@ -842,8 +842,8 @@ Transform:
   - {fileID: 3901458314696564724}
   m_Father: {fileID: 5463899512692700485}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &3121712171466507974
-CircleCollider2D:
+--- !u!70 &5839809601414920677
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -874,9 +874,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.6, y: -0.24}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Offset: {x: 0.33, y: -0.22}
+  m_Size: {x: 1.82, y: 0.59}
+  m_Direction: 1
 --- !u!1 &9104894396869304071
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,11 +941,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9104894396869304071}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33aedbf7dfcaf084a8c37529eaa9d1a9, type: 3}
+  m_Script: {fileID: 11500000, guid: dccc2bbab98e57443a3ef6326badb691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4660713349903085548}
-  damageCol: {fileID: 3121712171466507974}
+  damageCol: {fileID: 5839809601414920677}
   slashTrail: {fileID: 1118635232539734174}
   katanaObj: {fileID: 7166883206342910370}
   so: {fileID: 11400000, guid: 5275b8573af2fbd4798caa233aaa4890, type: 2}
