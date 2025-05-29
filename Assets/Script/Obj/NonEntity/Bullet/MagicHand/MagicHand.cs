@@ -64,7 +64,7 @@ public class MagicHand : HuyMonoBehaviour
     //======================================Despawn By Time=======================================
     protected virtual void Despawning()
     {
-        Util.Instance.DespawnByTime(this.despawnCD, transform, BulletSpawner.Instance);
+        Util.Instance.DespawnByTime(ref this.despawnCD, transform, BulletSpawner.Instance);
     }
 
     //===========================================Attack===========================================

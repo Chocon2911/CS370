@@ -2651,6 +2651,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 5, y: -1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 67
+      m_TileSpriteIndex: 9
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 6, y: -1, z: 0}
     second:
       serializedVersion: 2
@@ -3327,8 +3337,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 18ce935eb8f06364c933a20ab8dc0555, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 2e866ecd1af442c4c94e84996a593d7d, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -3348,8 +3358,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -1382700587, guid: 40d8ba60f7abae04e8736ed86117cb69, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -20704871, guid: 40d8ba60f7abae04e8736ed86117cb69, type: 3}
   - m_RefCount: 1
@@ -3467,7 +3477,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 749101765, guid: 40d8ba60f7abae04e8736ed86117cb69, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 76
+  - m_RefCount: 77
     m_Data:
       e00: 1
       e01: 0
@@ -3486,7 +3496,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 76
+  - m_RefCount: 77
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -45913,6 +45923,8 @@ Transform:
   - {fileID: 9065890900079398378}
   - {fileID: 9065890900674824260}
   - {fileID: 6259211290983259476}
+  - {fileID: 2042317315}
+  - {fileID: 1496278035}
   m_Father: {fileID: 1414467628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &747034447
@@ -49460,12 +49472,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496278032}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 97.3, y: -36.65, z: -0.47296217}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.800003, y: -44.850002, z: -0.47296217}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 729408605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1533302300
 PrefabInstance:
@@ -51474,7 +51486,7 @@ Transform:
   m_GameObject: {fileID: 2030391095}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: -10}
+  m_LocalPosition: {x: 10.61, y: 1.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -51601,7 +51613,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 729408605}
     m_Modifications:
     - target: {fileID: 1965047498126602140, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
       propertyPath: m_Name
@@ -51613,11 +51625,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: c72064fe592c6d74b81ac5fd854b6586, type: 2}
     - target: {fileID: 9160883753097265323, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.8
+      value: -43.7
       objectReference: {fileID: 0}
     - target: {fileID: 9160883753097265323, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.4
+      value: -4.7999997
       objectReference: {fileID: 0}
     - target: {fileID: 9160883753097265323, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -51629,15 +51641,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9160883753097265323, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 9160883753097265323, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 9160883753097265323, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 9160883753097265323, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -51656,6 +51668,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
+--- !u!4 &2042317315 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9160883753097265323, guid: 8cd3f0064f5a2384cac4bbf392425c1f, type: 3}
+  m_PrefabInstance: {fileID: 2042317314}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2054053775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52803,7 +52820,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -52911,7 +52928,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -53721,7 +53738,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -53819,7 +53836,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -53917,7 +53934,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -54015,7 +54032,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -54113,7 +54130,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -54211,7 +54228,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -69809,7 +69826,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -69917,7 +69934,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -70025,7 +70042,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -126419,7 +126436,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -126458,7 +126475,7 @@ MonoBehaviour:
   attackDistance: 8
   isFiring: 0
   fireRestoreCD:
-    timeLimit: 1.5
+    timeLimit: 1.25
     timer: 0
     waitTime: 0
     isReady: 0
@@ -126490,7 +126507,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -126529,7 +126546,7 @@ MonoBehaviour:
   attackDistance: 8
   isFiring: 0
   fireRestoreCD:
-    timeLimit: 1.5
+    timeLimit: 1.25
     timer: 0
     waitTime: 0
     isReady: 0
@@ -137777,7 +137794,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -137824,13 +137841,13 @@ MonoBehaviour:
   animator: {fileID: 5688125983415605546}
   so: {fileID: 11400000, guid: 63bbd283dece19d4b9ce1034f2dfe512, type: 2}
   stopChaseDistance: 10
-  chaseSpeed: 0
+  chaseSpeed: 5
   isChasingTarget: 0
   shootPoint: {fileID: 5008349017430692582}
   arrowName: Arrow
-  attackDistance: 36
+  attackDistance: 25
   bowRestoreCD:
-    timeLimit: 0.75
+    timeLimit: 1.1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -137862,7 +137879,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -137897,7 +137914,7 @@ MonoBehaviour:
   stopChaseDistance: 3
   chaseSpeed: 3.5
   isChasingTarget: 0
-  flyUpSpeed: 8.5
+  flyUpSpeed: 5.5
   flyUpCD:
     timeLimit: 0.5
     timer: 0
@@ -137947,7 +137964,7 @@ MonoBehaviour:
     isReady: 0
   isHurting: 0
   despawnCD:
-    timeLimit: 0
+    timeLimit: 1
     timer: 0
     waitTime: 0
     isReady: 0
@@ -137982,9 +137999,9 @@ MonoBehaviour:
   stopChaseDistance: 3
   chaseSpeed: 3
   isChasingTarget: 0
-  flyUpSpeed: 8
+  flyUpSpeed: 5
   flyUpCD:
-    timeLimit: 0.7
+    timeLimit: 0.6
     timer: 0
     waitTime: 0
     isReady: 0
@@ -139673,5 +139690,3 @@ SceneRoots:
   - {fileID: 1106354808}
   - {fileID: 582473584}
   - {fileID: 1032251177}
-  - {fileID: 2042317314}
-  - {fileID: 1496278035}

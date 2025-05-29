@@ -300,7 +300,7 @@ public class Util
     }
 
     //======================================Despawn By Time=======================================
-    public bool DespawnByTime(Cooldown despawnCD)
+    public bool DespawnByTime(ref Cooldown despawnCD)
     {
         despawnCD.CoolingDown();
 
@@ -308,9 +308,9 @@ public class Util
         return true;
     }
 
-    public void DespawnByTime(Cooldown despawnCD, Transform despawnObj, Spawner spawner)
+    public void DespawnByTime(ref Cooldown despawnCD, Transform despawnObj, Spawner spawner)
     {
-        if (this.DespawnByTime(despawnCD)) this.Despawn(spawner, despawnObj);
+        if (this.DespawnByTime(ref despawnCD)) this.Despawn(spawner, despawnObj);
     }
 
     //====================================Despawn By Distance=====================================

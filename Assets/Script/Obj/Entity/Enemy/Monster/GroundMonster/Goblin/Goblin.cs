@@ -107,10 +107,7 @@ public class Goblin : GroundMonster, Damagable
         }
         else if (this.health <= 0)
         {
-            this.rb.velocity = new Vector2(0, this.rb.velocity.y);
-        }
-        else if (this.health < 0)
-        {
+            this.rb.velocity = new Vector2(0, 0);
             this.Despawning();
         }
 
