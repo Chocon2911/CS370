@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53e1ae7423108414685514b740986f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: a3c77b8e-6d17-4990-bff6-e9b24ffdcf26
+  id: 612b96f5-24a1-4816-90fe-afe6f74020cf
   so: {fileID: 11400000, guid: 07196e8ae448223409958f75c05c3e89, type: 2}
   bodyCol: {fileID: 2158590270353371527}
   isTaken: 0

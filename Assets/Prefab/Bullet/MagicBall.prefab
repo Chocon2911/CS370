@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4500154003779455952}
-  damage: 0
-  pushForce: 15
+  damage: 2
+  pushForce: 20
   damageTags:
   - Terrain
   - Player
@@ -122,8 +122,8 @@ MonoBehaviour:
     isReady: 0
   bodyCol: {fileID: 4164495768897394961}
   target: {fileID: 0}
-  moveSpeed: 10
-  rotSpeed: 3
+  moveSpeed: 15
+  rotSpeed: 5
 --- !u!1 &6592488410845394163
 GameObject:
   m_ObjectHideFlags: 0

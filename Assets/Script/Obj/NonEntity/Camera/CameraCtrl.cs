@@ -26,7 +26,7 @@ public class CameraCtrl : HuyMonoBehaviour
         EventManager.Instance.OnPlayerAppear += OnPlayerAppear;
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         this.Moving();
     }
@@ -34,9 +34,13 @@ public class CameraCtrl : HuyMonoBehaviour
     //============================================Move============================================
     protected virtual void Moving()
     {
-        if (this.target == null) return;
-        this.rb.velocity = Vector2.zero;
-        Util.Instance.ChaseTarget(transform, this.target, this.moveSpeed);
+        if (target == null) return;
+
+        Vector3 currentPos = this.transform.position;
+        Vector3 targetPos = new Vector3(target.position.x, target.position.y, currentPos.z);
+
+        Vector3 smoothedPos = Vector3.Lerp(currentPos, targetPos, moveSpeed * Time.fixedDeltaTime);
+        this.transform.position = smoothedPos;
     }
 
     protected virtual void OnPlayerAppear() 

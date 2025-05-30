@@ -52,8 +52,8 @@ MonoBehaviour:
     waitTime: 0
     isReady: 0
   attackCol: {fileID: 5486688957768116082}
-  damage: 0
-  pushForce: 15
+  damage: 4
+  pushForce: 20
   attackableLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -122,8 +122,8 @@ MonoBehaviour:
     waitTime: 0
     isReady: 0
   attackCol: {fileID: 8172744402704498607}
-  damage: 0
-  pushForce: 15
+  damage: 4
+  pushForce: 20
   attackableLayer:
     serializedVersion: 2
     m_Bits: 1

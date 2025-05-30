@@ -194,8 +194,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 6434449857106786332}
-  damage: 0
-  pushForce: 15
+  damage: 2
+  pushForce: 20
   damageTags:
   - Player
   despawnCD:
