@@ -467,6 +467,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
         this.dash.isDashing = true;
         this.dash.restoreCD.ResetStatus();
         this.dashTrail.emitting = true;
+        gameObject.layer = LayerMask.NameToLayer("Invincible");
         this.rb.constraints |= RigidbodyConstraints2D.FreezePositionY;
     }
 
@@ -486,6 +487,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
         this.dash.isDashing = false;
         this.dash.dashCD.ResetStatus();
         this.rb.constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+        gameObject.layer = LayerMask.NameToLayer("Default");
         Util.Instance.StopMove(this.rb);
     }
 
