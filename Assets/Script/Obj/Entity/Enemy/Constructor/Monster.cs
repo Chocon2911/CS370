@@ -60,6 +60,11 @@ public abstract class Monster : Enemy, Damagable
     //===========================================Method===========================================
     //============================================================================================
 
+    //==========================================Abstract==========================================
+    protected abstract void Moving();
+    protected abstract void DetectingTarget();
+    protected abstract void Facing();
+
     //===========================================Other============================================
     protected virtual void DefaultMonsterStat(MonsterSO so)
     {
@@ -82,11 +87,6 @@ public abstract class Monster : Enemy, Damagable
         PathManager pathManager = FindObjectOfType<PathManager>();
         this.endPoints = pathManager.Paths[this.pathIndex].Points;
     }
-
-    //==========================================Abstract==========================================
-    protected abstract void Moving();
-    protected abstract void DetectingTarget();
-    protected abstract void Facing();
 
     //====================================Target Out Of Range=====================================
     protected virtual void CheckingTargetOutOfRange()

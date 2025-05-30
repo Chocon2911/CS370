@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -19,6 +20,11 @@ public class Item : DbObj
     [SerializeField] protected CircleCollider2D bodyCol;
     [SerializeField] protected bool isTaken;
 
+    //==========================================Get Set===========================================
+    // ===Event===
+    public Action OnPickedUp { get; set; }
+    
+    // ===Db===
     public ItemDbData Db
     {
         get
@@ -55,6 +61,7 @@ public class Item : DbObj
         this.isTaken = true;
         user.AddHealth(this.so.RestoredHealth);
         user.UnlockSkill(this.so.UnlockedSkill);
+        this.OnPickedUp?.Invoke();
         gameObject.SetActive(false);
     }
 
