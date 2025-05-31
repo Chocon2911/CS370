@@ -782,6 +782,11 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
         }
     }
 
+    void ItemUser.AddCoin(int add)
+    {
+        GameManager.Instance.CurrCoin += add;
+    }
+
     //=======================================Tele Door User=======================================
     void TeleDoorUser.SetPos(Vector2 newPos)
     {

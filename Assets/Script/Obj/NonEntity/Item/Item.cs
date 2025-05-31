@@ -9,6 +9,7 @@ public interface ItemUser
 {
     void AddHealth(int restoredHealth);
     void UnlockSkill(SkillType unlockedSkill);
+    void AddCoin(int add);
 }
 
 [RequireComponent(typeof(CircleCollider2D))]
