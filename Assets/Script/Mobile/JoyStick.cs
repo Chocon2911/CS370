@@ -11,8 +11,8 @@ public class JoyStick : HuyMonoBehaviour, IDragHandler, IPointerDownHandler, IPo
     [SerializeField] private RectTransform handle;
     [SerializeField] private float handleRange = 100f;
 
-    private Vector2 inputDirection = Vector2.zero;
-    public Vector2 Direction => inputDirection;
+    [SerializeField] private Vector2 inputDirection = Vector2.zero;
+    [SerializeField] public Vector2 Direction => inputDirection;
 
     [SerializeField] private Canvas canvas;
 

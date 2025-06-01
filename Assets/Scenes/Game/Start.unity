@@ -227,6 +227,7 @@ MonoBehaviour:
   playerId: 
   player: {fileID: 0}
   currSceneIndex: 0
+  currCoin: 0
   mainCamera: {fileID: 0}
   respawnCD:
     timeLimit: 1

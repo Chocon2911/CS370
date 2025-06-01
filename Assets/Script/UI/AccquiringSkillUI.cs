@@ -32,7 +32,7 @@ public class AccquiringSkillUI : HuyMonoBehaviour
     //===========================================Method===========================================
     protected virtual void HandlingInput()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (InputManager.Instance.InteractState == 1)
         {
             Time.timeScale = 1f;
             gameObject.SetActive(false);

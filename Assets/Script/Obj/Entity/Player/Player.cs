@@ -302,7 +302,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
         if (interactable != null)
         {
             interactable.Detected(this);
-            if (Input.GetKeyDown(KeyCode.E))
+            if (InputManager.Instance.InteractState == 1)
             {
                 interactable.Interact(this);
                 return;
@@ -348,7 +348,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
     {
         if (!this.dash.isDashing && !this.castEnergyBall.isCasting)
         {
-            this.moveDir = (int)InputManager.Instance.MoveDir.x;
+            this.moveDir = InputManager.Instance.MoveDir.x > 0 ? 1 : InputManager.Instance.MoveDir.x < 0 ? -1 : 0;
             Util.Instance.MovingWithAccelerationInHorizontal(this.rb, this.moveDir, this.moveSpeed, 
                 this.moveSpeedUpTime, this.moveSlowDownTime);
         }
@@ -370,7 +370,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
 
         if (!this.dash.isDashing)
         {
-            bool isSpacePressed = InputManager.Instance.SpaceState != 0;
+            bool isSpacePressed = InputManager.Instance.JumpState != 0;
             Util movment = Util.Instance;
 
             if (this.isGround && isSpacePressed && !this.isJumping)
@@ -414,7 +414,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
     protected virtual void HandlingKatana()
     {
         this.katana.MyUpdate();
-        if (Input.GetKey(KeyCode.K)) this.katana.Attack();
+        if (InputManager.Instance.AttackState != 0) this.katana.Attack();
     }
 
     //===========================================Appear===========================================
@@ -445,7 +445,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
             this.OnDash();
         }
 
-        else if (this.dash.restoreCD.IsReady && (InputManager.Instance.ShiftState != 0 || Input.GetKey(KeyCode.L)))
+        else if (this.dash.restoreCD.IsReady && (InputManager.Instance.DashState != 0))
         {
             this.StartDash();
         }
@@ -501,7 +501,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
             this.RestoreAirJump();
         }
 
-        else if (InputManager.Instance.SpaceState == 1 && !this.airJump.isJumping
+        else if (InputManager.Instance.JumpState == 1 && !this.airJump.isJumping
             && !this.isJumping && !this.airJump.isJump)
         {
             this.StartAirJump();
@@ -540,7 +540,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
             this.RechargeCastEnergyBall();
         }
 
-        else if (Input.GetKeyDown(KeyCode.J) && this.castEnergyBall.restoreCD.IsReady)
+        else if (Input.GetKeyDown(KeyCode.I) && this.castEnergyBall.restoreCD.IsReady)
         {
             this.ActivateCastEnergyBall();
         }

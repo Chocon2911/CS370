@@ -56,6 +56,7 @@ public class GameManager : HuyMonoBehaviour
 
         instance = this;
         base.Awake();
+        Application.targetFrameRate = 120;
         DontDestroyOnLoad(gameObject);
     }
 
