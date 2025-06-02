@@ -20,6 +20,7 @@ public class GameManager : HuyMonoBehaviour
     [SerializeField] private string playerId;
     [SerializeField] private Player player;
     [SerializeField] private int currSceneIndex;
+    [SerializeField] private int currCoin;
 
     [Header("Camera")]
     [SerializeField] private Camera mainCamera;
@@ -38,6 +39,7 @@ public class GameManager : HuyMonoBehaviour
     public Quaternion RespawnRot { get => this.respawnRot; set => this.respawnRot = value; }
     public Player Player => this.player;
     public int CurrSceneIndex { get => this.currSceneIndex; set => this.currSceneIndex = value; }
+    public int CurrCoin { get => this.currCoin; set => this.currCoin = value; }
 
     // Boss
     public bool IsFightingBoss => this.isFightingBoss;
@@ -54,6 +56,7 @@ public class GameManager : HuyMonoBehaviour
 
         instance = this;
         base.Awake();
+        Application.targetFrameRate = 120;
         DontDestroyOnLoad(gameObject);
     }
 

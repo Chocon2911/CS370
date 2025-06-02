@@ -19,8 +19,6 @@ public class Spike : HuyMonoBehaviour
     [Header("Stat")]
     [SerializeField] protected int damage;
     [SerializeField] protected int pushForce;
-    [SerializeField] protected LayerMask targetLayer;
-    [SerializeField] protected string targetTag;
 
     //===========================================Unity============================================
     public override void LoadComponents()
