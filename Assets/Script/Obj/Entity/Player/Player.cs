@@ -107,6 +107,9 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
     public bool PrevIsGround => this.prevIsGround;
     public bool IsGround => this.isGround;
 
+    // ===Interact Check===
+    public Transform InteractableObj => this.interactableObj;
+
     // ===Invincible===
     public Cooldown InvincibleCD => this.invincibleCD;
     public bool IsInvincible => this.isInvincible;

@@ -53,4 +53,17 @@ public class MobileUI : HuyMonoBehaviour
         instance = this;
         base.Awake();
     }
+
+    protected virtual void Update()
+    {
+        this.CheckPlayerStat();
+    }
+
+    //===========================================Method===========================================
+    protected virtual void CheckPlayerStat()
+    {
+        Player player = GameManager.Instance.Player;
+        this.dashBtn.gameObject.SetActive(player.HasDash);
+        this.interactBtn.gameObject.SetActive(player.InteractableObj != null);
+    }
 }
