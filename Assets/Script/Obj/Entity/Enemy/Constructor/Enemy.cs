@@ -33,7 +33,7 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     {
         get
         {
-            return new MonsterDbData(SceneManager.GetActiveScene().buildIndex, this.monsterType, this.health, this.maxHealth, this.id);
+            return new MonsterDbData(GameManager.Instance.AccountId, SceneManager.GetActiveScene().buildIndex, this.monsterType, this.health, this.maxHealth, this.id);
         }
 
         set

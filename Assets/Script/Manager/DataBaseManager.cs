@@ -12,6 +12,7 @@ public class DataBaseManager : HuyMonoBehaviour
     [SerializeField] private ItemDb item;
     [SerializeField] private MonsterDb monster;
     [SerializeField] private TriggeredObjDb triggeredObj;
+    [SerializeField] private AccountDb account;
 
     //==========================================Get Set===========================================
     public string DbPath => Application.persistentDataPath + "/" + dbName;
@@ -19,6 +20,7 @@ public class DataBaseManager : HuyMonoBehaviour
     public ItemDb Item => item;
     public MonsterDb Monster => monster;
     public TriggeredObjDb TriggeredObj => triggeredObj;
+    public AccountDb Account => this.account;
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -34,10 +36,14 @@ public class DataBaseManager : HuyMonoBehaviour
         DontDestroyOnLoad(gameObject);
         base.Awake();
 
+        // handler init
         this.player = new PlayerDb();
         this.item = new ItemDb();
         this.monster = new MonsterDb();
         this.triggeredObj = new TriggeredObjDb();
+        this.account = new AccountDb();
+
+        // create table
         this.player.CreateTable();
         this.item.CreateTable();
         this.monster.CreateTable();

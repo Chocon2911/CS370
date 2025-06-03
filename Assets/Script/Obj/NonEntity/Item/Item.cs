@@ -31,7 +31,7 @@ public class Item : DbObj
         get
         {
             Debug.Log("Id: " + this.id + " - isTaken: " + this.isTaken + " - isRestorable: " + this.so.IsRestorable);
-            return new ItemDbData(this.id, this.isTaken, this.so.IsRestorable);
+            return new ItemDbData(GameManager.Instance.AccountId, this.id, this.isTaken, this.so.IsRestorable);
         }
         set
         {
@@ -71,7 +71,7 @@ public class Item : DbObj
         ItemDbData dbData = DataBaseManager.Instance.Item.Query(this.id);
         if (dbData == null)
         {
-            ItemDbData newData = new ItemDbData(this.id, this.isTaken, this.so.IsRestorable);
+            ItemDbData newData = new ItemDbData(GameManager.Instance.AccountId, this.id, this.isTaken, this.so.IsRestorable);
             DataBaseManager.Instance.Item.Insert(newData);
             return;
         }

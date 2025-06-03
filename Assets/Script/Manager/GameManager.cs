@@ -22,6 +22,10 @@ public class GameManager : HuyMonoBehaviour
     [SerializeField] private int currSceneIndex;
     [SerializeField] private int currCoin;
 
+    [Header("Account")]
+    [SerializeField] private List<AccountDbData> accounts = new List<AccountDbData>();
+    [SerializeField] private string accountId;
+
     [Header("Camera")]
     [SerializeField] private Camera mainCamera;
 
@@ -31,7 +35,7 @@ public class GameManager : HuyMonoBehaviour
 
     [Header("Boss")]
     [SerializeField] private bool isFightingBoss;
-
+  
     //==========================================Get Set===========================================
     // Player
     public int RespawnSceneIndex { get => this.respawnSceneIndex; set => this.respawnSceneIndex = value; }
@@ -43,6 +47,9 @@ public class GameManager : HuyMonoBehaviour
 
     // Boss
     public bool IsFightingBoss => this.isFightingBoss;
+
+    // Account
+    public string AccountId => this.accountId;
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -183,9 +190,19 @@ public class GameManager : HuyMonoBehaviour
     
     private void NewGame()
     {
+        // Create Account
+        this.accounts = DataBaseManager.Instance.Account.QueryAll();
+        string newAccountName = "Save " + this.accounts.Count.ToString();
+        string newAccountId = Util.Instance.RandomGUID();
+    
+        this.accountId = newAccountId;
+        AccountDbData newAccount = new AccountDbData(newAccountId, newAccountName);
+        DataBaseManager.Instance.Account.Insert(newAccount);
+
+        // Init Game
         this.respawnSceneIndex = 1;
         this.currSceneIndex = 1;
-        LoadSceneWithEvent(this.currSceneIndex, () => NewGameSceneLoaded());
+        this.LoadSceneWithEvent(this.currSceneIndex, () => NewGameSceneLoaded());
     }
 
     private void NewGameSceneLoaded()
@@ -244,6 +261,7 @@ public class GameManager : HuyMonoBehaviour
         this.respawnPos = pos;
         this.respawnRot = rot;
     }
+
 
 
     //=======================================On Player Dead=======================================

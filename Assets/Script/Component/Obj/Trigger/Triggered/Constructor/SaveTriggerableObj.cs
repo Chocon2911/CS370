@@ -9,7 +9,7 @@ public abstract class SaveTriggerableObj : TriggerableObj
     {
         get
         {
-            return new TriggeredObjDbData(this.id, this.isTriggered);
+            return new TriggeredObjDbData(this.id, GameManager.Instance.AccountId, this.isTriggered);
         }
         set
         {

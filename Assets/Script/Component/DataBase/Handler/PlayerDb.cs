@@ -60,7 +60,8 @@ public class PlayerDb : DatabaseHandler
     {
         using (var connection = GetConnection())
         {
-            return connection.Table<PlayerDbData>().Count() > 0;
+            var players = connection.Table<PlayerDbData>().Where(x => x.AccountId == GameManager.Instance.AccountId).ToList();
+            return players.Count > 0;
         }
     }
 }

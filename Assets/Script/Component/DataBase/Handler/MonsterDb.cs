@@ -77,7 +77,7 @@ public class MonsterDb : DatabaseHandler
     {
         using (var connection = GetConnection())
         {
-            var minions = connection.Table<MonsterDbData>().Where(x => x.Type == (int)MonsterType.MINION).ToList();
+            var minions = connection.Table<MonsterDbData>().Where(x => x.Type == (int)MonsterType.MINION && x.AccountId == GameManager.Instance.AccountId).ToList();
             foreach (var minion in minions)
             {
                 minion.Health = minion.MaxHealth;

@@ -9,6 +9,7 @@ public class StartUI : HuyMonoBehaviour
     [Header("===Start UI===")]
     [SerializeField] private Button startBtn;
     [SerializeField] private Button quitBtn;
+    [SerializeField] private List<NoSaveTriggerableObj> startTriggerableObjs;
 
     //===========================================Unity============================================
     public override void LoadComponents()
@@ -27,7 +28,8 @@ public class StartUI : HuyMonoBehaviour
     //===========================================Method===========================================
     private void StartBtnOnClick()
     {
-        GameManager.Instance.StartGame();
+        foreach (NoSaveTriggerableObj obj in this.startTriggerableObjs) obj.Trigger();
+        gameObject.SetActive(false);
     }
 
     private void QuitBtnOnClick()

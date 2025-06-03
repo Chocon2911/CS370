@@ -81,7 +81,7 @@ public class ItemDb : DatabaseHandler
     {
         using (var connection = GetConnection())
         {
-            var takenItems = connection.Table<ItemDbData>().Where(x => x.IsTaken == true).ToList();
+            var takenItems = connection.Table<ItemDbData>().Where(x => x.IsTaken == true && x.AccountId == GameManager.Instance.AccountId).ToList();
             foreach (var takenItem in takenItems)
             {
                 if (!takenItem.IsRestorable) continue;
