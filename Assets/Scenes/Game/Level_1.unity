@@ -57617,25 +57617,9 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2030391097}
-    - target: {fileID: 345369006496508721, guid: 454a833e03065cd488cfb491e643431b, type: 3}
-      propertyPath: m_SortingOrder
-      value: 234
-      objectReference: {fileID: 0}
     - target: {fileID: 3157316556698005913, guid: 454a833e03065cd488cfb491e643431b, type: 3}
       propertyPath: m_Name
       value: MobileUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 4627422256645122353, guid: 454a833e03065cd488cfb491e643431b, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 4627422256645122353, guid: 454a833e03065cd488cfb491e643431b, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -156
-      objectReference: {fileID: 0}
-    - target: {fileID: 4627422256645122353, guid: 454a833e03065cd488cfb491e643431b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 155
       objectReference: {fileID: 0}
     - target: {fileID: 8410341523030082913, guid: 454a833e03065cd488cfb491e643431b, type: 3}
       propertyPath: m_Pivot.x

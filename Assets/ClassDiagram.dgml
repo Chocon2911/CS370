@@ -1,0 +1,613 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="AccquiringSkillUI" Category="CodeSchema_Class" Bounds="3084.04235742187,391.96011915701,130.02,26" Label="AccquiringSkillUI" />
+    <Node Id="AirJumpData" Category="CodeSchema_Class" Bounds="394.522937904143,289.730079775356,108.976666666667,26" Label="AirJumpData" />
+    <Node Id="Archer" Category="CodeSchema_Class" Bounds="741.242874346568,-371.218823523032,75.6966666666667,26" Label="Archer" UseManualLocation="True" />
+    <Node Id="ArcherAnimator" Category="CodeSchema_Class" Bounds="686.727066666667,55.9598078799951,124.846666666667,26" Label="ArcherAnimator" />
+    <Node Id="ArcherSO" Category="CodeSchema_Class" Bounds="955.568576817376,111.959907879995,91.116666666667,26" Label="ArcherSO" />
+    <Node Id="Arrow" Category="CodeSchema_Class" Bounds="1175.27559619019,167.959959249779,72.79,26" Label="Arrow" />
+    <Node Id="Bang" Category="CodeSchema_Class" Bounds="1600.12383790414,279.96015708082,67.8433333333332,26" Label="Bang" />
+    <Node Id="BaseAnimator" Category="CodeSchema_Class" Bounds="986.87000457081,279.960207879995,114.506666666667,26" Label="BaseAnimator" />
+    <Node Id="Bat" Category="CodeSchema_Class" Bounds="61.7895873710078,-346.599155851469,58.0533333333333,26" Label="Bat" UseManualLocation="True" />
+    <Node Id="BatAnimator" Category="CodeSchema_Class" Bounds="818.365143484044,111.959907879995,107.203333333333,26" Label="BatAnimator" />
+    <Node Id="BatSO" Category="CodeSchema_Class" Bounds="848.608629523526,167.960007879995,73.4733333333334,26" Label="BatSO" />
+    <Node Id="Bonfire" Category="CodeSchema_Class" Bounds="1969.43690908775,55.9597570808203,78.8133333333333,26" Label="Bonfire" />
+    <Node Id="BonfireUser" Category="CodeSchema_Interface" Bounds="2259.30767123748,279.960032369657,102.6,25.96" Label="BonfireUser" />
+    <Node Id="Boss" Category="CodeSchema_Class" Bounds="783.184257623923,-555.497197412266,65.0966666666667,26" Label="Boss" UseManualLocation="True" />
+    <Node Id="BossTrigger" Category="CodeSchema_Class" Bounds="2070.59939770411,163.542066191858,102.003333333334,26" Label="BossTrigger" />
+    <Node Id="Bullet" Category="CodeSchema_Class" Bounds="1262.84871866792,-919.199287215069,70.8266666666666,26" Label="Bullet" UseManualLocation="True" />
+    <Node Id="BulletSpawner" Category="CodeSchema_Class" Bounds="1994.81080457081,335.960048399932,116.273333333334,26" Label="BulletSpawner" />
+    <Node Id="CameraCtrl" Category="CodeSchema_Class" Bounds="2788.11569075521,395.113372802734,100.006666666667,26" Label="CameraCtrl" UseManualLocation="True" />
+    <Node Id="CastEnergyBallData" Category="CodeSchema_Class" Bounds="533.49970457081,286.637567503671,143.373333333333,26" Label="CastEnergyBallData" />
+    <Node Id="ClaspedMagicHand" Category="CodeSchema_Class" Bounds="1382.87437831602,-883.730215821183,143.816666666667,26" Label="ClaspedMagicHand" UseManualLocation="True" />
+    <Node Id="Cooldown" Category="CodeSchema_Class" Bounds="1087.66343790414,391.960407879995,94.9566666666667,26" Label="Cooldown" />
+    <Node Id="CustomItemMenu" Category="CodeSchema_Class" Bounds="2525.68120457081,335.960077194835,136.253333333333,26" Label="CustomItemMenu" />
+    <Node Id="Damagable" Category="CodeSchema_Interface" Bounds="1063.6448579934,447.960507879995,101.373333333333,25.96" Label="Damagable" />
+    <Node Id="DashData" Category="CodeSchema_Class" Bounds="706.873137904144,284.631395689843,92.0966666666667,26" Label="DashData" />
+    <Node Id="DataBaseManager" Category="CodeSchema_Class" Bounds="2091.96090457081,279.95994714528,137.346666666667,26" Label="DataBaseManager" />
+    <Node Id="DatabaseHandler" Category="CodeSchema_Class" Bounds="1923.9874066084,503.96055708082,132.063333333334,26" Label="DatabaseHandler" />
+    <Node Id="DbData" Category="CodeSchema_Class" Bounds="1812.8273066084,503.96055708082,81.1600000000001,26" Label="DbData" />
+    <Node Id="DbObj" Category="CodeSchema_Class" Bounds="971.060111977391,-921.582116220566,75.4733333333334,26" Label="DbObj" UseManualLocation="True" />
+    <Node Id="DeadLine" Category="CodeSchema_Class" Bounds="1266.14353790414,335.960234476563,90.4866666666667,26" Label="DeadLine" />
+    <Node Id="DefaultButton" Category="CodeSchema_Class" Bounds="2380.74110457081,335.920132369657,114.94,26" Label="DefaultButton" />
+    <Node Id="DespawnByDistance" Category="CodeSchema_Class" Bounds="624.78,1318.08508789084,147.29,26" Label="DespawnByDistance" />
+    <Node Id="DespawnByTime" Category="CodeSchema_Class" Bounds="828.96990457081,279.960181337419,127.9,26" Label="DespawnByTime" />
+    <Node Id="Door" Category="CodeSchema_Class" Bounds="2202.60283103744,167.96015126246,67.6466666666665,26" Label="Door" />
+    <Node Id="DoorManager" Category="CodeSchema_Class" Bounds="2407.6048558683,111.960128382621,114.943333333333,26" Label="DoorManager" />
+    <Node Id="DoorUser" Category="CodeSchema_Interface" Bounds="2259.30767123748,335.920119229557,91.4333333333334,25.96" Label="DoorUser" />
+    <Node Id="DynamicJoystick" Category="CodeSchema_Class" Bounds="171.171666666667,1374.08508789084,127.596666666667,26" Label="DynamicJoystick" />
+    <Node Id="EffectSpawner" Category="CodeSchema_Class" Bounds="1031.10333790414,335.960307879995,115.916666666667,26" Label="EffectSpawner" />
+    <Node Id="EffectSplashable" Category="CodeSchema_Interface" Bounds="1329.06697123748,392.000089719204,127.136666666667,25.96" Label="EffectSplashable" />
+    <Node Id="Enemy" Category="CodeSchema_Class" Bounds="576.949900373421,-698.69534753899,76.28,26" Label="Enemy" UseManualLocation="True" />
+    <Node Id="EnemySO" Category="CodeSchema_Class" Bounds="965.963337904144,391.960407879995,91.6999999999999,26" Label="EnemySO" />
+    <Node Id="EnemySpawner" Category="CodeSchema_Class" Bounds="879.376571237477,335.960307879995,121.726666666667,26" Label="EnemySpawner" />
+    <Node Id="EnergyBall" Category="CodeSchema_Class" Bounds="1379.26697123748,279.960134476563,95.9833333333333,26" Label="EnergyBall" />
+    <Node Id="Entity" Category="CodeSchema_Class" Bounds="795.538233635213,-814.516766878083,70.7066666666667,26" Label="Entity" UseManualLocation="True" />
+    <Node Id="EntityManager" Category="CodeSchema_Class" Bounds="1797.76737123748,279.96015708082,118.003333333333,26" Label="EntityManager" />
+    <Node Id="EntitySO" Category="CodeSchema_Class" Bounds="1195.01829132673,447.960507879995,86.1266666666666,26" Label="EntitySO" />
+    <Node Id="EventManager" Category="CodeSchema_Class" Bounds="3432.03438851674,255.865833835197,117.246666666666,26" Label="EventManager" UseManualLocation="True" />
+    <Node Id="Fan" Category="CodeSchema_Class" Bounds="2471.73453790414,391.960090693024,59.3466666666668,26" Label="Fan" />
+    <Node Id="FixedJoystick" Category="CodeSchema_Class" Bounds="329.315,1374.08508789084,109.31,26" Label="FixedJoystick" />
+    <Node Id="FloatingJoystick" Category="CodeSchema_Class" Bounds="468.756666666667,1374.08508789084,124.426666666667,26" Label="FloatingJoystick" />
+    <Node Id="Fly" Category="CodeSchema_Class" Bounds="184.560513525208,-342.5500472399,55.5733333333334,26" Label="Fly" UseManualLocation="True" />
+    <Node Id="FlyAnimator" Category="CodeSchema_Class" Bounds="1278.06569619019,167.959934476563,104.723333333333,26" Label="FlyAnimator" />
+    <Node Id="FlySO" Category="CodeSchema_Class" Bounds="952.082062856859,167.960007879995,70.9933333333333,26" Label="FlySO" />
+    <Node Id="GameManager" Category="CodeSchema_Class" Bounds="1720.55586437078,111.95985708082,119.25,26" Label="GameManager" />
+    <Node Id="GameOver" Category="CodeSchema_Class" Bounds="1028.12666666667,1318.08508789084,97.1966666666667,26" Label="GameOver" />
+    <Node Id="GameUI" Category="CodeSchema_Class" Bounds="2674.09473790414,391.960217018936,83.3899999999999,26" Label="GameUI" />
+    <Node Id="Goblin" Category="CodeSchema_Class" Bounds="633.635746188694,-370.206573486328,75.92,26" Label="Goblin" UseManualLocation="True" />
+    <Node Id="GoblinAnimator" Category="CodeSchema_Class" Bounds="531.656966666667,55.9601017596003,125.07,26" Label="GoblinAnimator" />
+    <Node Id="GoblinSO" Category="CodeSchema_Class" Bounds="697.025043484043,111.960087890837,91.34,26" Label="GoblinSO" />
+    <Node Id="GroundMonster" Category="CodeSchema_Class" Bounds="547.267348028059,-463.010305158244,125.29,26" Label="GroundMonster" UseManualLocation="True" />
+    <Node Id="GroundMonsterSO" Category="CodeSchema_Class" Bounds="626.310850253895,167.9603017596,140.71,26" Label="GroundMonsterSO" />
+    <Node Id="HealthBar" Category="CodeSchema_Class" Bounds="905.3,1318.08508789084,92.8266666666667,26" Label="HealthBar" />
+    <Node Id="HuyMonoBehaviour" Category="CodeSchema_Class" Bounds="1681.68771044813,-1482.61055976685,146.443333333333,26" Label="HuyMonoBehaviour" UseManualLocation="True" />
+    <Node Id="IDespawnByDistance" Category="CodeSchema_Interface" Bounds="623.183333333333,1374.08508789084,150.483333333333,25.96" Label="IDespawnByDistance" />
+    <Node Id="IDespawnByTime" Category="CodeSchema_Interface" Bounds="233.42950457081,335.960181337419,131.093333333333,25.96" Label="IDespawnByTime" />
+    <Node Id="InitForwardVelObj" Category="CodeSchema_Class" Bounds="2918.12235742187,391.960195416808,135.92,26" Label="InitForwardVelObj" />
+    <Node Id="InputManager" Category="CodeSchema_Class" Bounds="1945.77080457081,279.959948399932,116.189999999999,26" Label="InputManager" />
+    <Node Id="Interactable" Category="CodeSchema_Interface" Bounds="2113.65629619019,223.96025126246,103.56,25.96" Label="Interactable" />
+    <Node Id="InterfaceReference&lt;TInterface, TObject&gt;" Category="CodeSchema_Class" Bounds="1314.14333333333,1318.08508789084,139.38,26" Label="InterfaceReference" />
+    <Node Id="InterfaceReference&lt;TInterface&gt;" Category="CodeSchema_Class" Bounds="1483.52333333333,1318.08508789084,139.38,26" Label="InterfaceReference" />
+    <Node Id="Item" Category="CodeSchema_Class" Bounds="1092.15040457081,-695.279891090973,64.8733333333332,26" Label="Item" UseManualLocation="True" />
+    <Node Id="ItemDb" Category="CodeSchema_Class" Bounds="1859.18403790414,391.96035708082,80.3399999999999,26" Label="ItemDb" />
+    <Node Id="ItemDbData" Category="CodeSchema_Class" Bounds="1695.4653579934,447.96045708082,105.033333333333,26" Label="ItemDbData" />
+    <Node Id="ItemDbDataUser" Category="CodeSchema_Class" Bounds="1155.32333333333,1318.08508789084,128.82,26" Label="ItemDbDataUser" />
+    <Node Id="ItemSO" Category="CodeSchema_Class" Bounds="1466.51182466006,447.960434476563,80.2933333333333,26" Label="ItemSO" />
+    <Node Id="ItemSpawner" Category="CodeSchema_Class" Bounds="1854.49070457081,335.96025708082,110.32,26" Label="ItemSpawner" />
+    <Node Id="ItemTrigger_OnPickedUp" Category="CodeSchema_Class" Bounds="1911.28619619019,219.542166191858,172.37,26" Label="ItemTrigger_OnPickedUp" />
+    <Node Id="ItemUser" Category="CodeSchema_Interface" Bounds="1576.8052579934,447.960434476563,88.6600000000001,25.96" Label="ItemUser" />
+    <Node Id="JoyStick" Category="CodeSchema_Class" Bounds="2699.44130457081,279.960017018936,82.5866666666666,26" Label="JoyStick" />
+    <Node Id="Joystick" Category="CodeSchema_Class" Bounds="343.123333333334,1430.08508789084,81.6933333333333,26" Label="Joystick" />
+    <Node Id="JoystickPlayerExample" Category="CodeSchema_Class" Bounds="0,1318.08508789084,157.94,26" Label="JoystickPlayerExample" />
+    <Node Id="JoystickSetterExample" Category="CodeSchema_Class" Bounds="188.378333333333,1318.08508789084,157.183333333333,26" Label="JoystickSetterExample" />
+    <Node Id="JumpPad" Category="CodeSchema_Class" Bounds="1486.20373790414,391.960334476563,88.9466666666667,26" Label="JumpPad" />
+    <Node Id="Katana" Category="CodeSchema_Class" Bounds="1586.91050457081,335.96025708082,77.1366666666668,26" Label="Katana" />
+    <Node Id="KatanaSO" Category="CodeSchema_Class" Bounds="2349.17777123748,391.960107691916,92.5566666666668,26" Label="KatanaSO" />
+    <Node Id="MagicBall" Category="CodeSchema_Class" Bounds="1053.07549619019,167.960007879995,92.2,26" Label="MagicBall" />
+    <Node Id="MagicHand" Category="CodeSchema_Class" Bounds="1678.66609878782,223.96005708082,101.883333333333,26" Label="MagicHand" />
+    <Node Id="MagicHandAnimator" Category="CodeSchema_Class" Bounds="1539.52241015071,111.95985708082,151.033333333333,26" Label="MagicHandAnimator" />
+    <Node Id="Map1Manager" Category="CodeSchema_Class" Bounds="1475.29763860352,55.9597570808203,118.703333333333,26" Label="Map1Manager" />
+    <Node Id="Map2EventManager" Category="CodeSchema_Class" Bounds="3506.55133700023,335.960039318275,147.653333333333,26" Label="Map2EventManager" />
+    <Node Id="Map2Manager" Category="CodeSchema_Class" Bounds="1630.1975314778,55.9597570808203,118.703333333333,26" Label="Map2Manager" />
+    <Node Id="Menu" Category="CodeSchema_Class" Bounds="803.666666666667,1318.08508789084,71.6333333333333,26" Label="Menu" />
+    <Node Id="MobileAccquiringSkillUI" Category="CodeSchema_Class" Bounds="3244.06235742187,391.960113525391,166.97,26" Label="MobileAccquiringSkillUI" />
+    <Node Id="MobileUI" Category="CodeSchema_Class" Bounds="2525.61334897022,223.959917018936,89.3866666666668,26" Label="MobileUI" />
+    <Node Id="Monster" Category="CodeSchema_Class" Bounds="403.648262491283,-576.11184394477,85.2066666666667,26" Label="Monster" UseManualLocation="True" />
+    <Node Id="MonsterDb" Category="CodeSchema_Class" Bounds="1728.51060457081,391.96035708082,100.673333333333,26" Label="MonsterDb" />
+    <Node Id="MonsterDbData" Category="CodeSchema_Class" Bounds="1311.1450579934,447.960434476563,125.366666666667,26" Label="MonsterDbData" />
+    <Node Id="MonsterSO" Category="CodeSchema_Class" Bounds="1058.10715127995,223.960059249779,100.626666666667,26" Label="MonsterSO" />
+    <Node Id="MonsterTrigger_OnDead" Category="CodeSchema_Class" Bounds="1869.80596437078,111.95985708082,170.793333333333,26" Label="MonsterTrigger_OnDead" />
+    <Node Id="MushroomMan" Category="CodeSchema_Class" Bounds="368.39241285536,-368.181945800781,122.693333333333,26" Label="MushroomMan" UseManualLocation="True" />
+    <Node Id="MushroomManAnimator" Category="CodeSchema_Class" Bounds="168.113433333334,100.208277398413,171.843333333333,26" Label="MushroomManAnimator" />
+    <Node Id="MushroomManSO" Category="CodeSchema_Class" Bounds="-1.4210854715202E-14,111.960205270492,138.113333333333,26" Label="MushroomManSO" />
+    <Node Id="NewEmptyCSharpScript" Category="CodeSchema_Class" Bounds="1652.90333333333,1318.08508789084,166.303333333333,26" Label="NewEmptyCSharpScript" />
+    <Node Id="NoSaveTriggerableObj" Category="CodeSchema_Class" Bounds="2757.77191704418,207.174809969459,159.766666666667,26" Label="NoSaveTriggerableObj" />
+    <Node Id="NoSaveTriggerableObj_Appear" Category="CodeSchema_Class" Bounds="2829.89634669272,116.584853072162,203.15,26" Label="NoSaveTriggerableObj_Appear" />
+    <Node Id="ObjTrigger" Category="CodeSchema_Class" Bounds="2391.90777123748,275.542116191858,96.9133333333334,26" Label="ObjTrigger" />
+    <Node Id="PathManager" Category="CodeSchema_Class" Bounds="2970.92483790414,275.959895416808,131.57,86.0001999999999" Group="Expanded" Label="PathManager">
+      <Category Ref="CodeSchema_Namespace" />
+    </Node>
+    <Node Id="PathManager.Path" Category="CodeSchema_Class" Bounds="3004.57317123748,315.959995416808,64.2733333333335,26" Label="Path" />
+    <Node Id="PauseUI" Category="CodeSchema_Class" Bounds="2561.08130457081,391.960098849625,83.0133333333333,26" Label="PauseUI" />
+    <Node Id="Player" Category="CodeSchema_Class" Bounds="947.703525624068,-695.509776913151,72.99,26" Label="Player" UseManualLocation="True" />
+    <Node Id="PlayerAnimator" Category="CodeSchema_Class" Bounds="905.967051279951,223.960107879995,122.14,26" Label="PlayerAnimator" />
+    <Node Id="PlayerCollidable" Category="CodeSchema_Interface" Bounds="1348.75773778016,-0.000342919179701084,125.58,25.96" Label="PlayerCollidable" />
+    <Node Id="PlayerDb" Category="CodeSchema_Class" Bounds="1969.52413790414,391.96035708082,88.4566666666669,26" Label="PlayerDb" />
+    <Node Id="PlayerDbData" Category="CodeSchema_Class" Bounds="1830.49879132673,447.96045708082,113.15,26" Label="PlayerDbData" />
+    <Node Id="PlayerSO" Category="CodeSchema_Class" Bounds="847.553237904144,391.960407879995,88.41,26" Label="PlayerSO" />
+    <Node Id="PlayerSpawner" Category="CodeSchema_Class" Bounds="1762.84942952353,167.95995708082,118.436666666667,26" Label="PlayerSpawner" />
+    <Node Id="Reaper" Category="CodeSchema_Class" Bounds="778.094897877442,-460.660668158554,77.7133333333334,26" Label="Reaper" UseManualLocation="True" />
+    <Node Id="ReaperAnimator" Category="CodeSchema_Class" Bounds="994.267266666667,55.9598078799951,126.863333333334,26" Label="ReaperAnimator" />
+    <Node Id="RequireInterfaceAttribute" Category="CodeSchema_Class" Bounds="1849.20666666667,1318.08508789084,174.64,26" Label="RequireInterfaceAttribute" />
+    <Node Id="SQLite4Unity3d" Category="CodeSchema_Namespace" Bounds="2236.8939623005,595.285017354127,1179.78175292969,728.12535" Group="Expanded" Label="SQLite4Unity3d" UseManualLocation="True" />
+    <Node Id="SQLite4Unity3d.AutoIncrementAttribute" Category="CodeSchema_Class" Bounds="3102.99410064686,1277.41021735413,167.213333333333,26" Label="AutoIncrementAttribute" />
+    <Node Id="SQLite4Unity3d.BaseTableQuery" Category="CodeSchema_Class" Bounds="2880.30069000233,752.972617354127,144.733333333334,86.0001999999999" Group="Expanded" Label="BaseTableQuery">
+      <Category Ref="CodeSchema_Namespace" />
+    </Node>
+    <Node Id="SQLite4Unity3d.BaseTableQuery.Ordering" Category="CodeSchema_Class" Bounds="2908.41735666899,792.972717354127,88.5,26" Label="Ordering" />
+    <Node Id="SQLite4Unity3d.CollationAttribute" Category="CodeSchema_Class" Bounds="2938.01062896717,1163.72271735413,135.313333333334,26" Label="CollationAttribute" />
+    <Node Id="SQLite4Unity3d.ColumnAttribute" Category="CodeSchema_Class" Bounds="2409.56402740467,1277.41026735413,129.423333333334,26" Label="ColumnAttribute" />
+    <Node Id="SQLite4Unity3d.IgnoreAttribute" Category="CodeSchema_Class" Bounds="2256.8940021768,1277.41021735413,122.67,26" Label="IgnoreAttribute" />
+    <Node Id="SQLite4Unity3d.IndexedAttribute" Category="CodeSchema_Class" Bounds="2777.5089623005,1163.72271735413,130.316666666667,26" Label="IndexedAttribute" />
+    <Node Id="SQLite4Unity3d.MaxLengthAttribute" Category="CodeSchema_Class" Bounds="3104.08217356352,1163.72271735413,147.17,26" Label="MaxLengthAttribute" />
+    <Node Id="SQLite4Unity3d.NotNullAttribute" Category="CodeSchema_Class" Bounds="2568.98736480701,1277.41021735413,129.793333333333,26" Label="NotNullAttribute" />
+    <Node Id="SQLite4Unity3d.NotNullConstraintViolationException" Category="CodeSchema_Class" Bounds="2256.8939623005,665.285217354127,235.546666666667,26" Label="NotNullConstraintViolationException" />
+    <Node Id="SQLite4Unity3d.Orm" Category="CodeSchema_Class" Bounds="2973.38908437082,1076.03521735413,64.5566666666668,26" Label="Orm" />
+    <Node Id="SQLite4Unity3d.PreparedSqlLiteInsertCommand" Category="CodeSchema_Class" Bounds="2437.27569000233,870.660217354127,208.783333333333,26" Label="PreparedSqlLiteInsertCommand" />
+    <Node Id="SQLite4Unity3d.PrimaryKeyAttribute" Category="CodeSchema_Class" Bounds="2728.78069895415,1277.41021735413,147.25,26" Label="PrimaryKeyAttribute" />
+    <Node Id="SQLite4Unity3d.SQLite3" Category="CodeSchema_Class" Bounds="2503.77229563384,1163.72271735413,81.79,26" Label="SQLite3" />
+    <Node Id="SQLite4Unity3d.SQLiteCommand" Category="CodeSchema_Class" Bounds="2363.45902333566,1046.03511735413,150.416666666666,86.0002000000004" Group="Expanded" Label="SQLiteCommand">
+      <Category Ref="CodeSchema_Namespace" />
+    </Node>
+    <Node Id="SQLite4Unity3d.SQLiteCommand.Binding" Category="CodeSchema_Class" Bounds="2397.96402333566,1086.03521735413,81.4066666666668,26" Label="Binding" />
+    <Node Id="SQLite4Unity3d.SQLiteConnection" Category="CodeSchema_Class" Bounds="2572.68069000233,928.347617354126,155.973333333333,86.0002000000002" Group="Expanded" Label="SQLiteConnection">
+      <Category Ref="CodeSchema_Namespace" />
+    </Node>
+    <Node Id="SQLite4Unity3d.SQLiteConnection.ColumnInfo" Category="CodeSchema_Class" Bounds="2599.14069000233,968.347717354126,103.053333333333,26" Label="ColumnInfo" />
+    <Node Id="SQLite4Unity3d.SQLiteConnectionString" Category="CodeSchema_Class" Bounds="2906.03072174061,1277.41021735413,166.963333333333,26" Label="SQLiteConnectionString" />
+    <Node Id="SQLite4Unity3d.SQLiteException" Category="CodeSchema_Class" Bounds="2481.38569000232,1221.41016735413,126.563333333334,26" Label="SQLiteException" />
+    <Node Id="SQLite4Unity3d.TableAttribute" Category="CodeSchema_Class" Bounds="3281.25238189686,635.285217354127,115.423333333333,26" Label="TableAttribute" />
+    <Node Id="SQLite4Unity3d.TableMapping" Category="CodeSchema_Class" Bounds="2682.64902333566,752.972617354127,136.036666666667,86.0002000000002" Group="Expanded" Label="TableMapping">
+      <Category Ref="CodeSchema_Namespace" />
+    </Node>
+    <Node Id="SQLite4Unity3d.TableMapping.Column" Category="CodeSchema_Class" Bounds="2709.52569000233,792.972717354127,82.2833333333333,26" Label="Column" />
+    <Node Id="SQLite4Unity3d.TableQuery&lt;T&gt;" Category="CodeSchema_Class" Bounds="2672.21735666899,635.285117354127,156.9,86.0001999999999" Group="Expanded" Label="TableQuery">
+      <Category Ref="CodeSchema_Namespace" />
+    </Node>
+    <Node Id="SQLite4Unity3d.TableQuery&lt;T&gt;.CompileResult" Category="CodeSchema_Class" Bounds="2692.21735666899,675.285217354127,116.9,26" Label="CompileResult" />
+    <Node Id="SQLite4Unity3d.UniqueAttribute" Category="CodeSchema_Class" Bounds="2816.56056793201,1076.03521735413,126.213333333333,26" Label="UniqueAttribute" />
+    <Node Id="SaveTriggerableObj" Category="CodeSchema_Class" Bounds="2525.68120457081,279.960017018936,143.76,26" Label="SaveTriggerableObj" />
+    <Node Id="SlashWave" Category="CodeSchema_Class" Bounds="1635.70932952353,167.95995708082,97.1400000000001,26" Label="SlashWave" />
+    <Node Id="Slime" Category="CodeSchema_Class" Bounds="1697.96727123748,279.960096493803,69.8,26" Label="Slime" />
+    <Node Id="SoundWave" Category="CodeSchema_Class" Bounds="1320.02887681738,111.959834476563,103.92,26" Label="SoundWave" />
+    <Node Id="Spawner" Category="CodeSchema_Class" Bounds="1212.62020457081,391.960334476563,86.4466666666667,26" Label="Spawner" />
+    <Node Id="Spike" Category="CodeSchema_Class" Bounds="1386.63030457081,336.00005700093,69.5733333333333,26" Label="Spike" />
+    <Node Id="SpikeUser" Category="CodeSchema_Interface" Bounds="1605.15050457081,392.00005700093,93.3600000000001,25.96" Label="SpikeUser" />
+    <Node Id="StartUI" Category="CodeSchema_Class" Bounds="2078.25034242108,55.9601529865337,76.8366666666666,26" Label="StartUI" />
+    <Node Id="TeleDoor" Category="CodeSchema_Class" Bounds="2141.08423790414,335.96004714528,88.2233333333334,26" Label="TeleDoor" />
+    <Node Id="TeleDoorUser" Category="CodeSchema_Interface" Bounds="1973.64889132673,447.96045708082,112.01,25.96" Label="TeleDoorUser" />
+    <Node Id="TeleLightning" Category="CodeSchema_Class" Bounds="1131.37677123748,279.960159249779,111.61,26" Label="TeleLightning" />
+    <Node Id="TriggerableObj" Category="CodeSchema_Class" Bounds="2691.93463790414,335.960117018936,119.256666666667,26" Label="TriggerableObj" />
+    <Node Id="TriggerableObj_Appear" Category="CodeSchema_Class" Bounds="2214.9647558683,111.96005126246,162.64,26" Label="TriggerableObj_Appear" />
+    <Node Id="TriggerableObj_Disappear" Category="CodeSchema_Class" Bounds="2599.72006398411,148.563109653509,177.42,26" Label="TriggerableObj_Disappear" />
+    <Node Id="TriggeredObjDb" Category="CodeSchema_Class" Bounds="2087.98090457081,391.960148399932,125.723333333333,26" Label="TriggeredObjDb" />
+    <Node Id="TriggeredObjDbData" Category="CodeSchema_Class" Bounds="2292.10242466006,447.96024714528,150.416666666667,26" Label="TriggeredObjDbData" />
+    <Node Id="UIManager" Category="CodeSchema_Class" Bounds="2841.19140457081,335.960057983249,99.7333333333331,26" Label="UIManager" />
+    <Node Id="Undead" Category="CodeSchema_Class" Bounds="521.085746188694,-369.194274902344,82.55,26" Label="Undead" UseManualLocation="True" />
+    <Node Id="UndeadAnimator" Category="CodeSchema_Class" Bounds="369.956866666667,75.9993084735849,131.7,26" Label="UndeadAnimator" />
+    <Node Id="UndeadSO" Category="CodeSchema_Class" Bounds="569.054943484043,111.9602017596,97.97,26" Label="UndeadSO" />
+    <Node Id="Util" Category="CodeSchema_Class" Bounds="1177.02010457081,335.960259249779,59.1233333333332,26" Label="Util" />
+    <Node Id="VariableJoystick" Category="CodeSchema_Class" Bounds="17.0716666666667,1374.08508789084,123.796666666667,26" Label="VariableJoystick" />
+    <Node Id="WeaponSpawner" Category="CodeSchema_Class" Bounds="1694.04727123748,335.96025708082,130.443333333333,26" Label="WeaponSpawner" />
+  </Nodes>
+  <Links>
+    <Link Source="AccquiringSkillUI" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1768.45458984375,-1449.10046386719,1315.8828125,1842.7629699707" />
+    <Link Source="AirJumpData" Target="Cooldown" Category="Aggregates" Bounds="503.499603271484,310.515686035156,575.393951416016,82.1539916992188" />
+    <Link Source="Archer" Target="ArcherAnimator" Category="Aggregates" Bounds="754.42529296875,-345.218811035156,26.76171875,392.225898742676" />
+    <Link Source="Archer" Target="ArcherSO" Category="Aggregates" Bounds="785.065094060529,-345.218811035156,206.329964562071,449.000846205408" />
+    <Link Source="Archer" Target="BaseAnimator" Category="Uses" Bounds="783.342712402344,-345.218811035156,246.736999511719,617.764068603516" />
+    <Link Source="Archer" Target="Cooldown" Category="Composes" Bounds="782.901550292969,-345.218811035156,321.218200683594,732.775817871094" />
+    <Link Source="Archer" Target="GroundMonster" Category="Inherits" Bounds="641.782962230253,-432.718238114453,113.34821566236,61.4994270792963" />
+    <Link Source="Archer" Target="Spawner" Category="Uses" Bounds="783.342712402344,-345.218811035156,428.884704589844,734.025054931641" />
+    <Link Source="Archer" Target="Util" Category="Uses" Bounds="783.342712402344,-345.218811035156,400.677429199219,675.453155517578" />
+    <Link Source="ArcherAnimator" Target="Archer" Category="Aggregates" Bounds="747.472351074219,-336.240844726563,27.0704345703125,392.200653076172" />
+    <Link Source="ArcherAnimator" Target="BaseAnimator" Category="Inherits" Bounds="759.127014160156,81.9598083496094,220.180297851563,196.635101318359" />
+    <Link Source="ArcherSO" Target="GroundMonsterSO" Category="Inherits" Bounds="774.282180433364,133.339577344396,181.286439358303,33.3445296115881" />
+    <Link Source="Arrow" Target="Bullet" Category="Inherits" Bounds="1212.70609469647,-884.227692689561,83.8059695781708,1052.18765362706" />
+    <Link Source="Arrow" Target="Util" Category="Uses" Bounds="1215.90087890625,193.9599609375,33.24072265625,135.983917236328" />
+    <Link Source="Bang" Target="Cooldown" Category="Aggregates" Bounds="1191.33186304565,300.575313235254,408.791941479087,91.7708386617963" />
+    <Link Source="Bang" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1465.16345214844,-1447.76147460938,285.694702148438,1727.72161865234" />
+    <Link Source="Bang" Target="Util" Category="Uses" Bounds="1244.32214355469,296.702514648438,355.801635742188,39.2535095214844" />
+    <Link Source="BaseAnimator" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1044.76379394531,-1448.11413574219,702.635498046875,1728.07434082031" />
+    <Link Source="Bat" Target="BaseAnimator" Category="Uses" Bounds="110.595695924494,-320.599151611328,906.227231945008,595.616202474268" />
+    <Link Source="Bat" Target="BatAnimator" Category="Aggregates" Bounds="81.0630264282227,-320.599151611328,754.024681091309,428.124534606934" />
+    <Link Source="Bat" Target="BatSO" Category="Aggregates" Bounds="110.889513328621,-320.599151611328,746.828367035685,483.666867155805" />
+    <Link Source="Bat" Target="Cooldown" Category="Composes" Bounds="109.198297868946,-320.599151611328,1000.21334175203,707.362902343372" />
+    <Link Source="Bat" Target="Monster" Category="Inherits" Bounds="110.948736214882,-545.229704954483,307.609645531791,198.630553343155" />
+    <Link Source="Bat" Target="Util" Category="Uses" Bounds="112.067084157328,-320.599151611328,1065.58649196322,651.86284768014" />
+    <Link Source="BatAnimator" Target="BaseAnimator" Category="Inherits" Bounds="895.798278808594,137.959899902344,146.691589355469,133.025054931641" />
+    <Link Source="BatAnimator" Target="Bat" Category="Aggregates" Bounds="122.287017822266,-318.881042480469,732.809539794922,430.840942382813" />
+    <Link Source="BatSO" Target="MonsterSO" Category="Inherits" Bounds="922.081973063151,190.182254533406,128.426981231059,32.2398724515389" />
+    <Link Source="Bonfire" Target="BonfireUser" Category="Aggregates" Bounds="2035.61279296875,81.9597625732422,250.54736328125,192.583969116211" />
+    <Link Source="Bonfire" Target="GameManager" Category="Uses" Bounds="1842.00488883247,78.6105581721967,127.432011395391,31.2084386177762" />
+    <Link Source="Bonfire" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1758.52059811175,-1447.73072701995,248.177377035094,1503.69048768585" />
+    <Link Source="Bonfire" Target="Interactable" Category="Implements" Bounds="2025.41296386719,81.9597625732422,94.9776611328125,138.989639282227" />
+    <Link Source="Bonfire" Target="Player" Category="Uses" Bounds="1009.18176125782,-664.187201661199,981.936023302394,720.146962327092" />
+    <Link Source="Boss" Target="Cooldown" Category="Aggregates" Bounds="825.013793945313,-529.497192382813,306.304443359375,912.592132568359" />
+    <Link Source="Boss" Target="Enemy" Category="Inherits" Bounds="640.630545170495,-667.467058483562,156.887054476652,111.969866100749" />
+    <Link Source="BossTrigger" Target="Boss" Category="Aggregates" Bounds="848.665588378906,-525.338623046875,1260.79779052734,688.88069152832" />
+    <Link Source="BossTrigger" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1759.76211056007,-1447.82590771327,358.943125648759,1611.36797619471" />
+    <Link Source="BossTrigger" Target="Player" Category="Uses" Bounds="1007.61059570313,-663.911682128906,1101.66015625,827.453750610352" />
+    <Link Source="Bullet" Target="Cooldown" Category="Aggregates" Bounds="1143.82592773438,-893.199279785156,153.9560546875,1276.85522460938" />
+    <Link Source="Bullet" Target="Damagable" Category="Uses" Bounds="1156.87194824219,-893.199279785156,140.8046875,1337.8923034668" />
+    <Link Source="Bullet" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1308.79864189111,-1449.61874595677,429.907300168407,530.419466171618" />
+    <Link Source="Bullet" Target="Util" Category="Uses" Bounds="1236.66430664063,-893.199279785156,61.0491943359375,1224.62786865234" />
+    <Link Source="BulletSpawner" Target="Spawner" Category="Inherits" Bounds="1299.89184570313,361.960052490234,709.223388671875,27.14453125" />
+    <Link Source="CameraCtrl" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1765.87512207031,-1448.63464355469,1051.00744628906,1843.74801635742" />
+    <Link Source="CastEnergyBallData" Target="Cooldown" Category="Aggregates" Bounds="660.90869140625,312.637573242188,417.92333984375,81.2525634765625" />
+    <Link Source="ClaspedMagicHand" Target="Cooldown" Category="Aggregates" Bounds="1143.82592773438,-857.730224609375,308.677001953125,1241.38616943359" />
+    <Link Source="ClaspedMagicHand" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1461.29761732698,-1448.56444383204,283.064604417501,564.834219222668" />
+    <Link Source="ClaspedMagicHand" Target="Util" Category="Uses" Bounds="1236.2529296875,-857.730224609375,216.264526367188,1188.51708984375" />
+    <Link Source="CustomItemMenu" Target="DbObj" Category="Uses" Bounds="1032.2325075212,-889.988271811102,1545.19010294434,1225.94835481891" />
+    <Link Source="CustomItemMenu" Target="HuyMonoBehaviour" Category="Uses" Bounds="1763.38537597656,-1448.24487304688,817.642211914063,1784.20495605469" />
+    <Link Source="DashData" Target="Cooldown" Category="Aggregates" Bounds="773.229125976563,310.631408691406,315.537475585938,78.4643249511719" />
+    <Link Source="DataBaseManager" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1759.92079044429,-1447.83996181258,397.721026214223,1727.79992275008" />
+    <Link Source="DataBaseManager" Target="ItemDb" Category="Composes" Bounds="1937.494140625,305.51904296875,155.901123046875,82.8224792480469" />
+    <Link Source="DataBaseManager" Target="MonsterDb" Category="Composes" Bounds="1838.06018066406,305.51904296875,255.335083007813,89.5172729492188" />
+    <Link Source="DataBaseManager" Target="PlayerDb" Category="Composes" Bounds="2064.451171875,305.9599609375,89.7080078125,83.4953308105469" />
+    <Link Source="DataBaseManager" Target="TriggeredObjDb" Category="Composes" Bounds="2135.0888671875,305.9599609375,13.803955078125,77.271728515625" />
+    <Link Source="DatabaseHandler" Target="SQLite4Unity3d.SQLiteConnection" Category="Composes" />
+    <Link Source="DbObj" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1026.08550279018,-1451.20165388782,704.341843005162,529.619561602659" />
+    <Link Source="DeadLine" Target="Damagable" Category="Uses" Bounds="1153.61254882813,361.895782470703,114.912475585938,82.5608825683594" />
+    <Link Source="DeadLine" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1275.21533203125,-1447.98828125,473.22412109375,1783.9485168457" />
+    <Link Source="DefaultButton" Target="Cooldown" Category="Aggregates" Bounds="1176.03356933594,357.741668701172,1204.70764160156,31.3102416992188" />
+    <Link Source="DefaultButton" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1762.959698635,-1448.18569526413,670.366812816024,1784.10583076217" />
+    <Link Source="DespawnByDistance" Target="IDespawnByDistance" Category="Uses" Bounds="698.425,1344.08508789084,0,21" />
+    <Link Source="DespawnByTime" Target="Cooldown" Category="Uses" Bounds="939.720031738281,305.960174560547,141.773498535156,83.5505065917969" />
+    <Link Source="DespawnByTime" Target="IDespawnByTime" Category="Uses" Bounds="373.496795654297,305.960174560547,480.236297607422,37.2998962402344" />
+    <Link Source="Door" Target="DbObj" Category="Inherits" Bounds="1030.17565257172,-889.607977166347,1191.60289225385,1057.56812120932" />
+    <Link Source="Door" Target="DoorUser" Category="Uses" Bounds="2237.65283203125,193.960144042969,37.54248046875,137.397552490234" />
+    <Link Source="Door" Target="GameManager" Category="Uses" Bounds="1834.18518066406,140.974533081055,397.032592773438,28.1896820068359" />
+    <Link Source="Door" Target="Interactable" Category="Implements" Bounds="2188.96363060297,193.960144042969,30.9768707355211,24.4272694300672" />
+    <Link Source="Door" Target="Player" Category="Uses" Bounds="1010.4607910194,-664.40071168332,1207.11240207798,832.360855726289" />
+    <Link Source="DoorManager" Target="Door" Category="Aggregates" Bounds="2278.99112099063,137.96012878418,133.005782859244,32.5751896846926" />
+    <Link Source="DoorManager" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1764.3607004394,-1448.38906916548,694.925961900202,1560.34919794966" />
+    <Link Source="DynamicJoystick" Target="Joystick" Category="Inherits" Bounds="269.559285714286,1400.08508789084,71.3967918617386,26.8336935856198" />
+    <Link Source="EffectSpawner" Target="Spawner" Category="Inherits" Bounds="1127.7788718968,361.960307879995,80.8155680283101,27.1352878430555" />
+    <Link Source="Enemy" Target="Damagable" Category="Implements" Bounds="620.750033529166,-672.695373535156,484.337260712471,1112.40410353672" />
+    <Link Source="Enemy" Target="EffectSplashable" Category="Implements" Bounds="619.363464355469,-672.695373535156,758.578918457031,1057.40893554688" />
+    <Link Source="Enemy" Target="EnemySO" Category="Uses" Bounds="619.818619247383,-672.69534753899,384.189467315314,1056.19792764596" />
+    <Link Source="Enemy" Target="Entity" Category="Inherits" Bounds="639.311834904545,-784.260700771455,159.427691400525,85.5653272362987" />
+    <Link Source="Enemy" Target="MonsterDb" Category="Uses" Bounds="629.030334472656,-672.695373535156,1129.59136962891,1058.46017456055" />
+    <Link Source="Enemy" Target="MonsterDbData" Category="Aggregates" Bounds="619.363464355469,-672.695373535156,725.233825683594,1115.70736694336" />
+    <Link Source="Enemy" Target="Util" Category="Uses" Bounds="622.521713975673,-672.695373535156,572.161502264011,1000.84229767909" />
+    <Link Source="EnemySO" Target="EntitySO" Category="Inherits" Bounds="1057.37798373777,416.237395741314,128.973133197418,31.9201089110635" />
+    <Link Source="EnemySpawner" Target="Spawner" Category="Inherits" Bounds="1001.09466552734,359.186676025391,202.804260253906,33.252685546875" />
+    <Link Source="EnergyBall" Target="Cooldown" Category="Aggregates" Bounds="1187.72937011719,302.170623779297,191.53759765625,87.2299194335938" />
+    <Link Source="EnergyBall" Target="Damagable" Category="Uses" Bounds="1153.61254882813,302.170623779297,225.654418945313,142.286041259766" />
+    <Link Source="EnergyBall" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1429.67522421596,-1447.76218222876,321.172716925182,1727.72232627173" />
+    <Link Source="EnergyBall" Target="Util" Category="Uses" Bounds="1244.86695291115,304.947711159274,135.152860001326,34.2971078600289" />
+    <Link Source="Entity" Target="Cooldown" Category="Composes" Bounds="834.169889395257,-788.516784667969,295.492819457057,1171.75041696741" />
+    <Link Source="Entity" Target="DbObj" Category="Inherits" Bounds="852.49301171751,-890.941366904559,126.991031646477,76.4245822365898" />
+    <Link Source="Entity" Target="EntitySO" Category="Uses" Bounds="835.08446474067,-788.516784667969,396.041623565366,1227.91179720981" />
+    <Link Source="EntityManager" Target="DbObj" Category="Uses" Bounds="1025.21594238281,-888.633117675781,860.43798828125,1168.59326171875" />
+    <Link Source="EntityManager" Target="Entity" Category="Uses" Bounds="845.926696777344,-781.294250488281,998.481384277344,1061.25439453125" />
+    <Link Source="EntityManager" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1756.21960449219,-1447.62658691406,129.434326171875,1727.58673095703" />
+    <Link Source="EventManager" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1774.24798505389,-1450.24163932317,1703.43013032134,1706.10747642034" />
+    <Link Source="Fan" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1763.38537597656,-1448.24487304688,737.848022460938,1840.20495605469" />
+    <Link Source="FixedJoystick" Target="Joystick" Category="Inherits" Bounds="383.97,1400.08508789084,0,20.9999999999998" />
+    <Link Source="FloatingJoystick" Target="Joystick" Category="Inherits" Bounds="426.505389614361,1400.08508789084,70.3396103856393,26.796042051672" />
+    <Link Source="Fly" Target="BaseAnimator" Category="Uses" Bounds="230.011535644531,-316.550048828125,785.274047851563,591.800415039063" />
+    <Link Source="Fly" Target="Cooldown" Category="Composes" Bounds="230.011535644531,-316.550048828125,873.859313964844,704.132873535156" />
+    <Link Source="Fly" Target="FlyAnimator" Category="Aggregates" Bounds="240.133850097656,-326.312774658203,1064.65045166016,489.990631103516" />
+    <Link Source="Fly" Target="FlySO" Category="Aggregates" Bounds="234.146331787109,-316.550048828125,739.976165771484,476.983184814453" />
+    <Link Source="Fly" Target="Monster" Category="Inherits" Bounds="225.366253243863,-543.752548925683,201.497648940739,201.202500097558" />
+    <Link Source="Fly" Target="Spawner" Category="Uses" Bounds="230.011535644531,-316.550048828125,976.330017089844,705.882843017578" />
+    <Link Source="Fly" Target="Util" Category="Uses" Bounds="234.283462524414,-316.550048828125,954.554672241211,645.825225830078" />
+    <Link Source="FlyAnimator" Target="BaseAnimator" Category="Inherits" Bounds="1090.46862792969,193.959930419922,207.933959960938,82.9788513183594" />
+    <Link Source="FlyAnimator" Target="Fly" Category="Aggregates" Bounds="248.160781860352,-315.497650146484,1051.92881774902,483.457580566406" />
+    <Link Source="FlySO" Target="MonsterSO" Category="Inherits" Bounds="1015.63129584242,193.960006713867,56.570916180792,26.2158853782826" />
+    <Link Source="GameManager" Target="Cooldown" Category="Composes" Bounds="1187.72937011719,137.375335693359,534.04736328125,252.025207519531" />
+    <Link Source="GameManager" Target="DbObj" Category="Uses" Bounds="1024.57775878906,-888.506469726563,752.12939453125,1000.46632385254" />
+    <Link Source="GameManager" Target="Door" Category="Uses" Bounds="1807.79272460938,137.959854125977,397.881103515625,36.5517120361328" />
+    <Link Source="GameManager" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1755.25807201598,-1447.61172577168,24.7168062203223,1559.57157989766" />
+    <Link Source="GameManager" Target="ItemDb" Category="Uses" Bounds="1752.71520996094,137.959854125977,123.251953125,248.397903442383" />
+    <Link Source="GameManager" Target="MonsterDb" Category="Uses" Bounds="1752.71520996094,137.959854125977,31.892822265625,245.017715454102" />
+    <Link Source="GameManager" Target="Player" Category="Composes" Bounds="1004.58624267578,-663.345642089844,772.120910644531,775.30549621582" />
+    <Link Source="GameManager" Target="PlayerDb" Category="Uses" Bounds="1824.18127441406,137.959854125977,173.820556640625,246.918746948242" />
+    <Link Source="GameManager" Target="PlayerDbData" Category="Uses" Bounds="1752.71520996094,137.959854125977,120.341552734375,302.580520629883" />
+    <Link Source="GameManager" Target="PlayerSpawner" Category="Uses" Bounds="1789.90463473018,137.959854125977,17.0487752984147,22.7931213678969" />
+    <Link Source="GameUI" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1765.6783738829,-1448.60144281672,943.447670110876,1840.56164789485" />
+    <Link Source="Goblin" Target="BaseAnimator" Category="Uses" Bounds="679.044387115718,-344.206573486328,353.155988531879,616.357788742025" />
+    <Link Source="Goblin" Target="Cooldown" Category="Composes" Bounds="679.522033691406,-344.206573486328,451.796203613281,727.301513671875" />
+    <Link Source="Goblin" Target="Damagable" Category="Implements" Bounds="677.487365722656,-344.206573486328,418.315368652344,785.641906738281" />
+    <Link Source="Goblin" Target="GoblinAnimator" Category="Aggregates" Bounds="595.929748535156,-344.206573486328,70.6983642578125,391.378150939941" />
+    <Link Source="Goblin" Target="GoblinSO" Category="Aggregates" Bounds="673.512698294361,-344.206573486328,65.9524334601471,447.26294018871" />
+    <Link Source="Goblin" Target="GroundMonster" Category="Inherits" Bounds="623.534882888755,-429.514945834763,39.4202148852778,59.3083723484347" />
+    <Link Source="Goblin" Target="Util" Category="Uses" Bounds="679.522033691406,-344.206573486328,499.926086425781,675.197479248047" />
+    <Link Source="GoblinAnimator" Target="BaseAnimator" Category="Inherits" Bounds="617.692138671875,81.9600982666016,361.615173339844,196.634811401367" />
+    <Link Source="GoblinAnimator" Target="Goblin" Category="Aggregates" Bounds="600.134704589844,-335.304595947266,71.2347412109375,391.264694213867" />
+    <Link Source="GoblinSO" Target="GroundMonsterSO" Category="Inherits" Bounds="713.065962425367,137.96008682251,18.9437478654969,23.0474381276167" />
+    <Link Source="GroundMonster" Target="GroundMonsterSO" Category="Uses" Bounds="611.699721649939,-437.010314941406,81.9528458913519,596.054492633622" />
+    <Link Source="GroundMonster" Target="Monster" Category="Inherits" Bounds="472.466924386604,-544.99513509901,118.634075086441,81.984820157604" />
+    <Link Source="GroundMonster" Target="Util" Category="Uses" Bounds="610.341125488281,-437.010314941406,590.193298339844,764.301849365234" />
+    <Link Source="GroundMonsterSO" Target="MonsterSO" Category="Inherits" Bounds="767.020874023438,189.259613037109,285.224853515625,33.6460723876953" />
+    <Link Source="IDespawnByTime" Target="Cooldown" Category="Uses" Bounds="364.522827148438,352.571044921875,715.191528320313,39.6171569824219" />
+    <Link Source="InitForwardVelObj" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1768.44396972656,-1449.09851074219,1209.21301269531,1841.05871582031" />
+    <Link Source="InputManager" Target="Cooldown" Category="Composes" Bounds="1175.97619628906,305.9599609375,784.7216796875,82.928955078125" />
+    <Link Source="InputManager" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1756.21960449219,-1447.62658691406,211.83203125,1727.58654785156" />
+    <Link Source="Interactable" Target="Player" Category="Uses" Bounds="1009.13818359375,-662.8857421875,1138.85473632813,886.845993041992" />
+    <Link Source="Item" Target="DbObj" Category="Inherits" Bounds="1019.54789252743,-887.569970314036,98.3875697847758,192.290079223064" />
+    <Link Source="Item" Target="ItemDb" Category="Uses" Bounds="1128.46020507813,-669.279907226563,743.612670898438,1056.29409790039" />
+    <Link Source="Item" Target="ItemDbData" Category="Composes" Bounds="1128.46020507813,-669.279907226563,608.1083984375,1109.3415222168" />
+    <Link Source="Item" Target="ItemSO" Category="Aggregates" Bounds="1128.46020507813,-669.279907226563,360.294921875,1110.36187744141" />
+    <Link Source="Item" Target="ItemUser" Category="Uses" Bounds="1128.46020507813,-669.279907226563,481.756591796875,1109.25823974609" />
+    <Link Source="ItemDb" Target="DatabaseHandler" Category="Inherits" Bounds="1920.88330078125,417.960357666016,55.5264892578125,78.5023193359375" />
+    <Link Source="ItemDb" Target="ItemDbData" Category="Uses" Bounds="1791.56277610894,417.960357666016,72.6514013876533,26.8773831311407" />
+    <Link Source="ItemDb" Target="SQLite4Unity3d.SQLiteConnection" Category="Uses" />
+    <Link Source="ItemDbData" Target="DbData" Category="Inherits" Bounds="1772.45570712364,473.96045708082,48.529654370612,25.7781193229475" />
+    <Link Source="ItemSpawner" Target="Spawner" Category="Inherits" Bounds="1299.8779296875,361.960266113281,567.61279296875,27.1032104492188" />
+    <Link Source="ItemTrigger_OnPickedUp" Target="Item" Category="Aggregates" Bounds="1142.50134277344,-662.628845214844,837.142578125,882.171005249023" />
+    <Link Source="ItemTrigger_OnPickedUp" Target="ObjTrigger" Category="Inherits" Bounds="2047.58203125,245.54216003418,335.4013671875,35.5091400146484" />
+    <Link Source="JoyStick" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1766.57373254191,-1448.75569999192,966.88996382916,1728.71572196457" />
+    <Link Source="JoystickPlayerExample" Target="VariableJoystick" Category="Aggregates" Bounds="78.97,1344.08508789084,1.4210854715202E-14,21" />
+    <Link Source="JoystickSetterExample" Target="VariableJoystick" Category="Aggregates" Bounds="131.238328295134,1344.08508789084,92.0888145620093,27.4307107205987" />
+    <Link Source="JumpPad" Target="Damagable" Category="Uses" Bounds="1156.93530273438,413.310119628906,329.268432617188,31.5504455566406" />
+    <Link Source="JumpPad" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1339.73413085938,-1447.93603515625,409.182861328125,1839.89636230469" />
+    <Link Source="Katana" Target="Cooldown" Category="Composes" Bounds="1191.47229003906,353.246215820313,395.438232421875,41.3768005371094" />
+    <Link Source="Katana" Target="Damagable" Category="Uses" Bounds="1156.94848632813,357.444213867188,429.962036132813,87.4525146484375" />
+    <Link Source="Katana" Target="EffectSplashable" Category="Uses" Bounds="1455.33639125582,358.239421776515,131.574157246782,31.6554276743022" />
+    <Link Source="Katana" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1626.40411223593,-1447.63330373583,126.941153235445,1783.59356984911" />
+    <Link Source="Katana" Target="KatanaSO" Category="Aggregates" Bounds="1652.8466796875,361.960266113281,687.41162109375,35.5591430664063" />
+    <Link Source="MagicBall" Target="Bullet" Category="Inherits" Bounds="1103.86975097656,-884.334838867188,190.55419921875,1052.29484558105" />
+    <Link Source="MagicBall" Target="Util" Category="Uses" Bounds="1121.69580078125,193.960006713867,128.635864257813,137.228622436523" />
+    <Link Source="MagicHand" Target="BaseAnimator" Category="Uses" Bounds="1107.63061523438,240.43278503418,571.035522460938,38.9279022216797" />
+    <Link Source="MagicHand" Target="Cooldown" Category="Aggregates" Bounds="1191.45739746094,249.960052490234,491.94384765625,144.104125976563" />
+    <Link Source="MagicHand" Target="Damagable" Category="Uses" Bounds="1173.89306640625,249.960052490234,509.508178710938,200.941162109375" />
+    <Link Source="MagicHand" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1733.40380859375,-1447.62609863281,108.595336914063,1671.58615112305" />
+    <Link Source="MagicHand" Target="MagicHandAnimator" Category="Aggregates" Bounds="1612.94860839844,146.912948608398,65.717529296875,83.0263824462891" />
+    <Link Source="MagicHand" Target="Util" Category="Uses" Bounds="1236.908203125,249.960052490234,452.588134765625,81.9156494140625" />
+    <Link Source="MagicHandAnimator" Target="BaseAnimator" Category="Inherits" Bounds="1098.388671875,137.959854125977,474.934692382813,139.53337097168" />
+    <Link Source="MagicHandAnimator" Target="MagicHand" Category="Aggregates" Bounds="1618.03479003906,137.959854125977,53.1312255859375,83.2587585449219" />
+    <Link Source="Map1Manager" Target="Bat" Category="Composes" Bounds="128.512267724346,-323.089027158099,1359.51073212461,379.048787823992" />
+    <Link Source="Map1Manager" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1536.51035846992,-1447.70142710123,215.262571570521,1503.66118776712" />
+    <Link Source="Map2EventManager" Target="EventManager" Category="Inherits" Bounds="3511.93402641272,287.859432738272,53.881518372888,48.1006197519624" />
+    <Link Source="Map2Manager" Target="Fly" Category="Composes" Bounds="248.823206952316,-319.709787877794,1392.53739657129,375.669548543688" />
+    <Link Source="Map2Manager" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1690.10144921325,-1447.61870564242,63.8737339573777,1503.57846630832" />
+    <Link Source="MobileAccquiringSkillUI" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1771.59990822647,-1449.71559166394,1545.04121323954,1841.67570518933" />
+    <Link Source="MobileUI" Target="DefaultButton" Category="Aggregates" Bounds="2460.41481594661,249.959915161133,94.5538683790114,80.1410738780496" />
+    <Link Source="MobileUI" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1763.38537597656,-1448.24487304688,781.389282226563,1672.20478820801" />
+    <Link Source="MobileUI" Target="JoyStick" Category="Aggregates" Bounds="2609.87024420447,249.959917018936,83.1467152921191,27.3207781823211" />
+    <Link Source="Monster" Target="Damagable" Category="Implements" Bounds="454.833099365234,-550.11181640625,646.963531494141,990.376190185547" />
+    <Link Source="Monster" Target="Enemy" Category="Inherits" Bounds="464.15691281461,-667.407671385923,125.744772060014,91.2958549796726" />
+    <Link Source="Monster" Target="Katana" Category="Uses" Bounds="463.059419461285,-550.11181640625,1138.49255121062,880.565838822816" />
+    <Link Source="Monster" Target="MonsterSO" Category="Uses" Bounds="454.833099365234,-550.11181640625,637.134552001953,767.129592895508" />
+    <Link Source="MonsterDb" Target="DatabaseHandler" Category="Inherits" Bounds="1785.66760253906,417.960357666016,130.863525390625,84.763916015625" />
+    <Link Source="MonsterDb" Target="MonsterDbData" Category="Uses" Bounds="1428.88977050781,417.960357666016,312.967529296875,27.5989685058594" />
+    <Link Source="MonsterDb" Target="SQLite4Unity3d.SQLiteConnection" Category="Uses" />
+    <Link Source="MonsterDbData" Target="DbData" Category="Inherits" Bounds="1436.51171875,469.940216064453,367.36572265625,41.767333984375" />
+    <Link Source="MonsterSO" Target="EnemySO" Category="Inherits" Bounds="1033.11633300781,249.960052490234,75.9696044921875,136.011840820313" />
+    <Link Source="MonsterTrigger_OnDead" Target="Monster" Category="Aggregates" Bounds="497.023376464844,-551.909912109375,1430.17364501953,663.869766235352" />
+    <Link Source="MonsterTrigger_OnDead" Target="ObjTrigger" Category="Inherits" Bounds="2040.59924316406,133.590896606445,376.885375976563,136.256698608398" />
+    <Link Source="MushroomMan" Target="BaseAnimator" Category="Uses" Bounds="442.061986668311,-342.181945800781,583.546871957481,615.610362505623" />
+    <Link Source="MushroomMan" Target="Cooldown" Category="Composes" Bounds="442.801574707031,-342.181945800781,688.516662597656,725.276885986328" />
+    <Link Source="MushroomMan" Target="Damagable" Category="Uses" Bounds="440.643940680267,-342.181945800781,657.015498289356,783.24715499086" />
+    <Link Source="MushroomMan" Target="GroundMonster" Category="Inherits" Bounds="454.438989331873,-432.818585060263,122.809166163137,64.6366392594821" />
+    <Link Source="MushroomMan" Target="MushroomManAnimator" Category="Aggregates" Bounds="264.513763427734,-342.181945800781,163.450836181641,433.86897277832" />
+    <Link Source="MushroomMan" Target="MushroomManSO" Category="Aggregates" Bounds="84.2277748581216,-342.181945800781,335.745714620349,446.946295164656" />
+    <Link Source="MushroomMan" Target="Util" Category="Uses" Bounds="442.801574707031,-342.181945800781,736.646545410156,673.1728515625" />
+    <Link Source="MushroomManAnimator" Target="BaseAnimator" Category="Inherits" Bounds="311.175788334344,126.208274841309,668.529534103058,152.096269570429" />
+    <Link Source="MushroomManAnimator" Target="MushroomMan" Category="Aggregates" Bounds="255.281051635742,-333.779174804688,163.033218383789,433.987449645996" />
+    <Link Source="MushroomManSO" Target="GroundMonsterSO" Category="Inherits" Bounds="138.11333017985,131.12196889324,479.233147414613,42.7608456833978" />
+    <Link Source="NoSaveTriggerableObj" Target="TriggerableObj" Category="Inherits" Bounds="2767.72729492188,233.1748046875,61.5283203125,95.2276000976563" />
+    <Link Source="NoSaveTriggerableObj_Appear" Target="NoSaveTriggerableObj" Category="Inherits" Bounds="2857.59251981963,142.584853072162,60.4158637161431,58.338288469922" />
+    <Link Source="ObjTrigger" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1763.24689477576,-1448.22530630577,672.049145384545,1723.76742056358" />
+    <Link Source="ObjTrigger" Target="TriggerableObj" Category="Aggregates" Bounds="2488.81176757813,298.777587890625,195.739501953125,35.7396240234375" />
+    <Link Source="PathManager" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1769.46863013171,-1449.2951892797,1236.4246722803,1725.25508469651" />
+    <Link Source="PathManager" Target="PathManager.Path" Category="Contains">
+      <Category Ref="Composes" />
+    </Link>
+    <Link Source="PauseUI" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1763.38537597656,-1448.24487304688,804.773803710938,1840.20498657227" />
+    <Link Source="Player" Target="AirJumpData" Category="Composes" Bounds="457.781402587891,-669.509765625,516.474884033203,950.916351318359" />
+    <Link Source="Player" Target="BaseAnimator" Category="Uses" Bounds="983.976196289063,-669.509765625,57.816650390625,940.521850585938" />
+    <Link Source="Player" Target="BonfireUser" Category="Implements" Bounds="1003.37158203125,-669.509765625,1285.107421875,943.640686035156" />
+    <Link Source="Player" Target="CastEnergyBallData" Category="Composes" Bounds="613.443308219109,-669.509765625,365.738519045576,947.750851980558" />
+    <Link Source="Player" Target="Cooldown" Category="Composes" Bounds="983.747802734375,-669.509765625,147.570434570313,1052.60470581055" />
+    <Link Source="Player" Target="Damagable" Category="Implements" Bounds="983.747802734375,-669.509765625,127.763061523438,1109.94842529297" />
+    <Link Source="Player" Target="DashData" Category="Composes" Bounds="758.055873059627,-669.509765625,223.075154671068,945.381727933308" />
+    <Link Source="Player" Target="DoorUser" Category="Implements" Bounds="998.215026855469,-669.509765625,1269.13653564453,1001.79647827148" />
+    <Link Source="Player" Target="Entity" Category="Inherits" Bounds="854.747752316212,-782.998018244662,112.703958558814,87.4882526196621" />
+    <Link Source="Player" Target="Interactable" Category="Uses" Bounds="994.921997070313,-669.509765625,1128.02600097656,890.231674194336" />
+    <Link Source="Player" Target="Item" Category="Uses" Bounds="1020.69354736328,-682.450008097192,62.4568692726079,0.102267929918071" />
+    <Link Source="Player" Target="ItemUser" Category="Implements" Bounds="991.439945285084,-669.509765625,618.085466428738,1109.6077235835" />
+    <Link Source="Player" Target="JumpPad" Category="Uses" Bounds="990.731343759554,-669.509765625,529.371778548136,1053.42837946884" />
+    <Link Source="Player" Target="Katana" Category="Aggregates" Bounds="992.280841653592,-669.509765625,620.363824321944,997.826783646554" />
+    <Link Source="Player" Target="PlayerAnimator" Category="Aggregates" Bounds="971.555786132813,-669.509765625,15.1527709960938,884.482009887695" />
+    <Link Source="Player" Target="PlayerDb" Category="Uses" Bounds="998.215026855469,-669.509765625,1000.31243896484,1054.2848815918" />
+    <Link Source="Player" Target="PlayerDbData" Category="Aggregates" Bounds="994.463246890616,-669.509765625,876.768530480251,1110.40667735967" />
+    <Link Source="Player" Target="PlayerSO" Category="Aggregates" Bounds="892.227172851563,-669.509765625,90.7865600585938,1052.47222900391" />
+    <Link Source="Player" Target="Spawner" Category="Uses" Bounds="987.869506835938,-669.509765625,267.530883789063,1052.47192382813" />
+    <Link Source="Player" Target="Spike" Category="Uses" Bounds="989.708760491993,-669.509765625,422.685676753215,997.223459317737" />
+    <Link Source="Player" Target="SpikeUser" Category="Implements" Bounds="991.330200195313,-669.509765625,621.788696289063,1057.97897338867" />
+    <Link Source="Player" Target="TeleDoor" Category="Uses" Bounds="998.215026855469,-669.509765625,1171.69732666016,998.295959472656" />
+    <Link Source="Player" Target="TeleDoorUser" Category="Implements" Bounds="998.215026855469,-669.509765625,995.576232910156,1113.53854370117" />
+    <Link Source="Player" Target="Util" Category="Uses" Bounds="987.719299316406,-669.509765625,261.269470214844,999.453643798828" />
+    <Link Source="PlayerAnimator" Target="BaseAnimator" Category="Inherits" Bounds="984.932050148069,249.960107879995,34.014850023694,24.7104262798157" />
+    <Link Source="PlayerAnimator" Target="Player" Category="Aggregates" Bounds="965.069274902344,-660.516235351563,15.2944946289063,884.476348876953" />
+    <Link Source="PlayerCollidable" Target="Player" Category="Uses" Bounds="996.898225628185,-661.841671411945,406.673776462165,661.841327833219" />
+    <Link Source="PlayerDb" Target="DatabaseHandler" Category="Inherits" Bounds="1964.51416015625,417.960357666016,29.366943359375,77.7744445800781" />
+    <Link Source="PlayerDb" Target="PlayerDbData" Category="Uses" Bounds="1924.71287623352,417.960357666016,59.6321632554457,26.3612170357427" />
+    <Link Source="PlayerDb" Target="SQLite4Unity3d.SQLiteConnection" Category="Uses" />
+    <Link Source="PlayerDbData" Target="DbData" Category="Inherits" Bounds="1865.85991405114,473.96045708082,13.3984572792276,22.2867030448849" />
+    <Link Source="PlayerSO" Target="EntitySO" Category="Inherits" Bounds="935.963256835938,413.734283447266,250.225708007813,36.9591064453125" />
+    <Link Source="PlayerSpawner" Target="DbObj" Category="Uses" Bounds="1025.21594238281,-888.633117675781,824.72412109375,1056.59307861328" />
+    <Link Source="PlayerSpawner" Target="Player" Category="Uses" Bounds="1004.96484375,-663.418640136719,844.975219726563,831.378601074219" />
+    <Link Source="PlayerSpawner" Target="PlayerDbData" Category="Uses" Bounds="1795.16821289063,193.9599609375,77.8885498046875,246.580413818359" />
+    <Link Source="PlayerSpawner" Target="Spawner" Category="Inherits" Bounds="1306.44567871094,189.786163330078,456.40380859375,200.179382324219" />
+    <Link Source="Reaper" Target="BaseAnimator" Category="Uses" Bounds="821.042114257813,-434.660675048828,220.775634765625,705.670135498047" />
+    <Link Source="Reaper" Target="Boss" Category="Inherits" Bounds="816.015368354255,-520.497935725379,0.769107155323127,59.837260676551" />
+    <Link Source="Reaper" Target="Cooldown" Category="Aggregates" Bounds="820.960083007813,-434.660675048828,310.358154296875,817.755615234375" />
+    <Link Source="Reaper" Target="Damagable" Category="Uses" Bounds="820.960083007813,-434.660675048828,290.55078125,875.099334716797" />
+    <Link Source="Reaper" Target="ReaperAnimator" Category="Aggregates" Bounds="826.435974121094,-434.660675048828,225.005187988281,482.413959503174" />
+    <Link Source="Reaper" Target="Spawner" Category="Uses" Bounds="820.960083007813,-434.660675048828,391.0009765625,823.469451904297" />
+    <Link Source="Reaper" Target="TeleLightning" Category="Aggregates" Bounds="820.960083007813,-434.660675048828,346.589599609375,708.309509277344" />
+    <Link Source="Reaper" Target="Util" Category="Uses" Bounds="820.960083007813,-434.660675048828,347.945922851563,769.111206054688" />
+    <Link Source="ReaperAnimator" Target="BaseAnimator" Category="Inherits" Bounds="1045.45566780473,81.9598083496094,11.4554085015163,189.016879799734" />
+    <Link Source="ReaperAnimator" Target="Reaper" Category="Aggregates" Bounds="823.651611328125,-426.528564453125,224.904418945313,482.488372802734" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.AutoIncrementAttribute" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.BaseTableQuery" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.CollationAttribute" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.ColumnAttribute" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.IgnoreAttribute" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.IndexedAttribute" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.MaxLengthAttribute" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.NotNullAttribute" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.NotNullConstraintViolationException" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.Orm" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.PreparedSqlLiteInsertCommand" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.PrimaryKeyAttribute" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.SQLite3" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.SQLiteCommand" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.SQLiteConnection" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.SQLiteConnectionString" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.SQLiteException" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.TableAttribute" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.TableMapping" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.TableQuery&lt;T&gt;" Category="Contains" />
+    <Link Source="SQLite4Unity3d" Target="SQLite4Unity3d.UniqueAttribute" Category="Contains" />
+    <Link Source="SQLite4Unity3d.BaseTableQuery" Target="SQLite4Unity3d.BaseTableQuery.Ordering" Category="Contains" />
+    <Link Source="SQLite4Unity3d.NotNullConstraintViolationException" Target="SQLite4Unity3d.SQLiteException" Category="Inherits" Bounds="2377.61254882813,691.285217285156,146.9697265625,525.119689941406" />
+    <Link Source="SQLite4Unity3d.NotNullConstraintViolationException" Target="SQLite4Unity3d.TableMapping" Category="Aggregates" />
+    <Link Source="SQLite4Unity3d.NotNullConstraintViolationException" Target="SQLite4Unity3d.TableMapping.Column" Category="Aggregates" />
+    <Link Source="SQLite4Unity3d.Orm" Target="SQLite4Unity3d.CollationAttribute" Category="Uses" Bounds="3005.66732626017,1102.03521735413,7.33465967641678E-05,52.6875000000086" />
+    <Link Source="SQLite4Unity3d.Orm" Target="SQLite4Unity3d.IndexedAttribute" Category="Uses" Bounds="2874.75857324947,1102.03521735413,106.743466414317,57.4236852851423" />
+    <Link Source="SQLite4Unity3d.Orm" Target="SQLite4Unity3d.MaxLengthAttribute" Category="Uses" Bounds="3031.1670251302,1102.03521735413,112.982411149584,57.5997630239617" />
+    <Link Source="SQLite4Unity3d.Orm" Target="SQLite4Unity3d.TableMapping.Column" Category="Uses" />
+    <Link Source="SQLite4Unity3d.PreparedSqlLiteInsertCommand" Target="SQLite4Unity3d.NotNullConstraintViolationException" Category="Uses" Bounds="2390.91626084522,698.268031789059,140.180185082655,172.392185565068" />
+    <Link Source="SQLite4Unity3d.PreparedSqlLiteInsertCommand" Target="SQLite4Unity3d.SQLite3" Category="Uses" Bounds="2541.80043137675,896.660217354127,2.64166573201828,258.062971501113" />
+    <Link Source="SQLite4Unity3d.PreparedSqlLiteInsertCommand" Target="SQLite4Unity3d.SQLiteCommand" Category="Uses" Bounds="2464.26754828657,896.660217354127,70.8800274938058,141.329957733403" />
+    <Link Source="SQLite4Unity3d.PreparedSqlLiteInsertCommand" Target="SQLite4Unity3d.SQLiteConnection" Category="Aggregates" Bounds="2540.34936523438,896.660217285156,27.72216796875,26.5066528320313" />
+    <Link Source="SQLite4Unity3d.PreparedSqlLiteInsertCommand" Target="SQLite4Unity3d.SQLiteException" Category="Uses" Bounds="2543.908203125,896.660217285156,44.573486328125,319.800109863281" />
+    <Link Source="SQLite4Unity3d.SQLite3" Target="SQLite4Unity3d.SQLiteException" Category="Uses" Bounds="2544.66730938825,1189.72271735413,2.40040430981026E-05,22.6874500000049" />
+    <Link Source="SQLite4Unity3d.SQLiteCommand" Target="SQLite4Unity3d.NotNullConstraintViolationException" Category="Uses" Bounds="2378.07845614013,700.177918006266,53.8889394223047,345.857199347861" />
+    <Link Source="SQLite4Unity3d.SQLiteCommand" Target="SQLite4Unity3d.SQLite3" Category="Uses" Bounds="2490.64749038796,1132.03531735413,31.3701932047074,25.9507113258819" />
+    <Link Source="SQLite4Unity3d.SQLiteCommand" Target="SQLite4Unity3d.SQLiteCommand.Binding" Category="Contains">
+      <Category Ref="Composes" />
+    </Link>
+    <Link Source="SQLite4Unity3d.SQLiteCommand" Target="SQLite4Unity3d.SQLiteConnection" Category="Aggregates" Bounds="2501.61791992188,1013.65252685547,63.41455078125,32.3826293945313" />
+    <Link Source="SQLite4Unity3d.SQLiteCommand" Target="SQLite4Unity3d.SQLiteException" Category="Uses" Bounds="2465.52856445313,1132.03527832031,53.37744140625,82.684814453125" />
+    <Link Source="SQLite4Unity3d.SQLiteCommand" Target="SQLite4Unity3d.TableMapping" Category="Uses" />
+    <Link Source="SQLite4Unity3d.SQLiteCommand" Target="SQLite4Unity3d.TableMapping.Column" Category="Uses" />
+    <Link Source="SQLite4Unity3d.SQLiteConnection" Target="SQLite4Unity3d.NotNullConstraintViolationException" Category="Uses" Bounds="2379.60131835938,700.062744140625,193.079345703125,249.019470214844" />
+    <Link Source="SQLite4Unity3d.SQLiteConnection" Target="SQLite4Unity3d.Orm" Category="Uses" Bounds="2728.65402333566,997.20139131286,236.26923091151,78.3265643161251" />
+    <Link Source="SQLite4Unity3d.SQLiteConnection" Target="SQLite4Unity3d.PreparedSqlLiteInsertCommand" Category="Uses" Bounds="2555.68090820313,902.815734863281,20.671630859375,25.7115478515625" />
+    <Link Source="SQLite4Unity3d.SQLiteConnection" Target="SQLite4Unity3d.SQLite3" Category="Uses" Bounds="2555.5047650714,1014.34781735413,72.9689788184387,141.377315055192" />
+    <Link Source="SQLite4Unity3d.SQLiteConnection" Target="SQLite4Unity3d.SQLiteCommand" Category="Composes" Bounds="2521.01293945313,1013.98217773438,54.790771484375,30.3487548828125" />
+    <Link Source="SQLite4Unity3d.SQLiteConnection" Target="SQLite4Unity3d.SQLiteConnection.ColumnInfo" Category="Contains">
+      <Category Ref="Uses" />
+    </Link>
+    <Link Source="SQLite4Unity3d.SQLiteConnection" Target="SQLite4Unity3d.SQLiteException" Category="Uses" Bounds="2571.92504882813,1014.34783935547,68.53125,202.112487792969" />
+    <Link Source="SQLite4Unity3d.SQLiteConnection" Target="SQLite4Unity3d.TableMapping" Category="Composes" />
+    <Link Source="SQLite4Unity3d.SQLiteConnection" Target="SQLite4Unity3d.TableMapping.Column" Category="Composes" />
+    <Link Source="SQLite4Unity3d.TableMapping" Target="SQLite4Unity3d.PreparedSqlLiteInsertCommand" Category="Composes" Bounds="2580.95153847035,824.510313546312,101.697484865306,42.6679339910357" />
+    <Link Source="SQLite4Unity3d.TableMapping" Target="SQLite4Unity3d.SQLiteConnection" Category="Uses" Bounds="2688.38696289063,838.972839355469,26.966552734375,81.3512573242188" />
+    <Link Source="SQLite4Unity3d.TableMapping" Target="SQLite4Unity3d.TableMapping.Column" Category="Contains">
+      <Category Ref="Composes" />
+    </Link>
+    <Link Source="SQLite4Unity3d.TableMapping.Column" Target="SQLite4Unity3d.IndexedAttribute" Category="Aggregates" />
+    <Link Source="SQLite4Unity3d.TableQuery&lt;T&gt;" Target="SQLite4Unity3d.BaseTableQuery" Category="Inherits" />
+    <Link Source="SQLite4Unity3d.TableQuery&lt;T&gt;" Target="SQLite4Unity3d.BaseTableQuery.Ordering" Category="Composes" />
+    <Link Source="SQLite4Unity3d.TableQuery&lt;T&gt;" Target="SQLite4Unity3d.SQLiteCommand" Category="Uses" Bounds="2474.85913085938,721.285339355469,204.42529296875,317.444030761719" />
+    <Link Source="SQLite4Unity3d.TableQuery&lt;T&gt;" Target="SQLite4Unity3d.SQLiteConnection" Category="Aggregates" Bounds="2653.02270507813,721.285339355469,26.26171875,198.071472167969" />
+    <Link Source="SQLite4Unity3d.TableQuery&lt;T&gt;" Target="SQLite4Unity3d.TableMapping" Category="Aggregates" Bounds="2750.66735666899,721.285317354127,0,22.6873000000001" />
+    <Link Source="SQLite4Unity3d.TableQuery&lt;T&gt;" Target="SQLite4Unity3d.TableQuery&lt;T&gt;.CompileResult" Category="Contains" />
+    <Link Source="SQLite4Unity3d.UniqueAttribute" Target="SQLite4Unity3d.IndexedAttribute" Category="Inherits" Bounds="2851.65152344292,1102.03521735413,22.530331751138,53.3954520115583" />
+    <Link Source="SaveTriggerableObj" Target="TriggerableObj" Category="Inherits" Bounds="2633.31155084995,305.960017018936,74.0429237290305,26.9244387442185" />
+    <Link Source="SaveTriggerableObj" Target="TriggeredObjDb" Category="Uses" Bounds="2222.59545898438,303.352783203125,303.111572265625,90.3515625" />
+    <Link Source="SaveTriggerableObj" Target="TriggeredObjDbData" Category="Aggregates" Bounds="2409.13745117188,305.960021972656,166.327392578125,138.717834472656" />
+    <Link Source="SlashWave" Target="Bullet" Category="Inherits" Bounds="1305.2138671875,-884.63330078125,388.996704101563,1052.59326171875" />
+    <Link Source="SlashWave" Target="Cooldown" Category="Aggregates" Bounds="1187.72937011719,193.9599609375,455.198608398438,195.440582275391" />
+    <Link Source="Slime" Target="Cooldown" Category="Aggregates" Bounds="1191.46616384718,299.499558992775,506.501145723134,94.9069363556632" />
+    <Link Source="Slime" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1756.06164550781,-1447.62658691406,135.358764648438,1727.58666992188" />
+    <Link Source="Slime" Target="Util" Category="Uses" Bounds="1245.09293187991,296.673668707913,452.874377690403,48.1887625482233" />
+    <Link Source="SoundWave" Target="MagicBall" Category="Inherits" Bounds="1154.09159486429,135.610935828658,166.008865365186,34.0764796337612" />
+    <Link Source="SoundWave" Target="Spawner" Category="Uses" Bounds="1256.91906738281,137.959838867188,73.9102783203125,245.01123046875" />
+    <Link Source="Spawner" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1256.47937011719,-1447.98828125,491.960083007813,1839.94860839844" />
+    <Link Source="Spike" Target="Damagable" Category="Uses" Bounds="1173.89306640625,360.090118408203,212.942260742188,90.8110961914063" />
+    <Link Source="Spike" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1339.73413085938,-1447.93603515625,409.182861328125,1783.93609619141" />
+    <Link Source="Spike" Target="SpikeUser" Category="Uses" Bounds="1456.20359781901,357.451635374811,140.492955542424,34.1333841883272" />
+    <Link Source="SpikeUser" Target="Damagable" Category="Uses" Bounds="1156.96557617188,417.960052490234,457.495849609375,26.9841003417969" />
+    <Link Source="StartUI" Target="GameManager" Category="Uses" Bounds="1848.69970703125,77.0023040771484,229.550537109375,37.339958190918" />
+    <Link Source="StartUI" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1760.02603637468,-1447.84951440075,353.585894843398,1503.80966607311" />
+    <Link Source="TeleDoor" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1760.05756196225,-1447.85241150534,422.062470220522,1783.81246399557" />
+    <Link Source="TeleDoor" Target="TeleDoorUser" Category="Uses" Bounds="2045.20764160156,361.822082519531,97.9771728515625,79.0202941894531" />
+    <Link Source="TeleLightning" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1197.57092285156,-1447.98254394531,550.919921875,1727.94268798828" />
+    <Link Source="TriggerableObj" Target="DbObj" Category="Inherits" Bounds="1034.1111890169,-890.315766279807,1699.43561461479,1226.2758798052" />
+    <Link Source="TriggerableObj_Appear" Target="SaveTriggerableObj" Category="Inherits" Bounds="2319.59784649677,137.960052490234,246.789762512168,137.616743582198" />
+    <Link Source="TriggerableObj_Disappear" Target="SaveTriggerableObj" Category="Inherits" Bounds="2611.67063423732,174.563109653509,67.7691483462727,97.9945887401064" />
+    <Link Source="TriggeredObjDb" Target="DatabaseHandler" Category="Inherits" Bounds="2040.40051269531,417.960144042969,101.394165039063,83.3269348144531" />
+    <Link Source="TriggeredObjDb" Target="SQLite4Unity3d.SQLiteConnection" Category="Uses" />
+    <Link Source="TriggeredObjDb" Target="TriggeredObjDbData" Category="Uses" Bounds="2201.09412996868,417.960144042969,107.25214743128,27.7460077874262" />
+    <Link Source="TriggeredObjDbData" Target="DbData" Category="Inherits" Bounds="1901.0751953125,467.800415039063,391.02734375,35.5638732910156" />
+    <Link Source="UIManager" Target="HuyMonoBehaviour" Category="Inherits" Bounds="1767.79971213903,-1448.97771137985,1115.13666664556,1784.93776387008" />
+    <Link Source="Undead" Target="BaseAnimator" Category="Uses" Bounds="572.008548167039,-343.194274902344,457.10343278705,615.927300287621" />
+    <Link Source="Undead" Target="Cooldown" Category="Composes" Bounds="570.373474121094,-343.194274902344,533.746276855469,730.751281738281" />
+    <Link Source="Undead" Target="Damagable" Category="Implements" Bounds="570.395385742188,-343.194274902344,526.576904296875,784.396606445313" />
+    <Link Source="Undead" Target="GroundMonster" Category="Inherits" Bounds="568.949923244815,-428.982618045535,30.3043060663575,59.7883431431908" />
+    <Link Source="Undead" Target="UndeadAnimator" Category="Aggregates" Bounds="438.771942138672,-343.194274902344,116.631683349609,410.528450012207" />
+    <Link Source="Undead" Target="UndeadSO" Category="Aggregates" Bounds="565.391174316406,-343.194274902344,96.5840454101563,450.128524780273" />
+    <Link Source="Undead" Target="Util" Category="Uses" Bounds="576.19287109375,-343.194274902344,624.341552734375,670.485809326172" />
+    <Link Source="UndeadAnimator" Target="BaseAnimator" Category="Inherits" Bounds="456.179626464844,101.999305725098,522.45556640625,177.36190032959" />
+    <Link Source="UndeadAnimator" Target="Undead" Category="Aggregates" Bounds="442.571624755859,-334.561004638672,116.543975830078,410.56031036377" />
+    <Link Source="UndeadSO" Target="GroundMonsterSO" Category="Inherits" Bounds="636.292338912274,137.960205078125,34.7903948357172,24.7789107026175" />
+    <Link Source="Util" Target="Cooldown" Category="Uses" Bounds="1158.80919675398,361.960259249779,31.1883327856337,24.4478061523535" />
+    <Link Source="Util" Target="Spawner" Category="Uses" Bounds="1218.01752313733,361.960259249779,20.4458563911232,23.2425585490354" />
+    <Link Source="VariableJoystick" Target="Joystick" Category="Inherits" Bounds="140.567359219484,1398.39476696064,193.703944395599,35.5653143808311" />
+    <Link Source="WeaponSpawner" Target="Spawner" Category="Inherits" Bounds="1308.01172913505,356.215397951793,386.035525096723,42.9418439004312" />
+  </Links>
+  <Categories>
+    <Category Id="Aggregates" Background="#FFFFA500" />
+    <Category Id="CodeSchema_Class" Label="Class" BasedOn="CodeSchema_Type" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Member" Icon="CodeSchema_Class" NavigationActionLabel="Classes" />
+    <Category Id="CodeSchema_Interface" Label="Interface" BasedOn="CodeSchema_Type" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Member" Icon="CodeSchema_Interface" NavigationActionLabel="Interfaces" />
+    <Category Id="CodeSchema_Namespace" Label="Namespace" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="CodeSchema_Namespace" NavigationActionLabel="Namespaces" />
+    <Category Id="CodeSchema_Type" Label="Type" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Member" Icon="CodeSchema_Class" NavigationActionLabel="Types" />
+    <Category Id="Composes" Background="#FF008000" />
+    <Category Id="Contains" Label="Contains" Description="Whether the source of the link contains the target object" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Contained By" IsContainment="True" OutgoingActionLabel="Contains" />
+    <Category Id="Implements" Label="Implements" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Implemented by" OutgoingActionLabel="Implements" />
+    <Category Id="Inherits" />
+    <Category Id="Uses" Background="#FF000000" />
+  </Categories>
+  <Properties>
+    <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="Group" Label="Group" Description="Display the node as a group" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="Icon" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Link" GroupLabel="Inherits" ValueLabel="True">
+      <Condition Expression="HasCategory('Inherits')" />
+      <Setter Property="Stroke" Value="#FF000000" />
+      <Setter Property="StrokeThickness" Value="2" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Implements" ValueLabel="True">
+      <Condition Expression="HasCategory('Implements')" />
+      <Setter Property="Stroke" Value="#FF000000" />
+      <Setter Property="StrokeThickness" Value="2" />
+      <Setter Property="StrokeDashArray" Value="4,2" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Composes" ValueLabel="True">
+      <Condition Expression="HasCategory('Composes')" />
+      <Setter Property="Stroke" Value="#FFFFA500" />
+      <Setter Property="StrokeThickness" Value="1" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Aggregates" ValueLabel="True">
+      <Condition Expression="HasCategory('Aggregates')" />
+      <Setter Property="Stroke" Value="#FFFFA500" />
+      <Setter Property="StrokeThickness" Value="1" />
+      <Setter Property="StrokeDashArray" Value="2,4" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Uses" ValueLabel="True">
+      <Condition Expression="HasCategory('Uses')" />
+      <Setter Property="Stroke" Value="#FF000000" />
+      <Setter Property="StrokeThickness" Value="1" />
+      <Setter Property="StrokeDashArray" Value="1,2" />
+    </Style>
+  </Styles>
+</DirectedGraph>
