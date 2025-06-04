@@ -55,5 +55,32 @@ public class PlayerDbData : GameContentDbData
         this.HasCastEnergyBall = hasCastEnergyBall;
     }
 
+    public  PlayerDbData(string dbId, string accountId, int respawnSceneIndex, Vector3 respawnPos, 
+        Vector3 respawnRot, int currSceneIndex,Vector3 position, Quaternion rotation, string id, 
+        int health, float dashRestoreTimer, float cebRestoreTimer, bool hasDash, bool hasAirJump, 
+        bool hasCastEnergyBall) : base(dbId, id, accountId)
+    {
+        this.RespawnSceneIndex = respawnSceneIndex;
+        this.RespawnXPos = respawnPos.x;
+        this.RespawnYPos = respawnPos.y;
+        this.RespawnZPos = respawnPos.z;
+        this.RespawnXRot = respawnRot.x;
+        this.RespawnYRot = respawnRot.y;
+        this.RespawnZRot = respawnRot.z;
+        this.CurrSceneIndex = currSceneIndex;
+        this.XPos = position.x;
+        this.YPos = position.y;
+        this.ZPos = position.z;
+        this.XRot = rotation.eulerAngles.x;
+        this.YRot = rotation.eulerAngles.y;
+        this.ZRot = rotation.eulerAngles.z;
+        this.Health = health;
+        this.DashRestoreTimer = dashRestoreTimer;
+        this.CebRestoreTimer = cebRestoreTimer;
+        this.HasDash = hasDash;
+        this.HasAirJump = hasAirJump;
+        this.HasCastEnergyBall = hasCastEnergyBall;
+    }
+
     public PlayerDbData() : base() { }
 }

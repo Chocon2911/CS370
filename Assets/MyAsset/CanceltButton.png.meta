@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 606c9d1e8b8f68e4cb9e4530d4bf9288
+guid: 70237d5f818bd8b4e8aa7ecefd759883
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -106,30 +106,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Border All 15_0
+      name: CanceltButton_0
       rect:
         serializedVersion: 2
-        x: 257
-        y: 257
-        width: 62
-        height: 62
+        x: 0
+        y: 0
+        width: 160
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +124,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed9b4ea939f5f67479c16a2fb0158369
-      internalID: 1823996421
+      spriteID: 014bb4f363e522e4dbe12415bbd05b21
+      internalID: 1028870348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CanceltButton_1
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 0
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb979821a9039324f89aff2bbfa45ebe
+      internalID: 4166829
       vertices: []
       indices: 
       edges: []
@@ -154,7 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Border All 15_0: 1823996421
+      CanceltButton_0: 1028870348
+      CanceltButton_1: 4166829
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

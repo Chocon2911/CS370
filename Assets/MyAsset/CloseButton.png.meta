@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 606c9d1e8b8f68e4cb9e4530d4bf9288
+guid: 1315987c9b9dbca4da8ce0d7e07341a3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -106,39 +106,47 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Border All 15_0
+      name: CloseButton_0
       rect:
         serializedVersion: 2
-        x: 257
-        y: 257
-        width: 62
-        height: 62
+        x: 0
+        y: 0
+        width: 170
+        height: 160
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed9b4ea939f5f67479c16a2fb0158369
-      internalID: 1823996421
+      spriteID: 633e6b389b6906e4b8ac17c97658cd84
+      internalID: -937509513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloseButton_1
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 0
+        width: 170
+        height: 160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb44f5c7011d1584a95f1316323f3fed
+      internalID: -1040499642
       vertices: []
       indices: 
       edges: []
@@ -154,7 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Border All 15_0: 1823996421
+      CloseButton_0: -937509513
+      CloseButton_1: -1040499642
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

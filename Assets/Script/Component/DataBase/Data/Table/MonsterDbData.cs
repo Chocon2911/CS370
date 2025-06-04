@@ -11,8 +11,17 @@ public class MonsterDbData : GameContentDbData
     public int MaxHealth { get; set; }
 
     //========================================Constructor=========================================
-    public MonsterDbData(string accountId, int sceneIndex,  MonsterType type, int health, 
+    public MonsterDbData(string accountId, int sceneIndex, MonsterType type, int health, 
         int maxHealth, string id) : base(id, accountId)
+    {
+        this.SceneIndex = sceneIndex;
+        this.Type = type;
+        this.Health = health;
+        this.MaxHealth = maxHealth;
+    }
+
+    public MonsterDbData(string dbId, string accountId, int sceneIndex, MonsterType type, int health,
+        int maxHealth, string id) : base(dbId, id, accountId) 
     {
         this.SceneIndex = sceneIndex;
         this.Type = type;

@@ -149,13 +149,14 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
         get
         {
             GameManager gameManager = GameManager.Instance;
-            return new PlayerDbData(gameManager.AccountId, gameManager.RespawnSceneIndex, gameManager.RespawnPos,
+            return new PlayerDbData(this.dbId, gameManager.AccountId, gameManager.RespawnSceneIndex, gameManager.RespawnPos,
                 gameManager.RespawnRot.eulerAngles, gameManager.CurrSceneIndex, transform.position, transform.rotation, this.id, this.health, 
                 this.dash.dashCD.Timer, this.castEnergyBall.restoreCD.Timer, this.hasDash, this.hasAirJump, 
                 this.hasCastEnergyBall);
         }
         set
         {
+            this.dbId = value.DbId;
             transform.position = new Vector3(value.XPos, value.YPos, value.ZPos);
             transform.rotation = Quaternion.Euler(value.XRot, value.YRot, value.ZRot);
             this.id = value.Id;

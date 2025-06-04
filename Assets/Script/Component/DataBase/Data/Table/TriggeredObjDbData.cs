@@ -11,5 +11,10 @@ public class TriggeredObjDbData : GameContentDbData
         this.IsTriggered = isTriggered;
     }
 
+    public TriggeredObjDbData(string dbId, string id, string accountId, bool isTriggered) : base(dbId, id, accountId) 
+    {
+        this.IsTriggered = isTriggered;
+    }
+
     public TriggeredObjDbData() : base() { }
 }

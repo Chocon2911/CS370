@@ -150,7 +150,7 @@ public class GameManager : HuyMonoBehaviour
         // Find player in database with stored id
         // Then spawn player and call Exit() of door function
 
-        PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
+        PlayerDbData data = DataBaseManager.Instance.Player.QueryByAccountId(this.playerId);
         Door door = DoorManager.Instance.Doors[nextDoor];
         this.player = PlayerSpawner.Instance.SpawnPlayer(data);
         this.player.gameObject.SetActive(true);
@@ -161,15 +161,17 @@ public class GameManager : HuyMonoBehaviour
     }
 
     //=========================================Start Game=========================================
-    public void StartGame()
-    {
-        if (DataBaseManager.Instance.Player.IsPlayerExist()) this.ContinueGame();
-        else this.NewGame();
-    }
+    //public void StartGame()
+    //{
+    //    if (DataBaseManager.Instance.Player.IsPlayerExist()) this.ContinueGame();
+    //    else this.NewGame();
+    //}
 
-    private void ContinueGame()
+    //=======================================Continue Game========================================
+    public void ContinueGame(string accountId)
     {
-        List<PlayerDbData> players = DataBaseManager.Instance.Player.QueryAll();
+        this.accountId = accountId;
+        List<PlayerDbData> players = DataBaseManager.Instance.Player.QueryAllByAccountId();
         PlayerDbData data = players[0];
         this.currSceneIndex = data.CurrSceneIndex;
         this.playerId = data.Id;
@@ -187,16 +189,17 @@ public class GameManager : HuyMonoBehaviour
         this.player = PlayerSpawner.Instance.SpawnPlayer(data);
         this.player.gameObject.SetActive(true);
     }
-    
-    private void NewGame()
+
+    //==========================================New Game==========================================
+    public void NewGame()
     {
         // Create Account
-        this.accounts = DataBaseManager.Instance.Account.QueryAll();
+        string dbId = Util.Instance.RandomGUID();
         string newAccountName = "Save " + this.accounts.Count.ToString();
         string newAccountId = Util.Instance.RandomGUID();
     
         this.accountId = newAccountId;
-        AccountDbData newAccount = new AccountDbData(newAccountId, newAccountName);
+        AccountDbData newAccount = new AccountDbData(dbId, newAccountId, newAccountName);
         DataBaseManager.Instance.Account.Insert(newAccount);
 
         // Init Game
@@ -243,7 +246,7 @@ public class GameManager : HuyMonoBehaviour
         yield return null;
 
         // Spawn Player at Respawn Point
-        PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
+        PlayerDbData data = DataBaseManager.Instance.Player.QueryByAccountId(this.playerId);
         this.player = PlayerSpawner.Instance.SpawnPlayer(data);
         this.player.transform.position = this.respawnPos;
         this.player.transform.rotation = this.respawnRot;
@@ -292,7 +295,7 @@ public class GameManager : HuyMonoBehaviour
     {
         this.GameSceneLoaded();
 
-        PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
+        PlayerDbData data = DataBaseManager.Instance.Player.QueryByAccountId(this.playerId);
         this.player = PlayerSpawner.Instance.SpawnPlayer(data);
         this.player.transform.position = this.respawnPos;
         this.player.transform.rotation = this.respawnRot;

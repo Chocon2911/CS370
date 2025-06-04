@@ -11,5 +11,10 @@ public class AccountDbData : DbData
         this.Name = name;
     }
 
+    public AccountDbData(string dbId, string id, string name) : base(dbId, id)
+    {
+        this.Name = name;
+    }
+
     public AccountDbData() : base() {}
 }

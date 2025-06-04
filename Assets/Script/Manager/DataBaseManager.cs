@@ -48,5 +48,6 @@ public class DataBaseManager : HuyMonoBehaviour
         this.item.CreateTable();
         this.monster.CreateTable();
         this.triggeredObj.CreateTable();
+        this.account.CreateTable();
     }
 }

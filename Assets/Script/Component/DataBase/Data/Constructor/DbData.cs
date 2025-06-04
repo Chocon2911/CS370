@@ -17,5 +17,11 @@ public abstract class DbData
         this.Id = id;
     }
 
+    public DbData(string id, string dbId)
+    {
+        this.DbId = dbId;
+        this.Id = id;
+    }
+
     public DbData() { }
 }
