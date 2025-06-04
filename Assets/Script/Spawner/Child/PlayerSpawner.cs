@@ -35,6 +35,7 @@ public class PlayerSpawner : Spawner
         Transform newPlayerObj = this.SpawnByObj(this.prefabs[0], spawnPos, spawnRot);
         Player player = newPlayerObj.GetComponentInChildren<Player>();
         player.RandomId();
+        player.DbId = Util.Instance.RandomGUID(); 
         return newPlayerObj.GetComponentInChildren<Player>();
     }
 }

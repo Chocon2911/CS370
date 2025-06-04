@@ -31,10 +31,11 @@ public class Item : DbObj
         get
         {
             Debug.Log("Id: " + this.id + " - isTaken: " + this.isTaken + " - isRestorable: " + this.so.IsRestorable);
-            return new ItemDbData(this.id, this.isTaken, this.so.IsRestorable);
+            return new ItemDbData(this.dbId, GameManager.Instance.AccountId, this.id, this.isTaken, this.so.IsRestorable);
         }
         set
         {
+            this.dbId = value.DbId;
             this.isTaken = value.IsTaken;
         }
     }
@@ -68,11 +69,13 @@ public class Item : DbObj
 
     protected virtual void LoadDb()
     {
-        ItemDbData dbData = DataBaseManager.Instance.Item.Query(this.id);
+        ItemDbData dbData = DataBaseManager.Instance.Item.QueryByAccountId(this.id);
         if (dbData == null)
         {
-            ItemDbData newData = new ItemDbData(this.id, this.isTaken, this.so.IsRestorable);
+            this.dbId = Util.Instance.RandomGUID();
+            ItemDbData newData = new ItemDbData(this.dbId, GameManager.Instance.AccountId, this.id, this.isTaken, this.so.IsRestorable);
             DataBaseManager.Instance.Item.Insert(newData);
+
             return;
         }
 

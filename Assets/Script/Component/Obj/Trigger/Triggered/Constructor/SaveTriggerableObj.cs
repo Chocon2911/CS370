@@ -9,10 +9,11 @@ public abstract class SaveTriggerableObj : TriggerableObj
     {
         get
         {
-            return new TriggeredObjDbData(this.id, this.isTriggered);
+            return new TriggeredObjDbData(this.dbId, this.id, GameManager.Instance.AccountId, this.isTriggered);
         }
         set
         {
+            this.dbId = value.DbId;
             this.isTriggered = value.IsTriggered;
         }
     }
@@ -28,10 +29,11 @@ public abstract class SaveTriggerableObj : TriggerableObj
     //===========================================Method===========================================
     protected virtual void LoadDb()
     {
-        TriggeredObjDbData data = DataBaseManager.Instance.TriggeredObj.Query(this.id);
+        TriggeredObjDbData data = DataBaseManager.Instance.TriggeredObj.QueryByAccountId(this.id);
         if (data == null)
         {
             this.isTriggered = false;
+            this.dbId = Util.Instance.RandomGUID();
             DataBaseManager.Instance.TriggeredObj.Insert(this.Db);
             this.NotTriggeredHandling();
             return;

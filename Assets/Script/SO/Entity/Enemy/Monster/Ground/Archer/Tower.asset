@@ -18,7 +18,7 @@ MonoBehaviour:
   BodyDamage: 4
   BodyPushForce: 15
   BodyAttackableTags:
-  - 
+  - Player
   GravityScale: 3
   TargetLayer:
     serializedVersion: 2

@@ -33,11 +33,12 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     {
         get
         {
-            return new MonsterDbData(SceneManager.GetActiveScene().buildIndex, this.monsterType, this.health, this.maxHealth, this.id);
+            return new MonsterDbData(this.dbId, GameManager.Instance.AccountId, SceneManager.GetActiveScene().buildIndex, this.monsterType, this.health, this.maxHealth, this.id);
         }
 
         set
         {
+            this.dbId = value.DbId;
             this.monsterType = value.Type;
             this.health = value.Health;
             this.id = value.Id;
@@ -119,13 +120,14 @@ public abstract class Enemy : Entity, Damagable, EffectSplashable
     //==========================================Database==========================================
     protected virtual void LoadDb()
     {
-        if (DataBaseManager.Instance.Monster.IsMonsterExist(this.id))
+        if (DataBaseManager.Instance.Monster.IsObjExist(this.id))
         {
-            this.Db = DataBaseManager.Instance.Monster.Query(this.id);
+            this.Db = DataBaseManager.Instance.Monster.QueryByAccountId(this.id);
         }
 
         else
         {
+            this.dbId = Util.Instance.RandomGUID();
             DataBaseManager.Instance.Monster.Insert(this.Db);
         }
     }

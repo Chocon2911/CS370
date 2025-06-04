@@ -73,7 +73,7 @@ MonoBehaviour:
     m_FamilyName: VCR OSD Mono
     m_StyleName: Regular
     m_PointSize: 72
-    m_Scale: 1
+    m_Scale: 0.92
     m_UnitsPerEM: 2048
     m_LineHeight: 70.3125
     m_AscentLine: 63.28125

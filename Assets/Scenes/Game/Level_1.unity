@@ -1031,7 +1031,7 @@ MonoBehaviour:
   damageEff: {fileID: 1521140063}
   monsterType: 0
   bodyAttackableTags:
-  - 
+  - Player
   bodyDamage: 4
   bodyPushForce: 15
   targetDetectingArea: {fileID: 14390629}
@@ -54212,7 +54212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438ffd0450062ff458e5ab2cc0f3b891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: be63ebdb-bea4-4212-acde-446296dfb6e8
+  id: a5712b66-5fa6-4cbd-afc4-c7528574b6c9
   maxHealth: 2
   health: 2
   hurtCD:
@@ -54231,7 +54231,7 @@ MonoBehaviour:
   damageEff: {fileID: 336326151}
   monsterType: 0
   bodyAttackableTags:
-  - 
+  - Player
   bodyDamage: 4
   bodyPushForce: 15
   targetDetectingArea: {fileID: 2119961461}
@@ -151250,7 +151250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438ffd0450062ff458e5ab2cc0f3b891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: be63ebdb-bea4-4212-acde-446296dfb6e8
+  id: 0d74f754-3def-4f08-b12d-593ca866ed21
   maxHealth: 2
   health: 2
   hurtCD:
@@ -151269,7 +151269,7 @@ MonoBehaviour:
   damageEff: {fileID: 5554772105893726658}
   monsterType: 0
   bodyAttackableTags:
-  - 
+  - Player
   bodyDamage: 4
   bodyPushForce: 15
   targetDetectingArea: {fileID: 3204884605703182682}

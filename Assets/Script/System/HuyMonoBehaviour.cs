@@ -43,6 +43,12 @@ public class HuyMonoBehaviour : MonoBehaviour
         Debug.LogWarning(transform.name + ": " + message, transform.gameObject);
     }
 
+    protected void LoadComponent<T>(ref T component, string message) where T : MonoBehaviour
+    {
+        component = FindAnyObjectByType<T>();
+        Debug.LogWarning(transform.name + ": " + message, transform.gameObject);
+    }
+
     protected void LoadChildComponent<T>(ref T component, Transform obj, string message)
     {
         if (obj == null) return;

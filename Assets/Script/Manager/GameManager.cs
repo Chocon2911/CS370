@@ -22,6 +22,10 @@ public class GameManager : HuyMonoBehaviour
     [SerializeField] private int currSceneIndex;
     [SerializeField] private int currCoin;
 
+    [Header("Account")]
+    [SerializeField] private List<AccountDbData> accounts = new List<AccountDbData>();
+    [SerializeField] private string accountId;
+
     [Header("Camera")]
     [SerializeField] private Camera mainCamera;
 
@@ -31,7 +35,7 @@ public class GameManager : HuyMonoBehaviour
 
     [Header("Boss")]
     [SerializeField] private bool isFightingBoss;
-
+  
     //==========================================Get Set===========================================
     // Player
     public int RespawnSceneIndex { get => this.respawnSceneIndex; set => this.respawnSceneIndex = value; }
@@ -43,6 +47,9 @@ public class GameManager : HuyMonoBehaviour
 
     // Boss
     public bool IsFightingBoss => this.isFightingBoss;
+
+    // Account
+    public string AccountId => this.accountId;
 
     //===========================================Unity============================================
     protected override void Awake()
@@ -143,7 +150,7 @@ public class GameManager : HuyMonoBehaviour
         // Find player in database with stored id
         // Then spawn player and call Exit() of door function
 
-        PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
+        PlayerDbData data = DataBaseManager.Instance.Player.QueryByAccountId(this.playerId);
         Door door = DoorManager.Instance.Doors[nextDoor];
         this.player = PlayerSpawner.Instance.SpawnPlayer(data);
         this.player.gameObject.SetActive(true);
@@ -154,15 +161,17 @@ public class GameManager : HuyMonoBehaviour
     }
 
     //=========================================Start Game=========================================
-    public void StartGame()
-    {
-        if (DataBaseManager.Instance.Player.IsPlayerExist()) this.ContinueGame();
-        else this.NewGame();
-    }
+    //public void StartGame()
+    //{
+    //    if (DataBaseManager.Instance.Player.IsPlayerExist()) this.ContinueGame();
+    //    else this.NewGame();
+    //}
 
-    private void ContinueGame()
+    //=======================================Continue Game========================================
+    public void ContinueGame(string accountId)
     {
-        List<PlayerDbData> players = DataBaseManager.Instance.Player.QueryAll();
+        this.accountId = accountId;
+        List<PlayerDbData> players = DataBaseManager.Instance.Player.QueryAllByAccountId();
         PlayerDbData data = players[0];
         this.currSceneIndex = data.CurrSceneIndex;
         this.playerId = data.Id;
@@ -180,12 +189,23 @@ public class GameManager : HuyMonoBehaviour
         this.player = PlayerSpawner.Instance.SpawnPlayer(data);
         this.player.gameObject.SetActive(true);
     }
-    
-    private void NewGame()
+
+    //==========================================New Game==========================================
+    public void NewGame()
     {
+        // Create Account
+        string dbId = Util.Instance.RandomGUID();
+        string newAccountName = "Save " + this.accounts.Count.ToString();
+        string newAccountId = Util.Instance.RandomGUID();
+    
+        this.accountId = newAccountId;
+        AccountDbData newAccount = new AccountDbData(dbId, newAccountId, newAccountName);
+        DataBaseManager.Instance.Account.Insert(newAccount);
+
+        // Init Game
         this.respawnSceneIndex = 1;
         this.currSceneIndex = 1;
-        LoadSceneWithEvent(this.currSceneIndex, () => NewGameSceneLoaded());
+        this.LoadSceneWithEvent(this.currSceneIndex, () => NewGameSceneLoaded());
     }
 
     private void NewGameSceneLoaded()
@@ -226,7 +246,7 @@ public class GameManager : HuyMonoBehaviour
         yield return null;
 
         // Spawn Player at Respawn Point
-        PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
+        PlayerDbData data = DataBaseManager.Instance.Player.QueryByAccountId(this.playerId);
         this.player = PlayerSpawner.Instance.SpawnPlayer(data);
         this.player.transform.position = this.respawnPos;
         this.player.transform.rotation = this.respawnRot;
@@ -244,6 +264,7 @@ public class GameManager : HuyMonoBehaviour
         this.respawnPos = pos;
         this.respawnRot = rot;
     }
+
 
 
     //=======================================On Player Dead=======================================
@@ -274,7 +295,7 @@ public class GameManager : HuyMonoBehaviour
     {
         this.GameSceneLoaded();
 
-        PlayerDbData data = DataBaseManager.Instance.Player.Query(this.playerId);
+        PlayerDbData data = DataBaseManager.Instance.Player.QueryByAccountId(this.playerId);
         this.player = PlayerSpawner.Instance.SpawnPlayer(data);
         this.player.transform.position = this.respawnPos;
         this.player.transform.rotation = this.respawnRot;
