@@ -117,6 +117,7 @@ public class GameManager : HuyMonoBehaviour
         EventManager.Instance.OnPlayerDead += OnPlayerDead;
         EventManager.Instance.OnBossTriggered += OnBossTriggered;
         EventManager.Instance.OnBossDead += OnBossDead;
+        DataBaseManager.Instance.OnSceneLoaded();
     }
 
     //=====================================On Boss Triggeered=====================================
@@ -302,5 +303,20 @@ public class GameManager : HuyMonoBehaviour
         this.player.Revive();
         DataBaseManager.Instance.Player.Update(this.player.Db);
         this.player.gameObject.SetActive(true);
+    }
+
+    //======================================Back To Start UI======================================
+    public void ComeBackToStartScene()
+    {
+        this.player = null;
+        this.accountId = null;
+        this.currSceneIndex = 0;
+        this.respawnSceneIndex = 0;
+        this.respawnPos = Vector3.zero;
+        this.respawnRot = Quaternion.Euler(0, 0, 0);
+
+        EventManager.Instance.DestroyAllDontDestroyOnLoad?.Invoke();
+        Destroy(gameObject);
+        SceneManager.LoadScene(0);
     }
 }

@@ -9,12 +9,13 @@ public class MobileUI : HuyMonoBehaviour
     private static MobileUI instance;
     public static MobileUI Instance => instance;
 
-    [Header("Component")]
     [SerializeField] protected JoyStick joyStick;
     [SerializeField] protected DefaultButton dashBtn;
     [SerializeField] protected DefaultButton jumpBtn;
     [SerializeField] protected DefaultButton attackBtn;
     [SerializeField] protected DefaultButton interactBtn;
+    [SerializeField] protected Button menuBtn;
+    [SerializeField] protected PauseUI pauseUI;
 
     //==========================================Get Set===========================================
     public Vector2 MoveDir
@@ -39,6 +40,7 @@ public class MobileUI : HuyMonoBehaviour
         this.LoadComponent(ref this.jumpBtn, transform.Find("JumpBtn"), "LoadJumpBtn");
         this.LoadComponent(ref this.attackBtn, transform.Find("AttackBtn"), "LoadAttackBtn()");
         this.LoadComponent(ref this.interactBtn, transform.Find("InteractBtn"), "LoadInteractBtn()");
+        this.LoadComponent(ref this.menuBtn, transform.Find("MenuBtn"), "LoadMenuBtn()");
     }
 
     protected override void Awake()
@@ -54,6 +56,11 @@ public class MobileUI : HuyMonoBehaviour
         base.Awake();
     }
 
+    protected virtual void Start()
+    {
+        this.menuBtn.onClick.AddListener(this.MenuBtnOnClick);
+    }
+
     protected virtual void Update()
     {
         this.CheckPlayerStat();
@@ -65,5 +72,11 @@ public class MobileUI : HuyMonoBehaviour
         Player player = GameManager.Instance.Player;
         this.dashBtn.gameObject.SetActive(player.HasDash);
         this.interactBtn.gameObject.SetActive(player.InteractableObj != null);
+    }
+
+    protected virtual void MenuBtnOnClick()
+    {
+        this.pauseUI.gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
 }

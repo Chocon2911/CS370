@@ -27,14 +27,14 @@ RectTransform:
   m_GameObject: {fileID: 3113775198094862373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3394180153401372522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchoredPosition: {x: 0, y: 32.49}
   m_SizeDelta: {x: 512, y: 388}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2811070645958600094
@@ -318,6 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe6a126120b9c44684fbc15d8f1b06d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dbId: 
   id: 
   isTriggered: 0
   mainObj: {fileID: 3394180153401372522}
@@ -385,7 +386,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 141
+  m_SortingOrder: 161
   m_TargetDisplay: 0
 --- !u!114 &8908502009739557697
 MonoBehaviour:

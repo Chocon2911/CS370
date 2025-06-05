@@ -1,39 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseUI : HuyMonoBehaviour
 {
     //==========================================Variable==========================================
-    [Header("===Pause===")]
-    [SerializeField] protected Button resumeBtn;
-    [SerializeField] protected Button quitBtn;
+    [SerializeField] private Button resumeBtn;
+    [SerializeField] private Button quitBtn;
 
     //===========================================Unity============================================
     public override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadComponent(ref this.resumeBtn, transform.Find("Resume"), "LoadResumeBtn()");
-        this.LoadComponent(ref this.quitBtn, transform.Find("Quit"), "LoadQuitBtn()");
+        this.LoadComponent(ref this.resumeBtn, transform.Find("Container").Find("ResumeBtn"), "LoadResumeBtn()");
+        this.LoadComponent(ref this.quitBtn, transform.Find("Container").Find("QuitBtn"), "LoadQuitBtn()");
     }
 
     private void Start()
     {
+        gameObject.SetActive(false);
         this.resumeBtn.onClick.AddListener(this.ResumeBtnOnClick);
         this.quitBtn.onClick.AddListener(this.QuitBtnOnClick);
     }
 
     //===========================================Method===========================================
-    protected virtual void ResumeBtnOnClick()
+    private void ResumeBtnOnClick()
     {
-        Time.timeScale = 1f;
+        gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 
-    protected virtual void QuitBtnOnClick()
+    private void QuitBtnOnClick()
     {
         EventManager.Instance.OnQuit?.Invoke();
-        SceneManager.LoadScene(0);
+        GameManager.Instance.ComeBackToStartScene();
+        Time.timeScale = 1;
     }
 }

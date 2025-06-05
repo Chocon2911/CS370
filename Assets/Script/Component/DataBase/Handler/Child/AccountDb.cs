@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AccountDb : DatabaseHandler<AccountDbData>
 {
-    public virtual void RemoveRowByObjId(string id)
+    public virtual void     RemoveRowByObjId(string id)
     {
         using (var connection = GetConnection())
         {
