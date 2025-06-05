@@ -50,4 +50,14 @@ public class DataBaseManager : HuyMonoBehaviour
         this.triggeredObj.CreateTable();
         this.account.CreateTable();
     }
+
+    public void OnSceneLoaded()
+    {
+        EventManager.Instance.DestroyAllDontDestroyOnLoad += DestroyGameObj;
+    }
+
+    private void DestroyGameObj()
+    {
+        Destroy(gameObject);
+    }
 }

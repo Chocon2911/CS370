@@ -42,4 +42,17 @@ public abstract class GameContentDb <T> : DatabaseHandler<T> where T : GameConte
             return connection.Table<T>().Count(x => x.Id == id && x.AccountId == GameManager.Instance.AccountId) > 0;
         }
     }
+
+    public void RemoveAllByAccountId(string accountId)
+    {
+        using (var connection = GetConnection())
+        {
+            var itemsToDelete = connection.Table<T>().Where(x => x.AccountId == accountId).ToList();
+
+            foreach (var item in itemsToDelete)
+            {
+                connection.Delete(item);
+            }
+        }
+    }
 }

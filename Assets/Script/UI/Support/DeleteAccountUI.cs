@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DeleteAccountUI : HuyMonoBehaviour
 {
     //==========================================Variable==========================================
+    [SerializeField] private LoadDataUI loadDataUI;
     [SerializeField] private Button acceptBtn;
     [SerializeField] private Button cancelBtn;
     [SerializeField] private string accountId;
@@ -14,6 +15,7 @@ public class DeleteAccountUI : HuyMonoBehaviour
     public override void LoadComponents()
     {
         base.LoadComponents();
+        this.LoadComponent(ref this.loadDataUI, transform.parent, "LoadLoadDataUI()");
         this.LoadComponent(ref this.acceptBtn, transform.Find("Dialog").Find("AcceptBtn"), "LoadAcceptBtn()");
         this.LoadComponent(ref this.cancelBtn, transform.Find("Dialog").Find("CancelBtn"), "LoadCancelBtn()");
     }
@@ -32,10 +34,13 @@ public class DeleteAccountUI : HuyMonoBehaviour
 
     private void AcceptBtnOnClick()
     {
-        this.acceptBtn.onClick.AddListener(() => 
-        {
-            DataBaseManager.Instance.Account.RemoveRowByObjId(this.accountId);
-        });
+        DataBaseManager.Instance.Account.RemoveRowByObjId(this.accountId);
+        DataBaseManager.Instance.Player.RemoveAllByAccountId(this.accountId);
+        DataBaseManager.Instance.Monster.RemoveAllByAccountId(this.accountId);
+        DataBaseManager.Instance.Item.RemoveAllByAccountId(this.accountId);
+        DataBaseManager.Instance.TriggeredObj.RemoveAllByAccountId(this.accountId);
+        gameObject.SetActive(false);
+        this.loadDataUI.LoadDb();
     }
 
     private void RemoveBtnOnClick()

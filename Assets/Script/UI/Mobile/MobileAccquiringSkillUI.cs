@@ -16,7 +16,7 @@ public class MobileAccquiringSkillUI : HuyMonoBehaviour
         this.LoadComponent(ref this.skipBtn, transform.Find("SkipBtn"), "LoadSkipBtn()");
     }
 
-    protected virtual void Update()
+    protected virtual void Start()
     {
         this.CheckBtnClicked();
     }

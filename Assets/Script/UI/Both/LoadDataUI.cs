@@ -29,16 +29,23 @@ public class LoadDataUI : HuyMonoBehaviour
         this.LoadDb();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        this.LoadDb();
+    }
+
     private void Start()
     {
         this.CloseBtnOnClick();
     }
 
     //===========================================Method===========================================
-    private void LoadDb()
+    public void LoadDb()
     {
+        foreach (Transform child in this.container) Destroy(child.gameObject);
+
         List<AccountDbData> accounts = DataBaseManager.Instance.Account.QueryAll();
-        
         foreach (AccountDbData account in accounts)
         {
             Transform saveRow = Instantiate(this.saveRowPrefab, this.container);

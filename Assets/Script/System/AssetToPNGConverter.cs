@@ -4,7 +4,7 @@ using System.IO;
 
 public class SpriteToPNGConverter : MonoBehaviour
 {
-    public Sprite spriteAsset;              // Sprite bạn muốn convert
+    public Sprite spriteAsset;              
     public string savePath = "Assets/ExportedSprite.png";
 }
 
@@ -37,13 +37,10 @@ public class SpriteToPNGConverterEditor : Editor
                 Debug.Log("Texture importer set to readable and reimported.");
             }
 
-            // Lấy vùng rect của sprite trên texture gốc
             Rect spriteRect = script.spriteAsset.textureRect;
 
-            // Tạo texture mới chỉ chứa sprite
             Texture2D newTexture = new Texture2D((int)spriteRect.width, (int)spriteRect.height, texture.format, false);
 
-            // Copy pixels từ vùng sprite ra texture mới
             Color[] pixels = texture.GetPixels(
                 (int)spriteRect.x,
                 (int)spriteRect.y,
@@ -53,7 +50,6 @@ public class SpriteToPNGConverterEditor : Editor
             newTexture.SetPixels(pixels);
             newTexture.Apply();
 
-            // Encode texture mới thành PNG
             byte[] pngData = newTexture.EncodeToPNG();
             if (pngData == null)
             {

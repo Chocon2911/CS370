@@ -25,6 +25,7 @@ public class EventManager : HuyMonoBehaviour
     public Action OnQuit { get; set; }
     public Action OnBossTriggered { get; set; }
     public Action OnBossDead { get; set; }
+    public Action DestroyAllDontDestroyOnLoad { get; set; }
 
     //===Skill===
     public Action OnPlayerGetDash { get; set; }
