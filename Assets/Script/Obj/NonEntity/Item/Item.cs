@@ -5,15 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using UnityEngine;
 
-public interface ItemUser
-{
-    void AddHealth(int restoredHealth);
-    void UnlockSkill(SkillType unlockedSkill);
-    void AddCoin(int add);
-}
-
 [RequireComponent(typeof(CircleCollider2D))]
-public class Item : DbObj
+public class Item : DbObj, ItemComponent
 {
     //==========================================Variable==========================================
     [Header("===Item===")]
@@ -58,15 +51,6 @@ public class Item : DbObj
     }
 
     //===========================================Method===========================================
-    public virtual void PickedUp(ItemUser user)
-    {
-        this.isTaken = true;
-        user.AddHealth(this.so.RestoredHealth);
-        user.UnlockSkill(this.so.UnlockedSkill);
-        this.OnPickedUp?.Invoke();
-        gameObject.SetActive(false);
-    }
-
     protected virtual void LoadDb()
     {
         ItemDbData dbData = DataBaseManager.Instance.Item.QueryByAccountId(this.id);
@@ -96,5 +80,16 @@ public class Item : DbObj
     protected virtual void Save()
     {
         Debug.Log(DataBaseManager.Instance.Item.InsertUpdate(this.Db) ? "True" : "False");
+    }
+
+    //=======================================Item Component=======================================
+    void ItemComponent.PickedUp(ItemUser user)
+    {
+        this.isTaken = true;
+        user.AddHealth(this.so.RestoredHealth);
+        user.UnlockSkill(this.so.UnlockedSkill);
+        user.AddCoin(this.so.CoinAmount);
+        this.OnPickedUp?.Invoke();
+        gameObject.SetActive(false);
     }
 }

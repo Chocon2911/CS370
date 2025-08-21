@@ -242,7 +242,7 @@ public class Player : Entity, Damagable, DoorUser, BonfireUser, SpikeUser, TeleD
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Item item = collision.GetComponent<Item>();
+        ItemComponent item = collision.GetComponent<ItemComponent>();
         if (item != null) item.PickedUp(this);
 
         TeleDoor teleDoor = collision.GetComponent<TeleDoor>();

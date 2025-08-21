@@ -5,11 +5,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
-public abstract class Monster : Enemy, Damagable
+public abstract class Monster : Enemy, Damagable, FlyUpUser
 {
     //==========================================Variable==========================================
     [Space(50)]
     [Header("===Monster===")]
+    [SerializeField] protected InterfaceReference<DropItemComponent> dropItem;
+
     [Header("Target Out Of Range")]
     [SerializeField] protected BoxCollider2D targetDetectingArea;
 
@@ -52,6 +54,7 @@ public abstract class Monster : Enemy, Damagable
         base.LoadComponents();
         this.LoadPath();
         this.LoadComponent(ref this.targetDetectingArea, transform.Find("OutRange"), "LoadTargetDetectingArea()");
+        this.LoadComponent(ref this.dropItem, transform.Find("DropItem"), "LoadDropItem()");
     }
 
 
@@ -120,6 +123,13 @@ public abstract class Monster : Enemy, Damagable
         else return false;
     }
 
+
+
+    //============================================================================================
+    //=========================================Interface==========================================
+    //============================================================================================
+
+    //=========================================Damagable==========================================
     void Damagable.TakeDamage(int damage, Transform attacker)
     {
         this.health -= damage;
@@ -131,6 +141,7 @@ public abstract class Monster : Enemy, Damagable
             this.health = 0;
             gameObject.layer = LayerMask.NameToLayer("Dead");
             Debug.Log("Dead", gameObject);
+            if (this.dropItem != null) this.dropItem.Value.Drop();
             return;
         }
 
@@ -139,5 +150,11 @@ public abstract class Monster : Enemy, Damagable
         {
             this.target = GameManager.Instance.Player.transform;
         }
+    }
+
+    //========================================Fly Up User=========================================
+    Rigidbody2D FlyUpUser.GetRb()
+    {
+        return this.rb;
     }
 }

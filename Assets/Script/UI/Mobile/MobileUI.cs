@@ -18,13 +18,7 @@ public class MobileUI : HuyMonoBehaviour
     [SerializeField] protected PauseUI pauseUI;
 
     //==========================================Get Set===========================================
-    public Vector2 MoveDir
-    {
-        get
-        {
-            return joyStick.Direction;
-        }
-    }
+    public Vector2 MoveDir => joyStick.Direction;
 
     public int DashBtnState => this.dashBtn.State;
     public int JumpBtnState => this.jumpBtn.State;

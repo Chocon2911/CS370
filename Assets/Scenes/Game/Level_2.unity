@@ -274,6 +274,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUI
       objectReference: {fileID: 0}
+    - target: {fileID: 8894187525543395431, guid: cd9aae16fd589d34fa8b0da364483516, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -39887,6 +39891,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 106778871}
     m_Modifications:
+    - target: {fileID: 49526724440815746, guid: 25cb388b696c6874684b4ae7c6bbe28e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -24.49
+      objectReference: {fileID: 0}
     - target: {fileID: 1042551791886443196, guid: 25cb388b696c6874684b4ae7c6bbe28e, type: 3}
       propertyPath: m_Name
       value: MobileDashUI

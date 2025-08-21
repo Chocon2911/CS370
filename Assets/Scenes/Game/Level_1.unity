@@ -1035,6 +1035,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 4
   bodyPushForce: 15
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 14390629}
   target: {fileID: 0}
   targetLayer:
@@ -53658,6 +53660,51 @@ Transform:
   - {fileID: 985006314}
   m_Father: {fileID: 1414467628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &734095757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 734095758}
+  - component: {fileID: 734095759}
+  m_Layer: 7
+  m_Name: DropItem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &734095758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734095757}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1369626335250873742}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &734095759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734095757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e375d42e47f2da941888c792b326b11a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  so: {fileID: 11400000, guid: 087bc7ac40af8804c9c20f8cb27ce363, type: 2}
 --- !u!1 &747034447
 GameObject:
   m_ObjectHideFlags: 0
@@ -53954,6 +54001,7 @@ Transform:
   - {fileID: 504312904}
   - {fileID: 956474579}
   - {fileID: 41261351}
+  - {fileID: 829277736}
   m_Father: {fileID: 1860003772}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &817842447
@@ -54019,6 +54067,68 @@ Transform:
   - {fileID: 1203042231}
   m_Father: {fileID: 729408605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &829277735
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 810236926}
+    m_Modifications:
+    - target: {fileID: 7735466766257356467, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+      propertyPath: m_Name
+      value: Coin
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390663335034087275, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 15.038896
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390663335034087275, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.4554217
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390663335034087275, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390663335034087275, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390663335034087275, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390663335034087275, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390663335034087275, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390663335034087275, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390663335034087275, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390663335034087275, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+--- !u!4 &829277736 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8390663335034087275, guid: 763bf713ff7638b4d81b56958407863c, type: 3}
+  m_PrefabInstance: {fileID: 829277735}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &879374495
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54236,6 +54346,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 4
   bodyPushForce: 15
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 2119961461}
   target: {fileID: 0}
   targetLayer:
@@ -56018,8 +56130,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2030391098}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1123676698
@@ -57505,6 +57616,7 @@ Transform:
   - {fileID: 1483806127}
   - {fileID: 729408605}
   - {fileID: 2025480928}
+  - {fileID: 2030391098}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1457805151
@@ -57628,6 +57740,10 @@ PrefabInstance:
     - target: {fileID: 3157316556698005913, guid: 454a833e03065cd488cfb491e643431b, type: 3}
       propertyPath: m_Name
       value: MobileUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157316556698005913, guid: 454a833e03065cd488cfb491e643431b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3467401993400877645, guid: 454a833e03065cd488cfb491e643431b, type: 3}
       propertyPath: pauseUI
@@ -64177,6 +64293,7 @@ MonoBehaviour:
   - {fileID: 504312904}
   - {fileID: 956474579}
   - {fileID: 41261351}
+  - {fileID: 829277736}
   holders: []
 --- !u!1001 &1861162186
 PrefabInstance:
@@ -65043,11 +65160,11 @@ Transform:
   m_GameObject: {fileID: 2030391095}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.61, y: 1.5, z: -10}
+  m_LocalPosition: {x: -72.89, y: -6.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1106354808}
+  m_Father: {fileID: 1414467628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2030391099
 MonoBehaviour:
@@ -66467,6 +66584,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 5
   bodyPushForce: 15
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 1296039827298887146}
   target: {fileID: 0}
   targetLayer:
@@ -66576,6 +66695,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 5
   bodyPushForce: 15
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 1296039827278229710}
   target: {fileID: 0}
   targetLayer:
@@ -67387,6 +67508,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 3
   bodyPushForce: 12
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 8975050130151880361}
   target: {fileID: 0}
   targetLayer:
@@ -67486,6 +67609,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 3
   bodyPushForce: 12
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 8975050130272212678}
   target: {fileID: 0}
   targetLayer:
@@ -67585,6 +67710,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 3
   bodyPushForce: 12
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 8975050130834895852}
   target: {fileID: 0}
   targetLayer:
@@ -67684,6 +67811,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 3
   bodyPushForce: 12
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 8975050130971698333}
   target: {fileID: 0}
   targetLayer:
@@ -67783,6 +67912,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 3
   bodyPushForce: 12
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 8975050131120174906}
   target: {fileID: 0}
   targetLayer:
@@ -67882,6 +68013,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 4
   bodyPushForce: 15
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 8975050131089734652}
   target: {fileID: 0}
   targetLayer:
@@ -68425,6 +68558,7 @@ Transform:
   - {fileID: 3573076216661138879}
   - {fileID: 9045517958796430021}
   - {fileID: 5639381835758751306}
+  - {fileID: 734095758}
   m_Father: {fileID: 1773262577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1369626336441263050
@@ -83378,6 +83512,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 6
   bodyPushForce: 15
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 118770403824443816}
   target: {fileID: 0}
   targetLayer:
@@ -83487,6 +83623,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 6
   bodyPushForce: 15
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 118770403900014483}
   target: {fileID: 0}
   targetLayer:
@@ -83596,6 +83734,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 6
   bodyPushForce: 15
+  dropItem:
+    underlyingValue: {fileID: 734095759}
   targetDetectingArea: {fileID: 118770405127627223}
   target: {fileID: 0}
   targetLayer:
@@ -140034,6 +140174,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 3
   bodyPushForce: 12
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 7462395732897749878}
   target: {fileID: 0}
   targetLayer:
@@ -140106,6 +140248,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 3
   bodyPushForce: 12
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 7462395732155307685}
   target: {fileID: 0}
   targetLayer:
@@ -151231,6 +151375,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUI
       objectReference: {fileID: 0}
+    - target: {fileID: 8894187525543395431, guid: cd9aae16fd589d34fa8b0da364483516, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -151438,6 +151586,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 4
   bodyPushForce: 15
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 3204884605703182682}
   target: {fileID: 0}
   targetLayer:
@@ -151524,6 +151674,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 6
   bodyPushForce: 18
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 7441099150913268613}
   target: {fileID: 0}
   targetLayer:
@@ -151610,6 +151762,8 @@ MonoBehaviour:
   - Player
   bodyDamage: 5
   bodyPushForce: 15
+  dropItem:
+    underlyingValue: {fileID: 0}
   targetDetectingArea: {fileID: 7441099150320579280}
   target: {fileID: 0}
   targetLayer:
